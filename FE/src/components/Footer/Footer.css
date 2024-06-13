@@ -1,0 +1,126 @@
+#footer {
+    background-color: var(--deep-slate-gray);
+    padding-top: 60px;
+    padding-bottom: 40px;
+    padding-left: 400px;
+    padding-right: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+#footer .footer-content {
+    display: flex;
+}
+
+#footer .logo-contact {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+    box-sizing: border-box;
+    border-right: 1px solid var(--matte-gray);
+}
+
+#footer .logo-contact img {
+    width: 30px;
+    margin-right: 15px;
+    border-radius: 5px;
+}
+
+#footer .logo-contact .logo-title {
+    display: flex;
+    align-items: center;
+}
+
+#footer .logo-contact .logo-title span {
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+#footer .logo-contact .description {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+#footer .logo-contact .description span {
+    color: var(--matte-gray);
+    font-size: 14px;
+    font-weight: 500;
+    text-align: justify;
+}
+
+
+#footer .block {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#footer .block .title {
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+#footer .block .description {
+    margin-top: 20px;
+}
+
+#footer .block .description p {
+    font-weight: 500;
+    font-size: 14px;
+    text-align: center;
+    color: var(--matte-gray);
+    margin: 5px 0;
+    cursor: pointer;
+}
+
+#footer .block .description p:hover {
+    color: var(--light-orange);
+}
+
+#footer .community .description {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#footer .community .description a {
+    text-decoration: none;
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+}
+
+#footer .community .description svg {
+    font-size: 17px;
+    margin-right: 5px;
+    color: var(--matte-gray);
+}
+
+#footer .community .description a span {
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--matte-gray);
+}
+
+#footer .community .description a:hover span,
+#footer .community .description a:hover svg {
+    color: var(--light-orange);
+}
+
+#footer .slogan {
+    margin-top: 40px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    padding: 20px;
+    border-top: 1px solid var(--matte-gray);
+    cursor: default;
+}

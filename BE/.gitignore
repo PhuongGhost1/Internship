@@ -1,0 +1,10 @@
+bin/
+obj/
+
+*.log
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.env
