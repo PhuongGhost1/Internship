@@ -6,3 +6,7 @@ body {
 #root {
   padding-top: 60px;
 }
+
+.no-scroll {
+  overflow: hidden;
+}
