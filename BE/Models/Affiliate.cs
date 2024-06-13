@@ -11,7 +11,7 @@ public partial class Affiliate
 
     public float? CommissionPercent { get; set; }
 
-    public int? CreateBy { get; set; }
+    public string? CreateBy { get; set; }
 
     public int? CourseId { get; set; }
 

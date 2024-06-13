@@ -9,7 +9,7 @@ public partial class RoleUser
 
     public int? RoleId { get; set; }
 
-    public int? UserId { get; set; }
+    public string? UserId { get; set; }
 
     public DateTime? UpdateDate { get; set; }
 

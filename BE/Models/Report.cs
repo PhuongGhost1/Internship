@@ -11,9 +11,9 @@ public partial class Report
 
     public int? CommentId { get; set; }
 
-    public int? ReportedUserId { get; set; }
+    public string? ReportedUserId { get; set; }
 
-    public int? ReporterId { get; set; }
+    public string? ReporterId { get; set; }
 
     public string? Title { get; set; }
 
