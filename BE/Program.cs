@@ -54,7 +54,26 @@ builder.Services.AddIdentity<User, IdentityRole>(options => {
 .AddEntityFrameworkStores<CourseOnlContext>();
 
 builder.Services.AddAuthentication(options => {
-    options.DefaultAuthenticateScheme =
+    options.DefaultAuthenticateScheme = "Facebook";
+    options.DefaultChallengeScheme = "Facebook";
+})
+.AddFacebook(option => {
+    option.AppId = builder.Configuration["Facebook:AppId"];
+    option.AppSecret = builder.Configuration["Facebook:AppSecret"];
+});
+
+builder.Services.AddAuthentication(options => {
+    options.DefaultAuthenticateScheme = "Google";
+    options.DefaultChallengeScheme = "Google";
+})
+.AddGoogle(option => {
+    option.ClientId = builder.Configuration["Google:ClientId"];
+    option.ClientSecret = builder.Configuration["Google:ClientSecret"];
+    option.SaveTokens = true;
+});
+
+builder.Services.AddAuthentication(options => {
+    options.DefaultAuthenticateScheme = 
     options.DefaultChallengeScheme =
     options.DefaultForbidScheme =
     options.DefaultScheme =
@@ -102,6 +121,16 @@ builder.Services.AddSwaggerGen(option =>
     });
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 var app = builder.Build();
@@ -118,6 +147,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseCors("AllowAll");
 
 app.MapControllers();
 

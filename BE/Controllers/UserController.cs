@@ -1,9 +1,13 @@
 using BE.Dto.UserLogin;
 using BE.Models;
 using BE.Repository.Interface;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Facebook;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace BE.Controllers
 {
@@ -29,6 +33,58 @@ namespace BE.Controllers
         {
             var users = await _userRepo.GetUsers();
             return Ok(users);
+        }
+
+        [HttpGet("login")]
+        public IActionResult Login()
+        {
+            return Ok();
+        }
+
+        [HttpGet("login-facebook")]
+        public IActionResult LoginWithFaceBook(){
+            var properties = new AuthenticationProperties{
+                RedirectUri = Url.Action("FacebookResponse")
+            };
+
+            return Challenge(properties, FacebookDefaults.AuthenticationScheme);
+        }
+
+        [HttpGet("facebook-response")]
+        public async Task<IActionResult> FacebookResponse(){
+            var result = await HttpContext.AuthenticateAsync(FacebookDefaults.AuthenticationScheme);
+
+            if(!result.Succeeded) return BadRequest("Error during Facebook Authenticated");
+
+            var claims = result.Principal.Identities
+                                .FirstOrDefault()?.Claims.Select(claim => new {
+                                    claim.Type,
+                                    claim.Value
+                                });
+
+            return Ok(claims);
+        }
+
+        [HttpGet("login-google")]
+        public IActionResult LoginWithGoogle(){
+            var properties = new AuthenticationProperties{
+                RedirectUri = Url.Action("GoogleResponse")
+            };
+            return Challenge(properties, GoogleDefaults.AuthenticationScheme);
+        }
+
+        [HttpGet("google-response")]
+        public async Task<IActionResult> GoogleResponse(){
+            var result = await HttpContext.AuthenticateAsync(GoogleDefaults.AuthenticationScheme);
+
+            if(!result.Succeeded) return BadRequest("Errors during google authenticated");
+
+            var claims = result.Principal.Identities
+                                .FirstOrDefault()?.Claims.Select(claim => new {
+                                    claim.Type,
+                                    claim.Value
+                                });
+            return Ok(claims);
         }
 
         [HttpPost("login")]
