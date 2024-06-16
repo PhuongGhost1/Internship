@@ -59,8 +59,8 @@ export default function Header() {
                         <div className="cancel-btn" onClick={handleCancelBtn}>CANCEL</div>
                     ) : (
                         <React.Fragment>
-                            <a href="" className="login">Log in</a>
-                            <a href="" className="signup">Sign Up</a>
+                            <a href="/login" className="login">Log in</a>
+                            <a href="/signup" className="signup">Sign Up</a>
                         </React.Fragment>
                     )}
                 </div>

@@ -15,7 +15,7 @@ public partial class Course
 
     public float? Price { get; set; }
 
-    public int? OwnerId { get; set; }
+    public string? OwnerId { get; set; }
 
     public bool? Status { get; set; }
 
