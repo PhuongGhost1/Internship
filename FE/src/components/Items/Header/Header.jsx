@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import './Header.css';
 
-import Logo from '../../assets/Logo.png'
+import Logo from '../../../assets/Logo.png'
 
 import { IoSearchOutline } from "react-icons/io5";
 import SliderCards from "../SliderCards/SliderCards";

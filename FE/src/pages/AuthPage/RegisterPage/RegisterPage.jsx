@@ -4,9 +4,33 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { FaCheck } from "react-icons/fa6";
 import { IoMdEyeOff } from "react-icons/io";
 import { IoMdEye } from "react-icons/io";
+import { IoCheckmarkCircleSharp } from "react-icons/io5";
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import FormControl from '@mui/joy/FormControl';
+import FormLabel from '@mui/joy/FormLabel';
+import Radio from '@mui/joy/Radio';
+import RadioGroup from '@mui/joy/RadioGroup';
+import dayjs, { Dayjs } from 'dayjs';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 
-import Header from "../../../components/Header/Header";
 
+dayjs.extend(localizedFormat);
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
+dayjs.tz.setDefault('Asia/Ho_Chi_Minh');
+
+
+import Header from "../../../components/Items/Header/Header";
+
+import add_profile from "../../../assets/add_profile.png"
 import Logo from "../../../assets/Logo.png";
 import background_forest from '../../../assets/background_forest.png'
 import email_receive from '../../../assets/email_receive.png'
@@ -18,11 +42,11 @@ export default function RegisterPage() {
     const step = queryParams.get('step')
 
     const [numbers, setNumbers] = useState({
-        num1: null,
-        num2: null,
-        num3: null,
-        num4: null,
-        num5: null
+        num1: '',
+        num2: '',
+        num3: '',
+        num4: '',
+        num5: ''
     })
     const [prossbarWidth, setProcessbarWidth] = useState('0%')
     const [display, setDisplay] = useState({
@@ -49,7 +73,7 @@ export default function RegisterPage() {
                 block3: 'none'
             })
         } else if (step === '3') {
-            setProcessbarWidth('100%')
+            setProcessbarWidth('79%')
             setDisplay({
                 block1: 'flex',
                 block2: 'flex',
@@ -67,6 +91,20 @@ export default function RegisterPage() {
         num4: useRef(null),
         num5: useRef(null)
     };
+    const [dobvalue, setdobvalue] = useState(dayjs().tz());
+    const [gendervalue, setgendervalue] = useState('male');
+
+    const handleRadioChange = (event) => {
+        setgendervalue(event.target.value);
+    };
+
+    const navigate = useNavigate();
+
+
+    useEffect(() => {
+        console.log(step)
+        document.body.classList.add('no-scroll');
+    }, [])
 
     const handleChange = (e, numKey, nextRef) => {
         const value = e.target.value;
@@ -102,11 +140,10 @@ export default function RegisterPage() {
         }
     };
 
-    const navigate = useNavigate();
-    useEffect(() => {
-        console.log(step)
-        document.body.classList.add('no-scroll');
-    }, [])
+    const handleNextClick = () => {
+        navigate('/signup?step=3')
+    }
+
     return (
         <div id="register">
             <Header />
@@ -138,7 +175,7 @@ export default function RegisterPage() {
                                 </div>
                                 3
                             </div>
-                            <p>Successful</p>
+                            <p>Profile</p>
                         </div>
                         <div className="progress-bar">
                             <div className="progressing" style={{ width: prossbarWidth }}></div>
@@ -184,18 +221,89 @@ export default function RegisterPage() {
                                 <p className="verify-intro">To complete your account setup, please create a password below.</p>
                                 <div className="input-password-container">
                                     <p className="title-password">Password</p>
-                                    <input type={isVisiblePassword ? "text" : "password"} className="input-password" />
-                                    <div className="icon" onClick={() => { setIsVisiblePassword((prev) => !prev) }}>
-                                        {isVisiblePassword ? (<IoMdEye />) : (<IoMdEyeOff />)}
+                                    <div className="input">
+                                        <input type={isVisiblePassword ? "text" : "password"} className="input-password" />
+                                        <div className="svg-contain" onClick={() => { setIsVisiblePassword((prev) => !prev) }}>
+                                            {isVisiblePassword ? (<IoMdEye />) : (<IoMdEyeOff />)}
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="input-password-container confirm">
                                     <p className="title-password confirm">Confirm Password</p>
-                                    <input type="password" className="input-password confirm" />
-                                    <div className="icon" onClick={() => { setIsVisibleConfirmPassword((prev) => !prev) }}>
-                                        {isVisibleConfirmPassword ? (<IoMdEye />) : (<IoMdEyeOff />)}
+                                    <div className="input">
+                                        <input type={isVisibleConfirmPassword ? "text" : "password"} className="input-password confirm" />
+                                        <div className="svg-contain" onClick={() => { setIsVisibleConfirmPassword((prev) => !prev) }}>
+                                            {isVisibleConfirmPassword ? (<IoMdEye />) : (<IoMdEyeOff />)}
+                                        </div>
                                     </div>
                                 </div>
+                                <div className="requirements">
+                                    <div className="requirement-container">
+                                        <div className="checked-svg-container">
+                                            <div className="checked-circle">
+                                            </div>
+                                            <IoCheckmarkCircleSharp style={{ display: 'none' }} />
+                                        </div>
+                                        <p className="requirement">At least 10 character</p>
+                                    </div>
+                                    <div className="requirement-container">
+                                        <div className="checked-svg-container">
+                                            <div className="checked-circle">
+                                            </div>
+                                            <IoCheckmarkCircleSharp />
+                                        </div>
+                                        <p className="requirement">Contain 1 special character &#40;example: # ? ! &&#41;</p>
+                                    </div>
+                                    <div className="requirement-container">
+                                        <div className="checked-svg-container">
+                                            <div className="checked-circle">
+                                            </div>
+                                            <IoCheckmarkCircleSharp />
+                                        </div>
+                                        <p className="requirement">Contain 1 uppercase character</p>
+                                    </div>
+                                </div>
+                                <div className="next-button" onClick={handleNextClick}>Next</div>
+                            </React.Fragment>
+                        )}
+                        {step === '3' && (
+                            <React.Fragment>
+                                <img src={add_profile} alt="" className="email-logo" />
+                                <p className="verify-title">Tell us about your self</p>
+                                <Box
+                                    component="form"
+                                    sx={{
+                                        '& > :not(style)': { m: 1, width: '25ch' },
+                                    }}
+                                    noValidate
+                                    autoComplete="off"
+                                >
+                                    <TextField id="standard-basic" label="Username" variant="standard" />
+                                    <TextField id="standard-basic" label="Full-Name" variant="standard" />
+                                </Box>
+                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                    <DemoContainer components={['DatePicker', 'DatePicker']}>
+                                        <DatePicker
+                                            label="Date of birth"
+                                            format="DD/MM/YYYY"
+                                            value={dobvalue}
+                                            onChange={(newValue) => setdobvalue(newValue)}
+                                        />
+                                    </DemoContainer>
+                                </LocalizationProvider>
+                                <FormControl>
+                                    <RadioGroup
+                                        name="controlled-radio-buttons-group"
+                                        value={gendervalue}
+                                        onChange={handleRadioChange}
+                                        sx={{ my: 1 }}
+                                    >
+                                        <Radio value="male" label="Male" />
+                                        <Radio value="female" label="Female" />
+                                        <Radio value="RTX4090Ti" label="RTX4090 Ti" />
+                                    </RadioGroup>
+                                </FormControl>
+                                <div className="next-button" >Next</div>
                             </React.Fragment>
                         )}
                     </div>
