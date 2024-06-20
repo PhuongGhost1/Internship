@@ -6,5 +6,6 @@ namespace BE.Repository.Interface
     {
         Task<List<User>> GetUsers();
         Task<User> GetUsers(User user);
+        Task<User> GetUserByEmail(string email);
     }
 }

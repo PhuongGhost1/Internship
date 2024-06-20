@@ -13,6 +13,11 @@ namespace BE.Repository
             _context = context;
         }
 
+        public async Task<User> GetUserByEmail(string email)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower());
+        }
+
         public Task<List<User>> GetUsers()
         {
             return _context.Users.ToListAsync();

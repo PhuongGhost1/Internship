@@ -2,7 +2,11 @@ using BE.Models;
 using BE.Repository;
 using BE.Repository.Interface;
 using BE.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Facebook;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -12,7 +16,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -54,44 +57,50 @@ builder.Services.AddIdentity<User, IdentityRole>(options => {
 .AddEntityFrameworkStores<CourseOnlContext>();
 
 builder.Services.AddAuthentication(options => {
-    options.DefaultAuthenticateScheme = "Facebook";
-    options.DefaultChallengeScheme = "Facebook";
+    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
 })
-.AddFacebook(option => {
-    option.AppId = builder.Configuration["Facebook:AppId"];
-    option.AppSecret = builder.Configuration["Facebook:AppSecret"];
-});
-
-builder.Services.AddAuthentication(options => {
-    options.DefaultAuthenticateScheme = "Google";
-    options.DefaultChallengeScheme = "Google";
+.AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
+.AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options => {
+    options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["JWT:Issuer"],
+            ValidAudience = builder.Configuration["JWT:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["JWT:SigningKey"]))
+        };
 })
 .AddGoogle(option => {
     option.ClientId = builder.Configuration["Google:ClientId"];
     option.ClientSecret = builder.Configuration["Google:ClientSecret"];
-    option.SaveTokens = true;
-});
+    option.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    option.CallbackPath = "/signin-google";
 
-builder.Services.AddAuthentication(options => {
-    options.DefaultAuthenticateScheme = 
-    options.DefaultChallengeScheme =
-    options.DefaultForbidScheme =
-    options.DefaultScheme =
-    options.DefaultSignInScheme =
-    options.DefaultSignOutScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-.AddJwtBearer(options => {
-    options.TokenValidationParameters = new TokenValidationParameters() {
-        ValidateIssuer = true,
-        ValidIssuer = builder.Configuration["JWT:Issuer"],
-        ValidateAudience = true,
-        ValidAudience = builder.Configuration["JWT:Audience"],
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(
-            System.Text.Encoding.UTF8.GetBytes(builder.Configuration["JWT:SigningKey"])
-        )
+    option.Events = new OAuthEvents{
+      OnRemoteFailure = context => {
+        context.Response.WriteAsJsonAsync("Failed to login with google!!!");
+        context.HandleResponse();
+        return Task.CompletedTask;
+      }  
     };
-});
+})
+.AddFacebook(option => {
+    option.AppId = builder.Configuration["Facebook:AppId"];
+    option.AppSecret = builder.Configuration["Facebook:AppSecret"];
+    option.CallbackPath = "/signin-facebook";
+
+    option.Events = new OAuthEvents{
+      OnRemoteFailure = context => {
+        context.Response.WriteAsJsonAsync("Failed to login with facebook!!!");
+        context.HandleResponse();
+        return Task.CompletedTask;
+      }  
+    };
+});;
 
 builder.Services.AddSwaggerGen(option =>
 {
@@ -131,10 +140,16 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Services.AddOptions();
+var emailSetting = builder.Configuration.GetSection("MailSettings");
+builder.Services.Configure<MailSettings>(emailSetting);
+
+builder.Services.AddControllers();
+
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 var app = builder.Build();
-
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
