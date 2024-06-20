@@ -1,6 +1,6 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import "./LoginPage.css";
-import Header from "../../../components/Header/Header";
+import Header from "../../../components/Items/Header/Header";
 
 import Logo_White from "../../../assets/Logo_White.png";
 import { FaUser } from "react-icons/fa";

@@ -7,7 +7,8 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: -moz-available;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 #header .header-shown {

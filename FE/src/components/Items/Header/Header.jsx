@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./Header.css";
 
-import Logo from "../../assets/Logo.png";
+import Logo from "../../../assets/Logo.png";
 
 import { IoSearchOutline } from "react-icons/io5";
 import SliderCards from "../SliderCards/SliderCards";
@@ -61,14 +61,12 @@ export default function Header() {
             </div>
           ) : (
             <React.Fragment>
-              <div className="auth-links">
-                <a href="/login" className="login">
-                  Log in
-                </a>
-                <a href="/signup" className="signup">
-                  Sign Up
-                </a>
-              </div>
+              <a href="/login" className="login">
+                Log in
+              </a>
+              <a href="/signup" className="signup">
+                Sign Up
+              </a>
             </React.Fragment>
           )}
         </div>

@@ -1,9 +1,9 @@
 import "./Home.css";
 import slide from "../../assets/Slide.svg";
 
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
-import SliderCards from "../../components/SliderCards/SliderCards";
+import Header from "../../components/Items/Header/Header";
+import Footer from "../../components/Items/Footer/Footer";
+import SliderCards from "../../components/Items/SliderCards/SliderCards";
 
 import Angular_logo from "../../assets/Angular_logo.png";
 import Django_logo from "../../assets/Django_logo.webp";
