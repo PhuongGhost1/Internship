@@ -3,21 +3,19 @@ using System.Collections.Generic;
 
 namespace BE.Models;
 
-public partial class Payment
+public partial class AffiliatePayment
 {
     public string Id { get; set; } = null!;
 
     public string? UserId { get; set; }
 
-    public string? PaymentMethod { get; set; }
+    public string? CartcourseId { get; set; }
 
-    public string? PaymendCode { get; set; }
+    public string? Total { get; set; }
 
     public DateTime? CreateDate { get; set; }
 
-    public float? Total { get; set; }
-
-    public virtual ICollection<PaymentCourse> PaymentCourses { get; set; } = new List<PaymentCourse>();
+    public virtual CartCourse? Cartcourse { get; set; }
 
     public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
 

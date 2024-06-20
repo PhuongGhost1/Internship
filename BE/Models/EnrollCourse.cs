@@ -5,11 +5,11 @@ namespace BE.Models;
 
 public partial class EnrollCourse
 {
-    public int Id { get; set; }
+    public string Id { get; set; } = null!;
 
-    public int? UserId { get; set; }
+    public string? UserId { get; set; }
 
-    public int? CourseId { get; set; }
+    public string? CourseId { get; set; }
 
     public DateTime? Date { get; set; }
 

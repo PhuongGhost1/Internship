@@ -1,0 +1,19 @@
+#courses-detail-bar {
+    margin-left: 20px;
+    padding: 8px 0;
+    display: flex;
+    border-bottom: 2px solid #e5e7e8;
+}
+
+#courses-detail-bar .tab {
+    padding: 10px 12px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-right: 50px;
+    cursor: pointer;
+}
+
+#courses-detail-bar .tab:hover {
+    background-color: #f3f8ff;
+    color: var(--light-orange);
+}

@@ -1,0 +1,42 @@
+#courses-about {
+    border-bottom: 1px solid #e5e7e8;
+}
+
+#courses-about .about-container {
+    height: 204px;
+    overflow: hidden;
+    position: relative;
+}
+
+#courses-about .about-container::before {
+    position: absolute;
+    height: 100px;
+    width: 100%;
+    content: '';
+    background-image: ;
+}
+
+#courses-about .wul {
+    font-size: 28px;
+    margin-top: 40px;
+    font-weight: 700;
+    margin-bottom: 40px;
+}
+
+#courses-about .wul-p {
+    text-align: justify;
+    padding-bottom: 20px;
+    font-size: 16px;
+}
+
+#courses-about .more-detail {
+    margin-bottom: 40px;
+    color: var(--light-orange);
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#courses-about .more-detail:hover {
+    color: var(--dark-orange);
+}

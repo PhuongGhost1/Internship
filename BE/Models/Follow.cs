@@ -5,11 +5,11 @@ namespace BE.Models;
 
 public partial class Follow
 {
-    public int Id { get; set; }
+    public string Id { get; set; } = null!;
 
-    public int? FollowerId { get; set; }
+    public string? FollowerId { get; set; }
 
-    public int? FollowedId { get; set; }
+    public string? FollowedId { get; set; }
 
     public DateTime? Time { get; set; }
 

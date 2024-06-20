@@ -5,11 +5,11 @@ namespace BE.Models;
 
 public partial class Notification
 {
-    public int Id { get; set; }
+    public string Id { get; set; } = null!;
 
-    public int? ReceivedId { get; set; }
+    public string? ReceivedId { get; set; }
 
-    public int? SenderId { get; set; }
+    public string? SenderId { get; set; }
 
     public string? Title { get; set; }
 
@@ -19,7 +19,27 @@ public partial class Notification
 
     public bool? IsRead { get; set; }
 
+    public string? Type { get; set; }
+
+    public string? CourseId { get; set; }
+
+    public string? FeedbackId { get; set; }
+
+    public string? CommentId { get; set; }
+
+    public string? ReportId { get; set; }
+
+    public int? Status { get; set; }
+
+    public virtual Comment? Comment { get; set; }
+
+    public virtual Course? Course { get; set; }
+
+    public virtual Feedback? Feedback { get; set; }
+
     public virtual User? Received { get; set; }
+
+    public virtual Report? Report { get; set; }
 
     public virtual User? Sender { get; set; }
 }

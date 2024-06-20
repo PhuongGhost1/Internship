@@ -1,6 +1,9 @@
 #course-detail-page .courser-detail-container {
-    display: flex;
     padding: 0 200px;
+}
+
+#course-detail-page .courser-detail-container .flex-container {
+    display: flex;
 }
 
 #course-detail-page .courser-detail-container .course-detail-learning-map-container {

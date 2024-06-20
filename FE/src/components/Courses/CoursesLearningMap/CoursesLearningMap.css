@@ -1,8 +1,16 @@
 #courses-learning-map {
+    width: 70%;
     padding: 40px 20px;
 }
 
 #courses-learning-map .title {
     font-size: 28px;
     font-weight: 700;
+}
+
+#courses-learning-map .course-content-container {
+    padding: 8px 20px;
+    border-radius: 10px;
+    border: 1px solid #e5e7e8;
+    margin-top: 40px;
 }

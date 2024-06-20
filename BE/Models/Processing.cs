@@ -5,13 +5,13 @@ namespace BE.Models;
 
 public partial class Processing
 {
-    public int Id { get; set; }
+    public string Id { get; set; } = null!;
 
-    public int? UserId { get; set; }
+    public string? UserId { get; set; }
 
-    public int? LectureId { get; set; }
+    public string? LectureId { get; set; }
 
-    public int? QuizId { get; set; }
+    public string? QuizId { get; set; }
 
     public DateTime? CreateAt { get; set; }
 
