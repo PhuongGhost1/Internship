@@ -9,6 +9,8 @@ import CoursesInfo from "../../../components/Courses/CoursesInfo/CoursesInfo";
 import CoursesDetailBar from "../../../components/Courses/CoursesDetailBar/CoursesDetailBar";
 import CoursesAbout from "../../../components/Courses/CoursesAbout/CoursesAbout";
 import CoursesOutcomes from "../../../components/Courses/CoursesOutcomes/CoursesOutcomes";
+import SliderCards from "../../../components/Items/SliderCards/SliderCards";
+import CoursesReview from "../../../components/Courses/CoursesReview/CoursesReview";
 
 export default function CourseDetailPage() {
 
@@ -28,6 +30,11 @@ export default function CourseDetailPage() {
                 </div>
                 <CoursesOutcomes />
                 <CoursesLearningMap />
+                <p className="recommend-title">Recommended</p>
+                <div className="slider-card-recommend">
+                    <SliderCards />
+                </div>
+                <CoursesReview />
             </div>
             <Footer />
         </div>

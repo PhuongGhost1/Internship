@@ -1,0 +1,50 @@
+#courses-review {
+    display: flex;
+    padding: 0 20px;
+    padding-top: 40px;
+}
+
+#courses-review .rating-container {
+    flex: 3
+}
+
+#courses-review .comment-container {
+    flex: 7;
+}
+
+#courses-review .rating-container .title {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+#courses-review .rating-overview {
+    margin-top: 60px;
+    display: flex;
+}
+
+#courses-review .rating-overview svg {
+    font-size: 20px;
+    color: var(--light-orange);
+}
+
+#courses-review .rating-overview .avg {
+    font-size: 28px;
+    font-weight: 600;
+    margin-left: 5px;
+}
+
+#courses-review .rating-overview .star-avg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#courses-review .total-reviews {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-bottom: 5px;
+    margin-left: 15px;
+    font-size: 14px;
+    font-weight: 600;
+}

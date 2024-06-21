@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import './CoursesAbout.css';
 
 export default function CoursesAbout() {
+    const [isMore, setIsMore] = useState(false);
     const handleAboutClick = () => {
         let progress = document.querySelector('.about-container');
         progress.classList.toggle('more');
+        setIsMore(prev => !prev)
     }
     return (
         <div id="courses-about">
@@ -20,8 +22,8 @@ export default function CoursesAbout() {
 
                     When you’re finished with this course, you will have the skills and knowledge to identify situations when Python is the right choice for you, and to implement simple but solid programs using Python.</p>
             </div>
-            <div className="more-detail" onClick={() => { handleAboutClick }}>
-                More Details
+            <div className="more-detail" onClick={handleAboutClick}>
+                {isMore ? 'Less Detail' : 'More Detail'}
             </div>
         </div>
     )

@@ -3,17 +3,27 @@
 }
 
 #courses-about .about-container {
-    height: 204px;
+    height: 203px;
     overflow: hidden;
     position: relative;
 }
 
 #courses-about .about-container::before {
     position: absolute;
-    height: 100px;
+    height: 50px;
     width: 100%;
+    bottom: 0;
+    left: 0;
     content: '';
-    background-image: ;
+    background: linear-gradient(transparent, rgb(255, 255, 255));
+}
+
+#courses-about .about-container.more {
+    height: auto;
+}
+
+#courses-about .about-container.more::before {
+    display: none;
 }
 
 #courses-about .wul {
@@ -35,6 +45,7 @@
     font-weight: 600;
     font-size: 16px;
     cursor: pointer;
+    margin-top: 20px;
 }
 
 #courses-about .more-detail:hover {

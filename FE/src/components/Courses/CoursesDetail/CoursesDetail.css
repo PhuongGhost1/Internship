@@ -13,6 +13,7 @@
     left: -200px;
     top: 0;
     background-color: rgba(0, 86, 210, 0.05);
+    z-index: -1;
 }
 
 #courses-detail .courses-title {
@@ -32,6 +33,10 @@
     color: black;
     font-weight: 600;
     margin-right: 20px;
+}
+
+#courses-detail .category:hover {
+    background-color: rgb(190, 190, 190);
 }
 
 #courses-detail .rating-author {

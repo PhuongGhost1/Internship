@@ -1,3 +1,7 @@
+#student-profile-page {
+    background-color: #f5f5f5;
+}
+
 #student-profile-page .student-profile-container {
     padding: 0 250px;
     display: flex;
