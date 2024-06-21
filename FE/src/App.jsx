@@ -5,6 +5,7 @@ import Home from './pages/Home/Home'
 import CourseDetailPage from './pages/UserPage/CourseDetailPage/CourseDetailPage';
 import LoginPage from './pages/AuthPage/LoginPage/LoginPage';
 import RegisterPage from './pages/AuthPage/RegisterPage/RegisterPage';
+import StudentProfilePage from './pages/StudentPage/ProfilePage/StudentProfilePage';
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
         </Route>
         <Route path='/courses'>
           <Route path=':courseName' element={<CourseDetailPage />} />
+        </Route>
+        <Route path='/student'>
+          <Route path='profile' element={<StudentProfilePage />} />
         </Route>
       </Routes>
     </BrowserRouter>
