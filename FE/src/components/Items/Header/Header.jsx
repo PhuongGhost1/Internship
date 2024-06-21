@@ -17,7 +17,7 @@ export default function Header() {
             process.classList.add("show");
             let process1 = document.querySelector('.search-bar');
             process1.classList.add("slide");
-            setHeight(`${contentDropdownRef.current.scrollHeight}px`);
+            setHeight(`376px`);
         } else {
             let process = document.querySelector('.search-result-container');
             process.classList.remove("show");
