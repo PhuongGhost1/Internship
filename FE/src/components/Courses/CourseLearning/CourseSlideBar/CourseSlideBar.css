@@ -1,34 +1,63 @@
-#course-slidebar{
+#course-slidebar {
     border-right: 1px solid #e5e7e8;
     height: calc(-60px + 100vh);
     padding: 16px 16px 16px 50px;
+    width: 380px;
+    transition: all 0.5s ease;
+    overflow: hidden;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
-#course-slidebar .menu{
+#course-slidebar.hide {
+    width: 30px;
+    padding: 16px 0;
+    position: relative;
+}
+
+#course-slidebar.hide .more-icon {
+    position: absolute;
+    top: 24px;
+    left: 6px;
+}
+
+#course-slidebar.hide .more-icon svg {
+    font-size: 18px;
+    color: var(--light-orange);
+    cursor: pointer;
+}
+
+
+#course-slidebar .menu {
     display: flex;
     align-items: center;
     cursor: pointer;
     padding: 10px;
     width: fit-content;
     border-radius: 6px;
-    margin-left: 14px;
+    margin-left: 30px;
+    width: 117px;
 }
 
-#course-slidebar .menu svg{
+#course-slidebar .menu svg {
     color: var(--light-orange);
     font-size: 16px;
     margin-right: 10px;
 }
-#course-slidebar .menu p{
+
+#course-slidebar .menu p {
     font-size: 14px;
     font-weight: 600;
     color: var(--light-orange);
 }
 
-#course-slidebar .menu:hover p{
+#course-slidebar .menu:hover p {
     text-decoration: underline;
 }
 
-#course-slidebar .menu:hover{
+#course-slidebar .menu:hover {
     background-color: #f3f8ff;
 }

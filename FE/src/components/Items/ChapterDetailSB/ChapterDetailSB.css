@@ -1,18 +1,20 @@
-#chapter-detail-sb{
+#chapter-detail-sb {
     margin: 6px 0;
     display: flex;
     flex-direction: column;
+    width: 313px;
 }
 
-#chapter-detail-sb .title-chaper{
-    padding: 0 24px;
+#chapter-detail-sb .title-chaper {
+    padding: 10px 0 10px 40px;
     cursor: pointer;
 }
+
 #chapter-detail-sb .title-chaper {
-    font-size: 14px;
+    font-size: 20px;
     font-weight: 700;
 }
 
-#chapter-detail-sb .title-chaper:hover p{
+#chapter-detail-sb .title-chaper:hover p {
     background-color: #f7f7f7;
 }
