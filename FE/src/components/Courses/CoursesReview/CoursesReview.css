@@ -1,7 +1,7 @@
 #courses-review {
     display: flex;
     padding: 0 20px;
-    padding-top: 40px;
+    margin-top: 40px;
 }
 
 #courses-review .rating-container {

@@ -1,5 +1,6 @@
 #courses-about {
     border-bottom: 1px solid #e5e7e8;
+    margin-top: 40px;
 }
 
 #courses-about .about-container {
@@ -28,7 +29,6 @@
 
 #courses-about .wul {
     font-size: 28px;
-    margin-top: 40px;
     font-weight: 700;
     margin-bottom: 40px;
 }

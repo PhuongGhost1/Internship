@@ -28,6 +28,7 @@ export default function CoursesReview() {
             username: 'Duy'
         },
     ]
+
     return (
         <div id="courses-review">
             <div className="rating-container">

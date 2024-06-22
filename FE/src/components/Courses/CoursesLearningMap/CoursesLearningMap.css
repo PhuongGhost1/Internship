@@ -1,6 +1,8 @@
 #courses-learning-map {
     width: 70%;
-    padding: 40px 20px;
+    padding: 0 20px;
+    margin-top: 40px;
+    margin-bottom: 40px;
 }
 
 #courses-learning-map .title {
