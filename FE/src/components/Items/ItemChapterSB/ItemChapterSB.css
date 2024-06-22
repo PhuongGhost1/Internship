@@ -1,0 +1,42 @@
+#item-chapter-sb {
+    padding: 10px 24px;
+    display: flex;
+    cursor: pointer;
+    position: relative;
+}
+
+#item-chapter-sb .logo-item svg {
+    font-size: 20px;
+    margin-right: 20px;
+}
+
+#item-chapter-sb .item-content .title {
+    display: block;
+    color: rgb(107, 107, 107);
+}
+
+#item-chapter-sb .item-content .title .type {
+    font-weight: 700;
+    color: black;
+    margin-right: 5px;
+}
+
+#item-chapter-sb .item-content .time {
+    color: rgb(107, 107, 107);
+    margin-top: 10px;
+}
+
+#item-chapter-sb:hover {
+    background-color: #f7f7f7;
+}
+
+
+#item-chapter-sb:hover::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '';
+    width: 5px;
+    height: 100%;
+    background-color: var(--light-orange);
+}

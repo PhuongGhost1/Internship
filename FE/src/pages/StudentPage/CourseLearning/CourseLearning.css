@@ -1,0 +1,18 @@
+
+#course-learning{
+    display: flex;
+    flex-direction: column;
+}
+
+#course-learning .body-container{
+    display: flex;
+    flex: 1;
+}
+
+#course-learning .body-container .course-slide-bar-container{
+    flex: 1;
+}
+
+#course-learning .body-container .content-container{
+    flex: 4;
+}
