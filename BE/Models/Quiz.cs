@@ -5,11 +5,11 @@ namespace BE.Models;
 
 public partial class Quiz
 {
-    public int Id { get; set; }
+    public string Id { get; set; } = null!;
 
     public int? Index { get; set; }
 
-    public int? ChapterId { get; set; }
+    public string? ChapterId { get; set; }
 
     public string? Name { get; set; }
 
@@ -17,9 +17,11 @@ public partial class Quiz
 
     public DateTime? CreateAt { get; set; }
 
-    public int? NumberOfQuestions { get; set; }
+    public int? NumberQuestions { get; set; }
 
     public int? TotalMark { get; set; }
+
+    public int? Status { get; set; }
 
     public virtual Chapter? Chapter { get; set; }
 

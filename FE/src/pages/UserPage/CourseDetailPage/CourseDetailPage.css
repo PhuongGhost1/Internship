@@ -1,0 +1,12 @@
+#course-detail-page .courser-detail-container {
+    display: flex;
+    padding: 0 200px;
+}
+
+#course-detail-page .courser-detail-container .course-detail-learning-map-container {
+    flex: 7
+}
+
+#course-detail-page .courser-detail-container .course-info-container {
+    flex: 3
+}

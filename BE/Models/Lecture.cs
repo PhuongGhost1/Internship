@@ -5,11 +5,11 @@ namespace BE.Models;
 
 public partial class Lecture
 {
-    public int Id { get; set; }
+    public string Id { get; set; } = null!;
 
     public int? Index { get; set; }
 
-    public int? ChapterId { get; set; }
+    public string? ChapterId { get; set; }
 
     public string? Name { get; set; }
 
@@ -18,6 +18,8 @@ public partial class Lecture
     public string? VideoUrl { get; set; }
 
     public DateTime? CreatAt { get; set; }
+
+    public int? Status { get; set; }
 
     public virtual Chapter? Chapter { get; set; }
 

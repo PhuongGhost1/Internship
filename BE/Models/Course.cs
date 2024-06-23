@@ -5,7 +5,7 @@ namespace BE.Models;
 
 public partial class Course
 {
-    public int Id { get; set; }
+    public string Id { get; set; } = null!;
 
     public string? Name { get; set; }
 
@@ -13,11 +13,13 @@ public partial class Course
 
     public DateTime? CreateAt { get; set; }
 
+    public DateTime? UpdateAt { get; set; }
+
     public float? Price { get; set; }
 
-    public string? OwnerId { get; set; }
+    public string? UserId { get; set; }
 
-    public bool? Status { get; set; }
+    public int? Status { get; set; }
 
     public bool? IsVisible { get; set; }
 
@@ -39,9 +41,11 @@ public partial class Course
 
     public virtual ICollection<Image> Images { get; set; } = new List<Image>();
 
-    public virtual User? Owner { get; set; }
+    public virtual ICollection<Notification> Notifications { get; set; } = new List<Notification>();
 
     public virtual ICollection<Report> Reports { get; set; } = new List<Report>();
 
     public virtual ICollection<SaveCourse> SaveCourses { get; set; } = new List<SaveCourse>();
+
+    public virtual User? User { get; set; }
 }

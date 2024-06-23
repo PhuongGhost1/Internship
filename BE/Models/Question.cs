@@ -5,9 +5,9 @@ namespace BE.Models;
 
 public partial class Question
 {
-    public int Id { get; set; }
+    public string Id { get; set; } = null!;
 
-    public int? QuizId { get; set; }
+    public string? QuizId { get; set; }
 
     public string? Text { get; set; }
 
@@ -17,7 +17,9 @@ public partial class Question
 
     public DateTime? CreateAt { get; set; }
 
-    public virtual ICollection<Answear> Answears { get; set; } = new List<Answear>();
+    public int? Status { get; set; }
+
+    public virtual ICollection<Answer> Answers { get; set; } = new List<Answer>();
 
     public virtual Quiz? Quiz { get; set; }
 }

@@ -9,5 +9,6 @@ namespace BE.Repository.Interface
     public interface ITokenService
     {
         public string CreateToken(User user);
+        public string CreateRandomNumber(int length);
     }
 }

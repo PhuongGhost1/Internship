@@ -5,9 +5,9 @@ namespace BE.Models;
 
 public partial class SaveCourse
 {
-    public int Id { get; set; }
+    public string Id { get; set; } = null!;
 
-    public int? CourseId { get; set; }
+    public string? CourseId { get; set; }
 
     public string? UserId { get; set; }
 

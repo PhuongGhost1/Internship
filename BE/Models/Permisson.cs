@@ -5,13 +5,17 @@ namespace BE.Models;
 
 public partial class Permisson
 {
-    public int Id { get; set; }
+    public string Id { get; set; } = null!;
 
-    public int? RoleId { get; set; }
+    public string? RoleId { get; set; }
 
-    public int? ResourcesId { get; set; }
+    public string? ResourcesId { get; set; }
 
     public DateTime? LastUpdate { get; set; }
+
+    public string? LastEditor { get; set; }
+
+    public bool? Request { get; set; }
 
     public bool? Create { get; set; }
 

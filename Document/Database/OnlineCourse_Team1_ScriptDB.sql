@@ -1,6 +1,6 @@
-CREATE SCHEMA `Course_Onl`;
+CREATE SCHEMA `CourseOnl`;
 
-USE `Course_Onl`;
+USE `CourseOnl`;
 
 CREATE TABLE `User` (
   `id` varchar(20) character set utf8mb4,
@@ -11,21 +11,21 @@ CREATE TABLE `User` (
   `phone` varchar(20) character set utf8mb4,
   `create_at` datetime,
   `wallet` float,
-  `is_visible` bool,
+  `is_visible` boolean,
   PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `RoleUser` (
   `id` varchar(20) character set utf8mb4,
-  `role_id` int,
+  `role_id` varchar(20) character set utf8mb4,
   `user_id` varchar(20) character set utf8mb4,
   `update_date` datetime,
-  `status` bool,
+  `status` int,
   PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `Role` (
-  `id` int,
+  `id` varchar(20) character set utf8mb4,
   `name` varchar(50) character set utf8mb4,
   PRIMARY KEY (`id`)
 );
@@ -38,7 +38,7 @@ CREATE TABLE `Course` (
   `update_at` datetime,
   `price` float,
   `user_id` varchar(20) character set utf8mb4,
-  `status` boolean,
+  `status` int,
   `is_visible` boolean,
   `rating` float,
   PRIMARY KEY (`id`)
@@ -51,7 +51,7 @@ CREATE TABLE `Chapter` (
   `name` varchar(50) character set utf8mb4,
   `description` varchar(300) character set utf8mb4,
   `create_at` datetime,
-  `status` boolean,
+  `status` int,
   PRIMARY KEY (`id`)
 );
 
@@ -63,7 +63,7 @@ CREATE TABLE `Lecture` (
   `time_video` time,
   `video_url` varchar(50) character set utf8mb4,
   `creat_at` datetime,
-  `status` bool,
+  `status` int,
   PRIMARY KEY (`id`)
 );
 
@@ -76,7 +76,7 @@ CREATE TABLE `Quiz` (
   `create_at` datetime,
   `number_questions` int,
   `total_mark` int,
-  `status` bool,
+  `status` int,
   PRIMARY KEY (`id`)
 );
 
@@ -85,9 +85,9 @@ CREATE TABLE `Question` (
   `quiz_id` varchar(20) character set utf8mb4,
   `text` varchar(300) character set utf8mb4,
   `mark` int,
-  `type` bool,
+  `type` boolean,
   `create_at` datetime,
-  `status` bool,
+  `status` int,
   PRIMARY KEY (`id`)
 );
 
@@ -95,8 +95,8 @@ CREATE TABLE `Answer` (
   `id` varchar(20) character set utf8mb4,
   `question_id` varchar(20) character set utf8mb4,
   `text` varchar(300) character set utf8mb4,
-  `status` bool,
-  `is_correct` bool,
+  `status` int,
+  `is_correct` boolean,
   `createdAt` datetime,
   PRIMARY KEY (`id`)
 );
@@ -130,13 +130,13 @@ CREATE TABLE `Notification` (
   `title` varchar(100) character set utf8mb4,
   `description` varchar(300) character set utf8mb4,
   `date_up` datetime,
-  `is_read` bool,
+  `is_read` boolean,
   `type` varchar(50) character set utf8mb4,
   `course_id` varchar(20) character set utf8mb4,
   `feedback_id` varchar(20) character set utf8mb4,
   `comment_id` varchar(20) character set utf8mb4,
   `report_id` varchar(20) character set utf8mb4,
-  `status` bool,
+  `status` int,
   PRIMARY KEY (`id`)
 );
 
@@ -153,7 +153,7 @@ CREATE TABLE `Cart` (
   `user_id` varchar(20) character set utf8mb4,
   `date_created` datetime,
   `total` float,
-  `status` bool,
+  `status` int,
   PRIMARY KEY (`id`)
 );
 
@@ -164,6 +164,7 @@ CREATE TABLE `CartCourse` (
   `affiliate_id` varchar(20) character set utf8mb4,
   `total` float,
   `created_at` datetime,
+  `status` int,
   PRIMARY KEY (`id`)
 );
 
@@ -193,7 +194,7 @@ CREATE TABLE `Feedback` (
   `user_id` varchar(20) character set utf8mb4,
   `title` varchar(100) character set utf8mb4,
   `description` varchar(300) character set utf8mb4,
-  `is_read` bool,
+  `is_read` boolean,
   PRIMARY KEY (`id`)
 );
 
@@ -211,7 +212,7 @@ CREATE TABLE `Submission` (
   `user_id` varchar(20) character set utf8mb4,
   `grade` double,
   `date` datetime,
-  `is_pass` bool,
+  `is_pass` boolean,
   PRIMARY KEY (`id`)
 );
 
@@ -237,7 +238,7 @@ CREATE TABLE `Comment` (
   `rating` int,
   `comment` varchar(300) character set utf8mb4,
   `created_at` datetime,
-  `is_visible` bool,
+  `is_visible` boolean,
   PRIMARY KEY (`id`)
 );
 
@@ -258,27 +259,27 @@ CREATE TABLE `Report` (
   `reporter_id` varchar(20) character set utf8mb4,
   `title` varchar(100) character set utf8mb4,
   `message` varchar(300) character set utf8mb4,
-  `status` bool,
+  `status` int,
   PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `Resources` (
-  `id` int,
+  `id` varchar(20) character set utf8mb4,
   `name` varchar(50) character set utf8mb4,
   PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `Permisson` (
-  `id` int,
-  `role_id` int,
-  `resources_id` int,
+  `id` varchar(20) character set utf8mb4,
+  `role_id` varchar(20) character set utf8mb4,
+  `resources_id` varchar(20) character set utf8mb4,
   `last_update` datetime,
   `last_editor` varchar(20) character set utf8mb4,
-  `request` bool,
-  `create` bool,
-  `delete` bool,
-  `update` bool,
-  `view` bool,
+  `request` boolean,
+  `create` boolean,
+  `delete` boolean,
+  `update` boolean,
+  `view` boolean,
   PRIMARY KEY (`id`)
 );
 
