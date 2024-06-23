@@ -5,7 +5,7 @@ namespace BE.Models;
 
 public partial class Follow
 {
-    public int Id { get; set; }
+    public string Id { get; set; } = null!;
 
     public string? FollowerId { get; set; }
 

@@ -33,16 +33,16 @@ namespace BE.Services
             _logger = logger;
         }
 
-        public async Task SendEmail(EmailDto emailDto) //EmailDto emailDto
+        public async Task SendEmail(string emailTo, string subject, string htmlBody) //EmailDto emailDto
         {
             var message = new MimeMessage();
             message.Sender = new MailboxAddress(_mailSettings.DisplayName, _mailSettings.Mail);
             message.From.Add(new MailboxAddress(_mailSettings.DisplayName, _mailSettings.Mail));
-            message.To.Add(MailboxAddress.Parse(emailDto.To));
-            message.Subject = emailDto.Subject; //Xac nhan dia chi email qua phan dang ki
+            message.To.Add(MailboxAddress.Parse(emailTo));
+            message.Subject = subject; //Xac nhan dia chi email qua phan dang ki
 
             var builder = new BodyBuilder();
-            builder.HtmlBody = emailDto.Body; //<a href='http://localhost:5173/signup'>Nhan tai day</a>
+            builder.HtmlBody = htmlBody; //<a href='http://localhost:5173/signup'>Nhan tai day</a>
             message.Body = builder.ToMessageBody();
 
             using var smtp = new SmtpClient();
@@ -65,7 +65,7 @@ namespace BE.Services
 
             smtp.Disconnect(true);
 
-            _logger.LogInformation("send mail to " + emailDto.To);
+            _logger.LogInformation("send mail to " + emailTo);
         }
     }
 }

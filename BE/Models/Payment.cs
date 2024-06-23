@@ -5,15 +5,21 @@ namespace BE.Models;
 
 public partial class Payment
 {
-    public int Id { get; set; }
+    public string Id { get; set; } = null!;
+
+    public string? UserId { get; set; }
 
     public string? PaymentMethod { get; set; }
 
     public string? PaymendCode { get; set; }
 
-    public DateTime? Date { get; set; }
+    public DateTime? CreateDate { get; set; }
 
     public float? Total { get; set; }
 
-    public virtual Cart? Cart { get; set; }
+    public virtual ICollection<PaymentCourse> PaymentCourses { get; set; } = new List<PaymentCourse>();
+
+    public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
+
+    public virtual User? User { get; set; }
 }

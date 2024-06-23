@@ -5,11 +5,11 @@ namespace BE.Models;
 
 public partial class UserCertification
 {
-    public int Id { get; set; }
+    public string Id { get; set; } = null!;
 
     public string? UserId { get; set; }
 
-    public int? CertificationId { get; set; }
+    public string? CertificationId { get; set; }
 
     public DateTime? DatePass { get; set; }
 

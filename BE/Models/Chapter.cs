@@ -5,11 +5,11 @@ namespace BE.Models;
 
 public partial class Chapter
 {
-    public int Id { get; set; }
+    public string Id { get; set; } = null!;
 
     public int? Index { get; set; }
 
-    public int? CourseId { get; set; }
+    public string? CourseId { get; set; }
 
     public string? Name { get; set; }
 
@@ -17,7 +17,7 @@ public partial class Chapter
 
     public DateTime? CreateAt { get; set; }
 
-    public bool? Status { get; set; }
+    public int? Status { get; set; }
 
     public virtual Course? Course { get; set; }
 

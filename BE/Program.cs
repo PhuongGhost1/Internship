@@ -1,3 +1,4 @@
+using BE.Middlewares;
 using BE.Models;
 using BE.Repository;
 using BE.Repository.Interface;
@@ -27,34 +28,6 @@ builder.Services.AddControllers().AddNewtonsoftJson(options => {
 builder.Services.AddDbContext<CourseOnlContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection")))
 );
-
-builder.Services.AddIdentity<User, IdentityRole>(options => {
-    // Thiết lập về Password
-    options.Password.RequireDigit = true; // Không bắt phải có số
-    options.Password.RequireLowercase = true; // Không bắt phải có chữ thường
-    options.Password.RequireNonAlphanumeric = true; // Không bắt ký tự đặc biệt
-    options.Password.RequireUppercase = true; // Không bắt buộc chữ in
-    options.Password.RequiredLength = 12; // Số ký tự tối thiểu của password
-    // options.Password.RequiredUniqueChars = 1; // Số ký tự riêng biệt
-
-    /*
-    // Cấu hình Lockout - khóa user
-    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5); // Khóa 5 phút
-    options.Lockout.MaxFailedAccessAttempts = 3; // Thất bại 5 lầ thì khóa
-    options.Lockout.AllowedForNewUsers = true;
-
-    // Cấu hình về User.
-    options.User.AllowedUserNameCharacters = // các ký tự đặt tên user
-        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-    options.User.RequireUniqueEmail = true;  // Email là duy nhất
-
-    // Cấu hình đăng nhập.
-    options.SignIn.RequireConfirmedEmail = true;            // Cấu hình xác thực địa chỉ email (email phải tồn tại)
-    options.SignIn.RequireConfirmedPhoneNumber = false;     // Xác thực số điện thoại
-    options.SignIn.RequireConfirmedAccount = true;
-    */
-})
-.AddEntityFrameworkStores<CourseOnlContext>();
 
 builder.Services.AddAuthentication(options => {
     options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -166,5 +139,13 @@ app.UseAuthorization();
 app.UseCors("AllowAll");
 
 app.MapControllers();
+
+// app.Use(async (context,next) => {
+//     await context.Response.WriteAsync("Hello from middleware 1");
+//     await next.Invoke();
+//     await context.Response.WriteAsync("Return from middleware 1");
+// });
+
+// app.UseMiddleware<SimpleMiddleware>();
 
 app.Run();
