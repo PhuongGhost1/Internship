@@ -30,11 +30,6 @@ export default function Header() {
     const handleSearchFocus = () => {
         setIsDropDown(true);
     }
-  }, [isDropDown]);
-
-  const handleSearchFocus = () => {
-    setIsDropDown(true);
-  };
 
   const handleCancelBtn = () => {
     setIsDropDown(false);
