@@ -5,6 +5,8 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     max-width: 800px;
     margin: 0 auto;
+
+    margin-bottom: 50px;
 }
 
 #created-course .created-title {
@@ -31,7 +33,6 @@
 
 #created .created-course-image {
     flex: 2;
-    margin-top: 10px;
     padding: 0 10px;
     box-sizing: border-box;
 }
@@ -49,7 +50,8 @@
     margin-top: 22px;
     font-size: 16px;
 }
-#created .created-course-details .view-course-detail{
+
+#created .created-course-details .view-course-detail {
     color: #FF661B;
 }
 
@@ -63,7 +65,7 @@
     position: relative;
 }
 
-#created .course-actions .more-dropdown{
+#created .course-actions .more-dropdown {
     position: absolute;
     top: 0;
     left: 30px;
@@ -81,11 +83,11 @@
     transition: background-color 0.3s ease;
 }
 
-#created .course-actions .more-dropdown .btnz:hover{
+#created .course-actions .more-dropdown .btnz:hover {
     background-color: #dbe2e8;
     border-radius: 10px;
 }
 
-#created .course-actions .more-dropdown .delete{
+#created .course-actions .more-dropdown .delete {
     border: none;
 }

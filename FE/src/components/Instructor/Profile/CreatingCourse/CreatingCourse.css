@@ -53,6 +53,7 @@
 #creating .creating-course-details .view-course-detail {
     color: #FF661B;
     text-decoration: none;
+    cursor: pointer;
 }
 
 #creating .creating-course-details .view-course-detail:hover {

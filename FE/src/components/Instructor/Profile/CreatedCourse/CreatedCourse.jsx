@@ -73,7 +73,6 @@ export default function CreatedCourse() {
                                     <div className="delete btnz" ><MdDeleteOutline />&nbsp;&nbsp;Delete</div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
