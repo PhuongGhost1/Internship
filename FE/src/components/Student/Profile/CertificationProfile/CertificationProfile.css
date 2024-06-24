@@ -1,0 +1,90 @@
+#certification-profile {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#certification-profile .credentials-title{
+    display: flex;
+}
+#certification-profile .certification-header{
+    display: flex;
+}
+
+#certification-profile .certification-header .certification-image{
+    flex: 2;
+    padding: 0 10px;
+    margin-left: 0;
+    box-sizing: border-box;
+}
+
+#certification-profile .certification-header .certification-image img{
+    width: 100%;
+    margin-left: -10px;
+}
+
+#certification-profile .certification-header .certification-details{
+    flex : 10;
+}
+
+
+#certification-profile .info-icon{
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    margin-left: 6px;
+    color: #0366d6;
+    margin-top: 5px;
+}
+#certification-profile .education-title{
+    margin-bottom: 20px;
+    margin-left: 0%;
+}
+
+#credentials .credential-item {
+    background: #fff;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#credentials .credential-item h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+#credentials .credential-item p {
+    margin: 5px 0;
+}
+
+#credentials .fields {
+    margin: 10px 0;
+}
+
+#credentials .field-tag {
+    background-color: #e1ecf4;
+    color: #0366d6;
+    padding: 5px 10px;
+    border-radius: 20px;
+    margin-right: 5px;
+    display: inline-block;
+}
+
+#credentials .view-certificate {
+    display: inline-block;
+    margin-top: 10px;
+    color: #0366d6;
+    text-decoration: none;
+    border: 1px solid #0366d6;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+#credentials .view-certificate:hover {
+    background-color: #0366d6;
+    color: #fff;
+}

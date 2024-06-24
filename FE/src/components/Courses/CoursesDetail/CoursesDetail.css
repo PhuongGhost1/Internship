@@ -1,6 +1,19 @@
 #courses-detail {
     padding: 0 20px;
     padding-top: 100px;
+    padding-bottom: 60px;
+    position: relative;
+}
+
+#courses-detail::before {
+    content: '';
+    width: 1920px;
+    height: 100%;
+    position: absolute;
+    left: -200px;
+    top: 0;
+    background-color: rgba(0, 86, 210, 0.05);
+    z-index: -1;
 }
 
 #courses-detail .courses-title {
@@ -20,6 +33,10 @@
     color: black;
     font-weight: 600;
     margin-right: 20px;
+}
+
+#courses-detail .category:hover {
+    background-color: rgb(190, 190, 190);
 }
 
 #courses-detail .rating-author {
@@ -52,6 +69,7 @@
 
 #courses-detail .introduction {
     text-align: justify;
+    font-size: 16px;
 }
 
 #courses-detail .enroll-btn {
@@ -78,7 +96,8 @@
 #courses-detail .wul-p {
     text-align: justify;
     padding-bottom: 40px;
-    border-bottom: 1px solid rgb(201, 201, 201);
+    border-bottom: 1px solid #e5e7e8;
+    font-size: 16px;
 }
 
 #courses-detail .wul-p br {

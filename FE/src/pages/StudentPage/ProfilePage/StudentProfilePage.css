@@ -1,0 +1,17 @@
+#student-profile-page {
+    background-color: #f5f5f5;
+}
+
+#student-profile-page .student-profile-container {
+    padding: 0 250px;
+    display: flex;
+}
+
+#student-profile-page .student-profile-container .personal-detail-container {
+    flex: 3;
+}
+
+
+#student-profile-page .student-profile-container .courses-certification {
+    flex: 7;
+}
