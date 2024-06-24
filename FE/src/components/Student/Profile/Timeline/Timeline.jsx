@@ -36,6 +36,7 @@ const timeLine = [{
 export default function Timeline() {
     return (
         <div id="time-line">
+            <p className="title">Recent Activity</p>
             <div className="timeline">
                 {timeLine.map((Tl, index) => {
                     return (
