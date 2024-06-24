@@ -27,7 +27,7 @@ namespace BE.Services.Implementations
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<string> FacebookResponse()
+        public async Task<ReturnResponseDto> FacebookResponse()
         {
             var result = await _httpContextAccessor.HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
@@ -44,7 +44,9 @@ namespace BE.Services.Implementations
 
             var claimsJson = JsonConvert.SerializeObject(claims);
             var redirectUrl = $"http://localhost:5173/login-success?claims={WebUtility.UrlEncode(claimsJson)}";
-            return redirectUrl;
+            return new ReturnResponseDto{
+                
+            };
         }
 
         public async Task<UserLoginToken> Forgot(string email, ForgotDto forgotDto)
@@ -98,7 +100,7 @@ namespace BE.Services.Implementations
             return user;
         }
 
-        public Task GoogleResponse()
+        public async Task<ReturnResponseDto> GoogleResponse()
         {
             var code = _httpContextAccessor.HttpContext.Request.Query["code"];
             var state = _httpContextAccessor.HttpContext.Request.Query["state"];
@@ -107,7 +109,10 @@ namespace BE.Services.Implementations
                 throw new Exception("Invalid Google response");
             }
 
-            return Task.CompletedTask;
+            return new ReturnResponseDto{
+                Code = code,
+                State = state
+            };
         }
 
         public async Task<UserLoginToken> Login(UserLoginDto userLoginDto)
@@ -125,17 +130,20 @@ namespace BE.Services.Implementations
             };
         }
 
-        public Task LoginWithFacebook()
+        public async Task<ReturnLoginDto> LoginWithFacebook()
         {
             var properties = new AuthenticationProperties
             {
                 RedirectUri = _httpContextAccessor.HttpContext.Request.Host + "/User/FacebookResponse"
             };
 
-            return _httpContextAccessor.HttpContext.ChallengeAsync(FacebookDefaults.AuthenticationScheme, properties);
+            // return await _httpContextAccessor.HttpContext.ChallengeAsync(FacebookDefaults.AuthenticationScheme, properties);
+            return new ReturnLoginDto{
+
+            };
         }
 
-        public Task<string> LoginWithGoogle()
+        public async Task<ReturnLoginDto> LoginWithGoogle()
         {
             var clientId = _config["Google:ClientId"];
             if (string.IsNullOrEmpty(clientId))
@@ -156,7 +164,9 @@ namespace BE.Services.Implementations
             {
                 var authUrl = $"https://accounts.google.com/o/oauth2/v2/auth?client_id={Uri.EscapeDataString(clientId)}&scope={Uri.EscapeDataString(scope)}&response_type=code&redirect_uri={Uri.EscapeDataString(redirectUri)}&state={Uri.EscapeDataString(state)}";
 
-                return Task.FromResult(authUrl);
+                return new ReturnLoginDto{
+                    ReturnAuthUrl = authUrl
+                };
             }
             catch (ArgumentNullException ex)
             {

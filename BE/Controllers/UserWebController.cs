@@ -24,24 +24,24 @@ namespace BE.Controllers
         }
 
         [HttpGet("login-facebook")]
-        public Task LoginWithFaceBook(){
-            return _userService.LoginWithFacebook();
+        public async Task<ReturnLoginDto> LoginWithFaceBook(){
+            return await _userService.LoginWithFacebook();
         }
 
         [HttpGet("facebook-response")]
-        public async Task<string> FacebookResponse(){
+        public async Task<ReturnResponseDto> FacebookResponse(){
             return await _userService.FacebookResponse();
         }
 
         [HttpGet("login-google")]
-        public Task<string> LoginWithGoogle()
+        public async Task<ReturnLoginDto> LoginWithGoogle()
         {
-            return _userService.LoginWithGoogle();
+            return await _userService.LoginWithGoogle();
         }
 
         [HttpGet("signin-google")]
-        public Task GoogleResponse(){
-           return _userService.GoogleResponse(); 
+        public async Task<ReturnResponseDto> GoogleResponse(){
+           return await _userService.GoogleResponse(); 
         }
 
         [HttpPost("login")]
