@@ -9,5 +9,6 @@ namespace BE.Repository.Interface
     public interface ICategoryRepository
     {
         Task<List<Category>> GetCategories();
+        Task<List<Category>> GetCategoriesByCourseId(string courseId);
     }
 }

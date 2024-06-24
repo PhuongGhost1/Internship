@@ -3,7 +3,7 @@ using BE.Models;
 using BE.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 
-namespace BE.Repository
+namespace BE.Repository.Implementations
 {
     public class UserRepository : IUserRepository
     {
