@@ -11,24 +11,19 @@ export default function Header() {
   const [height, setHeight] = useState("0px");
   const contentDropdownRef = useRef(null);
 
-    useEffect(() => {
-        if (isDropDown) {
-            let process = document.querySelector('.search-result-container');
-            process.classList.add("show");
-            let process1 = document.querySelector('.search-bar');
-            process1.classList.add("slide");
-            setHeight(`376px`);
-        } else {
-            let process = document.querySelector('.search-result-container');
-            process.classList.remove("show");
-            let process1 = document.querySelector('.search-bar');
-            process1.classList.remove("slide");
-            setHeight('0px');
-        }
-    }, [isDropDown]);
-
-    const handleSearchFocus = () => {
-        setIsDropDown(true);
+  useEffect(() => {
+    if (isDropDown) {
+      let process = document.querySelector('.search-result-container');
+      process.classList.add("show");
+      let process1 = document.querySelector('.search-bar');
+      process1.classList.add("slide");
+      setHeight(`376px`);
+    } else {
+      let process = document.querySelector('.search-result-container');
+      process.classList.remove("show");
+      let process1 = document.querySelector('.search-bar');
+      process1.classList.remove("slide");
+      setHeight('0px');
     }
   }, [isDropDown]);
 
