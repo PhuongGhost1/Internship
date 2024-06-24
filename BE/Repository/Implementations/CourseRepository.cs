@@ -6,7 +6,7 @@ using BE.Models;
 using BE.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 
-namespace BE.Repository
+namespace BE.Repository.Implementations
 {
     public class CourseRepository : ICourseRepository
     {
@@ -20,41 +20,31 @@ namespace BE.Repository
             return await _context.Courses.ToListAsync();
         }
 
-        public async Task<Course?> RetriveCourseInformationById(string courseId, string userId)
+        public async Task<Course?> RetriveCourseInformationById(string courseId)
         {
-            var course = await 
-                        (from c in _context.Courses
-                        join ec in _context.EnrollCourses on c.Id equals ec.CourseId
-                        join u in _context.Users on ec.UserId equals u.Id
-                        where c.Id == courseId && u.Id == userId
-                        select c)
-                        .FirstOrDefaultAsync();
-
-            return course;
+            return await _context.Courses.FirstOrDefaultAsync(c => c.Id == courseId);
         }
 
-        public async Task<float?> RetriveRatingAverage(string courseId, string userId)
+        public async Task<float?> RetriveRatingAverage(string courseId)
         {
             var ratingAvg = await 
                                 (from c in _context.Courses
                                 join ec in _context.EnrollCourses on c.Id equals ec.CourseId
-                                join u in _context.Users on ec.UserId equals u.Id
                                 join comment in _context.Comments on c.Id equals comment.CourseId
-                                where c.Id == courseId && u.Id == userId && comment.UserId == u.Id
+                                where c.Id == courseId
                                 select comment.Rating)
                                 .AverageAsync();
 
             return (float)ratingAvg;
         }
 
-        public async Task<int?> RetriveRatingNumber(string courseId, string userId)
+        public async Task<int?> RetriveRatingNumber(string courseId)
         {
             var ratingNum = await 
                             (from c in _context.Courses
                             join ec in _context.EnrollCourses on c.Id equals ec.CourseId
-                            join u in _context.Users on ec.UserId equals u.Id
                             join comment in _context.Comments on c.Id equals comment.CourseId
-                            where c.Id == courseId && u.Id == userId && comment.UserId == u.Id
+                            where c.Id == courseId
                             select comment)
                             .CountAsync();
 

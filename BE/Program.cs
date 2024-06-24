@@ -1,8 +1,11 @@
 using BE.Middlewares;
 using BE.Models;
 using BE.Repository;
+using BE.Repository.Implementations;
 using BE.Repository.Interface;
 using BE.Services;
+using BE.Services.Implementations;
+using BE.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Authentication.Google;
@@ -119,9 +122,15 @@ builder.Services.Configure<MailSettings>(emailSetting);
 
 builder.Services.AddControllers();
 
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<ITokenService, TokenService>();
-builder.Services.AddScoped<IEmailService, EmailService>();
+//Repositories
+builder.Services.AddScoped<IUserRepository, UserRepository>();builder.Services.AddScoped<ITokenRepository, TokenRepository>();builder.Services.AddScoped<IQuizRepository, QuizRepository>();
+builder.Services.AddScoped<ILectureRepository, LectureRepository>();builder.Services.AddScoped<IImageRepository, ImageRepository>();builder.Services.AddScoped<IEmailRepository, EmailRepository>();
+builder.Services.AddScoped<ICourseRepository, CourseRepository>();builder.Services.AddScoped<IChapterRepository, ChapterRepository>();builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+//Services
+builder.Services.AddScoped<IUserService, UserService>();builder.Services.AddScoped<IEmailService, EmailService>();builder.Services.AddScoped<ICourseService, CourseService>();
+builder.Services.AddScoped<IChapterService, ChapterService>();builder.Services.AddScoped<ICategoryService, CategoryService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

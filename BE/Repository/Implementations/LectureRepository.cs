@@ -6,7 +6,7 @@ using BE.Models;
 using BE.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 
-namespace BE.Repository
+namespace BE.Repository.Implementations
 {
     public class LectureRepository : ILectureRepository
     {
@@ -16,15 +16,14 @@ namespace BE.Repository
             _context = context;
         }
 
-        public async Task<int?> CalculateTotalLectureInChapterByCourseId(string courseId)
+        public async Task<int?> NumberOfLectureInChapterByCourseId(string courseId)
         {
             var totalLectureInChapter = await
                                         (from lec in _context.Lectures
-                                        join chap in _context.Chapters on lec.ChapterId equals chap.Id
-                                        join c in _context.Courses on chap.CourseId equals c.Id
-                                        where c.Id == courseId
-                                        select lec
-                                        )
+                                        join chap in _context.Chapters on lec.ChapterId equals chap.Id 
+                                        join course in _context.Courses on chap.CourseId equals course.Id
+                                        where course.Id == courseId
+                                        select lec)
                                         .CountAsync();
 
             return totalLectureInChapter;
