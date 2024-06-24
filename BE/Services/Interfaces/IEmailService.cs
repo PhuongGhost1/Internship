@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using BE.Dto.Email;
 
-namespace BE.Repository.Interface
+namespace BE.Services.Interfaces
 {
     public interface IEmailService
     {
-        Task SendEmail(string emailTo, string subject, string htmlBody); //EmailDto emailDto
+        Task<EmailSendResultDto> SendEmail(string email, string subject, string htmlBody);
     }
 }

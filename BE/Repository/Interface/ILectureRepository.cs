@@ -8,6 +8,6 @@ namespace BE.Repository.Interface
     public interface ILectureRepository
     {
         Task<int?> CalculateTotalVideoTimeByCourseId(string courseId);
-        Task<int?> CalculateTotalLectureInChapterByCourseId(string courseId);
+        Task<int?> NumberOfLectureInChapterByCourseId(string courseId);
     }
 }

@@ -6,7 +6,7 @@ using BE.Models;
 
 namespace BE.Repository.Interface
 {
-    public interface ITokenService
+    public interface ITokenRepository
     {
         public string CreateToken(User user);
         public string CreateRandomNumber(int length);
