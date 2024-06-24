@@ -1,0 +1,12 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  padding-top: 60px;
+}
+
+.no-scroll {
+  overflow: hidden;
+}

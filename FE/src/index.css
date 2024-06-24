@@ -1,0 +1,23 @@
+:root {
+  --light-orange: rgb(255, 143, 38);
+  --dark-orange: rgb(253, 89, 48);
+  --blue: rgb(42, 101, 173);
+  --deep-slate-gray: rgb(24, 24, 33);
+  --green: rgb(89, 226, 47);
+  --matte-gray: #e0e0e0;
+  --dark-pink: rgb(104, 4, 38);
+  --light-pink: rgb(143, 4, 50);
+
+  font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-weight: 500;
+  font-size: 12px;
+  color: black;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}

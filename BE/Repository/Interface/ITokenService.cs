@@ -1,0 +1,14 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using BE.Models;
+
+namespace BE.Repository.Interface
+{
+    public interface ITokenService
+    {
+        public string CreateToken(User user);
+        public string CreateRandomNumber(int length);
+    }
+}

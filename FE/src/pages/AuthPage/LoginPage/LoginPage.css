@@ -1,0 +1,188 @@
+#log-in .log-in-container {
+    height: 1020px;
+    background-image: linear-gradient(to right, rgb(253, 34, 70), rgb(253, 144, 4));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 120px 0;
+}
+
+#log-in .log-in-container .logo {
+    width: 150px;
+}
+
+#log-in .log-in-container .title {
+    color: white;
+    font-size: 36px;
+    font-weight: 600;
+}
+
+#log-in .bar {
+    display: flex;
+    background-color: rgba(228, 228, 228, 0.699);
+    margin: 20px 0;
+    height: 40px;
+    width: 400px;
+    border-radius: 5px;
+}
+
+#log-in .bar .logo-container {
+    width: 40px;
+    border-right: 1px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#log-in .bar .logo-container svg {
+    font-size: 20px;
+    color: white;
+}
+
+#log-in .bar input {
+    background-color: rgba(0, 0, 0, 0);
+    outline: none;
+    border: 0px;
+    flex: 1;
+    margin-left: 20px;
+    font-size: 16px;
+    color: var(--deep-slate-gray);
+}
+
+#log-in .login-form .action-btn {
+    display: flex;
+    align-items: center;
+}
+
+#log-in .login-form .action-btn label {
+    width: fit-content;
+}
+
+#log-in .login-form .action-btn .MuiTypography-root {
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+}
+
+#log-in .login-form .action-btn .MuiSvgIcon-root {
+    color: white;
+}
+
+#log-in .login-form .action-btn .forgot-password-container {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#log-in .login-form .action-btn .forgot-password-container span {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--dark-pink);
+    cursor: pointer;
+}
+
+#log-in .login-form .action-btn .forgot-password-container span:hover {
+    color: var(--light-pink);
+}
+
+#log-in .login-form .login-btn {
+    background-color: var(--dark-pink);
+    flex: 1;
+    color: white;
+    font-size: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 20px;
+    font-weight: 600;
+}
+
+#log-in .login-form .login-btn:hover {
+    background-color: var(--light-pink);
+}
+
+#log-in .login-form .or-title {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+#log-in .login-form .or-title::before {
+    content: '';
+    width: 100%;
+    height: 1px;
+    background-color: white;
+}
+
+#log-in .login-form .or-title::after {
+    content: '';
+    width: 100%;
+    height: 1px;
+    background-color: white;
+}
+
+#log-in .login-form .or-title span {
+    color: white;
+    margin: 0 15px;
+    font-size: 16px;
+}
+
+#log-in .login-form .facebook-google {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#log-in .login-form .btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 20px;
+    cursor: pointer;
+}
+
+#log-in .login-form .btn svg {
+    color: var(--dark-pink);
+    font-size: 30px;
+}
+
+#log-in .login-form .google.btn svg {
+    font-size: 20px;
+}
+
+#log-in .login-form .btn:hover {
+    background-color: var(--dark-pink);
+}
+
+#log-in .login-form .btn:hover svg {
+    color: white;
+}
+
+#log-in .login-form .ask-cr {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#log-in .login-form .ask-cr .title-ask {
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+#log-in .login-form .ask-cr .sign-up-btn {
+    color: var(--dark-pink);
+    font-size: 16px;
+    margin-left: 5px;
+    font-weight: 600;
+    cursor: pointer;
+}
