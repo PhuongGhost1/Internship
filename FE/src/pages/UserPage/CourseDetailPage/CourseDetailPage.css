@@ -1,6 +1,10 @@
 #course-detail-page .courser-detail-container {
-    display: flex;
     padding: 0 200px;
+    padding-bottom: 60px;
+}
+
+#course-detail-page .courser-detail-container .flex-container {
+    display: flex;
 }
 
 #course-detail-page .courser-detail-container .course-detail-learning-map-container {
@@ -9,4 +13,18 @@
 
 #course-detail-page .courser-detail-container .course-info-container {
     flex: 3
+}
+
+#course-detail-page .slider-card-recommend {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#course-detail-page .recommend-title {
+    margin-left: 20px;
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: 40px;
+    margin-bottom: 40px;
 }
