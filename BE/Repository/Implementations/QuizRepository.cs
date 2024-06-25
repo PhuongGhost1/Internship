@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using BE.Models;
 using BE.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +11,26 @@ namespace BE.Repository.Implementations
         {
             _context = context;
         }
+
+        public async Task<Quiz> GetAllDataFromQuizByCourseId(string courseId)
+        {
+            var allDataFromQuiz = await
+                                    (from quiz in _context.Quizzes
+                                    join chap in _context.Chapters on quiz.ChapterId equals chap.Id
+                                    join course in _context.Courses on chap.CourseId equals course.Id
+                                    join question in _context.Questions on quiz.Id equals question.QuizId
+                                    join submission in _context.Submissions on quiz.Id equals submission.QuizId
+                                    join processing in _context.Processings on quiz.Id equals processing.QuizId
+                                    where course.Id == courseId
+                                    select quiz)
+                                    .Include(q => q.Processings)
+                                    .Include(q => q.Questions)
+                                    .Include(q => q.Submissions)
+                                    .FirstOrDefaultAsync();
+            if(allDataFromQuiz == null) return null;
+            return allDataFromQuiz;
+        }
+
         public async Task<int?> NumberOfQuizInChapterByCourseId(string courseId)
         {
             var quizCountByChapter = await (from chap in _context.Chapters

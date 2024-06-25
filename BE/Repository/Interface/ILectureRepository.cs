@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BE.Models;
 
 namespace BE.Repository.Interface
 {
@@ -9,5 +10,6 @@ namespace BE.Repository.Interface
     {
         Task<int?> CalculateTotalVideoTimeByCourseId(string courseId);
         Task<int?> NumberOfLectureInChapterByCourseId(string courseId);
+        Task<Lecture> GetAllDataFromLectureByCourseId(string courseId);
     }
 }

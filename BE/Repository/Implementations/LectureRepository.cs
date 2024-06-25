@@ -55,5 +55,22 @@ namespace BE.Repository.Implementations
                 return 0; 
             }
         }
+
+        public async Task<Lecture> GetAllDataFromLectureByCourseId(string courseId)
+        {
+            var data = await 
+                        (from lecture in _context.Lectures
+                        join chap in _context.Chapters on lecture.ChapterId equals chap.Id
+                        join course in _context.Courses on chap.CourseId equals course.Id
+                        join image in _context.Images on lecture.Id equals image.LectureId
+                        join processing in _context.Processings on lecture.Id equals processing.LectureId
+                        where course.Id == courseId
+                        select lecture)
+                        .Include(l => l.Images)
+                        .Include(l => l.Processings)
+                        .FirstOrDefaultAsync();
+            if(data == null) return null;
+            return data;
+        }
     }
 }

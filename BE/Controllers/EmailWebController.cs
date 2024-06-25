@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BE.Controllers
 {
     [Route("api/v1/web/email")]
-    [ApiController]
+    [ApiExplorerSettings(GroupName = "Web")]
     public class EmailWebController
     {
         private readonly IEmailService _emailService;
@@ -14,7 +14,8 @@ namespace BE.Controllers
             _emailService = emailService;
         }
 
-        [HttpPost("register-email/{registerEmail}")]
+        [HttpPost("register-email")]
+        [Route("{registerEmail}")]
         public async Task<EmailSendResultDto> RegisterEmail([FromRoute] string regiEmail){ //EmailDto emailDto
             return await _emailService.SendEmail(regiEmail, "Xac nhan dia chi email qua phan dang ki", "<a href='http://localhost:5173/signup'>Nhan tai day</a>");
         }

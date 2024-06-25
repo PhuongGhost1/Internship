@@ -1,11 +1,11 @@
-using BE.Dto.Category;
+using BE.Models;
 using BE.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BE.Controllers
 {
-    [ApiController]
     [Route("api/v1/web/category")]
+    [ApiExplorerSettings(GroupName = "Web")]
     public class CategoryWebController
     {
         private readonly ICategoryService _cateService;
@@ -15,7 +15,7 @@ namespace BE.Controllers
         }
 
         [HttpGet("categories-list")]
-        public async Task<CategoryDto> GetAllCategories(){
+        public async Task<List<Category>> GetAllCategories(){
             return await _cateService.GetAllCategories();
         }
     }
