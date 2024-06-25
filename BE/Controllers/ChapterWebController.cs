@@ -6,7 +6,8 @@ namespace BE.Controllers
 {
     [ApiController]
     [Route("api/v1/web/chapter")]
-    public class ChapterWebController
+    [ApiExplorerSettings(GroupName = "Chapter")]
+    public class ChapterWebController : ControllerBase
     {
         private readonly IChapterService _chapterService;
         public ChapterWebController(IChapterService chapterService)
@@ -16,7 +17,8 @@ namespace BE.Controllers
 
         [HttpGet("chapters-in-course")]
         [Route("{courseId}")]
-        public async Task<ChapterDto> GetDataFromChapterInCourse([FromRoute] string courseId){
+        public async Task<ChapterDto> GetDataFromChapterInCourse([FromRoute] string courseId)
+        {
             return await _chapterService.GetDataFromChapterInCourse(courseId);
         }
     }

@@ -1,4 +1,4 @@
-import "./App.css";
+import './App.css'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -17,8 +17,8 @@ function App() {
       <Routes>
         <Route path="/">
           <Route index element={<Home />} />
-          <Route path="login" element={<LoginPage />} />
-          <Route path="signup" element={<RegisterPage />} />
+          <Route path='login' element={<LoginPage />} />
+          <Route path='signup' element={<RegisterPage />} />
         </Route>
         <Route path='/courses'>
           <Route path=':courseName' element={<CourseDetailPage />} />
@@ -32,7 +32,7 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
-  );
+  )
 }
 
-export default App;
+export default App

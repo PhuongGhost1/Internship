@@ -6,7 +6,8 @@ namespace BE.Controllers
 {
     [ApiController]
     [Route("api/v1/web/category")]
-    public class CategoryWebController
+    [ApiExplorerSettings(GroupName = "Category")]
+    public class CategoryWebController : ControllerBase
     {
         private readonly ICategoryService _cateService;
         public CategoryWebController(ICategoryService cateService)
@@ -15,7 +16,8 @@ namespace BE.Controllers
         }
 
         [HttpGet("categories-list")]
-        public async Task<CategoryDto> GetAllCategories(){
+        public async Task<CategoryDto> GetAllCategories()
+        {
             return await _cateService.GetAllCategories();
         }
     }
