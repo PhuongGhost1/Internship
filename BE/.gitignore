@@ -1,5 +1,7 @@
 bin/
 obj/
+config/
+.vs/
 
 *.log
 *.rsuser

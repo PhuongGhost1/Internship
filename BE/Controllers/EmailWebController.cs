@@ -4,9 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BE.Controllers
 {
-    [Route("api/v1/web/email")]
     [ApiController]
-    public class EmailWebController
+    [Route("api/v1/web/email")]
+    [ApiExplorerSettings(GroupName = "Email")]
+    public class EmailWebController : ControllerBase
     {
         private readonly IEmailService _emailService;
         public EmailWebController(IEmailService emailService)
@@ -15,12 +16,14 @@ namespace BE.Controllers
         }
 
         [HttpPost("register-email/{registerEmail}")]
-        public async Task<EmailSendResultDto> RegisterEmail([FromRoute] string regiEmail){ //EmailDto emailDto
+        public async Task<EmailSendResultDto> RegisterEmail([FromRoute] string regiEmail)
+        { //EmailDto emailDto
             return await _emailService.SendEmail(regiEmail, "Xac nhan dia chi email qua phan dang ki", "<a href='http://localhost:5173/signup'>Nhan tai day</a>");
         }
 
         [HttpPost("forgot-email/{forgotEmail}")]
-        public async Task<EmailSendResultDto> ForgotEmail([FromRoute] string forgotEmail){ //EmailDto emailDto
+        public async Task<EmailSendResultDto> ForgotEmail([FromRoute] string forgotEmail)
+        { //EmailDto emailDto
             return await _emailService.SendEmail(forgotEmail, "Xac nhan dia chi email qua phan thay doi mat khau", "<a href='http://localhost:5173/forgotPass'>Nhan tai day</a>");
         }
     }

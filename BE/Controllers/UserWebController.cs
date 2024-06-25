@@ -8,7 +8,8 @@ namespace BE.Controllers
 {
     [ApiController]
     [Route("api/v1/web/user")]
-    public class UserWebController
+    [ApiExplorerSettings(GroupName = "User")]
+    public class UserWebController : ControllerBase
     {
         private readonly IUserService _userService;
         public UserWebController(IUserService userService)
@@ -20,16 +21,18 @@ namespace BE.Controllers
         [Route("{email}")]
         public async Task<User> GetUserByEmail([FromRoute] string email)
         {
-           return await _userService.GetUserByEmail(email);
+            return await _userService.GetUserByEmail(email);
         }
 
         [HttpGet("login-facebook")]
-        public async Task<ReturnLoginDto> LoginWithFaceBook(){
+        public async Task<ReturnLoginDto> LoginWithFaceBook()
+        {
             return await _userService.LoginWithFacebook();
         }
 
         [HttpGet("facebook-response")]
-        public async Task<ReturnResponseDto> FacebookResponse(){
+        public async Task<ReturnResponseDto> FacebookResponse()
+        {
             return await _userService.FacebookResponse();
         }
 
@@ -40,23 +43,27 @@ namespace BE.Controllers
         }
 
         [HttpGet("signin-google")]
-        public async Task<ReturnResponseDto> GoogleResponse(){
-           return await _userService.GoogleResponse(); 
+        public async Task<ReturnResponseDto> GoogleResponse()
+        {
+            return await _userService.GoogleResponse();
         }
 
         [HttpPost("login")]
-        public async Task<UserLoginToken> Login([FromBody] UserLoginDto userLoginDto){
+        public async Task<UserLoginToken> Login([FromBody] UserLoginDto userLoginDto)
+        {
             return await _userService.Login(userLoginDto);
         }
 
         [HttpPost("register")]
-        public async Task<UserLoginToken> Register([FromBody] RegisterDto registerDto){
+        public async Task<UserLoginToken> Register([FromBody] RegisterDto registerDto)
+        {
             return await _userService.Register(registerDto);
         }
 
         [HttpPut("forgot")]
         [Route("{email}")]
-        public async Task<UserLoginToken> Forgot([FromRoute] string email, [FromBody] ForgotDto forgotDto){
+        public async Task<UserLoginToken> Forgot([FromRoute] string email, [FromBody] ForgotDto forgotDto)
+        {
             return await _userService.Forgot(email, forgotDto);
         }
     }
