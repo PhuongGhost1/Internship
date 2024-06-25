@@ -3,6 +3,7 @@ using BE.Dto.UserLogin;
 using BE.Models;
 using BE.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using static BE.Utils.Utils;
 
 namespace BE.Controllers
 {
@@ -65,6 +66,15 @@ namespace BE.Controllers
         public async Task<UserLoginToken> Forgot([FromRoute] string email, [FromBody] ForgotDto forgotDto)
         {
             return await _userService.Forgot(email, forgotDto);
+        }
+
+        [HttpPost("create")]
+        public async Task<IActionResult> CreateUser()
+        {
+            return Ok(new
+            {
+                id = GenerateIdModel("role")
+            });
         }
     }
 }
