@@ -11,6 +11,7 @@ import StudentProfilePage from './pages/StudentPage/ProfilePage/StudentProfilePa
 import CourseLearning from './pages/StudentPage/CourseLearning/CourseLearning';
 import InstructorProfilePage from './pages/InstructorPage/ProfilePage/InstructorProfilePage';
 import PaymentPage from './pages/StudentPage/Payment/PaymentPage';
+import SearchPage from './pages/UserPage/SearchPage/SearchPage';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path='login' element={<LoginPage />} />
           <Route path='signup' element={<RegisterPage />} />
           <Route path='payment' element={<PaymentPage />} />
+          <Route path='search' element={<SearchPage />} />
         </Route>
         <Route path='/courses'>
           <Route path=':courseName' element={<CourseDetailPage />} />
