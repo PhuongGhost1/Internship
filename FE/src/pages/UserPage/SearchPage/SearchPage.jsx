@@ -23,6 +23,7 @@ export default function SearchPage() {
                 </div>
             </div>
             <Footer />
+            
         </div>
     )
 }
