@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace BE.Controllers
 {
     [Route("api/v1/web/chapter")]
-    [ApiExplorerSettings(GroupName = "Web")]
-    public class ChapterWebController
+    [ApiExplorerSettings(GroupName = "Chapter")]
+    public class ChapterWebController : ControllerBase
     {
         private readonly IChapterService _chapterService;
         public ChapterWebController(IChapterService chapterService)
@@ -14,8 +14,10 @@ namespace BE.Controllers
             _chapterService = chapterService;
         }
 
-        [HttpGet("chapters-in-course/{courseId}")]
-        public async Task<ChapterDto> GetDataFromChapterInCourse([FromRoute] string courseId){
+        [HttpGet]
+        [Route("chapters-in-course/{courseId}")]
+        public async Task<ChapterDto> GetDataFromChapterInCourse([FromRoute] string courseId)
+        {
             return await _chapterService.GetDataFromChapterInCourse(courseId);
         }
     }

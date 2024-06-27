@@ -19,8 +19,9 @@ namespace BE.Controllers
         }
 
         [HttpGet]
-        [Route("{courseId}")]
-        public async Task<QuizDto> GetAllDataFromQuizByCourseId([FromRoute] string courseId){
+        [Route("quiz-data/{courseId}")]
+        public async Task<QuizDto> GetAllDataFromQuizByCourseId([FromRoute] string courseId)
+        {
             return await _quizService.GetAllDataFromQuizByCourseId(courseId);
         }
     }

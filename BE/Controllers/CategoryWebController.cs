@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace BE.Controllers
 {
     [Route("api/v1/web/category")]
-    [ApiExplorerSettings(GroupName = "Web")]
-    public class CategoryWebController
+    [ApiExplorerSettings(GroupName = "Category")]
+    public class CategoryWebController : ControllerBase
     {
         private readonly ICategoryService _cateService;
         public CategoryWebController(ICategoryService cateService)
@@ -14,8 +14,10 @@ namespace BE.Controllers
             _cateService = cateService;
         }
 
-        [HttpGet("categories-list")]
-        public async Task<List<Category>> GetAllCategories(){
+        [HttpGet]
+        [Route("categories-list")]
+        public async Task<List<Category>> GetAllCategories()
+        {
             return await _cateService.GetAllCategories();
         }
     }

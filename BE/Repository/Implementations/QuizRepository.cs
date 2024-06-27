@@ -12,23 +12,27 @@ namespace BE.Repository.Implementations
             _context = context;
         }
 
-        public async Task<Quiz> GetAllDataFromQuizByCourseId(string courseId)
+        public async Task<Quiz?> GetAllDataFromQuizByCourseId(string courseId)
         {
             var allDataFromQuiz = await
                                     (from quiz in _context.Quizzes
-                                    join chap in _context.Chapters on quiz.ChapterId equals chap.Id
-                                    join course in _context.Courses on chap.CourseId equals course.Id
-                                    join question in _context.Questions on quiz.Id equals question.QuizId
-                                    join submission in _context.Submissions on quiz.Id equals submission.QuizId
-                                    join processing in _context.Processings on quiz.Id equals processing.QuizId
-                                    where course.Id == courseId
-                                    select quiz)
+                                     join chap in _context.Chapters on quiz.ChapterId equals chap.Id
+                                     join course in _context.Courses on chap.CourseId equals course.Id
+                                     join question in _context.Questions on quiz.Id equals question.QuizId
+                                     join submission in _context.Submissions on quiz.Id equals submission.QuizId
+                                     join processing in _context.Processings on quiz.Id equals processing.QuizId
+                                     where course.Id == courseId
+                                     select quiz)
                                     .Include(q => q.Processings)
                                     .Include(q => q.Questions)
                                     .Include(q => q.Submissions)
                                     .FirstOrDefaultAsync();
-            if(allDataFromQuiz == null) return null;
             return allDataFromQuiz;
+        }
+
+        public async Task<Quiz?> GetDataOfQuizByQuizId(string quizId)
+        {
+            return await _context.Quizzes.FirstOrDefaultAsync(q => q.Id == quizId);
         }
 
         public async Task<int?> NumberOfQuizInChapterByCourseId(string courseId)
@@ -43,8 +47,8 @@ namespace BE.Repository.Implementations
                                                 QuizCount = quizGroup.Count()
                                             })
                                         .ToListAsync();
-            
-            return quizCountByChapter.Sum(x => x.QuizCount); 
+
+            return quizCountByChapter.Sum(x => x.QuizCount);
         }
     }
 }

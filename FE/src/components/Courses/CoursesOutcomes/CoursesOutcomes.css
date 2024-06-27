@@ -1,0 +1,54 @@
+#courses-outcomes {
+    display: flex;
+    margin-top: 40px;
+}
+
+#courses-outcomes .image-container {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#courses-outcomes .image-container img {
+    height: 200px;
+    margin-top: 20px;
+}
+
+#courses-outcomes .content .introduce .outcome-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+#courses-outcomes .content .introduce .description {
+    font-size: 16px;
+}
+
+#courses-outcomes .content .introduce .description span {
+    color: var(--light-orange);
+    cursor: pointer;
+}
+
+#courses-outcomes .content .introduce .description span:hover {
+    text-decoration: underline;
+    color: var(--dark-orange);
+}
+
+#courses-outcomes .content .target-collect {
+    margin-top: 20px;
+}
+
+#courses-outcomes .content .target-collect p {
+    font-size: 16px;
+}
+
+#courses-outcomes .content .target-collect svg {
+    font-size: 10px;
+    margin-right: 10px;
+}
+
+#courses-outcomes .content .target-collect div {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}

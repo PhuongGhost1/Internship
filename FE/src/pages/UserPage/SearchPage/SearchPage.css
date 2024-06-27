@@ -1,0 +1,15 @@
+#search-page .search-page-container {
+    padding: 40px 200px;
+}
+
+#search-page .search-page-container .filter-result {
+    display: flex;
+}
+
+#search-page .search-page-container .filter-result .filter-container {
+    flex: 3;
+}
+
+#search-page .search-page-container .filter-result .result-container {
+    flex: 9;
+}

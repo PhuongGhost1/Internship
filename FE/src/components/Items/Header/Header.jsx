@@ -1,39 +1,40 @@
 import React, { useEffect, useRef, useState } from "react";
-import "./Header.css";
+import './Header.css';
 
-import Logo from "../../../assets/Logo.png";
+import Logo from '../../../assets/Logo.png'
 
 import { IoSearchOutline } from "react-icons/io5";
 import SliderCards from "../SliderCards/SliderCards";
 
 export default function Header() {
   const [isDropDown, setIsDropDown] = useState(false);
-  const [height, setHeight] = useState("0px");
+  const [height, setHeight] = useState('0px');
   const contentDropdownRef = useRef(null);
 
   useEffect(() => {
     if (isDropDown) {
-      let process = document.querySelector(".search-result-container");
+      let process = document.querySelector('.search-result-container');
       process.classList.add("show");
-      let process1 = document.querySelector(".search-bar");
+      let process1 = document.querySelector('.search-bar');
       process1.classList.add("slide");
-      setHeight(`${contentDropdownRef.current.scrollHeight}px`);
+      setHeight(`376px`);
     } else {
-      let process = document.querySelector(".search-result-container");
+      let process = document.querySelector('.search-result-container');
       process.classList.remove("show");
-      let process1 = document.querySelector(".search-bar");
+      let process1 = document.querySelector('.search-bar');
       process1.classList.remove("slide");
-      setHeight("0px");
+      setHeight('0px');
     }
   }, [isDropDown]);
 
   const handleSearchFocus = () => {
     setIsDropDown(true);
-  };
+  }
+
 
   const handleCancelBtn = () => {
     setIsDropDown(false);
-  };
+  }
 
   return (
     <div id="header">
@@ -56,17 +57,11 @@ export default function Header() {
         </div>
         <div className="action-button">
           {isDropDown ? (
-            <div className="cancel-btn" onClick={handleCancelBtn}>
-              CANCEL
-            </div>
+            <div className="cancel-btn" onClick={handleCancelBtn}>CANCEL</div>
           ) : (
             <React.Fragment>
-              <a href="/login" className="login">
-                Log in
-              </a>
-              <a href="/signup" className="signup">
-                Sign Up
-              </a>
+              <a href="/login" className="login">Log in</a>
+              <a href="/signup" className="signup">Sign Up</a>
             </React.Fragment>
           )}
         </div>
@@ -78,7 +73,7 @@ export default function Header() {
       >
         <p className="title">Recommend</p>
         <div className="slider-container">
-          <SliderCards items="1" />
+          <SliderCards items='1' />
         </div>
       </div>
     </div>
