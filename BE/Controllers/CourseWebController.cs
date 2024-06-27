@@ -1,4 +1,5 @@
 using BE.Dto.Course;
+using BE.Dto.Course.Chapter;
 using BE.Models;
 using BE.Services.Interfaces;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -45,6 +46,18 @@ namespace BE.Controllers
         public async Task<string> CreateCourse([FromForm] CreateCoursData data)
         {
             return await _courseService.CreateCourse(data);
+        }
+
+        [HttpPost("createChapter")]
+        public async Task<string> CreateChapter([FromForm] CreateChapterData data)
+        {
+            return await _courseService.CreateChapter(data);
+        }
+
+        [HttpPost("createQuiz")]
+        public async Task<string> CreateQuiz([FromForm] CreateQuizData data)
+        {
+            return await _courseService.CreateQuiz(data);
         }
     }
 }

@@ -9,12 +9,12 @@ using BE.Services.Interfaces;
 using Google.Cloud.Storage.V1;
 using Google.Apis.Auth.OAuth2;
 using Microsoft.AspNetCore.Mvc;
+using BE.Dto.Course.Chapter;
 
 namespace BE.Services.Implementations
 {
     public class CourseService : ICourseService
     {
-        private readonly StorageClient _storageClient;
         private readonly ICourseRepository _courseRepo;
         private readonly IImageRepository _imageRepo;
         private readonly IQuizRepository _quizRepo;
@@ -26,8 +26,6 @@ namespace BE.Services.Implementations
             _imageRepo = imageRepo;
             _quizRepo = quizRepo;
             _lectureRepo = lectureRepo;
-            var googleCredential = GoogleCredential.FromFile("config/firebase.json");
-            _storageClient = StorageClient.Create(googleCredential);
         }
 
         public async Task<List<Course>> GetAllCourses()
@@ -56,7 +54,7 @@ namespace BE.Services.Implementations
                 RatingAvg = ratingAvg,
                 RatingNumber = ratingNum,
                 EstimatedLearningTime = totalVideoTimeMinutes + NumberOfQuizInChapter * 30,
-                ImageBackground = imageModel?.Base64Code,
+                ImageBackground = imageModel?.Url,
             };
             return courseDto;
         }
@@ -73,6 +71,15 @@ namespace BE.Services.Implementations
         public async Task<string> CreateCourse(CreateCoursData data)
         {
             return await _courseRepo.CreateCourse(data);
+        }
+
+        public async Task<string> CreateChapter(CreateChapterData data)
+        {
+            return await _courseRepo.CreateChapter(data);
+        }
+        public async Task<string> CreateQuiz(CreateQuizData data)
+        {
+            return await _courseRepo.CreateQuiz(data);
         }
     }
 }
