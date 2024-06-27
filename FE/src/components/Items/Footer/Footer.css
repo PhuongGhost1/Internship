@@ -2,8 +2,8 @@
     background-color: var(--deep-slate-gray);
     padding-top: 60px;
     padding-bottom: 40px;
-    padding-left: 20%;
-    padding-right: 20%;
+    padding-left: 400px;
+    padding-right: 400px;
     display: flex;
     flex-direction: column;
 }

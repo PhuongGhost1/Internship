@@ -1,34 +1,24 @@
 #courses-about {
     border-bottom: 1px solid #e5e7e8;
-    margin-top: 40px;
 }
 
 #courses-about .about-container {
-    height: 203px;
+    height: 204px;
     overflow: hidden;
     position: relative;
 }
 
 #courses-about .about-container::before {
     position: absolute;
-    height: 50px;
+    height: 100px;
     width: 100%;
-    bottom: 0;
-    left: 0;
     content: '';
-    background: linear-gradient(transparent, rgb(255, 255, 255));
-}
-
-#courses-about .about-container.more {
-    height: auto;
-}
-
-#courses-about .about-container.more::before {
-    display: none;
+    background-image: ;
 }
 
 #courses-about .wul {
     font-size: 28px;
+    margin-top: 40px;
     font-weight: 700;
     margin-bottom: 40px;
 }
@@ -45,7 +35,6 @@
     font-weight: 600;
     font-size: 16px;
     cursor: pointer;
-    margin-top: 20px;
 }
 
 #courses-about .more-detail:hover {
