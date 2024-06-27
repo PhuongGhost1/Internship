@@ -14,7 +14,8 @@ namespace BE.Controllers
             _chapterService = chapterService;
         }
 
-        [HttpGet("chapters-in-course/{courseId}")]
+        [HttpGet]
+        [Route("chapters-in-course/{courseId}")]
         public async Task<ChapterDto> GetDataFromChapterInCourse([FromRoute] string courseId){
             return await _chapterService.GetDataFromChapterInCourse(courseId);
         }

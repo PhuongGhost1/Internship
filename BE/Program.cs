@@ -97,11 +97,11 @@ builder.Services.AddSwaggerGen(option =>
             {
                 Reference = new OpenApiReference
                 {
-                    Type=ReferenceType.SecurityScheme,
-                    Id="Bearer"
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
                 }
             },
-            new string[]{}
+            new string[] {}
         }
     });
 });
@@ -145,19 +145,15 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseRequestResponseLoggingMiddleware();
+app.UseAuthenticationMiddleware();
+app.UseExceptionHandleMiddleware();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseCors("AllowAll");
 
 app.MapControllers();
-
-// app.Use(async (context,next) => {
-//     await context.Response.WriteAsync("Hello from middleware 1");
-//     await next.Invoke();
-//     await context.Response.WriteAsync("Return from middleware 1");
-// });
-
-// app.UseMiddleware<SimpleMiddleware>();
 
 app.Run();

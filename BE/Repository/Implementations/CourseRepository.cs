@@ -20,6 +20,32 @@ namespace BE.Repository.Implementations
             return await _context.Courses.ToListAsync();
         }
 
+        public async Task<List<object>> GetLecturesAndQuizzesByCourseId(string courseId)
+        {
+            var lectures = await 
+                    (from lecture in _context.Lectures
+                     join chap in _context.Chapters on lecture.ChapterId equals chap.Id
+                     join course in _context.Courses on chap.CourseId equals course.Id
+                     where course.Id == courseId
+                     select new { lecture.Index, Item = (object)lecture })
+                    .ToListAsync();
+
+            var quizzes = await
+                        (from quiz in _context.Quizzes
+                        join chap in _context.Chapters on quiz.ChapterId equals chap.Id
+                        join course in _context.Courses on chap.CourseId equals course.Id
+                        where course.Id == courseId
+                        select new { quiz.Index, Item = (object)quiz })
+                        .ToListAsync();
+
+            var combinedList = lectures.Concat(quizzes)
+                                    .OrderBy(x => x.Index)
+                                    .Select(x => x.Item)
+                                    .ToList();
+
+            return combinedList;
+        }
+
         public async Task<Course?> RetriveCourseInformationById(string courseId)
         {
             return await _context.Courses.FirstOrDefaultAsync(c => c.Id == courseId);

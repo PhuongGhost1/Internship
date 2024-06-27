@@ -14,13 +14,14 @@ namespace BE.Controllers
             _emailService = emailService;
         }
 
-        [HttpPost("register-email")]
-        [Route("{registerEmail}")]
+        [HttpPost]
+        [Route("register-email/{registerEmail}")]
         public async Task<EmailSendResultDto> RegisterEmail([FromRoute] string regiEmail){ //EmailDto emailDto
             return await _emailService.SendEmail(regiEmail, "Xac nhan dia chi email qua phan dang ki", "<a href='http://localhost:5173/signup'>Nhan tai day</a>");
         }
 
-        [HttpPost("forgot-email/{forgotEmail}")]
+        [HttpPost]
+        [Route("forgot-email/{forgotEmail}")]
         public async Task<EmailSendResultDto> ForgotEmail([FromRoute] string forgotEmail){ //EmailDto emailDto
             return await _emailService.SendEmail(forgotEmail, "Xac nhan dia chi email qua phan thay doi mat khau", "<a href='http://localhost:5173/forgotPass'>Nhan tai day</a>");
         }

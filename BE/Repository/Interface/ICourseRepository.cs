@@ -12,5 +12,6 @@ namespace BE.Repository.Interface
         Task<Course?> RetriveCourseInformationById(string courseId);
         Task<float?> RetriveRatingAverage(string courseId);
         Task<int?> RetriveRatingNumber(string courseId);
+        Task<List<object>> GetLecturesAndQuizzesByCourseId(string courseId);
     }
 }

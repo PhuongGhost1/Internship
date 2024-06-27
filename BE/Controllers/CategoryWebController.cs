@@ -14,7 +14,8 @@ namespace BE.Controllers
             _cateService = cateService;
         }
 
-        [HttpGet("categories-list")]
+        [HttpGet]
+        [Route("categories-list")]
         public async Task<List<Category>> GetAllCategories(){
             return await _cateService.GetAllCategories();
         }

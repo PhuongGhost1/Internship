@@ -17,14 +17,22 @@ namespace BE.Controllers
         }
 
         [HttpGet]
+        [Route("all-courses")]
         public async Task<List<Course>> GetAllCourses(){
             return await _courseService.GetAllCourses();
         }
 
-        [HttpGet("course-info")]
-        [Route("{courseId}")]
+        [HttpGet]
+        [Route("course-info/{courseId}")]
         public async Task<CourseDto> GetInformationOfCourse([FromRoute] string courseId){
             return await _courseService.GetInformationOfCourse(courseId);
+        }
+
+        [HttpGet]
+        [Route("content/{courseId}")]
+        public async Task<List<object>> GetLecturesAndQuizzesByCourseId([FromRoute] string courseId)
+        {
+            return await _courseService.GetLecturesAndQuizzesByCourseId(courseId);
         }
     }
 }

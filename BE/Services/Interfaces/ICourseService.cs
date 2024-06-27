@@ -11,5 +11,6 @@ namespace BE.Services.Interfaces
     {
         Task<List<Course>> GetAllCourses();
         Task<CourseDto> GetInformationOfCourse(string courseId);
+        Task<List<object>> GetLecturesAndQuizzesByCourseId(string courseId);
     }
 }

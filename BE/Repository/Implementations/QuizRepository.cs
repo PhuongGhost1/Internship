@@ -12,7 +12,7 @@ namespace BE.Repository.Implementations
             _context = context;
         }
 
-        public async Task<Quiz> GetAllDataFromQuizByCourseId(string courseId)
+        public async Task<Quiz?> GetAllDataFromQuizByCourseId(string courseId)
         {
             var allDataFromQuiz = await
                                     (from quiz in _context.Quizzes
@@ -27,8 +27,12 @@ namespace BE.Repository.Implementations
                                     .Include(q => q.Questions)
                                     .Include(q => q.Submissions)
                                     .FirstOrDefaultAsync();
-            if(allDataFromQuiz == null) return null;
             return allDataFromQuiz;
+        }
+
+        public async Task<Quiz?> GetDataOfQuizByQuizId(string quizId)
+        {
+            return await _context.Quizzes.FirstOrDefaultAsync(q => q.Id == quizId);
         }
 
         public async Task<int?> NumberOfQuizInChapterByCourseId(string courseId)

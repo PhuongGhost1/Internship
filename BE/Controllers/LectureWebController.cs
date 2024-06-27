@@ -15,7 +15,7 @@ namespace BE.Controllers
         }
 
         [HttpGet]
-        [Route("{courseId}")]
+        [Route("lecture-data/{courseId}")]
         public async Task<LectureDto> GetAllDataFromLectureByCourseId([FromRoute] string courseId){
             return await _lectureService.GetAllDataFromLectureByCourseId(courseId);
         }

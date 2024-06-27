@@ -54,5 +54,18 @@ namespace BE.Services.Implementations
             };
             return courseDto;
         }
+
+        public async Task<List<object>> GetLecturesAndQuizzesByCourseId(string courseId)
+        {
+            var course = await _courseRepo.RetriveCourseInformationById(courseId);
+
+            if (course == null) throw new Exception("Cannot find course");
+
+            var combinedList = await _courseRepo.GetLecturesAndQuizzesByCourseId(courseId);
+
+            if (combinedList == null || !combinedList.Any()) throw new Exception("Not found lectures or quizzes!");
+
+            return combinedList;
+        }
     }
 }

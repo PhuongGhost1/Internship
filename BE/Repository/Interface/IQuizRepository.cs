@@ -9,6 +9,7 @@ namespace BE.Repository.Interface
     public interface IQuizRepository
     {
         Task<int?> NumberOfQuizInChapterByCourseId(string courseId);
-        Task<Quiz> GetAllDataFromQuizByCourseId(string courseId);
+        Task<Quiz?> GetAllDataFromQuizByCourseId(string courseId);
+        Task<Quiz?> GetDataOfQuizByQuizId(string quizId);
     }
 }
