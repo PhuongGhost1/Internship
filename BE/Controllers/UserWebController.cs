@@ -69,11 +69,12 @@ namespace BE.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> CreateUser()
+        public async Task<IActionResult> CreateUser([FromForm] CreateUserData data)
         {
+            bool status = await _userService.CreateUserData(data.Username, data.Email, data.Password, data.Description, data.Phone, data.Role);
             return Ok(new
             {
-                id = GenerateIdModel("role")
+                status = "hi"
             });
         }
     }

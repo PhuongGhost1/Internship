@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BE.Dto.Course;
 using BE.Models;
 
 namespace BE.Repository.Interface
@@ -12,6 +13,6 @@ namespace BE.Repository.Interface
         Task<Course?> RetriveCourseInformationById(string courseId);
         Task<float?> RetriveRatingAverage(string courseId);
         Task<int?> RetriveRatingNumber(string courseId);
-        // Task<bool?> CreatingCourse(string courseId, string name, string description, string userId);
+        Task<string> CreateCourse(CreateCoursData data);
     }
 }
