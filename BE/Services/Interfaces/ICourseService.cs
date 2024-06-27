@@ -14,5 +14,6 @@ namespace BE.Services.Interfaces
         Task<List<object>> GetLecturesAndQuizzesByCourseId(string courseId);
         Task<string> UploadImgCourse(int courseId, IFormFile image);
         Task<string> CreateCourse(CreateCoursData data);
+        Task<List<Course>> GetAllCoursesByCategoryName(string cateName);
     }
 }

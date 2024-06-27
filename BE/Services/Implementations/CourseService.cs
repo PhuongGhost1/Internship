@@ -19,8 +19,9 @@ namespace BE.Services.Implementations
         private readonly IImageRepository _imageRepo;
         private readonly IQuizRepository _quizRepo;
         private readonly ILectureRepository _lectureRepo;
+        private readonly ICategoryRepository _cateRepo;
         public CourseService(ICourseRepository courseRepo, IImageRepository imageRepo, IQuizRepository quizRepo,
-                            ILectureRepository lectureRepo)
+                            ILectureRepository lectureRepo, ICategoryRepository cateRepo)
         {
             _courseRepo = courseRepo;
             _imageRepo = imageRepo;
@@ -28,6 +29,7 @@ namespace BE.Services.Implementations
             _lectureRepo = lectureRepo;
             var googleCredential = GoogleCredential.FromFile("config/firebase.json");
             _storageClient = StorageClient.Create(googleCredential);
+            _cateRepo = cateRepo;
         }
 
         public async Task<List<Course>> GetAllCourses()
@@ -86,6 +88,19 @@ namespace BE.Services.Implementations
         public async Task<string> CreateCourse(CreateCoursData data)
         {
             return await _courseRepo.CreateCourse(data);
+        }
+
+        public async Task<List<Course>> GetAllCoursesByCategoryName(string cateName)
+        {
+            var category = await _cateRepo.FindCategoryByName(cateName);
+
+            if(category == null) throw new Exception("Not found category!");
+
+            var courses = await _courseRepo.FindCourseByCategoryName(cateName);
+
+            if(courses == null) throw new Exception("Not found course!");
+
+            return courses;
         }
     }
 }

@@ -10,5 +10,6 @@ namespace BE.Repository.Interface
     {
         Task<List<Category>> GetCategories();
         Task<List<Category>> GetCategoriesByCourseId(string courseId);
+        Task<Category?> FindCategoryByName(string cateName);
     }
 }

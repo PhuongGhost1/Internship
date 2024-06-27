@@ -15,6 +15,12 @@ namespace BE.Repository.Implementations
         {
             _context = context;
         }
+
+        public async Task<Category?> FindCategoryByName(string cateName)
+        {
+            return await _context.Categories.FirstOrDefaultAsync(cate => cate.Name == cateName);
+        }
+
         public async Task<List<Category>> GetCategories()
         {
             return await _context.Categories.ToListAsync();

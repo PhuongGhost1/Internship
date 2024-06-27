@@ -52,5 +52,12 @@ namespace BE.Controllers
         {
             return await _courseService.CreateCourse(data);
         }
+
+        
+        [HttpGet]
+        [Route("find-course-by-category/{cateName}")]
+        public async Task<List<Course>> FindAllCoursesByCategoryName([FromRoute] string cateName){
+            return await _courseService.GetAllCoursesByCategoryName(cateName);
+        }
     }
 }

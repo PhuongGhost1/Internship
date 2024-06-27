@@ -15,5 +15,6 @@ namespace BE.Repository.Interface
         Task<int?> RetriveRatingNumber(string courseId);
         Task<List<object>> GetLecturesAndQuizzesByCourseId(string courseId);
         Task<string> CreateCourse(CreateCoursData data);
+        Task<List<Course>> FindCourseByCategoryName(string categoryName);
     }
 }

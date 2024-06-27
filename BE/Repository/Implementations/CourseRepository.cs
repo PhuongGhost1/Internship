@@ -120,5 +120,18 @@ namespace BE.Repository.Implementations
                 return "error";
             }
         }
+
+        public async Task<List<Course>> FindCourseByCategoryName(string categoryName)
+        {
+            var courses = await _context.Courses
+                                        .FromSqlRaw(@"
+                                            SELECT * 
+                                            FROM CourseOnl.Course course
+                                            JOIN CourseOnl.CategoryCourse cateCourse ON course.id = cateCourse.course_id
+                                            JOIN CourseOnl.Category cate ON cateCourse.category_id = cate.id
+                                            WHERE cate.name LIKE {0}", "%" + categoryName + "%")
+                                        .ToListAsync();
+            return courses;
+        }
     }
 }
