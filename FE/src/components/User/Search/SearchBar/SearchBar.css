@@ -14,5 +14,14 @@
 
 #search-bar .input-container {
     margin: 0;
-    width: fit-content;
+    width: 60px;
+}
+
+#search-bar .input-container input {
+    border: none;
+
+}
+
+#search-bar .input-container input:focus-visible {
+    outline: none;
 }
