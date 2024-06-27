@@ -121,16 +121,16 @@ namespace BE.Repository.Implementations
             }
         }
 
-        public async Task<List<Course>> FindCourseByCategoryName(string categoryName)
+        public async Task<List<Course>> FindCourseByCategoryName(string partialCategoryName)
         {
-            var courses = await _context.Courses
-                                        .FromSqlRaw(@"
-                                            SELECT * 
-                                            FROM CourseOnl.Course course
-                                            JOIN CourseOnl.CategoryCourse cateCourse ON course.id = cateCourse.course_id
-                                            JOIN CourseOnl.Category cate ON cateCourse.category_id = cate.id
-                                            WHERE cate.name LIKE {0}", "%" + categoryName + "%")
-                                        .ToListAsync();
+            var courses = await
+                        (from course in _context.Courses
+                        join courseCate in _context.CategoryCourses on course.Id equals courseCate.CourseId
+                        join cate in _context.Categories on courseCate.CategoryId equals cate.Id
+                        where cate.Name.Contains(partialCategoryName)
+                        select course)
+                        .ToListAsync();
+
             return courses;
         }
     }
