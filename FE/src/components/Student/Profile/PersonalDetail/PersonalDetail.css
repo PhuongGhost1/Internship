@@ -1,13 +1,13 @@
-#personal-detail .row-update .popup-visible-profile{
+#personal-detail .row-update .popup-visible-profile {
     background: #fff;
     overflow-y: hidden;
     position: fixed;
     top: 27%;
     left: 55%;
-    transform: translateX(-55%) translateY(-28%);
+    transform: translateX(-60%) translateY(-26%);
     min-height: 30vh;
     min-height: 300px;
-    height: 550px;
+    height: 600px;
     max-height: 80vh;
     width: 568px;
     border-radius: 8px;
@@ -30,7 +30,7 @@
     font-size: 1.2rem;
     letter-spacing: 1px;
 
-    transform: translateX( 680%) translateY( 110%);
+    transform: translateX(680%) translateY(110%);
 }
 
 .popup-visible-profile-buttonclose-container {
@@ -47,7 +47,7 @@
     cursor: pointer;
 }
 
-#personal-detail .row-update-container .text{
+#personal-detail .row-update-container .text {
     cursor: pointer;
 }
 
@@ -60,7 +60,7 @@
     margin-top: 40px;
 }
 
-.popup-row > div {
+.popup-row>div {
     flex: 1;
     text-align: left;
     margin-left: 50px;
@@ -82,7 +82,7 @@
     margin-top: 15px;
 }
 
- .popup-row-text2 {
+.popup-row-text2 {
     font-family: "Roboto", sans-serif;
     font-weight: 550;
     font-style: normal;
@@ -110,18 +110,21 @@
 .popup-row-text2-button {
     width: 25px;
     height: 25px;
-    appearance: none; /* Remove default checkbox appearance */
+    appearance: none;
+    /* Remove default checkbox appearance */
     border: 2px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
     position: relative;
-    background-color: #fff; /* Background color for unchecked state */
+    background-color: #fff;
+    /* Background color for unchecked state */
     display: inline-block;
     vertical-align: middle;
 }
 
 .popup-row-text2-button:checked {
-    background-color: #00419e; /* Change this to the color you want when checked */
+    background-color: #00419e;
+    /* Change this to the color you want when checked */
     border-color: #00419e;
 }
 
@@ -134,19 +137,29 @@
 }
 
 .popup-row-text2-button:checked::before {
-    width: 3px; /* Width of the first part of the checkmark */
-    height: 15px; /* Height of the first part of the checkmark */
-    top: 2px; /* Adjust the vertical position */
-    left: 11.5px; /* Adjust the horizontal position */
-    transform: rotate(40deg); /* Rotate to create checkmark */
+    width: 3px;
+    /* Width of the first part of the checkmark */
+    height: 15px;
+    /* Height of the first part of the checkmark */
+    top: 2px;
+    /* Adjust the vertical position */
+    left: 11.5px;
+    /* Adjust the horizontal position */
+    transform: rotate(40deg);
+    /* Rotate to create checkmark */
 }
 
 .popup-row-text2-button:checked::after {
-    width: 3px; /* Width of the second part of the checkmark */
-    height: 7px; /* Height of the second part of the checkmark */
-    top: 8px; /* Adjust the vertical position */
-    left: 5px; /* Adjust the horizontal position */
-    transform: rotate(-45deg); /* Rotate to create checkmark */
+    width: 3px;
+    /* Width of the second part of the checkmark */
+    height: 7px;
+    /* Height of the second part of the checkmark */
+    top: 8px;
+    /* Adjust the vertical position */
+    left: 5px;
+    /* Adjust the horizontal position */
+    transform: rotate(-45deg);
+    /* Rotate to create checkmark */
 }
 
 .popup-row-button {
@@ -179,8 +192,8 @@
 
 #personal-detail .row-edit .row-edit-button svg {
     cursor: pointer;
-    transform: translateX( 170px) translateY( 30%);
-    position: absolute; 
+    transform: translateX(170px) translateY(30%);
+    position: absolute;
     color: cornflowerblue;
 }
 
@@ -188,7 +201,7 @@
     color: #2e5ca0;
 }
 
-#personal-detail .row-edit .popup-edit-container{
+#personal-detail .row-edit .popup-edit-container {
     background: #fff;
     overflow-y: hidden;
     position: fixed;
@@ -223,7 +236,7 @@
     font-size: 1.2rem;
     letter-spacing: 1px;
 
-    transform: translateX( 680%) translateY( 110%);
+    transform: translateX(680%) translateY(110%);
 }
 
 .popup-edit-buttonclose {
@@ -300,7 +313,7 @@
     font-weight: 600;
     font-style: normal;
     font-size: 1.1rem;
-    
+
 }
 
 .upload-button {
@@ -464,7 +477,7 @@
     font-size: 1.3rem;
 }
 
-.btSavechanged:hover{
+.btSavechanged:hover {
     background-color: #002f7a;
     color: #e5e7e8;
 }
@@ -504,7 +517,7 @@
     z-index: 3;
 }
 
-.popup2-row > div {
+.popup2-row>div {
     flex: 1;
     text-align: left;
     margin-left: 50px;
@@ -525,22 +538,22 @@
 
 /**************************************** Personal Detail Container ***********************************************/
 
-#student-profile-page .student-profile-container .personal-detail-container {
-    flex: 3;
+#personal-detail {
     background-color: #fff;
     border: 1px solid #e5e7e8;
     border-radius: 2%;
     text-align: center;
-    margin-top: 5%;
+    margin-top: 40px;
 }
+
 
 .row-avatar {
     position: relative;
     width: 150px;
     height: 150px;
     overflow: hidden;
-    transform: translateX( 83%) translateY( -10%);
-    margin-top: 30px;
+    margin-top: 10px;
+    margin-bottom: 30px;
 }
 
 .row-avatar img {
@@ -558,42 +571,43 @@
 }
 
 
-#student-profile-page .student-profile-container .personal-detail-container .personal-detail-container-column{
+#personal-detail .personal-detail-container-column {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 
-#student-profile-page .student-profile-container .personal-detail-container .personal-detail-container-column .row{
+#personal-detail .personal-detail-container-column .row {
     margin-bottom: 10px;
     padding: 10px;
 }
 
-#student-profile-page .student-profile-container .personal-detail-container .personal-detail-container-column .row-username{
+#personal-detail .personal-detail-container-column .row-username {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: 20px;
 }
 
-#student-profile-page .student-profile-container .personal-detail-container .personal-detail-container-column .row-share-profile {
+#personal-detail .personal-detail-container-column .row-share-profile {
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: 10px;
 }
 
-#student-profile-page .student-profile-container .personal-detail-container .personal-detail-container-column .row-share-profile-container {
+#personal-detail .personal-detail-container-column .row-share-profile-container {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 250px;
     height: 35px;
-    box-shadow:  #00419e 0px 0px 0px 1px;
+    box-shadow: #00419e 0px 0px 0px 1px;
     border-radius: 2%;
     margin-top: 15px;
     margin-bottom: 10px;
 }
 
-#student-profile-page .student-profile-container .personal-detail-container .personal-detail-container-column .row-share-profile .icon{
+#personal-detail .personal-detail-container-column .row-share-profile .icon {
     display: flex;
     align-items: center;
     margin-right: 10px;
@@ -601,7 +615,7 @@
     color: #00419e;
 }
 
-#student-profile-page .student-profile-container .personal-detail-container .personal-detail-container-column .row-share-profile .text{
+#personal-detail .personal-detail-container-column .row-share-profile .text {
     display: flex;
     align-items: center;
     margin-right: 20px;
@@ -611,19 +625,19 @@
     line-height: 24px;
 }
 
-#student-profile-page .student-profile-container .personal-detail-container .personal-detail-container-column .row-share-profile .text:hover {
+#personal-detail .personal-detail-container-column .row-share-profile .text:hover {
     color: #00419e;
     transition: background-color 0.3s;
 }
 
-#student-profile-page .student-profile-container .personal-detail-container .personal-detail-container-column .row-update {
+#personal-detail .personal-detail-container-column .row-update {
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: 15px;
 }
 
-#student-profile-page .student-profile-container .personal-detail-container .personal-detail-container-column .row-update-container {
+#personal-detail .personal-detail-container-column .row-update-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -634,12 +648,12 @@
     border-top: solid 1px #b1b1b1;
 }
 
-#student-profile-page .student-profile-container .personal-detail-container .personal-detail-container-column .row-update-container .text {
-   margin-top: 20px;
-   color: #2e5ca0;
+#personal-detail .personal-detail-container-column .row-update-container .text {
+    margin-top: 20px;
+    color: #2e5ca0;
 }
 
-#student-profile-page .student-profile-container .personal-detail-container .personal-detail-container-column .row-update-container .text:hover {
+#personal-detail .personal-detail-container-column .row-update-container .text:hover {
     text-decoration: underline;
     color: #00419e;
     transition: background-color 0.3s;
