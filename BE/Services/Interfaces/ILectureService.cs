@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BE.Dto.Category;
+using BE.Dto.Course.Lecture;
 using BE.Models;
 
 namespace BE.Services.Interfaces
 {
-    public interface ICategoryService
+    public interface ILectureService
     {
-        Task<List<Category>> GetAllCategories();
+        Task<LectureDto> GetAllDataFromLectureByCourseId(string courseId);
     }
 }

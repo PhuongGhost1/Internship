@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BE.Controllers
 {
-    [ApiController]
     [Route("api/v1/web/user")]
+    [ApiController]
     public class UserWebController
     {
         private readonly IUserService _userService;
@@ -16,8 +16,7 @@ namespace BE.Controllers
             _userService = userService;
         }
 
-        [HttpGet]
-        [Route("{email}")]
+        [HttpGet("find-user/{email}")]
         public async Task<User> GetUserByEmail([FromRoute] string email)
         {
            return await _userService.GetUserByEmail(email);
@@ -54,8 +53,7 @@ namespace BE.Controllers
             return await _userService.Register(registerDto);
         }
 
-        [HttpPut("forgot")]
-        [Route("{email}")]
+        [HttpPut("forgot/{email}")]
         public async Task<UserLoginToken> Forgot([FromRoute] string email, [FromBody] ForgotDto forgotDto){
             return await _userService.Forgot(email, forgotDto);
         }

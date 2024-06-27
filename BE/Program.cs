@@ -120,7 +120,9 @@ builder.Services.AddOptions();
 var emailSetting = builder.Configuration.GetSection("MailSettings");
 builder.Services.Configure<MailSettings>(emailSetting);
 
-builder.Services.AddControllers();
+builder.Services.AddControllersWithViews();
+
+builder.Services.AddHttpContextAccessor();
 
 //Repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>();builder.Services.AddScoped<ITokenRepository, TokenRepository>();builder.Services.AddScoped<IQuizRepository, QuizRepository>();
@@ -129,7 +131,8 @@ builder.Services.AddScoped<ICourseRepository, CourseRepository>();builder.Servic
 
 //Services
 builder.Services.AddScoped<IUserService, UserService>();builder.Services.AddScoped<IEmailService, EmailService>();builder.Services.AddScoped<ICourseService, CourseService>();
-builder.Services.AddScoped<IChapterService, ChapterService>();builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IChapterService, ChapterService>();builder.Services.AddScoped<ICategoryService, CategoryService>();builder.Services.AddScoped<ILectureService, LectureService>();
+builder.Services.AddScoped<IQuizService, QuizService>();
 
 var app = builder.Build();
 

@@ -151,7 +151,8 @@ namespace BE.Services.Implementations
                 throw new Exception("Google Client ID is missing in the configuration");
             }
 
-            var redirectUri = _httpContextAccessor.HttpContext.Request.Host + "/User/GoogleResponse";
+            var redirectUri = $"{_httpContextAccessor.HttpContext.Request.Scheme}://{_httpContextAccessor.HttpContext.Request.Host}/api/v1/web/user/signin-google";
+
             if (string.IsNullOrEmpty(redirectUri))
             {
                 throw new Exception("Failed to generate the redirect URI");

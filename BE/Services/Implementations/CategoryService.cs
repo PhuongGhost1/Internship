@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BE.Dto.Category;
 using BE.Mappers;
+using BE.Models;
 using BE.Repository.Interface;
 using BE.Services.Interfaces;
 
@@ -17,13 +18,13 @@ namespace BE.Services.Implementations
             _cateRepo = cateRepo;
         }
 
-        public async Task<CategoryDto> GetAllCategories()
+        public async Task<List<Category>> GetAllCategories()
         {
             var categories = await _cateRepo.GetCategories();
 
             if(categories == null) throw new Exception("No categories in stock!");
 
-            return categories.ToCategoryList();
+            return categories.ToList();
         }
     }
 }
