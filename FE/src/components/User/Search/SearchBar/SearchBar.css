@@ -1,0 +1,18 @@
+#search-bar {
+    display: flex;
+    align-items: center;
+}
+
+#search-bar .search-icon {
+    display: flex;
+    align-items: center;
+}
+
+#search-bar .search-icon svg {
+    font-size: 24px;
+}
+
+#search-bar .input-container {
+    margin: 0;
+    width: fit-content;
+}
