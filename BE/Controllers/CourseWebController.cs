@@ -7,9 +7,9 @@ using static BE.Utils.Utils;
 
 namespace BE.Controllers
 {
-    [ApiController]
+    
     [Route("api/v1/web/course")]
-    [ApiExplorerSettings(GroupName = "Course")]
+    [ApiController]
     public class CourseWebController : ControllerBase
     {
         private readonly ICourseService _courseService;

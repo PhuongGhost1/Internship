@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using BE.Dto.Course.Chapter.Quiz;
 using BE.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BE.Controllers
 {
     [Route("api/v1/web/quiz")]
-    [ApiExplorerSettings(GroupName = "Web")]
+    [ApiController]
     public class QuizWebController
     {
         private readonly IQuizService _quizService;

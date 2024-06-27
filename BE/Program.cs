@@ -97,23 +97,23 @@ builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo { Title = "Demo API", Version = "v1" });
 
-    options.SwaggerDoc("Email", new OpenApiInfo { Title = "Email APIs", Version = "v1" });
-    options.SwaggerDoc("User", new OpenApiInfo { Title = "User APIs", Version = "v1" });
-    options.SwaggerDoc("Course", new OpenApiInfo { Title = "Course APIs", Version = "v1" });
-    options.SwaggerDoc("Chapter", new OpenApiInfo { Title = "Chapter APIs", Version = "v1" });
-    options.SwaggerDoc("Category", new OpenApiInfo { Title = "Category APIs", Version = "v1" });
+    // options.SwaggerDoc("Email", new OpenApiInfo { Title = "Email APIs", Version = "v1" });
+    // options.SwaggerDoc("User", new OpenApiInfo { Title = "User APIs", Version = "v1" });
+    // options.SwaggerDoc("Course", new OpenApiInfo { Title = "Course APIs", Version = "v1" });
+    // options.SwaggerDoc("Chapter", new OpenApiInfo { Title = "Chapter APIs", Version = "v1" });
+    // options.SwaggerDoc("Category", new OpenApiInfo { Title = "Category APIs", Version = "v1" });
 
-    options.DocInclusionPredicate((docName, apiDesc) =>
-    {
-        if (apiDesc.TryGetMethodInfo(out var methodInfo))
-        {
-            var groupName = methodInfo.DeclaringType.GetCustomAttributes(true)
-                               .OfType<ApiExplorerSettingsAttribute>()
-                               .FirstOrDefault()?.GroupName;
-            return groupName == docName;
-        }
-        return false;
-    });
+    // options.DocInclusionPredicate((docName, apiDesc) =>
+    // {
+    //     if (apiDesc.TryGetMethodInfo(out var methodInfo))
+    //     {
+    //         var groupName = methodInfo.DeclaringType.GetCustomAttributes(true)
+    //                            .OfType<ApiExplorerSettingsAttribute>()
+    //                            .FirstOrDefault()?.GroupName;
+    //         return groupName == docName;
+    //     }
+    //     return false;
+    // });
 
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -181,7 +181,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseRequestResponseLoggingMiddleware();
-app.UseAuthenticationMiddleware();
+//app.UseAuthenticationMiddleware();
 app.UseExceptionHandleMiddleware();
 
 app.UseAuthentication();

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BE.Controllers
 {
     [Route("api/v1/web/answer")]
-    [ApiExplorerSettings]
+    [ApiController]
     public class AnswerWebController
     {
         private readonly IAnswerService _answerService;

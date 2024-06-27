@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BE.Controllers
 {
     [Route("api/v1/web/lecture")]
-    [ApiExplorerSettings(GroupName = "Web")]
+    [ApiController]
     public class LectureWebController
     {
         private readonly ILectureService _lectureService;
