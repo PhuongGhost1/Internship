@@ -19,6 +19,8 @@ public partial class Image
 
     public DateTime? CreatedAt { get; set; }
 
+    public string? Url { get; set; }
+
     public virtual Course? Course { get; set; }
 
     public virtual Feedback? Feedback { get; set; }
