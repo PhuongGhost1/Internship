@@ -1,0 +1,172 @@
+#courses-review {
+    display: flex;
+    padding: 0 20px;
+    margin-top: 40px;
+}
+
+#courses-review .rating-container {
+    flex: 3
+}
+
+#courses-review .comment-container {
+    flex: 7;
+    padding: 0 60px;
+}
+
+#courses-review .rating-container .title {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+#courses-review .rating-overview {
+    margin-top: 30px;
+    display: flex;
+}
+
+#courses-review .rating-overview svg {
+    font-size: 20px;
+    color: var(--light-orange);
+}
+
+#courses-review .rating-overview .avg {
+    font-size: 28px;
+    font-weight: 600;
+    margin-left: 5px;
+}
+
+#courses-review .rating-overview .star-avg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#courses-review .total-reviews {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-bottom: 5px;
+    margin-left: 15px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+#courses-review .rating-block {
+    max-width: 350px;
+    list-style-type: none;
+    margin-top: 20px;
+}
+
+#courses-review .rating-block .rating {
+    display: flex;
+}
+
+#courses-review .rating-block .rating .progress-container {
+    flex: 1;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+}
+
+#courses-review .rating-block .rating .progress-container .progress {
+    height: 6px;
+    flex: 1;
+    margin-top: 2px;
+}
+
+#courses-review .rating-block .rating .progress-container .progress .progress-bar {
+    background-color: var(--light-orange);
+}
+
+#courses-review .rating-block .rating span {
+    font-size: 16px;
+    font-weight: 600;
+    width: 16%;
+}
+
+#courses-review .comment-container .title {
+    font-size: 16px;
+    color: rgb(99, 99, 99);
+}
+
+#courses-review .comment-container .comments {
+    margin-top: 40px;
+}
+
+#courses-review .comment-container .comment {
+    display: flex;
+    border-radius: 8px;
+    border: 2px solid #e5e7e8;
+    margin-bottom: 20px;
+    padding: 24px 32px;
+}
+
+#courses-review .comment-container .comment .name-avatar {
+    flex: 3;
+}
+
+#courses-review .comment-container .comment .comment-ratingStar {
+    flex: 8;
+}
+
+#courses-review .comment-container .comment .name-avatar div {
+    display: flex;
+    align-items: center;
+}
+
+#courses-review .comment-container .comment .name-avatar div .avatar-user {
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+#courses-review .comment-container .comment .name-avatar div .username {
+    margin-left: 20px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+#courses-review .comment-ratingStar .rating-update {
+    display: flex;
+    align-items: center;
+}
+
+#courses-review .comment-ratingStar .rating-update .star-icon {
+    font-size: 16px;
+    color: var(--light-orange);
+}
+
+#courses-review .comment-ratingStar .rating-update .num-rating {
+    font-size: 16px;
+    font-weight: 600;
+    margin-left: 5px;
+}
+
+#courses-review .comment-ratingStar .rating-update .dot-icon {
+    margin: 0 3px;
+    font-size: 16px;
+}
+
+#courses-review .comment-ratingStar .rating-update .time-up {
+    font-size: 14px;
+    color: rgb(31, 31, 31);
+}
+
+#courses-review .comment-ratingStar .comment-description p {
+    font-size: 15px;
+    text-align: justify;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#courses-review .comment-container .view-more {
+    margin-top: 50px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#courses-review .comment-container .view-more:hover {
+    color: var(--dark-orange);
+    text-decoration: underline;
+}

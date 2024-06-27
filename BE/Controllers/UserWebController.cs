@@ -3,12 +3,13 @@ using BE.Dto.UserLogin;
 using BE.Models;
 using BE.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using static BE.Utils.Utils;
 
 namespace BE.Controllers
 {
     [Route("api/v1/web/user")]
-    [ApiController]
-    public class UserWebController
+    [ApiExplorerSettings(GroupName = "User")]
+    public class UserWebController : ControllerBase
     {
         private readonly IUserService _userService;
         public UserWebController(IUserService userService)
@@ -20,7 +21,7 @@ namespace BE.Controllers
         [Route("find-user/{email}")]
         public async Task<User> GetUserByEmail([FromRoute] string email)
         {
-           return await _userService.GetUserByEmail(email);
+            return await _userService.GetUserByEmail(email);
         }
 
         [HttpGet]
@@ -64,6 +65,16 @@ namespace BE.Controllers
         [Route("forgot-password/{email}")]
         public async Task<UserLoginToken> Forgot([FromRoute] string email, [FromBody] ForgotDto forgotDto){
             return await _userService.Forgot(email, forgotDto);
+        }
+
+        [HttpPost("create")]
+        public async Task<IActionResult> CreateUser([FromForm] CreateUserData data)
+        {
+            bool status = await _userService.CreateUserData(data.Username, data.Email, data.Password, data.Description, data.Phone, data.Role);
+            return Ok(new
+            {
+                status = "hi"
+            });
         }
     }
 }

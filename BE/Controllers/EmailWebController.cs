@@ -4,9 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BE.Controllers
 {
+    [ApiController]
     [Route("api/v1/web/email")]
-    [ApiExplorerSettings(GroupName = "Web")]
-    public class EmailWebController
+    [ApiExplorerSettings(GroupName = "Email")]
+    public class EmailWebController : ControllerBase
     {
         private readonly IEmailService _emailService;
         public EmailWebController(IEmailService emailService)

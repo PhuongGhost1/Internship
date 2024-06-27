@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace BE.Controllers
 {
     [Route("api/v1/web/category")]
-    [ApiExplorerSettings(GroupName = "Web")]
-    public class CategoryWebController
+    [ApiExplorerSettings(GroupName = "Category")]
+    public class CategoryWebController : ControllerBase
     {
         private readonly ICategoryService _cateService;
         public CategoryWebController(ICategoryService cateService)

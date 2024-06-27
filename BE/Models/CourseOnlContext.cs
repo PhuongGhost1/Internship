@@ -40,6 +40,8 @@ public partial class CourseOnlContext : DbContext
 
     public virtual DbSet<DepositWithdrawal> DepositWithdrawals { get; set; }
 
+    public virtual DbSet<EfmigrationsHistory> EfmigrationsHistories { get; set; }
+
     public virtual DbSet<EnrollCourse> EnrollCourses { get; set; }
 
     public virtual DbSet<Feedback> Feedbacks { get; set; }
@@ -423,6 +425,9 @@ public partial class CourseOnlContext : DbContext
             entity.Property(e => e.UserId)
                 .HasMaxLength(20)
                 .HasColumnName("user_id");
+            entity.Property(e => e.WhatLearn)
+                .HasMaxLength(1000)
+                .HasColumnName("what_learn");
 
             entity.HasOne(d => d.User).WithMany(p => p.Courses)
                 .HasForeignKey(d => d.UserId)
@@ -457,6 +462,16 @@ public partial class CourseOnlContext : DbContext
             entity.HasOne(d => d.User).WithMany(p => p.DepositWithdrawals)
                 .HasForeignKey(d => d.UserId)
                 .HasConstraintName("DepositWithdrawal_ibfk_1");
+        });
+
+        modelBuilder.Entity<EfmigrationsHistory>(entity =>
+        {
+            entity.HasKey(e => e.MigrationId).HasName("PRIMARY");
+
+            entity.ToTable("__EFMigrationsHistory");
+
+            entity.Property(e => e.MigrationId).HasMaxLength(150);
+            entity.Property(e => e.ProductVersion).HasMaxLength(32);
         });
 
         modelBuilder.Entity<EnrollCourse>(entity =>
@@ -582,6 +597,9 @@ public partial class CourseOnlContext : DbContext
             entity.Property(e => e.LectureId)
                 .HasMaxLength(20)
                 .HasColumnName("lecture_id");
+            entity.Property(e => e.Url)
+                .HasMaxLength(50)
+                .HasColumnName("url");
             entity.Property(e => e.UserId)
                 .HasMaxLength(20)
                 .HasColumnName("user_id");

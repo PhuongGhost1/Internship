@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace BE.Controllers
 {
     [Route("api/v1/web/chapter")]
-    [ApiExplorerSettings(GroupName = "Web")]
-    public class ChapterWebController
+    [ApiExplorerSettings(GroupName = "Chapter")]
+    public class ChapterWebController : ControllerBase
     {
         private readonly IChapterService _chapterService;
         public ChapterWebController(IChapterService chapterService)
