@@ -605,17 +605,16 @@
     border-radius: 2%;
     margin-top: 15px;
     margin-bottom: 10px;
+    padding: 0 10px;
 }
 
 #personal-detail .personal-detail-container-column .row-share-profile .icon {
     display: flex;
     align-items: center;
-    margin-right: 10px;
-    margin-left: 10px;
     color: #00419e;
 }
 
-#personal-detail .personal-detail-container-column .row-share-profile .text {
+#personal-detail .personal-detail-container-column .row-share-profile .text h2 {
     display: flex;
     align-items: center;
     margin-right: 20px;
@@ -623,6 +622,8 @@
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     letter-spacing: 0.16px;
     line-height: 24px;
+    font-size: 20px;
+    margin: 0 10px;
 }
 
 #personal-detail .personal-detail-container-column .row-share-profile .text:hover {
@@ -641,16 +642,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 250px;
-    height: 35px;
+    /* width: 250px; */
+    /* height: 35px; */
     border-radius: 2%;
     margin-bottom: 40px;
     border-top: solid 1px #b1b1b1;
 }
 
-#personal-detail .personal-detail-container-column .row-update-container .text {
+#personal-detail .personal-detail-container-column .row-update-container .text h2 {
     margin-top: 20px;
     color: #2e5ca0;
+    font-size: 20px;
 }
 
 #personal-detail .personal-detail-container-column .row-update-container .text:hover {
