@@ -1,17 +1,13 @@
 using BE.Middlewares;
 using BE.Models;
-using BE.Repository;
 using BE.Repository.Implementations;
 using BE.Repository.Interface;
-using BE.Services;
 using BE.Services.Implementations;
 using BE.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OAuth;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -19,9 +15,6 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -140,11 +133,8 @@ builder.Services.AddSwaggerGen(options =>
                 {
                     Type = ReferenceType.SecurityScheme,
                     Id = "Bearer"
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
                 }
             },
-            new string[] {}
             new string[] {}
         }
     });
