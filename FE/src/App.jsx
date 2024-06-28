@@ -16,6 +16,7 @@ import CourseCompletedPage from './pages/StudentPage/MyLearning/Completed/Course
 import FollowingPage from './pages/StudentPage/MyLearning/Following/FollowingPage';
 import CourseInProgressPage from './pages/StudentPage/MyLearning/InProgress/CourseInProgressPage';
 import CourseSavedPage from './pages/StudentPage/MyLearning/Saved/CourseSavedPage';
+import DashBoard from './pages/Admin/DashBoardPage/DashBoard';
 
 function App() {
   return (
@@ -45,6 +46,9 @@ function App() {
           <Route path='profile' element={<InstructorProfilePage />} />
         </Route>
 
+        <Route path='/admin'>
+        <Route path='dashborad' element={<DashBoard />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   )

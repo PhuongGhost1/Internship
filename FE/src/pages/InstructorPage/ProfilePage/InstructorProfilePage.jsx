@@ -15,17 +15,17 @@ export default function InstructorProfilePage() {
 
     useEffect(() => {
         try {
-            let process1 = document.querySelector('.active')
-            process1.classList.remove('active')
+            let process1 = document.querySelector('.activeSB')
+            process1.classList.remove('activeSB')
         } catch (error) {
 
         }
         if (pageShow === 'process') {
             let process2 = document.querySelector('.process')
-            process2.classList.add('active')
+            process2.classList.add('activeSB')
         } else if (pageShow === 'management') {
             let process2 = document.querySelector('.management')
-            process2.classList.add('active')
+            process2.classList.add('activeSB')
         }
     }, [pageShow])
 

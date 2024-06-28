@@ -22,6 +22,7 @@ export default function StudentProfilePage() {
                 </div>
             </div>
             <Footer />
+            
         </div>
     )
 }
