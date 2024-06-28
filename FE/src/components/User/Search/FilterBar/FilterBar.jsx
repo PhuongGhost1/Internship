@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import './FilterBar.css';
 import { IoIosArrowDown } from "react-icons/io";
+import MultiRangeSlider from "multi-range-slider-react";
 
 export default function FilterBar() {
     const categoriesData = [
@@ -9,9 +10,8 @@ export default function FilterBar() {
     ];
 
     const priceData = [
-        { id: 1, name: "Low" },
-        { id: 2, name: "Medium" },
-        { id: 3, name: "High" }
+        { id: 1, name: "Free" },
+        { id: 2, name: "Paid" }
     ];
 
     const timeData = [
@@ -29,10 +29,11 @@ export default function FilterBar() {
     const [openSection, setOpenSection] = useState(null);
     const [selectedFilters, setSelectedFilters] = useState({
         categories: [],
-        price: [],
         time: [],
         hardLevel: []
     });
+    const [priceFilter, setPriceFilter] = useState(null);
+    const [priceRange, setPriceRange] = useState({ min: 1, max: 200 });
 
     const toggleSection = (section) => {
         setOpenSection(openSection === section ? null : section);
@@ -55,13 +56,26 @@ export default function FilterBar() {
         });
     };
 
+    const handlePriceChange = (value) => {
+        setPriceFilter(priceFilter === value ? null : value);
+    };
+
     const renderSelectedFilters = () => {
-        return Object.keys(selectedFilters).map(section => (
-            selectedFilters[section].map(filter => (
-                <div key={`${section}-${filter}`} className="selected-filter">
-                    {filter} <button onClick={() => handleCheckboxChange(section, filter)}>x</button>
-                </div>
-            ))
+        const filters = [
+            ...Object.keys(selectedFilters).flatMap(section =>
+                selectedFilters[section].map(filter => ({ section, filter }))
+            ),
+            ...(priceFilter ? [{
+                section: 'price',
+                filter: priceFilter === 'Free' ? 'Free' : `Paid: $${priceRange.min} - $${priceRange.max}`
+            }] : [])
+        ];
+
+        return filters.map(({ section, filter }) => (
+            <div key={`${section}-${filter}`} className="selected-filter">
+                {filter}
+                <button onClick={() => section === 'price' ? handlePriceChange(null) : handleCheckboxChange(section, filter)}>x</button>
+            </div>
         ));
     };
 
@@ -74,8 +88,27 @@ export default function FilterBar() {
                             <input
                                 type="checkbox"
                                 value={item.name}
-                                checked={selectedFilters[section].includes(item.name)}
+                                checked={selectedFilters[section]?.includes(item.name)}
                                 onChange={() => handleCheckboxChange(section, item.name)}
+                            /> {item.name}
+                        </label>
+                    </li>
+                ))}
+            </ul>
+        );
+    };
+
+    const renderPriceOptions = () => {
+        return (
+            <ul className="sub-options">
+                {priceData.map(item => (
+                    <li key={item.id}>
+                        <label>
+                            <input
+                                type="radio"
+                                value={item.name}
+                                checked={priceFilter === item.name}
+                                onChange={() => handlePriceChange(item.name)}
                             /> {item.name}
                         </label>
                     </li>
@@ -112,7 +145,34 @@ export default function FilterBar() {
                     </button>
                 </div>
                 <div className={`sub-options-container ${openSection === 'price' ? 'open' : ''}`}>
-                    {renderOptions(priceData, 'price')}
+                    {renderPriceOptions()}
+                    {priceFilter === "Paid" && (
+                        <>
+                            <MultiRangeSlider
+                                label={false}
+                                ruler={false}
+                                style={{ border: 'none', boxShadow: 'none' }}
+                                min={1}
+                                max={200}
+                                step={1}
+                                minValue={priceRange.min}
+                                maxValue={priceRange.max}
+                                onChange={(e) => setPriceRange({ min: e.minValue, max: e.maxValue })}
+                                data-min="1"
+                                data-max="200"
+                            />
+                            <div className="price-display">
+                                <div className="price-min">
+                                    <p className="price-name">Min:&ensp;</p>
+                                    <p className="price-value">{priceRange.min}&nbsp;$</p>
+                                </div>
+                                <div className="price-max">
+                                    <p className="price-name">Max:&ensp;</p>
+                                    <p className="price-value">{priceRange.max}&nbsp;$</p>
+                                </div>
+                            </div>
+                        </>
+                    )}
                 </div>
             </div>
 
