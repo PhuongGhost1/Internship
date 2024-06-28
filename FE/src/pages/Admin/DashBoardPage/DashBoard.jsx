@@ -6,19 +6,19 @@ import Weekly from "../../../components/Admin/Weekly/Weekly";
 import Statistics from "../../../components/Admin/Statistics/Statistics";
 
 
-export default function DashBoard(){
+export default function DashBoard() {
     return (
         <div id="DashBoard">
             <div className="Header">
-                <Header/>
+                <Header />
             </div>
             <div className="Layout">
                 <div className="SlideBar-container">
-                    <SlideBar/>
+                    <SlideBar />
                 </div>
                 <div className="Weekly-container">
-                    <Weekly/>
-                    <Statistics/>
+                    <Weekly />
+                    <Statistics />
                 </div>
             </div>
         </div>
