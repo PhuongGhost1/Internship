@@ -1,7 +1,7 @@
 import React from "react";
 import './DashBoard.css';
 import Header from "../../../components/Admin/Header/Header";
-import SlideBar from "../../../components/Admin/SideBar/SlideBar";
+import SlideBar from "../../../components/Admin/SlideBar/SlideBar";
 import Weekly from "../../../components/Admin/Weekly/Weekly";
 import Statistics from "../../../components/Admin/Statistics/Statistics";
 
@@ -19,6 +19,7 @@ export default function DashBoard(){
                 <div className="Weekly-container">
                     <Weekly/>
                     <Statistics/>
+                    
                 </div>
             </div>
         </div>
