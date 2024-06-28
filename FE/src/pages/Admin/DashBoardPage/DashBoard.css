@@ -13,7 +13,7 @@ margin-top: auto;
 #DashBoard .Layout {
     display: flex;
 }
-#DashBoard .Layout .SlideBar-container{
+#DashBoard .Layout .SideBar-container{
     flex: 2;
 }
 #DashBoard .Layout .Weekly-container{

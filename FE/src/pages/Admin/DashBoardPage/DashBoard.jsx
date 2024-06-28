@@ -1,7 +1,7 @@
 import React from "react";
 import './DashBoard.css';
 import Header from "../../../components/Admin/Header/Header";
-import SlideBar from "../../../components/Admin/SlideBar/SlideBar";
+import SideBar from "../../../components/Admin/SideBar/SideBar";
 import Weekly from "../../../components/Admin/Weekly/Weekly";
 import Statistics from "../../../components/Admin/Statistics/Statistics";
 
@@ -13,8 +13,8 @@ export default function DashBoard(){
                 <Header/>
             </div>
             <div className="Layout">
-                <div className="SlideBar-container">
-                    <SlideBar/>
+                <div className="SideBar-container">
+                    <SideBar/>
                 </div>
                 <div className="Weekly-container">
                     <Weekly/>
