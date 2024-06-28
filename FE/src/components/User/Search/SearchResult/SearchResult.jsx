@@ -33,10 +33,132 @@ const datas = [
         timeLearing: "8 hours 45 minutes"
     },
     {
+        imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/5e360aa2986a2a96295b34d639919836c323cbb6-1200x900.jpg?w=3840&q=100&fit=clip&auto=format",
+        name: "Blockchain Developer",
+        ratingAVG: 4.5,
+        ratingCount: 2003,
+        timeLearing: "7 hours 43 minutes"
+    },
+    {
+        imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/b122bbb8302858740db71ef43ad17f7097ec7b63-1200x900.jpg?w=3840&q=100&fit=clip&auto=format",
+        name: "Blockchain With Solidity",
+        ratingAVG: 4.5,
+        ratingCount: 2003,
+        timeLearing: "8 hours 45 minutes"
+    },
+    {
+        imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/180434427a41505e6661e4bee15580f296730630-1200x900.jpg?w=3840&q=100&fit=clip&auto=format",
+        name: "Blockchain Fundamental",
+        ratingAVG: 4.5,
+        ratingCount: 279,
+        timeLearing: "8 hours 45 minutes"
+    },
+    {
         imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
         name: "Discovering Ethical AI",
         ratingAVG: 4.5,
         ratingCount: 1789,
+        timeLearing: "8 hours 45 minutes"
+    },  {
+        imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/5e360aa2986a2a96295b34d639919836c323cbb6-1200x900.jpg?w=3840&q=100&fit=clip&auto=format",
+        name: "Blockchain Developer",
+        ratingAVG: 4.5,
+        ratingCount: 2003,
+        timeLearing: "7 hours 43 minutes"
+    },
+    {
+        imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/b122bbb8302858740db71ef43ad17f7097ec7b63-1200x900.jpg?w=3840&q=100&fit=clip&auto=format",
+        name: "Blockchain With Solidity",
+        ratingAVG: 4.5,
+        ratingCount: 2003,
+        timeLearing: "8 hours 45 minutes"
+    },
+    {
+        imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/180434427a41505e6661e4bee15580f296730630-1200x900.jpg?w=3840&q=100&fit=clip&auto=format",
+        name: "Blockchain Fundamental",
+        ratingAVG: 4.5,
+        ratingCount: 279,
+        timeLearing: "8 hours 45 minutes"
+    },
+    {
+        imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
+        name: "Discovering Ethical AI",
+        ratingAVG: 4.5,
+        ratingCount: 1789,
+        timeLearing: "8 hours 45 minutes"
+    },  {
+        imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/5e360aa2986a2a96295b34d639919836c323cbb6-1200x900.jpg?w=3840&q=100&fit=clip&auto=format",
+        name: "Blockchain Developer",
+        ratingAVG: 4.5,
+        ratingCount: 2003,
+        timeLearing: "7 hours 43 minutes"
+    },
+    {
+        imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/b122bbb8302858740db71ef43ad17f7097ec7b63-1200x900.jpg?w=3840&q=100&fit=clip&auto=format",
+        name: "Blockchain With Solidity",
+        ratingAVG: 4.5,
+        ratingCount: 2003,
+        timeLearing: "8 hours 45 minutes"
+    },
+    {
+        imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/180434427a41505e6661e4bee15580f296730630-1200x900.jpg?w=3840&q=100&fit=clip&auto=format",
+        name: "Blockchain Fundamental",
+        ratingAVG: 4.5,
+        ratingCount: 279,
+        timeLearing: "8 hours 45 minutes"
+    },
+    {
+        imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
+        name: "Discovering Ethical AI",
+        ratingAVG: 4.5,
+        ratingCount: 1789,
+        timeLearing: "8 hours 45 minutes"
+    },  {
+        imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/5e360aa2986a2a96295b34d639919836c323cbb6-1200x900.jpg?w=3840&q=100&fit=clip&auto=format",
+        name: "Blockchain Developer",
+        ratingAVG: 4.5,
+        ratingCount: 2003,
+        timeLearing: "7 hours 43 minutes"
+    },
+    {
+        imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/b122bbb8302858740db71ef43ad17f7097ec7b63-1200x900.jpg?w=3840&q=100&fit=clip&auto=format",
+        name: "Blockchain With Solidity",
+        ratingAVG: 4.5,
+        ratingCount: 2003,
+        timeLearing: "8 hours 45 minutes"
+    },
+    {
+        imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/180434427a41505e6661e4bee15580f296730630-1200x900.jpg?w=3840&q=100&fit=clip&auto=format",
+        name: "Blockchain Fundamental",
+        ratingAVG: 4.5,
+        ratingCount: 279,
+        timeLearing: "8 hours 45 minutes"
+    },
+    {
+        imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
+        name: "Discovering Ethical AI",
+        ratingAVG: 4.5,
+        ratingCount: 1789,
+        timeLearing: "8 hours 45 minutes"
+    },  {
+        imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/5e360aa2986a2a96295b34d639919836c323cbb6-1200x900.jpg?w=3840&q=100&fit=clip&auto=format",
+        name: "Blockchain Developer",
+        ratingAVG: 4.5,
+        ratingCount: 2003,
+        timeLearing: "7 hours 43 minutes"
+    },
+    {
+        imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/b122bbb8302858740db71ef43ad17f7097ec7b63-1200x900.jpg?w=3840&q=100&fit=clip&auto=format",
+        name: "Blockchain With Solidity",
+        ratingAVG: 4.5,
+        ratingCount: 2003,
+        timeLearing: "8 hours 45 minutes"
+    },
+    {
+        imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/180434427a41505e6661e4bee15580f296730630-1200x900.jpg?w=3840&q=100&fit=clip&auto=format",
+        name: "Blockchain Fundamental",
+        ratingAVG: 4.5,
+        ratingCount: 279,
         timeLearing: "8 hours 45 minutes"
     },
     {
@@ -46,125 +168,6 @@ const datas = [
         ratingCount: 1789,
         timeLearing: "8 hours 45 minutes"
     },
-    {
-        imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-        name: "Discovering Ethical AI",
-        ratingAVG: 4.5,
-        ratingCount: 1789,
-        timeLearing: "8 hours 45 minutes"
-    },
-    {
-        imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-        name: "Discovering Ethical AI",
-        ratingAVG: 4.5,
-        ratingCount: 1789,
-        timeLearing: "8 hours 45 minutes"
-    },
-    {
-        imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-        name: "Discovering Ethical AI",
-        ratingAVG: 4.5,
-        ratingCount: 1789,
-        timeLearing: "8 hours 45 minutes"
-    },
-    {
-        imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-        name: "Discovering Ethical AI",
-        ratingAVG: 4.5,
-        ratingCount: 1789,
-        timeLearing: "8 hours 45 minutes"
-    },
-    {
-        imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-        name: "Discovering Ethical AI",
-        ratingAVG: 4.5,
-        ratingCount: 1789,
-        timeLearing: "8 hours 45 minutes"
-    },
-    {
-        imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-        name: "Discovering Ethical AI",
-        ratingAVG: 4.5,
-        ratingCount: 1789,
-        timeLearing: "8 hours 45 minutes"
-    },
-
-    {
-        imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-        name: "Discovering Ethical AI",
-        ratingAVG: 4.5,
-        ratingCount: 1789,
-        timeLearing: "8 hours 45 minutes"
-    },
-
-    {
-        imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-        name: "Discovering Ethical AI",
-        ratingAVG: 4.5,
-        ratingCount: 1789,
-        timeLearing: "8 hours 45 minutes"
-    },
-
-    {
-        imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-        name: "Discovering Ethical AI",
-        ratingAVG: 4.5,
-        ratingCount: 1789,
-        timeLearing: "8 hours 45 minutes"
-    },
-
-    {
-        imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-        name: "Discovering Ethical AI",
-        ratingAVG: 4.5,
-        ratingCount: 1789,
-        timeLearing: "8 hours 45 minutes"
-    },
-    {
-        imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-        name: "Discovering Ethical AI",
-        ratingAVG: 4.5,
-        ratingCount: 1789,
-        timeLearing: "8 hours 45 minutes"
-    },
-    {
-        imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-        name: "Discovering Ethical AI",
-        ratingAVG: 4.5,
-        ratingCount: 1789,
-        timeLearing: "8 hours 45 minutes"
-    },
-
-    {
-        imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-        name: "Discovering Ethical AI",
-        ratingAVG: 4.5,
-        ratingCount: 1789,
-        timeLearing: "8 hours 45 minutes"
-    },
-    {
-        imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-        name: "Discovering Ethical AI",
-        ratingAVG: 4.5,
-        ratingCount: 1789,
-        timeLearing: "8 hours 45 minutes"
-    },
-    {
-        imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-        name: "Discovering Ethical AI",
-        ratingAVG: 4.5,
-        ratingCount: 1789,
-        timeLearing: "8 hours 45 minutes"
-    },
-    {
-        imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-        name: "Discovering Ethical AI",
-        ratingAVG: 4.5,
-        ratingCount: 1789,
-        timeLearing: "8 hours 45 minutes"
-    },
-
-
     
 
 ]
