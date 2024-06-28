@@ -69,7 +69,6 @@ namespace BE.Repository.Implementations
                     Price = data.Price,
                     User = await _context.Users.FirstOrDefaultAsync(e => e.Username == data.OwnerUsername),
                     Status = 1,
-                    IsVisible = true,
                     Rating = 0,
                     WhatLearn = data.WhatLearn,
                 };
@@ -92,7 +91,7 @@ namespace BE.Repository.Implementations
                     Id = GenerateIdModel("image"),
                     CourseId = courseId,
                     CreatedAt = GetTimeNow(),
-                    Url = await UploadImgToFirebase(data.Avatar, GetNameUnderscore(data.Name), "Avatar"),
+                    Url = await UploadImgCourseToFirebase(data.Avatar, GetNameUnderscore(data.Name), "Avatar"),
                     Type = "Avatar"
                 };
                 var imgBackground = new Image
@@ -100,7 +99,7 @@ namespace BE.Repository.Implementations
                     Id = GenerateIdModel("image"),
                     CourseId = courseId,
                     CreatedAt = GetTimeNow(),
-                    Url = await UploadImgToFirebase(data.Background, GetNameUnderscore(data.Name), "Background"),
+                    Url = await UploadImgCourseToFirebase(data.Background, GetNameUnderscore(data.Name), "Background"),
                     Type = "Background"
                 };
                 _context.Images.Add(imgAvatar);
@@ -169,6 +168,8 @@ namespace BE.Repository.Implementations
                             Name = quizName,
                             PassPercent = 80,
                             CreateAt = GetTimeNow(),
+                            NumberQuestions = 0,
+                            TotalMark = 0,
                             Status = 1
                         };
                         json["quiz" + quizCount.ToString()] = quizId;
@@ -204,6 +205,9 @@ namespace BE.Repository.Implementations
                     CreateAt = GetTimeNow(),
                     Status = 1
                 };
+                var quiz = await _context.Quizzes.FirstOrDefaultAsync(e => e.Id == data.QuizId);
+                quiz.TotalMark = quiz.TotalMark + question.Mark;
+                quiz.NumberQuestions = quiz.NumberQuestions + 1;
                 _context.Questions.Add(question);
                 string input = data.Answers;
                 string[] parts = input.Split(new string[] { "; " }, StringSplitOptions.None);

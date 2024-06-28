@@ -59,5 +59,17 @@ namespace BE.Controllers
         {
             return await _courseService.CreateQuiz(data);
         }
+
+        [HttpPost("UploadVideo")]
+
+        public async Task<string> UploadVideoLecture([FromForm] IFormFile video)
+        {
+            return await UploadVideoToFirebase(video, "Python", 1, 1);
+        }
+        [HttpGet("generate")]
+        public async Task<string> GenerateId()
+        {
+            return GenerateIdModel("category");
+        }
     }
 }
