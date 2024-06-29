@@ -4,7 +4,7 @@
     position: fixed;
     top: 27%;
     left: 55%;
-    transform: translateX(-60%) translateY(-30%);
+    transform: translateX(-60%) translateY(-23%);
     min-height: 30vh;
     min-height: 300px;
     height: 600px;
@@ -207,7 +207,7 @@
     position: fixed;
     top: 27%;
     left: 55%;
-    transform: translateX(-55%) translateY(-23%);
+    transform: translateX(-55%) translateY(-17%);
     min-height: 50vh;
     min-height: 300px;
     height: 800px;
@@ -219,8 +219,6 @@
     z-index: 3;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
-
-
 
 #personal-detail .popup-edit-buttonclose {
     /* margin-top: 15px; */
@@ -512,9 +510,25 @@
     z-index: 2;
 }
 
+#personal-detail .overlay3 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(112, 106, 106, 0.426);
+    backdrop-filter: blur(1px);
+    z-index: 3;
+}
+
 #personal-detail .popup-edit {
     position: fixed;
     z-index: 3;
+}
+
+#personal-detail .popup-add-info {
+    position: fixed;
+    z-index: 4;
 }
 
 #personal-detail .popup2-row>div {
@@ -539,13 +553,24 @@
 /**************************************** Personal Detail Container ***********************************************/
 
 #personal-detail {
-    background-color: #fff;
-    border: 1px solid #e5e7e8;
+    background-color: #f5f5f5;
+    /* border: 1px solid #e5e7e8; */
     border-radius: 2%;
     text-align: center;
     margin-top: 40px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Space between the two containers */
 }
 
+#personal-detail .personal-detail-container-row1 .personal-detail-container-column,
+#personal-detail .personal-detail-container-row2 .personal-detail-container-column2 {
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid #e5e7e8;
+    margin-bottom: 15px;
+}
 
 #personal-detail .row-avatar {
     position: relative;
@@ -576,6 +601,219 @@
     flex-direction: column;
     align-items: center;
 }
+
+#personal-detail .personal-detail-container-column2 {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+#personal-detail .personal-detail-container-column2 .row-info {
+    padding: 5px;
+}
+
+#personal-detail .personal-detail-container-column2 .row-info h2 {
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+#personal-detail .personal-detail-container-column2 .row-info p {
+    font-size: 15px;
+    text-align: left;
+}
+
+
+#personal-detail .popup-add-info {
+    background: #fff;
+    overflow-y: hidden;
+    position: fixed;
+    top: 27%;
+    left: 55%;
+    transform: translateX(-60%) translateY(-21%);
+    min-height: 100vh;
+    min-height: 70px;
+    height: 650px;
+    max-height: 100vh;
+    width: 568px;
+    border-radius: 8px;
+    overflow-y: auto;
+
+    z-index: 4;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#personal-detail .popup-add-info-buttonclose {
+    /* margin-top: 15px; */
+    /* margin-left: 490px; */
+    background: rgb(238, 236, 236);
+    border: 0px solid #fff;
+    background-color: transparent;
+    color: #00419e;
+
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+
+    transform: translateX( 680%) translateY(110%);
+}
+ 
+#personal-detail .popup-add-info-buttonclose {
+    width: 70px;
+    height: 18px;
+    margin-left: 5px;
+    margin-top: 5px;
+    border-radius: 5px;
+}
+
+#personal-detail .popup-add-info-buttonclose:hover {
+    background-color: #dbe6f5;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#personal-detail .personal-detail-container-column2 .row-info-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 183px;
+    height: 35px;
+    box-shadow: #00419e 0px 0px 0px 1px;
+    border-radius: 2%;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+#personal-detail .personal-detail-container-column2 .row-info-container:hover {
+    background-color: #e5e7e874;
+}
+
+#personal-detail .row-info-container .icon {
+    display: flex;
+    align-items: center;
+    color: #2e5ca0;
+    margin-left: 10px;
+}
+
+#personal-detail .row-info-container .text h2 {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    color: #2e5ca0;
+    letter-spacing: 0.16px;
+    line-height: 24px;
+    font-size: 13px;
+    margin: 0 10px;
+}
+
+
+#personal-detail .popup-add-info .popup3-row-title p {
+    font-family: "Roboto", sans-serif;
+    font-weight: 100;
+    font-style: normal;
+    font-size: 1.2rem;
+    margin-top: 25px;
+}
+
+#personal-detail .popup-add-info .popup3-row-title2 p {
+    font-family: "Roboto", sans-serif;
+    font-weight: 100;
+    font-style: normal;
+    font-size: 1.2rem;
+}
+
+#personal-detail .popup-add-info .popup3-row-text p {
+    font-family: "Roboto", sans-serif;
+    font-weight: 550;
+    font-style: normal;
+    font-size: 1.5rem;
+    margin-top: 15px;
+    margin: 0;
+}
+
+#personal-detail .popup-add-info .popup3-row-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#personal-detail .popup3-row-box {
+    display: flex;
+    justify-content: space-between;
+}
+
+#personal-detail .popup3-row-box .box {
+   display: flex;
+   gap: 10px;
+   align-items: center;
+}
+
+#personal-detail .popup3-row-box  .box-content {
+    margin-bottom: 10px;
+}
+
+#personal-detail .popup3-row-box  .box-content1 {
+    border: 1px solid rgba(0, 0, 0, 0.531);
+    border-radius: 5px;
+    width: 120px;
+    height: 40px;
+    display: flex;
+    justify-content: start; /* Để căn giữa theo chiều ngang */
+    align-items: center; /* Để căn giữa theo chiều dọc */
+}
+
+#personal-detail .popup3-row-box  .box-content1 h2 {
+    font-size: 15px;
+    margin: 0; /* Để loại bỏ margin mặc định của h2 */
+    margin-left: 5px;
+}
+
+#personal-detail .popup3-row-box  .box  label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+#personal-detail .popup3-row-box  .url-input {
+    padding: 5px;
+    width: 250px;
+    height: 40px;
+    border: 1px solid rgba(0, 0, 0, 0.531);
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+#personal-detail .popup3-row-box  .remove-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 4px;
+}
+
+#personal-detail .popup3-row-box  .remove-button:hover {
+    background-color: darkred;
+}
+
+
+.error-message {
+    background-color: rgba(255, 0, 0, 0.093);
+    width: fit-content;
+    margin-top: 20px;
+}
+
+.error-message h2{
+    font-size: 15px;
+    color: rgb(179, 38, 38);
+    margin: 5px 10px 5px 10px;
+}
+
 
 
 #personal-detail .personal-detail-container-column .row {
@@ -608,10 +846,15 @@
     padding: 0 10px;
 }
 
+#personal-detail .personal-detail-container-column .row-share-profile-container:hover{
+    background-color: #e5e7e874;
+}
+
 #personal-detail .personal-detail-container-column .row-share-profile .icon {
     display: flex;
     align-items: center;
     color: #00419e;
+    margin-left: 10px;
 }
 
 #personal-detail .personal-detail-container-column .row-share-profile .text h2 {
