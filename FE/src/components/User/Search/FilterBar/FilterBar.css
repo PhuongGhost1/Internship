@@ -1,121 +1,50 @@
-.filter-bar {
+#filter-bar {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    background-color: #ffffff;
+    height: 600px;
+    border-radius: 20px;
+    box-shadow: 0 0 1px #949494;
+}
+
+#filter-bar .filter-title {
     padding: 20px;
-    background-color: #ffffff;
+    border-bottom: 1px solid #ececec;
+    display: flex;
+    align-items: center;
 }
 
-#filter-bar .filter-item {
-    margin: 10px 0;
-    background-color: #ffffff;
-    color: white;
-    padding: 15px;
-    text-align: left;
-    border-radius: 5px;
+#filter-bar .filter-title svg {
     font-size: 16px;
-    font-weight: bold;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.5s ease;
-    color: black;
+    margin-right: 8px;
 }
 
-#filter-bar .filter-item .filter-btn-container {
-    display: flex;
-    align-items: center;
-    position: relative;
-}
-
-#filter-bar .filter-item .filter-btn-container .filter-text {
-    color: rgb(0, 0, 0);
-}
-
-#filter-bar .filter-item .filter-btn-container button {
-    position: absolute;
-    right: 0;
-}
-
-#filter-bar .filter-item .filter-btn-container .filter-button {
-    background-color: transparent;
-    border: none;
-    color: rgb(0, 0, 0);
-    cursor: pointer;
+#filter-bar .filter-title span {
     font-size: 16px;
-    font-weight: bold;
-    outline: none;
-    transition: transform 0.3s ease;
-    border-radius: 50%;
-}
-
-#filter-bar .filter-item .filter-btn-container .filter-button:hover {
-    background-color: rgb(245, 245, 245);
-}
-
-#filter-bar .filter-item .filter-btn-container .filter-button.active {
-    transform: rotate(180deg);
-}
-
-#filter-bar .filter-item .sub-options-container {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-out;
-}
-
-#filter-bar .filter-item .sub-options-container.open {
-    max-height: 200px;
-    transition: max-height 0.3s ease-in;
-}
-
-#filter-bar .filter-item .sub-options {
-    list-style-type: none;
-    margin: 10px 0 0;
-    font-size: 14px;
-    padding-left: 20px;
-    font-weight: normal;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-#filter-bar .filter-item .sub-options li {
-    flex-basis: 50%;
-    margin: 10px 0;
-}
-
-#filter-bar .filter-item .sub-options li label {
-    display: flex;
-    align-items: center;
-}
-
-#filter-bar .filter-item .sub-options li label input[type="checkbox"] {
-    margin-right: 5px;
-}
-
-.selected-filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.selected-filter {
-    background-color: rgb(255 143 38);
-    padding: 5px 10px;
-    border-radius: 15px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    color: #ffffff;
     font-weight: 600;
 }
 
-.selected-filter button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #ffffff;
-    font-weight: bold;
+#filter-bar .category-container {
+    padding: 20px;
+    border-bottom: 1px solid #ececec;
+}
+
+#filter-bar .category-container .title {
+    display: flex;
+}
+
+#filter-bar .category-container .title span {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+#filter-bar .category-container .title .action-container {
+    flex: 1;
     display: flex;
     align-items: center;
-    right: 0;
+    justify-content: flex-end;
+}
 
+#filter-bar .category-container .title .action-container svg {
+    font-size: 16px;
 }

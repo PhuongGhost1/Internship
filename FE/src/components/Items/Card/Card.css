@@ -21,7 +21,6 @@
     object-fit: cover;
     object-position: center;
     border-radius: 10px;
-    z-index: -1;
 }
 
 #card .card-container {
@@ -42,6 +41,7 @@
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 45%, var(--light-orange));
     pointer-events: none;
     border-radius: 10px;
+    z-index: 1;
 }
 
 #card .card-content {
