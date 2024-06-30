@@ -47,7 +47,7 @@ function App() {
         </Route>
 
         <Route path='/admin'>
-        <Route path='dashborad' element={<DashBoard />} />
+          <Route path='dashboard' element={<DashBoard />} />
         </Route>
       </Routes>
     </BrowserRouter>
