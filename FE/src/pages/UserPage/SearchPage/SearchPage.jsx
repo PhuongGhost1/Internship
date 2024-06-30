@@ -23,12 +23,11 @@ export default function SearchPage() {
                         <FilterBar />
                     </div>
                     <div className="result-container">
-                        <SearchResult />
+                        <SearchResult query={q} />
                     </div>
                 </div>
             </div>
             <Footer />
-
         </div>
     )
 }
