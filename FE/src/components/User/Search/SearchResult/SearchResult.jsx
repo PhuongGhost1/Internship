@@ -219,7 +219,7 @@ export default function SearchResult({ query }) {
                 {paginatedData.map((data, index) => {
                     return (
                         <div className="result" key={index}>
-
+                            <img src="" alt="" />
                         </div>
                     )
                 })}
