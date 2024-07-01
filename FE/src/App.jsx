@@ -17,6 +17,9 @@ import FollowingPage from './pages/StudentPage/MyLearning/Following/FollowingPag
 import CourseInProgressPage from './pages/StudentPage/MyLearning/InProgress/CourseInProgressPage';
 import CourseSavedPage from './pages/StudentPage/MyLearning/Saved/CourseSavedPage';
 import DashBoard from './pages/Admin/DashBoardPage/DashBoard';
+import ManageInstructorPage from './pages/Admin/ManageInstructorPage/ManageInstructorPage';
+import ManageStudentPage from './pages/Admin/ManageStudentPage/ManageStudentPage';
+import ManageCoursePage from './pages/Admin/ManageCoursePage/ManageCoursePage';
 
 function App() {
   return (
@@ -48,6 +51,12 @@ function App() {
 
         <Route path='/admin'>
           <Route path='dashboard' element={<DashBoard />} />
+          <Route path='instructor' element={<ManageInstructorPage />} />
+          <Route path='student' element={<ManageStudentPage />} />
+          <Route path='course' element={<ManageCoursePage />} />
+          
+
+
         </Route>
       </Routes>
     </BrowserRouter>
