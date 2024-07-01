@@ -48,11 +48,5 @@ namespace BE.Controllers
         public async Task<bool> DeleteChapter([FromBody] ChaptersDto chaptersDto){
             return await _chapterService.DeleteChapter(chaptersDto.ChapId);
         }
-
-        [HttpPost]
-        [Route("find-chapter")]
-        public async Task<Chapter?> FindChapterByName([FromBody] string chapName){
-            return await _chapterService.GetChapterByName(chapName);
-        }
     }
 }

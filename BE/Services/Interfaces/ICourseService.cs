@@ -23,5 +23,6 @@ namespace BE.Services.Interfaces
         Task<Course?> CreateCourse(CreateCourseDto createCourseDto);
         Task<Course?> UpdateCourse(UpdateCourseDto updateCourseDto);
         Task<bool> DeleteCourse(string courseId);
+        Task<Course?> GetCourseByCourseName(string courseName); 
     }
 }

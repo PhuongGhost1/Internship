@@ -86,5 +86,11 @@ namespace BE.Controllers
         public async Task<bool> DeleteCourse([FromBody] string courseId){
             return await _courseService.DeleteCourse(courseId);
         }
+
+        [HttpPost]
+        [Route("find-course")]
+        public async Task<Course?> FindCourseByName([FromForm] string courseName){
+            return await _courseService.GetCourseByCourseName(courseName);
+        }
     }
 }
