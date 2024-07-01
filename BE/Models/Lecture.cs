@@ -13,7 +13,7 @@ public partial class Lecture
 
     public string? Name { get; set; }
 
-    public TimeOnly? TimeVideo { get; set; }
+    public TimeSpan? TimeVideo { get; set; }
 
     public string? VideoUrl { get; set; }
 

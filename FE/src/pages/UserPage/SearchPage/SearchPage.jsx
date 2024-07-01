@@ -17,18 +17,17 @@ export default function SearchPage() {
         <div id="search-page">
             <Header />
             <div className="search-page-container">
+                <SearchBar query={q} />
                 <div className="filter-result">
                     <div className="filter-container">
                         <FilterBar />
                     </div>
                     <div className="result-container">
-                        <SearchBar query={q} />
-                        <SearchResult />
+                        <SearchResult query={q} />
                     </div>
                 </div>
             </div>
             <Footer />
-
         </div>
     )
 }

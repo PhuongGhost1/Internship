@@ -1,40 +1,97 @@
-#search-cards {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 20px;
-  margin-top: 20px;
-}
+#search-result {}
 
-.pagination {
+#search-result .sort-info {
   display: flex;
-  justify-content: center;
+}
+
+#search-result .sort-info .total-course {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+#search-result .sort-info .course-show-current {
+  color: #868686;
+  font-size: 18px;
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+#search-result .sort-info .sort {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#search-result .sort-info .sort .sort-contain {
+  display: flex;
   align-items: center;
-  margin-top: 20px;
+  height: fit-content;
 }
 
-.pagination button {
-  background-color: #f0f0f0;
-  border: 1px solid #ddd;
-  color: #333;
-  padding: 8px 16px;
-  margin: 0 4px;
+#search-result .sort-info .sort .title {
+  color: #868686;
+  font-size: 18px;
+  margin-right: 20px;
+  font-weight: 500;
+}
+
+#search-result .sort-info .sort .sort-base {
+  height: 40px;
+  width: 180px;
+  background-color: white;
+  border-radius: 10px;
+  border: 1px solid #DDDDDD;
+  display: flex;
+  align-items: center;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-  border-radius: 4px;
+  position: relative;
+  padding: 0 10px;
 }
 
-.pagination button:hover {
-  background-color: #007bff;
-  color: white;
+#search-result .sort-info .sort .sort-base .sort-by {
+  font-size: 18px;
+  color: #868686;
+  font-weight: 500;
+  margin-right: 5px;
 }
 
-.pagination .active {
-  background-color: #007bff;
-  color: white;
+#search-result .sort-info .sort .sort-base .icon-contain {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
 
-.pagination button:disabled {
-  background-color: #e0e0e0;
-  color: #999;
-  cursor: not-allowed;
+#search-result .sort-info .sort .sort-base svg {
+  font-size: 20px;
+  color: #868686;
+}
+
+
+#search-result .sort-info .sort .sort-base .sort-dropdown {
+  width: 130px;
+  position: absolute;
+  top: calc(100% + 5px);
+  right: 0;
+  padding: 10px 0;
+  background-color: white;
+  border: 1px solid #DDDDDD;
+  border-radius: 10px;
+}
+
+#search-result .sort-info .sort .sort-base .sort-dropdown .block {
+  width: 100%;
+  padding: 5px 10px;
+  font-size: 16px;
+  color: #868686;
+  display: flex;
+}
+
+#search-result .sort-info .sort .sort-base .sort-dropdown .block:hover {
+  background-color: #f7f7f7;
+  color: black;
+}
+
+#search-result .sort-info .sort .sort-base .sort-dropdown .block svg {
+  color: #063df9;
 }

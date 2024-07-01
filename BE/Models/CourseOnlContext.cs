@@ -105,17 +105,17 @@ public partial class CourseOnlContext : DbContext
             entity.HasIndex(e => new { e.CreateBy, e.CourseId }, "unique_user_course").IsUnique();
 
             entity.Property(e => e.Id)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("id");
             entity.Property(e => e.CommissionPercent).HasColumnName("commission_percent");
             entity.Property(e => e.CourseId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("course_id");
             entity.Property(e => e.CreateAt)
                 .HasColumnType("datetime")
                 .HasColumnName("create_at");
             entity.Property(e => e.CreateBy)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("create_by");
 
             entity.HasOne(d => d.Course).WithMany(p => p.Affiliates)
@@ -138,10 +138,10 @@ public partial class CourseOnlContext : DbContext
             entity.HasIndex(e => e.UserId, "user_id");
 
             entity.Property(e => e.Id)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("id");
             entity.Property(e => e.CartcourseId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("cartcourse_id");
             entity.Property(e => e.CreateDate)
                 .HasColumnType("datetime")
@@ -150,7 +150,7 @@ public partial class CourseOnlContext : DbContext
                 .HasMaxLength(20)
                 .HasColumnName("total");
             entity.Property(e => e.UserId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("user_id");
 
             entity.HasOne(d => d.Cartcourse).WithMany(p => p.AffiliatePayments)
@@ -171,14 +171,14 @@ public partial class CourseOnlContext : DbContext
             entity.HasIndex(e => e.QuestionId, "question_id");
 
             entity.Property(e => e.Id)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("id");
             entity.Property(e => e.CreatedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("createdAt");
             entity.Property(e => e.IsCorrect).HasColumnName("is_correct");
             entity.Property(e => e.QuestionId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("question_id");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.Text)
@@ -199,7 +199,7 @@ public partial class CourseOnlContext : DbContext
             entity.HasIndex(e => e.UserId, "user_id");
 
             entity.Property(e => e.Id)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("id");
             entity.Property(e => e.DateCreated)
                 .HasColumnType("datetime")
@@ -207,7 +207,7 @@ public partial class CourseOnlContext : DbContext
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.Total).HasColumnName("total");
             entity.Property(e => e.UserId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("user_id");
 
             entity.HasOne(d => d.User).WithMany(p => p.Carts)
@@ -228,16 +228,16 @@ public partial class CourseOnlContext : DbContext
             entity.HasIndex(e => e.CourseId, "course_id");
 
             entity.Property(e => e.Id)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("id");
             entity.Property(e => e.AffiliateId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("affiliate_id");
             entity.Property(e => e.CartId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("cart_id");
             entity.Property(e => e.CourseId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("course_id");
             entity.Property(e => e.CreatedAt)
                 .HasColumnType("datetime")
@@ -265,7 +265,7 @@ public partial class CourseOnlContext : DbContext
             entity.ToTable("Category");
 
             entity.Property(e => e.Id)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("id");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
@@ -283,13 +283,13 @@ public partial class CourseOnlContext : DbContext
             entity.HasIndex(e => e.CourseId, "course_id");
 
             entity.Property(e => e.Id)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("id");
             entity.Property(e => e.CategoryId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("category_id");
             entity.Property(e => e.CourseId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("course_id");
             entity.Property(e => e.CreatedAt)
                 .HasColumnType("datetime")
@@ -313,10 +313,10 @@ public partial class CourseOnlContext : DbContext
             entity.HasIndex(e => e.CourseId, "course_id").IsUnique();
 
             entity.Property(e => e.Id)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("id");
             entity.Property(e => e.CourseId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("course_id");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
@@ -336,10 +336,10 @@ public partial class CourseOnlContext : DbContext
             entity.HasIndex(e => e.CourseId, "course_id");
 
             entity.Property(e => e.Id)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("id");
             entity.Property(e => e.CourseId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("course_id");
             entity.Property(e => e.CreateAt)
                 .HasColumnType("datetime")
@@ -369,13 +369,13 @@ public partial class CourseOnlContext : DbContext
             entity.HasIndex(e => e.UserId, "user_id");
 
             entity.Property(e => e.Id)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("id");
             entity.Property(e => e.Comment1)
                 .HasMaxLength(300)
                 .HasColumnName("comment");
             entity.Property(e => e.CourseId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("course_id");
             entity.Property(e => e.CreatedAt)
                 .HasColumnType("datetime")
@@ -383,7 +383,7 @@ public partial class CourseOnlContext : DbContext
             entity.Property(e => e.IsVisible).HasColumnName("is_visible");
             entity.Property(e => e.Rating).HasColumnName("rating");
             entity.Property(e => e.UserId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("user_id");
 
             entity.HasOne(d => d.Course).WithMany(p => p.Comments)
@@ -404,7 +404,7 @@ public partial class CourseOnlContext : DbContext
             entity.HasIndex(e => e.UserId, "user_id");
 
             entity.Property(e => e.Id)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("id");
             entity.Property(e => e.CreateAt)
                 .HasColumnType("datetime")
@@ -423,7 +423,7 @@ public partial class CourseOnlContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("update_at");
             entity.Property(e => e.UserId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("user_id");
             entity.Property(e => e.WhatLearn)
                 .HasMaxLength(1000)
@@ -443,7 +443,7 @@ public partial class CourseOnlContext : DbContext
             entity.HasIndex(e => e.UserId, "user_id");
 
             entity.Property(e => e.Id)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("id");
             entity.Property(e => e.CreateDate)
                 .HasColumnType("datetime")
@@ -456,7 +456,7 @@ public partial class CourseOnlContext : DbContext
                 .HasMaxLength(20)
                 .HasColumnName("type");
             entity.Property(e => e.UserId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("user_id");
 
             entity.HasOne(d => d.User).WithMany(p => p.DepositWithdrawals)
@@ -485,16 +485,16 @@ public partial class CourseOnlContext : DbContext
             entity.HasIndex(e => e.UserId, "user_id");
 
             entity.Property(e => e.Id)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("id");
             entity.Property(e => e.CourseId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("course_id");
             entity.Property(e => e.Date)
                 .HasColumnType("datetime")
                 .HasColumnName("date");
             entity.Property(e => e.UserId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("user_id");
 
             entity.HasOne(d => d.Course).WithMany(p => p.EnrollCourses)
@@ -515,7 +515,7 @@ public partial class CourseOnlContext : DbContext
             entity.HasIndex(e => e.UserId, "user_id");
 
             entity.Property(e => e.Id)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("id");
             entity.Property(e => e.Description)
                 .HasMaxLength(300)
@@ -525,7 +525,7 @@ public partial class CourseOnlContext : DbContext
                 .HasMaxLength(100)
                 .HasColumnName("title");
             entity.Property(e => e.UserId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("user_id");
 
             entity.HasOne(d => d.User).WithMany(p => p.Feedbacks)
@@ -544,13 +544,13 @@ public partial class CourseOnlContext : DbContext
             entity.HasIndex(e => e.FollowerId, "follower_id");
 
             entity.Property(e => e.Id)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("id");
             entity.Property(e => e.FollowedId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("followed_id");
             entity.Property(e => e.FollowerId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("follower_id");
             entity.Property(e => e.Time)
                 .HasColumnType("datetime")
@@ -580,28 +580,28 @@ public partial class CourseOnlContext : DbContext
             entity.HasIndex(e => e.UserId, "user_id");
 
             entity.Property(e => e.Id)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("id");
-            entity.Property(e => e.Base64Code)
-                .HasColumnType("mediumtext")
-                .HasColumnName("base64Code");
             entity.Property(e => e.CourseId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("course_id");
             entity.Property(e => e.CreatedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("created_at");
             entity.Property(e => e.FeedbackId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("feedback_id");
             entity.Property(e => e.LectureId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("lecture_id");
+            entity.Property(e => e.Type)
+                .HasMaxLength(30)
+                .HasColumnName("type");
             entity.Property(e => e.Url)
-                .HasMaxLength(50)
+                .HasMaxLength(200)
                 .HasColumnName("url");
             entity.Property(e => e.UserId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("user_id");
 
             entity.HasOne(d => d.Course).WithMany(p => p.Images)
@@ -630,10 +630,10 @@ public partial class CourseOnlContext : DbContext
             entity.HasIndex(e => e.ChapterId, "chapter_id");
 
             entity.Property(e => e.Id)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("id");
             entity.Property(e => e.ChapterId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("chapter_id");
             entity.Property(e => e.CreatAt)
                 .HasColumnType("datetime")
@@ -674,13 +674,13 @@ public partial class CourseOnlContext : DbContext
             entity.HasIndex(e => e.SenderId, "sender_id");
 
             entity.Property(e => e.Id)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("id");
             entity.Property(e => e.CommentId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("comment_id");
             entity.Property(e => e.CourseId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("course_id");
             entity.Property(e => e.DateUp)
                 .HasColumnType("datetime")
@@ -689,17 +689,17 @@ public partial class CourseOnlContext : DbContext
                 .HasMaxLength(300)
                 .HasColumnName("description");
             entity.Property(e => e.FeedbackId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("feedback_id");
             entity.Property(e => e.IsRead).HasColumnName("is_read");
             entity.Property(e => e.ReceivedId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("received_id");
             entity.Property(e => e.ReportId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("report_id");
             entity.Property(e => e.SenderId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("sender_id");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.Title)
@@ -743,7 +743,7 @@ public partial class CourseOnlContext : DbContext
             entity.HasIndex(e => e.UserId, "user_id");
 
             entity.Property(e => e.Id)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("id");
             entity.Property(e => e.CreateDate)
                 .HasColumnType("datetime")
@@ -756,7 +756,7 @@ public partial class CourseOnlContext : DbContext
                 .HasColumnName("payment_method");
             entity.Property(e => e.Total).HasColumnName("total");
             entity.Property(e => e.UserId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("user_id");
 
             entity.HasOne(d => d.User).WithMany(p => p.Payments)
@@ -775,14 +775,14 @@ public partial class CourseOnlContext : DbContext
             entity.HasIndex(e => e.PaymentId, "paymentId");
 
             entity.Property(e => e.Id)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("id");
             entity.Property(e => e.CartcourseId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("cartcourse_id");
             entity.Property(e => e.PaymentId)
-                .HasMaxLength(20)
-                .HasColumnName("paymentId");
+                .HasMaxLength(40)
+                .HasColumnName("payment_id");
             entity.Property(e => e.Total).HasColumnName("total");
 
             entity.HasOne(d => d.Cartcourse).WithOne(p => p.PaymentCourse)
@@ -805,7 +805,7 @@ public partial class CourseOnlContext : DbContext
             entity.HasIndex(e => e.RoleId, "role_id");
 
             entity.Property(e => e.Id)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("id");
             entity.Property(e => e.Create).HasColumnName("create");
             entity.Property(e => e.Delete).HasColumnName("delete");
@@ -817,10 +817,10 @@ public partial class CourseOnlContext : DbContext
                 .HasColumnName("last_update");
             entity.Property(e => e.Request).HasColumnName("request");
             entity.Property(e => e.ResourcesId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("resources_id");
             entity.Property(e => e.RoleId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("role_id");
             entity.Property(e => e.Update).HasColumnName("update");
             entity.Property(e => e.View).HasColumnName("view");
@@ -847,19 +847,19 @@ public partial class CourseOnlContext : DbContext
             entity.HasIndex(e => e.UserId, "user_id");
 
             entity.Property(e => e.Id)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("id");
             entity.Property(e => e.CreateAt)
                 .HasColumnType("datetime")
                 .HasColumnName("create_at");
             entity.Property(e => e.LectureId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("lecture_id");
             entity.Property(e => e.QuizId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("quiz_id");
             entity.Property(e => e.UserId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("user_id");
 
             entity.HasOne(d => d.Lecture).WithMany(p => p.Processings)
@@ -884,14 +884,14 @@ public partial class CourseOnlContext : DbContext
             entity.HasIndex(e => e.QuizId, "quiz_id");
 
             entity.Property(e => e.Id)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("id");
             entity.Property(e => e.CreateAt)
                 .HasColumnType("datetime")
                 .HasColumnName("create_at");
             entity.Property(e => e.Mark).HasColumnName("mark");
             entity.Property(e => e.QuizId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("quiz_id");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.Text)
@@ -913,10 +913,10 @@ public partial class CourseOnlContext : DbContext
             entity.HasIndex(e => e.ChapterId, "chapter_id");
 
             entity.Property(e => e.Id)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("id");
             entity.Property(e => e.ChapterId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("chapter_id");
             entity.Property(e => e.CreateAt)
                 .HasColumnType("datetime")
@@ -950,22 +950,22 @@ public partial class CourseOnlContext : DbContext
             entity.HasIndex(e => e.ReporterId, "reporter_id");
 
             entity.Property(e => e.Id)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("id");
             entity.Property(e => e.CommentId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("comment_id");
             entity.Property(e => e.CourseId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("course_id");
             entity.Property(e => e.Message)
                 .HasMaxLength(300)
                 .HasColumnName("message");
             entity.Property(e => e.ReportedUserId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("reportedUser_id");
             entity.Property(e => e.ReporterId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("reporter_id");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.Title)
@@ -994,7 +994,7 @@ public partial class CourseOnlContext : DbContext
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
             entity.Property(e => e.Id)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("id");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
@@ -1008,7 +1008,7 @@ public partial class CourseOnlContext : DbContext
             entity.ToTable("Role");
 
             entity.Property(e => e.Id)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("id");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
@@ -1026,17 +1026,17 @@ public partial class CourseOnlContext : DbContext
             entity.HasIndex(e => e.UserId, "user_id");
 
             entity.Property(e => e.Id)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("id");
             entity.Property(e => e.RoleId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("role_id");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.UpdateDate)
                 .HasColumnType("datetime")
                 .HasColumnName("update_date");
             entity.Property(e => e.UserId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("user_id");
 
             entity.HasOne(d => d.Role).WithMany(p => p.RoleUsers)
@@ -1059,16 +1059,16 @@ public partial class CourseOnlContext : DbContext
             entity.HasIndex(e => e.UserId, "user_id");
 
             entity.Property(e => e.Id)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("id");
             entity.Property(e => e.CourseId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("course_id");
             entity.Property(e => e.Time)
                 .HasColumnType("datetime")
                 .HasColumnName("time");
             entity.Property(e => e.UserId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("user_id");
 
             entity.HasOne(d => d.Course).WithMany(p => p.SaveCourses)
@@ -1091,7 +1091,7 @@ public partial class CourseOnlContext : DbContext
             entity.HasIndex(e => e.UserId, "user_id");
 
             entity.Property(e => e.Id)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("id");
             entity.Property(e => e.Date)
                 .HasColumnType("datetime")
@@ -1099,10 +1099,10 @@ public partial class CourseOnlContext : DbContext
             entity.Property(e => e.Grade).HasColumnName("grade");
             entity.Property(e => e.IsPass).HasColumnName("is_pass");
             entity.Property(e => e.QuizId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("quiz_id");
             entity.Property(e => e.UserId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("user_id");
 
             entity.HasOne(d => d.Quiz).WithMany(p => p.Submissions)
@@ -1129,19 +1129,19 @@ public partial class CourseOnlContext : DbContext
             entity.HasIndex(e => e.UserId, "user_id");
 
             entity.Property(e => e.Id)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("id");
             entity.Property(e => e.AffiliatePaymentId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("affiliate_payment_id");
             entity.Property(e => e.DepositWithdrawalId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("deposit_withdrawal_id");
             entity.Property(e => e.PaymentId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("payment_id");
             entity.Property(e => e.UserId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("user_id");
 
             entity.HasOne(d => d.AffiliatePayment).WithMany(p => p.Transactions)
@@ -1168,7 +1168,7 @@ public partial class CourseOnlContext : DbContext
             entity.ToTable("User");
 
             entity.Property(e => e.Id)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("id");
             entity.Property(e => e.CreateAt)
                 .HasColumnType("datetime")
@@ -1203,16 +1203,16 @@ public partial class CourseOnlContext : DbContext
             entity.HasIndex(e => e.UserId, "user_id");
 
             entity.Property(e => e.Id)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("id");
             entity.Property(e => e.CertificationId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("certification_id");
             entity.Property(e => e.DatePass)
                 .HasColumnType("datetime")
                 .HasColumnName("date_pass");
             entity.Property(e => e.UserId)
-                .HasMaxLength(20)
+                .HasMaxLength(40)
                 .HasColumnName("user_id");
 
             entity.HasOne(d => d.Certification).WithMany(p => p.UserCertifications)
