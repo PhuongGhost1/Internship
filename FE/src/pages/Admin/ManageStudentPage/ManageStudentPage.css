@@ -1,7 +1,7 @@
 #ManageStudentPage{
     margin-top: auto;
 }
-#ManageStudentPage .Header{
+#ManageStudentPage .Header-Admin{
     height: 60px;
     width: 100%;
     position: fixed;

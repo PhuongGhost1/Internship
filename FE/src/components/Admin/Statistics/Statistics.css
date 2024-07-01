@@ -6,13 +6,13 @@
     margin-top: 20px;
 }
 
-.course-table {
+#statistics .course-table {
     border: 1px solid #ddd;
     border-radius: 8px;
     overflow: hidden;
 }
 
-.course-item {
+#statistics .course-item {
     display: flex;
     justify-content: space-between;
     padding: 20px;
@@ -20,32 +20,32 @@
     background-color: #f9f9f9;
 }
 
-.course-item:nth-child(even) {
+#statistics .course-item:nth-child(even) {
     background-color: #fff;
 }
 
-.course-item:last-child {
+#statistics .course-item:last-child {
     border-bottom: none;
 }
 
-.course-details {
+#statistics .course-details {
     flex: 1;
 }
 
-.course-status {
+#statistics .course-status {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
 }
 
-.course-status.ongoing {
+#statistics .course-status.ongoing {
     color: green;
 }
 
-.course-status.upcoming {
+#statistics .course-status.upcoming {
     color: orange;
 }
 
-.course-status.completed {
+#statistics .course-status.completed {
     color: gray;
 }

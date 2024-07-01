@@ -10,7 +10,7 @@ import Order from "../../../components/Admin/Order/Order";
 export default function DashBoard() {
   return (
     <div id="DashBoard">
-      <div className="Header">
+      <div className="Header-Admin">
         <Header />
       </div>
       <div className="Layout">
