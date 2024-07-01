@@ -25,19 +25,19 @@ namespace BE.Controllers
         //---------------------CRUD--------------------------//
         [HttpPost]
         [Route("create-category")]
-        public async Task<Category?> CreateCategory([FromBody] CreateCategoryDto createCategoryDto){
+        public async Task<Category?> CreateCategory([FromForm] CreateCategoryDto createCategoryDto){
             return await _cateService.CreateCategory(createCategoryDto);
         }
 
         [HttpPost]
         [Route("update-category")]
-        public async Task<Category?> UpdateCategory([FromBody] UpdateCategoryDto updateCategoryDto){
+        public async Task<Category?> UpdateCategory([FromForm] UpdateCategoryDto updateCategoryDto){
             return await _cateService.UpdateCategory(updateCategoryDto);
         }
 
         [HttpPost]
         [Route("delete-category")]
-        public async Task<bool> DeleteCategory([FromBody] CategoryDto categoryDto){
+        public async Task<bool> DeleteCategory([FromForm] CategoryDto categoryDto){
             return await _cateService.DeleteCategory(categoryDto.cateId);
         }
     }

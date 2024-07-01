@@ -34,13 +34,13 @@ namespace BE.Controllers
 
         [HttpGet]
         [Route("course-info")]
-        public async Task<CourseDto> GetInformationOfCourse([FromBody] string courseId){
+        public async Task<CourseDto> GetInformationOfCourse([FromForm] string courseId){
             return await _courseService.GetInformationOfCourse(courseId);
         }
 
         [HttpGet]
         [Route("content")]
-        public async Task<List<object>> GetLecturesAndQuizzesByCourseId([FromBody] string courseId)
+        public async Task<List<object>> GetLecturesAndQuizzesByCourseId([FromForm] string courseId)
         {
             return await _courseService.GetLecturesAndQuizzesByCourseId(courseId);
         }
@@ -71,19 +71,19 @@ namespace BE.Controllers
         //---------------------CRUD--------------------------//
         [HttpPost]
         [Route("create-course")]
-        public async Task<Course?> CreateCourse([FromBody] CreateCourseDto createCourseDto){
+        public async Task<Course?> CreateCourse([FromForm] CreateCourseDto createCourseDto){
             return await _courseService.CreateCourse(createCourseDto);
         }
 
         [HttpPost]
         [Route("update-course")]
-        public async Task<Course?> UpdateCourse([FromBody] UpdateCourseDto updateCourseDto){
+        public async Task<Course?> UpdateCourse([FromForm] UpdateCourseDto updateCourseDto){
             return await _courseService.UpdateCourse(updateCourseDto);
         }
 
         [HttpPost]
         [Route("delete-course")]
-        public async Task<bool> DeleteCourse([FromBody] string courseId){
+        public async Task<bool> DeleteCourse([FromForm] string courseId){
             return await _courseService.DeleteCourse(courseId);
         }
 

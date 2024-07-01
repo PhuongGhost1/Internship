@@ -21,7 +21,7 @@ namespace BE.Controllers
 
         [HttpGet]
         [Route("answer-data")]
-        public async Task<List<Answer>> GetAllDataOfAnswerFromQuizById([FromBody] AnswerDto answerDto){
+        public async Task<List<Answer>> GetAllDataOfAnswerFromQuizById([FromForm] AnswerDto answerDto){
             return await _answerService.GetAllDataOfAnswerFromQuizById(answerDto);
         }
 
@@ -35,19 +35,19 @@ namespace BE.Controllers
 
         [HttpPost]
         [Route("create-answer")]
-        public async Task<Answer?> CreateAnswer([FromBody] CreateAnswerDto createAnswerDto){
+        public async Task<Answer?> CreateAnswer([FromForm] CreateAnswerDto createAnswerDto){
             return await _answerService.CreateAnswer(createAnswerDto);
         }
 
         [HttpPost]
         [Route("update-answer")]
-        public async Task<Answer?> UpdateAnswer([FromBody] UpdateAnswerDto updateAnswerDto){
+        public async Task<Answer?> UpdateAnswer([FromForm] UpdateAnswerDto updateAnswerDto){
             return await _answerService.UpdateAnswer(updateAnswerDto);
         }
 
         [HttpPost]
         [Route("delete-answer")]
-        public async Task<bool> DeleteAnswer([FromBody] AnswerDto answerDto){
+        public async Task<bool> DeleteAnswer([FromForm] AnswerDto answerDto){
             return await _answerService.DeleteAnswer(answerDto.AnswerId);
         }
     }
