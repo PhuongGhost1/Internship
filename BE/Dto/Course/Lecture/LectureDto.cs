@@ -10,7 +10,7 @@ namespace BE.Dto.Course.Lecture
         public int? Index {get; set;} 
         public string? ChapterId {get; set;}
         public string? Name {get; set;}
-        public TimeOnly? Time_Video {get; set;}
+        public TimeSpan? Time_Video {get; set;}
         public string? Video_Url {get; set;}
         public DateTime? Created_At {get; set;}
         public int? Status {get; set;}

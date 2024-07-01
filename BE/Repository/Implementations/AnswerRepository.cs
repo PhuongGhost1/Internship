@@ -27,5 +27,46 @@ namespace BE.Repository.Implementations
                         .ToListAsync();
             return answers;
         }
+
+
+
+        //---------------------CRUD--------------------------//
+
+        public async Task<Answer?> GetAnswerById(string answerId)
+        {
+            return await _context.Answers.FirstOrDefaultAsync(ans => ans.Id == answerId);
+        }
+
+        public async Task<Answer?> CreateAnswer(Answer answer)
+        {
+            await _context.Answers.AddAsync(answer);
+            await _context.SaveChangesAsync();
+            return answer;
+        }
+
+        public async Task<bool> DeleteAnswer(string answerId)
+        {
+            var answer = await _context.Answers.FindAsync(answerId);
+
+            if(answer == null) return false;
+
+            answer.Status = 0;
+
+            _context.Answers.Update(answer);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<List<Answer>> GetAllAnswers()
+        {
+            return await _context.Answers.ToListAsync();
+        }
+
+        public async Task<Answer?> UpdateAnswer(Answer answer)
+        {
+            _context.Answers.Update(answer);
+            await _context.SaveChangesAsync();
+            return answer;
+        }
     }
 }

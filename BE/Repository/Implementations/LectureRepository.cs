@@ -44,11 +44,11 @@ namespace BE.Repository.Implementations
             return sumTotalMinutes;
         }
 
-        private int ToMinutes(TimeOnly? timeOnly)
+        private int ToMinutes(TimeSpan? timeOnly)
         {
             if (timeOnly.HasValue)
             {
-                return timeOnly.Value.Hour * 60 + timeOnly.Value.Minute; 
+                return timeOnly.Value.Hours * 60 + timeOnly.Value.Minutes; 
             }
             else
             {
@@ -69,8 +69,48 @@ namespace BE.Repository.Implementations
                         .Include(l => l.Images)
                         .Include(l => l.Processings)
                         .FirstOrDefaultAsync();
-            if(data == null) return null;
+            if(data == null) throw new Exception("Unable to get data!");
             return data;
+        }
+
+
+        //---------------------CRUD--------------------------//
+
+        public async Task<Lecture?> GetLectureById(string lectureId)
+        {
+            return await _context.Lectures.FirstOrDefaultAsync(lec => lec.Id == lectureId);
+        }
+
+        public async Task<List<Lecture>> GetAllLectures()
+        {
+            return await _context.Lectures.ToListAsync();
+        }
+
+        public async Task<Lecture?> CreateLecture(Lecture lecture)
+        {
+            await _context.Lectures.AddAsync(lecture);
+            await _context.SaveChangesAsync();
+            return lecture;
+        }
+
+        public async Task<Lecture?> UpdateLecture(Lecture lecture)
+        {
+            _context.Lectures.Update(lecture);
+            await _context.SaveChangesAsync();
+            return lecture;
+        }
+
+        public async Task<bool> DeleteLecture(string lectureId)
+        {
+            var lecture = await _context.Lectures.FindAsync(lectureId);
+
+            if(lecture == null) return false;
+
+            lecture.Status = 0;
+
+            _context.Lectures.Update(lecture);
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

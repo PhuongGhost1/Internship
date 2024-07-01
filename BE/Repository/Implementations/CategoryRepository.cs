@@ -37,5 +37,38 @@ namespace BE.Repository.Implementations
                                             .ToListAsync();
             return categoriesInvolvedCourse;
         }
+
+
+
+        //---------------------CRUD--------------------------//
+        public async Task<Category?> CreateCategory(Category category)
+        {
+            await _context.Categories.AddAsync(category);
+            await _context.SaveChangesAsync();
+            return category;
+        }
+
+        public async Task<bool> DeleteCategory(string cateId)
+        {
+            var category = await _context.Categories.FindAsync(cateId);
+
+            if(category == null) return false;
+
+            _context.Categories.Remove(category);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<Category?> UpdateCategory(Category category)
+        {
+            _context.Categories.Update(category);
+            await _context.SaveChangesAsync();
+            return category;
+        }
+
+        public async Task<Category?> GetCategoryById(string cateId)
+        {
+            return await _context.Categories.FirstOrDefaultAsync(cate => cate.Id == cateId);
+        }
     }
 }
