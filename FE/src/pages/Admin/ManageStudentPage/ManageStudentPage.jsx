@@ -7,7 +7,7 @@ import SideBar from "../../../components/Admin/SideBar/SideBar";
 export default function ManageStudentPage() {
   return (
     <div id="ManageStudentPage">
-      <div className="Header">
+      <div className="Header-Admin">
         <Header />
       </div>
       <div className="Layout">

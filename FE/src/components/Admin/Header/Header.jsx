@@ -6,7 +6,7 @@ import { RxAvatar } from "react-icons/rx";
 
 export default function Header() {
   return (
-    <div id="Header">
+    <div id="Header-Admin">
       <div className="header-container">
         <div className="logo">
           <span className="icon">

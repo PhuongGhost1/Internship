@@ -17,23 +17,23 @@ body {
     border-right: 1px solid #ddd;
 }
 
-.sidebar-header {
+#SideBar .sidebar-header {
     padding: 10px;
     font-size: 18px;
     font-weight: bold;
     color: #333;
 }
-.sidebar-header h5{
+#SideBar .sidebar-header h5{
     opacity: 0.5;
 }
 
-.sidebar-menu {
+#SideBar .sidebar-menu {
     list-style-type: none;
     padding: 0;
     margin: 0;
 }
 
-.menu-item {
+#SideBar .menu-item {
     padding: 15px 20px;
     cursor: pointer;
     display: flex;
@@ -41,16 +41,16 @@ body {
     align-items: center;
     transition: background-color 0.3s;
 }
-.LuBarChart{
+#SideBar .LuBarChart{
     font-size: 16px;
 }
-.instructor{
+#SideBar .instructor{
     font-size: 16px;
 }
-.Student{
+#SideBar .Student{
     font-size: 16px;
 }
-.course{
+#SideBar .course{
     font-size: 16px;
 }
 .menu-item:hover,
@@ -58,7 +58,7 @@ body {
     background-color: #e9ecef;
 }
 
-.badge {
+#SideBar .badge {
     background-color: #dc3545;
     color: #fff;
     border-radius: 12px;
@@ -66,23 +66,23 @@ body {
     font-size: 12px;
 }
 
-.sidebar-settings {
+#SideBar .sidebar-settings {
     padding: 20px;
 }
 
-.settings-header {
+#SideBar .settings-header {
     font-size: 14px;
     font-weight: bold;
     color: #666;
     margin-bottom: 10px;
 }
 
-.settings-item {
+#SideBar .settings-item {
     padding: 10px 0;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
-.settings-item:hover {
+#SideBar .settings-item:hover {
     background-color: #e9ecef;
 }
