@@ -14,28 +14,23 @@ export default function SideBar() {
       <ul className="sidebar-menu">
         <li className="menu-item active">
           <span>
-            <LuBarChart3 className="LuBarChart" />
-            &nbsp;Dashboard
+            <a href="/admin/dashboard"><LuBarChart3 className="LuBarChart" /> &nbsp;Dashboard</a>
           </span>
         </li>
         <li className="menu-item">
           <span>
-            <FaChalkboardTeacher className="instructor" />
-            &nbsp;Instructor
+            <a href="/admin/instructor"><FaChalkboardTeacher className="instructor" /> &nbsp;Instructor</a>
           </span>
         </li>
         <div>
           <li className="menu-item">
             <span>
-              {" "}
-              <PiStudentBold className="Student" />
-              &nbsp;Sutdent
+              <a href="/admin/student"><PiStudentBold className="Student" /> &nbsp;Sutdent</a>
             </span>
           </li>
           <li className="menu-item">
             <span>
-              <SiCoursera className="course" />
-              &nbsp;Course management
+            <a href="/admin/course"><SiCoursera className="course" /> &nbsp;Course management</a>
             </span>
           </li>
         </div>

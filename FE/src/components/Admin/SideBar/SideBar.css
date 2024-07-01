@@ -86,3 +86,17 @@ body {
 #SideBar .settings-item:hover {
     background-color: #e9ecef;
 }
+#SideBar a:hover {
+    color: #19110e; /* Bạn có thể thay đổi màu này theo ý muốn */
+}
+#SideBar a {
+    color: inherit; /* Kế thừa màu chữ từ phần tử cha */
+    text-decoration: none; /* Loại bỏ gạch chân */
+}
+#SideBar .sidebar-menu a {
+    color: inherit; /* Kế thừa màu chữ từ phần tử cha */
+}
+#SideBar .sidebar-menu .menu-item.active a {
+    color: #d72727; /* Màu chữ cho mục đang hoạt động */
+}
+
