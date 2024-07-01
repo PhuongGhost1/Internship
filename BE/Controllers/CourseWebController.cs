@@ -3,6 +3,7 @@ using BE.Models;
 using BE.Services.Interfaces;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using static BE.Utils.Utils;
 
 namespace BE.Controllers
 {
@@ -41,9 +42,9 @@ namespace BE.Controllers
 
         [HttpPost("create")]
 
-        public async Task<IActionResult> CreateCourse([FromForm] int userId)
+        public async Task<string> CreateCourse([FromForm] CreateCoursData data)
         {
-            return Ok(new { message = "Create Done" });
+            return await _courseService.CreateCourse(data);
         }
     }
 }

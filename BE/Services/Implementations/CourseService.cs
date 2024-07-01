@@ -69,5 +69,10 @@ namespace BE.Services.Implementations
             }
             return "hi";
         }
+
+        public async Task<string> CreateCourse(CreateCoursData data)
+        {
+            return await _courseRepo.CreateCourse(data);
+        }
     }
 }

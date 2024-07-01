@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useParams } from 'react-router-dom';
 import './CourseLearning.css'
 
 import Header from "../../../components/Items/Header/Header";
 import CourseSlideBar from "../../../components/Courses/CourseLearning/CourseSlideBar/CourseSlideBar";
+import CourseVideoContent from "../../../components/Courses/CourseLearning/CourseVideoContent/CourseVideoContent";
+import CourseQuizContent from "../../../components/Courses/CourseLearning/CourseQuizContent/CourseQuizContent";
 
 export default function CourseLearning() {
+    const { courseType, itemName } = useParams();
+    useEffect(() => {
+        console.log(courseType, itemName)
+    }, [])
     const data = [
         {
             name: 'Modern Data Ecosystem and the Role of Data Analytics',
@@ -124,6 +131,12 @@ export default function CourseLearning() {
                     <CourseSlideBar data={data} />
                 </div>
                 <div className="content-container">
+                    {courseType === 'lecture' && (
+                        <CourseVideoContent />
+                    )}
+                    {courseType === 'quiz' && (
+                        <CourseQuizContent />
+                    )}
                 </div>
             </div>
         </div>

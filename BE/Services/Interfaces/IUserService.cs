@@ -14,5 +14,6 @@ namespace BE.Services.Interfaces
         Task<UserLoginToken> Login(UserLoginDto userLoginDto);
         Task<UserLoginToken> Register(RegisterDto registerDto);
         Task<UserLoginToken> Forgot(string email, ForgotDto forgotDto);
+        Task<bool> CreateUserData(string username, string email, string password, string description, string phone, string role);
     }
 }

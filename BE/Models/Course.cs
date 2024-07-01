@@ -25,6 +25,8 @@ public partial class Course
 
     public float? Rating { get; set; }
 
+    public string? WhatLearn { get; set; }
+
     public virtual ICollection<Affiliate> Affiliates { get; set; } = new List<Affiliate>();
 
     public virtual ICollection<CartCourse> CartCourses { get; set; } = new List<CartCourse>();

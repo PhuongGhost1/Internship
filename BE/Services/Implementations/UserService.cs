@@ -18,13 +18,18 @@ namespace BE.Services.Implementations
         private readonly IConfiguration _config;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public UserService(IUserRepository userRepo, ITokenRepository tokenRepo, IConfiguration config, 
+        public UserService(IUserRepository userRepo, ITokenRepository tokenRepo, IConfiguration config,
                         IHttpContextAccessor httpContextAccessor)
         {
             _userRepo = userRepo;
             _tokenRepo = tokenRepo;
             _config = config;
             _httpContextAccessor = httpContextAccessor;
+        }
+
+        public async Task<bool> CreateUserData(string username, string email, string password, string description, string phone, string role)
+        {
+            return await _userRepo.CreateUserData(username, email, password, description, phone, role);
         }
 
         public async Task<ReturnResponseDto> FacebookResponse()
@@ -37,15 +42,17 @@ namespace BE.Services.Implementations
             }
 
             var claims = result.Principal.Identities
-                                .FirstOrDefault()?.Claims.Select(claim => new {
+                                .FirstOrDefault()?.Claims.Select(claim => new
+                                {
                                     claim.Type,
                                     claim.Value
                                 });
 
             var claimsJson = JsonConvert.SerializeObject(claims);
             var redirectUrl = $"http://localhost:5173/login-success?claims={WebUtility.UrlEncode(claimsJson)}";
-            return new ReturnResponseDto{
-                
+            return new ReturnResponseDto
+            {
+
             };
         }
 
@@ -109,7 +116,8 @@ namespace BE.Services.Implementations
                 throw new Exception("Invalid Google response");
             }
 
-            return new ReturnResponseDto{
+            return new ReturnResponseDto
+            {
                 Code = code,
                 State = state
             };
@@ -138,7 +146,8 @@ namespace BE.Services.Implementations
             };
 
             // return await _httpContextAccessor.HttpContext.ChallengeAsync(FacebookDefaults.AuthenticationScheme, properties);
-            return new ReturnLoginDto{
+            return new ReturnLoginDto
+            {
 
             };
         }
@@ -164,7 +173,8 @@ namespace BE.Services.Implementations
             {
                 var authUrl = $"https://accounts.google.com/o/oauth2/v2/auth?client_id={Uri.EscapeDataString(clientId)}&scope={Uri.EscapeDataString(scope)}&response_type=code&redirect_uri={Uri.EscapeDataString(redirectUri)}&state={Uri.EscapeDataString(state)}";
 
-                return new ReturnLoginDto{
+                return new ReturnLoginDto
+                {
                     ReturnAuthUrl = authUrl
                 };
             }
