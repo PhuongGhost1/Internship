@@ -48,6 +48,8 @@ function App() {
 
         <Route path='/admin'>
           <Route path='dashboard' element={<DashBoard />} />
+          {/* <Route path='intr' */}
+
         </Route>
       </Routes>
     </BrowserRouter>

@@ -16,7 +16,16 @@ margin-top: auto;
 #DashBoard .Layout .SideBar-container{
     flex: 2;
 }
-#DashBoard .Layout .Weekly-container{
+#DashBoard .Layout .Layout-container{
     flex:11;
 }
 
+#DashBoard .Sta-Chart {
+   display: flex;
+}
+#DashBoard .Sta-Chart .Statistics{
+    flex: 3;
+}
+#DashBoard .Sta-Chart .Chart{
+    flex: 6;
+}
