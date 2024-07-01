@@ -8,7 +8,7 @@ using static BE.Utils.Utils;
 namespace BE.Controllers
 {
     [Route("api/v1/web/user")]
-    [ApiExplorerSettings(GroupName = "User")]
+    [ApiController]
     public class UserWebController : ControllerBase
     {
         private readonly IUserService _userService;

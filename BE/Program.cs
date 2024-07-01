@@ -160,13 +160,16 @@ builder.Services.AddHttpContextAccessor();
 
 //Repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>(); builder.Services.AddScoped<ITokenRepository, TokenRepository>(); builder.Services.AddScoped<IQuizRepository, QuizRepository>();
-builder.Services.AddScoped<ILectureRepository, LectureRepository>(); builder.Services.AddScoped<IImageRepository, ImageRepository>(); builder.Services.AddScoped<IEmailRepository, EmailRepository>();
-builder.Services.AddScoped<ICourseRepository, CourseRepository>(); builder.Services.AddScoped<IChapterRepository, ChapterRepository>(); builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IQuestionRepository, QuestionRepository>(); builder.Services.AddScoped<ILectureRepository, LectureRepository>(); builder.Services.AddScoped<IImageRepository, ImageRepository>();
+builder.Services.AddScoped<IEmailRepository, EmailRepository>(); builder.Services.AddScoped<ICourseRepository, CourseRepository>(); builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<IChapterRepository, ChapterRepository>(); builder.Services.AddScoped<ICertificationRepository, CertificationRepository>(); builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IAnswerRepository, AnswerRepository>();
 
 //Services
-builder.Services.AddScoped<IUserService, UserService>(); builder.Services.AddScoped<IEmailService, EmailService>(); builder.Services.AddScoped<ICourseService, CourseService>();
-builder.Services.AddScoped<IChapterService, ChapterService>(); builder.Services.AddScoped<ICategoryService, CategoryService>(); builder.Services.AddScoped<ILectureService, LectureService>();
-builder.Services.AddScoped<IQuizService, QuizService>();
+builder.Services.AddScoped<IUserService, UserService>(); builder.Services.AddScoped<IQuizService, QuizService>(); builder.Services.AddScoped<IQuestionService, QuestionService>();
+builder.Services.AddScoped<ILectureService, LectureService>(); builder.Services.AddScoped<IEmailService, EmailService>(); builder.Services.AddScoped<ICourseService, CourseService>();
+builder.Services.AddScoped<ICommentService, CommentService>(); builder.Services.AddScoped<IChapterService, ChapterService>(); builder.Services.AddScoped<ICertificationService, CertificationService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>(); builder.Services.AddScoped<IAnswerService, AnswerService>();
 
 var app = builder.Build();
 
@@ -180,7 +183,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseRequestResponseLoggingMiddleware();
-app.UseAuthenticationMiddleware();
+//app.UseAuthenticationMiddleware();
 app.UseExceptionHandleMiddleware();
 
 app.UseAuthentication();

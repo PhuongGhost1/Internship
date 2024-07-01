@@ -50,5 +50,45 @@ namespace BE.Repository.Implementations
 
             return quizCountByChapter.Sum(x => x.QuizCount);
         }
+
+
+        //---------------------CRUD--------------------------//
+        public async Task<Quiz?> GetQuizById(string id)
+        {
+            return await _context.Quizzes.FirstOrDefaultAsync(q => q.Id == id);
+        }
+
+        public async Task<Quiz?> CreateQuiz(Quiz quiz)
+        {
+            await _context.Quizzes.AddAsync(quiz);
+            await _context.SaveChangesAsync();
+            return quiz;
+        }
+
+        public async Task<bool> DeleteQuiz(string quizId)
+        {
+            var quiz = await _context.Quizzes.FindAsync(quizId);
+
+            if(quiz == null) return false;
+
+            quiz.Status = 0;
+
+            _context.Quizzes.Update(quiz);
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<List<Quiz>> ViewAllQuizzes()
+        {
+            return await _context.Quizzes.ToListAsync();
+        }
+
+        public async Task<Quiz?> UpdateQuiz(Quiz quiz)
+        {
+            _context.Quizzes.Update(quiz);
+            await _context.SaveChangesAsync();
+            return quiz;
+        }
     }
 }

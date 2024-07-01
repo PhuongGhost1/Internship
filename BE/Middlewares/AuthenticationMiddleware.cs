@@ -30,7 +30,7 @@ namespace BE.Middlewares
                 return;
             }
 
-            var token = context.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+            var token = context.Request.Headers["Authorization"].ToString();
             
             if (!ValidateToken(token))
             {

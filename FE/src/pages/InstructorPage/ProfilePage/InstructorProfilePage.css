@@ -9,6 +9,7 @@
 
 #instructor-profile-page .instructor-profile-container .personal-detail-container {
     flex: 3;
+    margin-top: 42px;
 }
 
 
@@ -32,7 +33,7 @@
 }
 
 #instructor-profile-page .courses-certification .switch-bar .bar:hover::before,
-#instructor-profile-page .courses-certification .switch-bar .bar.active::before {
+#instructor-profile-page .courses-certification .switch-bar .bar.activeSB::before {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -43,7 +44,7 @@
 }
 
 #instructor-profile-page .courses-certification .switch-bar .bar:hover,
-#instructor-profile-page .courses-certification .switch-bar .bar.active {
+#instructor-profile-page .courses-certification .switch-bar .bar.activeSB {
     color: black;
     font-weight: 600;
 }

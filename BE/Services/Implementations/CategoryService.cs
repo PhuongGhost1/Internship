@@ -26,5 +26,38 @@ namespace BE.Services.Implementations
 
             return categories.ToList();
         }
+
+
+        //---------------------CRUD--------------------------//
+        public async Task<Category?> CreateCategory(CreateCategoryDto createCategoryDto)
+        {
+            var createCategory = createCategoryDto.ToCreateCategory();
+
+            if(createCategory == null) throw new Exception("Unable to create category!");
+
+            return await _cateRepo.CreateCategory(createCategory);
+        }
+
+        public async Task<bool> DeleteCategory(string cateId)
+        {
+            var category = await _cateRepo.GetCategoryById(cateId);
+
+            if(category == null) throw new Exception("Unable to find category!");
+
+            return await _cateRepo.DeleteCategory(cateId);
+        }
+
+        public async Task<Category?> UpdateCategory(string cateId, UpdateCategoryDto updateCategoryDto)
+        {
+            var category = await _cateRepo.GetCategoryById(cateId);
+
+            if(category == null) throw new Exception("Unable to find category!");
+
+            var updateCategory = updateCategoryDto.ToUpdateCategory();
+
+            if(updateCategory == null) throw new Exception("Unable to update category!");
+
+            return await _cateRepo.UpdateCategory(updateCategory);
+        }   
     }
 }

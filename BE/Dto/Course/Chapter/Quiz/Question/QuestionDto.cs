@@ -11,6 +11,6 @@ namespace BE.Dto.Course.Chapter.Quiz.Question
         public bool? Type { get; set; }
         public DateTime? CreateAt { get; set; }
         public int? Status { get; set; }
-        public ICollection<Answer> Answers { get; set; } = new List<Answer>();
+        public List<BE.Models.Answer> Answers {get; set;} = new List<BE.Models.Answer>();
     }
 }

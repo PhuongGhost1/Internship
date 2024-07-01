@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BE.Dto.Course;
+using BE.Helpers;
 using BE.Models;
 using BE.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
@@ -17,9 +18,15 @@ namespace BE.Repository.Implementations
         {
             _context = context;
         }
-        public async Task<List<Course>> GetAllCourses()
+        public async Task<List<Course>> GetAllCoursesByQueryName(SearchQueryObject searchQueryObject)
         {
-            return await _context.Courses.ToListAsync();
+            var courses = _context.Courses.AsQueryable();
+
+            if(!string.IsNullOrWhiteSpace(searchQueryObject.Name)){
+                courses = _context.Courses.Where(c => c.Name.Contains(searchQueryObject.Name));
+            }
+
+            return await courses.ToListAsync();
         }
 
         public async Task<List<object>> GetLecturesAndQuizzesByCourseId(string courseId)
@@ -119,6 +126,102 @@ namespace BE.Repository.Implementations
                 Console.WriteLine($"Lỗi khi tạo khóa học: {ex.Message}");
                 return "error";
             }
+        }
+
+        public async Task<List<Course>> FindCourseByCategoryName(string partialCategoryName)
+        {
+            var courses = await
+                        (from course in _context.Courses
+                        join courseCate in _context.CategoryCourses on course.Id equals courseCate.CourseId
+                        join cate in _context.Categories on courseCate.CategoryId equals cate.Id
+                        where cate.Name.Contains(partialCategoryName)
+                        select course)
+                        .ToListAsync();
+
+            return courses;
+        }
+
+        public async Task<List<Course>> FilterAllCoursesByObject(FilterQueryObject filterQueryObject)
+        {
+            var courses = _context.Courses
+                            .Include(course => course.CategoryCourses)
+                            .ThenInclude(cateCourse => cateCourse.Category)
+                            .ThenInclude(cate => cate.CategoryCourses)
+                            .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(filterQueryObject.CategoryName))
+            {
+                var categoryNameFilter = filterQueryObject.CategoryName.ToLower();
+
+                courses = courses
+                            .Where(course => course.CategoryCourses
+                            .Any(cateCourse => cateCourse.Category.Name.ToLower().Contains(categoryNameFilter)))
+                            .OrderByDescending(course => course.Name);
+            }
+
+            if(filterQueryObject.FromPrices > 0 && filterQueryObject.ToPrices > 0 && filterQueryObject.ToPrices > filterQueryObject.FromPrices){
+                courses = courses
+                            .Where(course => filterQueryObject.FromPrices <= course.Price && course.Price <= filterQueryObject.ToPrices)
+                            .OrderByDescending(course => course.Price);
+            }
+
+            if(filterQueryObject.Rating > 0){
+                courses = courses
+                            .Where(course => course.Rating == filterQueryObject.Rating)
+                            .OrderByDescending(course => course.Name);
+            }
+
+            // if(filterQueryObject.DifficultLevel > 0 || filterQueryObject.DifficultLevel < 4){
+            //     courses = _context.Courses
+            //                 .Where(course => course.)
+            // }
+             
+            var skipNumber = (filterQueryObject.PageNumber - 1) * filterQueryObject.PageSize;
+
+            if (skipNumber < 0) skipNumber = 0;     
+
+            var result = await courses.Skip(skipNumber).Take(filterQueryObject.PageSize).ToListAsync();
+ 
+            Console.WriteLine($"Courses count: {result.Count}");
+            foreach (var course in result)
+            {
+                Console.WriteLine($"Course Name: {course.Name}");
+                foreach (var categoryCourse in course.CategoryCourses)
+                {
+                    Console.WriteLine($"Category Name: {categoryCourse.Category.Name}");
+                }
+            }      
+            
+            return result;
+        }
+
+
+        //---------------------CRUD--------------------------//
+        public async Task<Course?> CreateCourse(Course course)
+        {
+            await _context.Courses.AddAsync(course);
+            await _context.SaveChangesAsync();
+            return course;
+        }
+
+        public async Task<Course?> UpdateCourse(Course course)
+        {
+            _context.Courses.Update(course);
+            await _context.SaveChangesAsync();
+            return course;
+        }
+
+        public async Task<bool> DeleteCourse(string courseId)
+        {
+            var course = await _context.Courses.FindAsync(courseId);
+
+            if(course == null) return false;
+
+            course.Status = 0;
+
+            _context.Courses.Update(course);
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

@@ -10,5 +10,11 @@ namespace BE.Services.Interfaces
     public interface ICategoryService
     {
         Task<List<Category>> GetAllCategories();
+
+
+        //---------------------CRUD--------------------------//
+        Task<Category?> CreateCategory(CreateCategoryDto createCategoryDto);
+        Task<Category?> UpdateCategory(string cateId, UpdateCategoryDto updateCategoryDto);
+        Task<bool> DeleteCategory(string cateId);
     }
 }
