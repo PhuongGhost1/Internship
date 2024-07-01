@@ -1,4 +1,5 @@
 using BE.Dto.Course;
+using BE.Helpers;
 using BE.Dto.Course.Chapter;
 using BE.Models;
 using BE.Services.Interfaces;
@@ -8,9 +9,9 @@ using static BE.Utils.Utils;
 
 namespace BE.Controllers
 {
-    [ApiController]
+
     [Route("api/v1/web/course")]
-    [ApiExplorerSettings(GroupName = "Course")]
+    [ApiController]
     public class CourseWebController : ControllerBase
     {
         private readonly ICourseService _courseService;
@@ -21,16 +22,31 @@ namespace BE.Controllers
         }
 
         [HttpGet]
-        public async Task<List<Course>> GetAllCourses()
+        [Route("all-courses")]
+        public async Task<List<Course>> GetAllCourses([FromQuery] SearchQueryObject searchQueryObject)
         {
-            return await _courseService.GetAllCourses();
+            return await _courseService.GetAllCourses(searchQueryObject);
         }
 
-        [HttpGet("course-info")]
-        [Route("{courseId}")]
+        [HttpGet]
+        [Route("filter-all-courses")]
+        public async Task<List<Course>> FilterAllCourses([FromQuery] FilterQueryObject filterQueryObject)
+        {
+            return await _courseService.FilterAllCourses(filterQueryObject);
+        }
+
+        [HttpGet]
+        [Route("course-info/{courseId}")]
         public async Task<CourseDto> GetInformationOfCourse([FromRoute] string courseId)
         {
             return await _courseService.GetInformationOfCourse(courseId);
+        }
+
+        [HttpGet]
+        [Route("content/{courseId}")]
+        public async Task<List<object>> GetLecturesAndQuizzesByCourseId([FromRoute] string courseId)
+        {
+            return await _courseService.GetLecturesAndQuizzesByCourseId(courseId);
         }
 
         [HttpPost("upload-img")]
@@ -46,6 +62,37 @@ namespace BE.Controllers
         public async Task<string> CreateCourse([FromForm] CreateCoursData data)
         {
             return await _courseService.CreateCourse(data);
+        }
+
+
+        [HttpGet]
+        [Route("find-course-by-category/{cateName}")]
+        public async Task<List<Course>> FindAllCoursesByCategoryName([FromRoute] string cateName)
+        {
+            return await _courseService.GetAllCoursesByCategoryName(cateName);
+        }
+
+
+        //---------------------CRUD--------------------------//
+        [HttpPost]
+        [Route("create-course/{userId}")]
+        public async Task<Course?> CreateCourse([FromRoute] string userId, [FromBody] CreateCourseDto createCourseDto)
+        {
+            return await _courseService.CreateCourse(userId, createCourseDto);
+        }
+
+        [HttpPost]
+        [Route("update-course/{courseId}")]
+        public async Task<Course?> UpdateCourse(UpdateCourseDto updateCourseDto, string courseId)
+        {
+            return await _courseService.UpdateCourse(updateCourseDto, courseId);
+        }
+
+        [HttpPost]
+        [Route("delete-course/{courseId}")]
+        public async Task<bool> DeleteCourse([FromRoute] string courseId)
+        {
+            return await _courseService.DeleteCourse(courseId);
         }
 
         [HttpPost("createChapter")]

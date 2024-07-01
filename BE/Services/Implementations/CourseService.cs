@@ -9,6 +9,8 @@ using BE.Services.Interfaces;
 using Google.Cloud.Storage.V1;
 using Google.Apis.Auth.OAuth2;
 using Microsoft.AspNetCore.Mvc;
+using BE.Mappers;
+using BE.Helpers;
 using BE.Dto.Course.Chapter;
 
 namespace BE.Services.Implementations
@@ -19,18 +21,30 @@ namespace BE.Services.Implementations
         private readonly IImageRepository _imageRepo;
         private readonly IQuizRepository _quizRepo;
         private readonly ILectureRepository _lectureRepo;
+        private readonly ICategoryRepository _cateRepo;
+        private readonly IUserRepository _userRepo;
         public CourseService(ICourseRepository courseRepo, IImageRepository imageRepo, IQuizRepository quizRepo,
-                            ILectureRepository lectureRepo)
+                            ILectureRepository lectureRepo, ICategoryRepository cateRepo, IUserRepository userRepo)
         {
             _courseRepo = courseRepo;
             _imageRepo = imageRepo;
             _quizRepo = quizRepo;
             _lectureRepo = lectureRepo;
+            var googleCredential = GoogleCredential.FromFile("config/firebase.json");
+            _storageClient = StorageClient.Create(googleCredential);
+            _cateRepo = cateRepo;
+            _userRepo = userRepo;
         }
 
-        public async Task<List<Course>> GetAllCourses()
+        public async Task<List<Course>> GetAllCourses(SearchQueryObject searchQueryObject)
         {
-            var courses = await _courseRepo.GetAllCourses();
+            var courses = await _courseRepo.GetAllCoursesByQueryName(searchQueryObject);
+            return courses;
+        }
+
+        public async Task<List<Course>> FilterAllCourses(FilterQueryObject filterQueryObject)
+        {
+            var courses = await _courseRepo.FilterAllCoursesByObject(filterQueryObject);
             return courses;
         }
 
@@ -59,6 +73,19 @@ namespace BE.Services.Implementations
             return courseDto;
         }
 
+        public async Task<List<object>> GetLecturesAndQuizzesByCourseId(string courseId)
+        {
+            var course = await _courseRepo.RetriveCourseInformationById(courseId);
+
+            if (course == null) throw new Exception("Cannot find course");
+
+            var combinedList = await _courseRepo.GetLecturesAndQuizzesByCourseId(courseId);
+
+            if (combinedList == null || !combinedList.Any()) throw new Exception("Not found lectures or quizzes!");
+
+            return combinedList;
+        }
+
         public async Task<string> UploadImgCourse(int courseId, IFormFile image)
         {
             if (image == null || image.Length == 0)
@@ -71,6 +98,57 @@ namespace BE.Services.Implementations
         public async Task<string> CreateCourse(CreateCoursData data)
         {
             return await _courseRepo.CreateCourse(data);
+        }
+
+        public async Task<List<Course>> GetAllCoursesByCategoryName(string cateName)
+        {
+            var category = await _cateRepo.FindCategoryByName(cateName);
+
+            if (category == null) throw new Exception("Not found category!");
+
+            var courses = await _courseRepo.FindCourseByCategoryName(cateName);
+
+            if (courses == null) throw new Exception("Not found course!");
+
+            return courses;
+        }
+
+
+
+        //---------------------CRUD--------------------------//
+        public async Task<Course?> CreateCourse(string userId, CreateCourseDto createCourseDto)
+        {
+            var user = await _userRepo.GetUserById(userId);
+
+            if (user == null) throw new Exception("Unable to find user!");
+
+            var createCourse = createCourseDto.ToCreateCourseDto(userId);
+
+            if (createCourse == null) throw new Exception("Unable to create course!");
+
+            return await _courseRepo.CreateCourse(createCourse);
+        }
+
+        public async Task<Course?> UpdateCourse(UpdateCourseDto updateCourseDto, string courseId)
+        {
+            var course = await _courseRepo.RetriveCourseInformationById(courseId);
+
+            if (course == null) throw new Exception("Unable to find course!");
+
+            var updateCourse = updateCourseDto.ToUpdateCourseDto();
+
+            if (updateCourse == null) throw new Exception("Unable to update course!");
+
+            return await _courseRepo.UpdateCourse(updateCourse);
+        }
+
+        public async Task<bool> DeleteCourse(string courseId)
+        {
+            var course = await _courseRepo.RetriveCourseInformationById(courseId);
+
+            if (course == null) throw new Exception("Unable to find course!");
+
+            return await _courseRepo.DeleteCourse(courseId);
         }
 
         public async Task<string> CreateChapter(CreateChapterData data)
