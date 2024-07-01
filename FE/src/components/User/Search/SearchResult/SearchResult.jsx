@@ -175,6 +175,13 @@ export default function SearchResult({ query }) {
     const toggleDropdown = () => {
         setIsDropDown(!isDropDown);
     };
+
+    const itemsPerPage = 9;
+
+    const [pagination, setPagination] = useState(1);
+
+    const paginatedData = datas.slice((pagination - 1) * itemsPerPage, pagination * itemsPerPage);
+
     return (
         <div id="search-result">
             <div className="sort-info">
@@ -208,7 +215,15 @@ export default function SearchResult({ query }) {
                     </div>
                 </div>
             </div>
-            <div className="results"></div>
+            <div className="results">
+                {paginatedData.map((data, index) => {
+                    return (
+                        <div className="result" key={index}>
+                            <img src="" alt="" />
+                        </div>
+                    )
+                })}
+            </div>
             <div className="pagination"></div>
         </div>
     );
