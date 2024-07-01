@@ -14,7 +14,7 @@ namespace BE.Services.Interfaces
 
         //---------------------CRUD--------------------------//
         Task<Category?> CreateCategory(CreateCategoryDto createCategoryDto);
-        Task<Category?> UpdateCategory(string cateId, UpdateCategoryDto updateCategoryDto);
+        Task<Category?> UpdateCategory(UpdateCategoryDto updateCategoryDto);
         Task<bool> DeleteCategory(string cateId);
     }
 }

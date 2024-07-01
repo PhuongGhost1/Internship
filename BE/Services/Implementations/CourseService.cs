@@ -114,22 +114,22 @@ namespace BE.Services.Implementations
 
 
         //---------------------CRUD--------------------------//
-        public async Task<Course?> CreateCourse(string userId, CreateCourseDto createCourseDto)
+        public async Task<Course?> CreateCourse(CreateCourseDto createCourseDto)
         {
-            var user = await _userRepo.GetUserById(userId);
+            var user = await _userRepo.GetUserById(createCourseDto.UserId);
 
             if (user == null) throw new Exception("Unable to find user!");
 
-            var createCourse = createCourseDto.ToCreateCourseDto(userId);
+            var createCourse = createCourseDto.ToCreateCourseDto(createCourseDto.UserId);
 
             if (createCourse == null) throw new Exception("Unable to create course!");
 
             return await _courseRepo.CreateCourse(createCourse);
         }
 
-        public async Task<Course?> UpdateCourse(UpdateCourseDto updateCourseDto, string courseId)
+        public async Task<Course?> UpdateCourse(UpdateCourseDto updateCourseDto)
         {
-            var course = await _courseRepo.RetriveCourseInformationById(courseId);
+            var course = await _courseRepo.RetriveCourseInformationById(updateCourseDto.CourseId);
 
             if (course == null) throw new Exception("Unable to find course!");
 

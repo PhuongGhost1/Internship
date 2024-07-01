@@ -5,10 +5,8 @@ using System.Threading.Tasks;
 
 namespace BE.Dto.Comment
 {
-    public class UpdateCommentDto
+    public class CommentDto
     {
         public string? CommentId {get; set;}
-        public int? Rating { get; set; }
-        public string? Comment { get; set; }
     }
 }

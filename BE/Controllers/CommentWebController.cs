@@ -24,21 +24,21 @@ namespace BE.Controllers
         }
 
         [HttpPost]
-        [Route("create-comment/{userId}&{courseId}")]
-        public async Task<Comment?> CreateComment([FromRoute] string userId, [FromRoute] string courseId, [FromBody] CreateCommentDto createCommentDto){
-            return await _commentService.CreateComment(userId, courseId, createCommentDto);
+        [Route("create-comment")]
+        public async Task<Comment?> CreateComment([FromBody] CreateCommentDto createCommentDto){
+            return await _commentService.CreateComment(createCommentDto);
         }
 
         [HttpPost]
-        [Route("update-comment/{commentId}")]
-        public async Task<Comment?> UpdateComment([FromRoute] string commentId, [FromBody] UpdateCommentDto updateCommentDto){
-            return await _commentService.UpdateComment(commentId, updateCommentDto);
+        [Route("update-comment")]
+        public async Task<Comment?> UpdateComment([FromBody] UpdateCommentDto updateCommentDto){
+            return await _commentService.UpdateComment(updateCommentDto);
         }
 
         [HttpPost]
-        [Route("delete-comment/{commentId}")]
-        public async Task<bool> DeleteComment([FromRoute] string commentId){
-            return await _commentService.DeleteComment(commentId);
+        [Route("delete-comment")]
+        public async Task<bool> DeleteComment([FromBody] CommentDto commentDto){
+            return await _commentService.DeleteComment(commentDto.CommentId);
         }
     }
 }

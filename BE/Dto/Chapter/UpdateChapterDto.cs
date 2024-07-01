@@ -7,6 +7,7 @@ namespace BE.Dto.Chapter
 {
     public class UpdateChapterDto
     {
+        public string? ChapId {get; set;}
         public int? Index { get; set; }
         public string? CourseId { get; set; }
         public string? Name { get; set; }

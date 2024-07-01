@@ -22,13 +22,13 @@ namespace BE.Services.Implementations
 
 
         //---------------------CRUD--------------------------//
-        public async Task<Certification?> CreateCertification(string courseId, CreateCertificatonDto createCertificatonDto)
+        public async Task<Certification?> CreateCertification(CreateCertificatonDto createCertificatonDto)
         {
-            var course = await _courseRepo.RetriveCourseInformationById(courseId);
+            var course = await _courseRepo.RetriveCourseInformationById(createCertificatonDto.CourseId);
 
             if(course == null) throw new Exception("Unable to find course!");
 
-            var createCertification = createCertificatonDto.ToCreateCertificationDto(courseId);
+            var createCertification = createCertificatonDto.ToCreateCertificationDto(createCertificatonDto.CourseId);
 
             if(createCertification == null) throw new Exception("Unable to create course!");
 

@@ -21,8 +21,8 @@ namespace BE.Services.Interfaces
 
 
                 //---------------------CRUD--------------------------//
-                Task<Course?> CreateCourse(string userId, CreateCourseDto createCourseDto);
-                Task<Course?> UpdateCourse(UpdateCourseDto updateCourseDto, string courseId);
+                Task<Course?> CreateCourse(CreateCourseDto createCourseDto);
+                Task<Course?> UpdateCourse(UpdateCourseDto updateCourseDto);
                 Task<bool> DeleteCourse(string courseId);
                 Task<string> CreateChapter(CreateChapterData data);
                 Task<string> CreateQuiz(CreateQuizData data);

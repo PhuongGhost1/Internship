@@ -65,5 +65,13 @@ namespace BE.Repository.Implementations
             await _context.SaveChangesAsync();
             return chapter;
         }
+
+        public async Task<Chapter?> FindChapterByName(string chapName)
+        {
+            if(chapName.Contains("-")){
+                chapName = chapName.Replace("-", " ");
+            }
+            return await _context.Chapters.FirstOrDefaultAsync(chap => chap.Name.ToLower() == chapName.ToLower());
+        }
     }
 }

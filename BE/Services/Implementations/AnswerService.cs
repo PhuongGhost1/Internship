@@ -22,13 +22,13 @@ namespace BE.Services.Implementations
             _quesRepo = quesRepo;
         }
 
-        public async Task<List<Answer>> GetAllDataOfAnswerFromQuizById(string quizId)
+        public async Task<List<Answer>> GetAllDataOfAnswerFromQuizById(AnswerDto answerDto)
         {
-            var quiz = await _quizRepo.GetDataOfQuizByQuizId(quizId);
+            var quiz = await _quizRepo.GetDataOfQuizByQuizId(answerDto.QuizId);
 
             if(quiz == null) throw new Exception("Not found quiz!");
 
-            var answers = await _answerRepo.GetAllDataOfAnswerFromQuizById(quizId);
+            var answers = await _answerRepo.GetAllDataOfAnswerFromQuizById(answerDto.QuizId);
 
             return answers;
         }
@@ -36,13 +36,13 @@ namespace BE.Services.Implementations
 
 
         //---------------------CRUD--------------------------//
-        public async Task<Answer?> CreateAnswer(string questionId, CreateAnswerDto createAnswerDto)
+        public async Task<Answer?> CreateAnswer(CreateAnswerDto createAnswerDto)
         {
-            var question = await _quesRepo.GetQuestionById(questionId);
+            var question = await _quesRepo.GetQuestionById(createAnswerDto.QuestionId);
 
             if(question == null) throw new Exception("Unable to find question!");
 
-            var createAnswer = createAnswerDto.ToCreateAnswerDto(questionId);
+            var createAnswer = createAnswerDto.ToCreateAnswerDto(createAnswerDto.QuestionId);
 
             if(createAnswer == null) throw new Exception("Unable to create question!");
 
@@ -63,9 +63,9 @@ namespace BE.Services.Implementations
             return await _answerRepo.GetAllAnswers();
         }
 
-        public async Task<Answer?> UpdateAnswer(string answerId, UpdateAnswerDto updateAnswerDto)
+        public async Task<Answer?> UpdateAnswer(UpdateAnswerDto updateAnswerDto)
         {
-            var answer = await _answerRepo.GetAnswerById(answerId);
+            var answer = await _answerRepo.GetAnswerById(updateAnswerDto.AnswerId);
 
             if(answer == null) throw new Exception("Unable to find answer!");
 

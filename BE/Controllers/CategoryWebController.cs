@@ -30,15 +30,15 @@ namespace BE.Controllers
         }
 
         [HttpPost]
-        [Route("update-category/{cateId}")]
-        public async Task<Category?> UpdateCategory([FromRoute] string cateId, [FromBody] UpdateCategoryDto updateCategoryDto){
-            return await _cateService.UpdateCategory(cateId, updateCategoryDto);
+        [Route("update-category")]
+        public async Task<Category?> UpdateCategory([FromBody] UpdateCategoryDto updateCategoryDto){
+            return await _cateService.UpdateCategory(updateCategoryDto);
         }
 
         [HttpPost]
-        [Route("delete-category/{cateId}")]
-        public async Task<bool> DeleteCategory([FromRoute] string cateId){
-            return await _cateService.DeleteCategory(cateId);
+        [Route("delete-category")]
+        public async Task<bool> DeleteCategory([FromBody] CategoryDto categoryDto){
+            return await _cateService.DeleteCategory(categoryDto.cateId);
         }
     }
 }

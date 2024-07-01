@@ -24,20 +24,20 @@ namespace BE.Controllers
         }
 
         [HttpPost]
-        [Route("create-roleUser/{userId}")]
-        public async Task<RoleUser?> CreateRoleUser([FromRoute] string userId, [FromBody] CreateRoleUserDto createRoleUserDto){
+        [Route("create-roleUser")]
+        public async Task<RoleUser?> CreateRoleUser([FromForm] string userId, [FromBody] CreateRoleUserDto createRoleUserDto){
             return await _roleUserService.CreateRoleUser(userId, createRoleUserDto);
         }
 
         [HttpPost]
-        [Route("update-roleUser/{roleUserId}")]
-        public async Task<RoleUser?> UpdateRoleUser([FromRoute] string roleUserId, [FromBody] UpdateRoleUserDto updateRoleUserDto){
+        [Route("update-roleUser")]
+        public async Task<RoleUser?> UpdateRoleUser([FromForm] string roleUserId, [FromBody] UpdateRoleUserDto updateRoleUserDto){
             return await _roleUserService.UpdateRoleUser(roleUserId, updateRoleUserDto);
         }
 
         [HttpPost]
-        [Route("delete-roleUser/{roleUserId}")]
-        public async Task<bool> DeleteRoleUser([FromRoute] string roleUserId){
+        [Route("delete-roleUser")]
+        public async Task<bool> DeleteRoleUser([FromForm] string roleUserId){
             return await _roleUserService.DeleteRoleUser(roleUserId);
         }
     }

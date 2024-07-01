@@ -7,6 +7,7 @@ namespace BE.Dto.Question
 {
     public class UpdateQuestionDto
     {
+        public string? QuestionId {get; set;}
         public string? QuizId { get; set; }
         public string? Text { get; set; }
         public int? Mark { get; set; }

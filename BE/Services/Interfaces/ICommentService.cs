@@ -9,8 +9,8 @@ namespace BE.Services.Interfaces
 
         //---------------------CRUD--------------------------//
         Task<List<Comment>> ViewAllComments();
-        Task<Comment?> CreateComment(string userId, string courseId, CreateCommentDto createCommentDto);
-        Task<Comment?> UpdateComment(string commentId, UpdateCommentDto updateCommentDto);
+        Task<Comment?> CreateComment(CreateCommentDto createCommentDto);
+        Task<Comment?> UpdateComment(UpdateCommentDto updateCommentDto);
         Task<bool> DeleteComment(string commentId);
     }
 }

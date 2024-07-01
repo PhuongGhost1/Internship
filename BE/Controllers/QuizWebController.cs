@@ -16,9 +16,9 @@ namespace BE.Controllers
             _quizService = quizService;
         }
 
-        [HttpGet]
-        [Route("quiz-data/{courseId}")]
-        public async Task<QuizDto> GetAllDataFromQuizByCourseId([FromRoute] string courseId){
+        [HttpPost]
+        [Route("quiz-data")]
+        public async Task<QuizDto> GetAllDataFromQuizByCourseId([FromForm] string courseId){
             return await _quizService.GetAllDataFromQuizByCourseId(courseId);
         }
 
@@ -32,20 +32,20 @@ namespace BE.Controllers
 
 
         [HttpPost]
-        [Route("create-quiz/{chapterId}")]
-        public async Task<Quiz?> CreateQuiz([FromRoute] string chapterId, [FromBody] CreateQuizDto createQuizDto){
-            return await _quizService.CreateQuiz(createQuizDto, chapterId);
+        [Route("create-quiz")]
+        public async Task<Quiz?> CreateQuiz([FromBody] CreateQuizDto createQuizDto){
+            return await _quizService.CreateQuiz(createQuizDto, createQuizDto.ChapId);
         }
 
         [HttpPost]
-        [Route("update-quiz/{quizId}")]
-        public async Task<Quiz?> UpdateQuiz([FromRoute] string quizId, [FromBody] UpdateQuizDto updateQuizDto){
+        [Route("update-quiz")]
+        public async Task<Quiz?> UpdateQuiz([FromForm] string quizId, [FromBody] UpdateQuizDto updateQuizDto){
             return await _quizService.UpdateQuiz(quizId, updateQuizDto);
         }
 
         [HttpPost]
-        [Route("delete-quiz/{quizId}")]
-        public async Task<bool> DeleteQuiz([FromRoute] string quizId){
+        [Route("delete-quiz")]
+        public async Task<bool> DeleteQuiz([FromForm] string quizId){
             return await _quizService.DeleteQuiz(quizId); 
         }
     }

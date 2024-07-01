@@ -17,9 +17,9 @@ namespace BE.Controllers
         }
 
         [HttpGet]
-        [Route("chapters-in-course/{courseId}")]
-        public async Task<ChapterDto> GetDataFromChapterInCourse([FromRoute] string courseId){
-            return await _chapterService.GetDataFromChapterInCourse(courseId);
+        [Route("chapters-in-course")]
+        public async Task<ChapterDto> GetDataFromChapterInCourse([FromBody] ChaptersDto chaptersDto){
+            return await _chapterService.GetDataFromChapterInCourse(chaptersDto.CourseId);
         }
 
 
@@ -32,21 +32,27 @@ namespace BE.Controllers
         }
 
         [HttpPost]
-        [Route("create-chapter/{courseId}")]
-        public async Task<Chapter?> CreateChapter([FromRoute] string courseId, [FromBody] CreateChapterDto createChapterDto){
-            return await _chapterService.CreateChapter(courseId, createChapterDto);
+        [Route("create-chapter")]
+        public async Task<Chapter?> CreateChapter([FromBody] CreateChapterDto createChapterDto){
+            return await _chapterService.CreateChapter(createChapterDto);
         }
 
         [HttpPost]
-        [Route("update-chapter/{chapId}")]
-        public async Task<Chapter?> UpdateChapter([FromRoute] string chapId, [FromBody] UpdateChapterDto updateChapterDto){
-            return await _chapterService.UpdateChapter(chapId, updateChapterDto);
+        [Route("update-chapter")]
+        public async Task<Chapter?> UpdateChapter([FromBody] UpdateChapterDto updateChapterDto){
+            return await _chapterService.UpdateChapter(updateChapterDto);
         }
 
         [HttpPost]
-        [Route("delete-chapter/{chapId}")]
-        public async Task<bool> DeleteChapter([FromRoute] string chapId){
-            return await _chapterService.DeleteChapter(chapId);
+        [Route("delete-chapter")]
+        public async Task<bool> DeleteChapter([FromBody] ChaptersDto chaptersDto){
+            return await _chapterService.DeleteChapter(chaptersDto.ChapId);
+        }
+
+        [HttpPost]
+        [Route("find-chapter")]
+        public async Task<Chapter?> FindChapterByName([FromBody] string chapName){
+            return await _chapterService.GetChapterByName(chapName);
         }
     }
 }

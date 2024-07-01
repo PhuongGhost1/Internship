@@ -7,6 +7,7 @@ namespace BE.Dto.Lecture
 {
     public class UpdateLectureDto
     {
+        public string? LectureId {get; set;}
         public int? Index { get; set; }
         public string? ChapterId { get; set; }
         public string? Name { get; set; }
