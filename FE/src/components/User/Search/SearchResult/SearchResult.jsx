@@ -169,26 +169,23 @@ export default function SearchResult() {
             ratingCount: 1789,
             timeLearing: "8 hours 45 minutes"
         },
-
-
     ]
+    const [isDropDown, setIsDropDown] = useState(false)
+    const [sortBy, setSortBy] = useState('Newest')
 
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 15;
-
-    const indexOfLastItem = currentPage * itemsPerPage;
-
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-
-    const currentItems = datas.slice(indexOfFirstItem, indexOfLastItem);
-
-
-    const totalPages = Math.ceil(datas.length / itemsPerPage);
-
-    const pageNumbers = [];
-    for (let i = 1; i <= totalPages; i++) {
-        pageNumbers.push(i);
+    const hanldeSortClick = (item) => {
+        setSortBy(item)
+        setIsDropDown(false)
     }
+    const toggleDropdown = () => {
+        setIsDropDown(!isDropDown);
+    };
+
+    const itemsPerPage = 9;
+
+    const [pagination, setPagination] = useState(1);
+
+    const paginatedData = datas.slice((pagination - 1) * itemsPerPage, pagination * itemsPerPage);
 
     return (
         <div>
@@ -220,6 +217,16 @@ export default function SearchResult() {
                     Next
                 </button>
             </div>
+            <div className="results">
+                {paginatedData.map((data, index) => {
+                    return (
+                        <div className="result" key={index}>
+
+                        </div>
+                    )
+                })}
+            </div>
+            <div className="pagination"></div>
         </div>
     );
 }
