@@ -4,12 +4,12 @@ using BE.Models;
 
 namespace BE.Repository.Interface
 {
-    public interface ISaveCourseRepository
+    public interface IEnrollCourseRepository
     {
-        Task<IEnumerable<SaveCourse>> GetAllSaveCoursesAsync();
-        Task<SaveCourse> GetSaveCourseByIdAsync(string id);
-        Task AddSaveCourseAsync(SaveCourse saveCourse);
-        Task UpdateSaveCourseAsync(SaveCourse saveCourse1aveCourse);
-        Task DeleteSaveCourseAsync(string id);
+        Task<IEnumerable<EnrollCourse>> GetAllEnrollCoursesAsync();
+        Task<EnrollCourse> GetEnrollCourseByIdAsync(string id);
+        Task AddEnrollCourseAsync(EnrollCourse enrollCourse);
+        Task UpdateEnrollCourseAsync(EnrollCourse enrollCourse);
+        Task DeleteEnrollCourseAsync(string id);
     }
 }

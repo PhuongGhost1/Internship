@@ -44,11 +44,7 @@ namespace BE.Services.Implementations
             {
                 throw new Exception("Role cannot be null.");
             }
-
-            role.Id = Utils.GenerateIdModel("Role");
-            role.CreatedAt = Utils.GetTimeNow();
-            role.UpdatedAt = Utils.GetTimeNow();
-
+            role.Id = Utils.Utils.GenerateIdModel("Role");
             await _roleRepository.AddRoleAsync(role);
         }
 
@@ -64,8 +60,6 @@ namespace BE.Services.Implementations
             {
                 throw new Exception("Role not found.");
             }
-
-            role.UpdatedAt = Utils.GetTimeNow();
 
             await _roleRepository.UpdateRoleAsync(role);
         }

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using BE.Models;
 using BE.Repository.Interface;
 using BE.Services.Interfaces;
-using BE.Utils;
+using static BE.Utils.Utils;
 
 namespace BE.Services.Implementations
 {
@@ -45,8 +45,8 @@ namespace BE.Services.Implementations
                 throw new Exception("Permisson cannot be null.");
             }
 
-            permisson.Id = Utils.GenerateIdModel("Permisson");
-            permisson.LastUpdate = Utils.GetTimeNow();
+            permisson.Id = Utils.Utils.GenerateIdModel("permisson");
+            permisson.LastUpdate = Utils.Utils.GetTimeNow();
 
             await _permissonRepository.AddPermissonAsync(permisson);
         }
@@ -64,7 +64,7 @@ namespace BE.Services.Implementations
                 throw new Exception("Permisson not found.");
             }
 
-            permisson.LastUpdate = Utils.GetTimeNow();
+            permisson.LastUpdate = Utils.Utils.GetTimeNow();
 
             await _permissonRepository.UpdatePermissonAsync(permisson);
         }

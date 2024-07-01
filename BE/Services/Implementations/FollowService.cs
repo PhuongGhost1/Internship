@@ -8,82 +8,78 @@ using BE.Utils;
 
 namespace BE.Services.Implementations
 {
-    public class RoleService : IRoleService
+    public class FollowService : IFollowService
     {
-        private readonly IRoleRepository _roleRepository;
+        private readonly IFollowRepository _followRepository;
 
-        public RoleService(IRoleRepository roleRepository)
+        public FollowService(IFollowRepository followRepository)
         {
-            _roleRepository = roleRepository;
+            _followRepository = followRepository;
         }
 
-        public async Task<IEnumerable<Role>> GetAllRolesAsync()
+        public async Task<IEnumerable<Follow>> GetAllFollowsAsync()
         {
-            return await _roleRepository.GetAllRolesAsync();
+            return await _followRepository.GetAllFollowsAsync();
         }
 
-        public async Task<Role> GetRoleByIdAsync(string id)
+        public async Task<Follow> GetFollowByIdAsync(string id)
         {
             if (string.IsNullOrEmpty(id))
             {
-                throw new Exception("Role ID cannot be null or empty.");
+                throw new Exception("Follow ID cannot be null or empty.");
             }
 
-            var role = await _roleRepository.GetRoleByIdAsync(id);
-            if (role == null)
+            var follow = await _followRepository.GetFollowByIdAsync(id);
+            if (follow == null)
             {
-                throw new Exception("Role not found.");
+                throw new Exception("Follow not found.");
             }
 
-            return role;
+            return follow;
         }
 
-        public async Task AddRoleAsync(Role role)
+        public async Task AddFollowAsync(Follow follow)
         {
-            if (role == null)
+            if (follow == null)
             {
-                throw new Exception("Role cannot be null.");
+                throw new Exception("Follow cannot be null.");
             }
+            follow.Id = Utils.Utils.GenerateIdModel("Follow");
+            follow.Time = Utils.Utils.GetTimeNow();
 
-            role.Id = Utils.GenerateIdModel("Role");
-            role.CreatedAt = Utils.GetTimeNow();
-            role.UpdatedAt = Utils.GetTimeNow();
-
-            await _roleRepository.AddRoleAsync(role);
+            await _followRepository.AddFollowAsync(follow);
         }
 
-        public async Task UpdateRoleAsync(Role role)
+        public async Task UpdateFollowAsync(Follow follow)
         {
-            if (role == null)
+            if (follow == null)
             {
-                throw new Exception("Role cannot be null.");
+                throw new Exception("Follow cannot be null.");
             }
 
-            var existingRole = await _roleRepository.GetRoleByIdAsync(role.Id);
-            if (existingRole == null)
+            var existingFollow = await _followRepository.GetFollowByIdAsync(follow.Id);
+            if (existingFollow == null)
             {
-                throw new Exception("Role not found.");
+                throw new Exception("Follow not found.");
             }
 
-            role.UpdatedAt = Utils.GetTimeNow();
-
-            await _roleRepository.UpdateRoleAsync(role);
+            await _followRepository.UpdateFollowAsync(follow);
         }
 
-        public async Task DeleteRoleAsync(string id)
+        public async Task DeleteFollowAsync(string id)
         {
             if (string.IsNullOrEmpty(id))
             {
-                throw new Exception("Role ID cannot be null or empty.");
+                throw new Exception("Follow ID cannot be null or empty.");
             }
 
-            var role = await _roleRepository.GetRoleByIdAsync(id);
-            if (role == null)
+            var follow = await _followRepository.GetFollowByIdAsync(id);
+            if (follow == null)
             {
-                throw new Exception("Role not found.");
+                throw new Exception("Follow not found.");
             }
 
-            await _roleRepository.DeleteRoleAsync(id);
+            await _followRepository.DeleteFollowAsync(id);
         }
     }
 }

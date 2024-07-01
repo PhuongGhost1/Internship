@@ -9,7 +9,7 @@ namespace BE.Repository.Interface
         Task<IEnumerable<SaveCourse>> GetAllSaveCoursesAsync();
         Task<SaveCourse> GetSaveCourseByIdAsync(string id);
         Task AddSaveCourseAsync(SaveCourse saveCourse);
-        Task UpdateSaveCourseAsync(SaveCourse saveCourse1aveCourse);
+        Task UpdateSaveCourseAsync(SaveCourse saveCourse);
         Task DeleteSaveCourseAsync(string id);
     }
 }

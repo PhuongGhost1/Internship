@@ -1,4 +1,3 @@
-// File: BE/Utils/Utils.cs
 namespace BE.Utils
 {
     public static class Utils
@@ -6,13 +5,9 @@ namespace BE.Utils
         public static string GenerateIdModel(string model)
         {
             string randomString = Guid.NewGuid().ToString("N").Substring(0, 10);
-<<<<<<< HEAD
-=======
 
->>>>>>> 0415c2d2f24d37bca8b2cb7436b074be3738e4ab
             return $"{model}_{randomString}";
         }
-
         public static DateTime GetTimeNow()
         {
             TimeZoneInfo vietnamTimeZone = TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time");

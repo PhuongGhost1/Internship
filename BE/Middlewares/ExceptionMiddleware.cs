@@ -100,7 +100,7 @@ namespace BE.Middlewares
         {
             context.Response.ContentType = "application/json";
             var type = ex.GetType();
-            
+
             if (_exceptionHandlers.TryGetValue(type, out var handler))
             {
                 await handler.Invoke(context, ex);
