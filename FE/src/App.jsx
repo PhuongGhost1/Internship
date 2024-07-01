@@ -54,7 +54,7 @@ function App() {
           <Route path='instructor' element={<ManageInstructorPage />} />
           <Route path='student' element={<ManageStudentPage />} />
           <Route path='course' element={<ManageCoursePage />} />
-          
+
 
 
         </Route>

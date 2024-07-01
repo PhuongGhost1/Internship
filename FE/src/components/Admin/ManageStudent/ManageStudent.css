@@ -1,0 +1,150 @@
+#ManageStudent {
+    padding: 20px 7% 20px 20px;
+    font-size: 16px;
+}
+
+#ManageStudent .student-list th {
+    padding: 12px 10px;
+}
+
+#ManageStudent .student-list td {
+    vertical-align: middle;
+}
+
+#ManageStudent .no {
+    width: 3%;
+}
+
+#ManageStudent .email {
+    width: 32%;
+}
+
+#ManageStudent .student-list .name {
+    width: 20%;
+}
+
+#ManageStudent .name {
+    width: 20%;
+}
+
+#ManageStudent .role {
+    width: 10%;
+}
+
+#ManageStudent .status {
+    width: 10%;
+}
+
+#ManageStudent .action {
+    width: 5%;
+}
+
+#ManageStudent .ManageStudent-top {
+    display: flex;
+}
+
+#ManageStudent .management-student-pagination {
+    justify-content: flex-start;
+}
+
+#ManageStudent .ManageStudent-top .search-bar {
+    display: flex;
+    position: relative;
+    margin-bottom: 20px;
+    text-align: left;
+    justify-content: flex-end;
+}
+
+
+#ManageStudent .search-bar input {
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 12px;
+}
+
+#ManageStudent .search-bar svg {
+    color: rgb(207, 206, 206);
+    margin-top: 10px;
+    margin-right: 10px;
+    font-size: 20px;
+    position: absolute;
+}
+
+
+#ManageStudent .student-list {
+    margin-bottom: 20px;
+}
+
+#ManageStudent .btn-action {
+    margin-right: 5px;
+}
+
+#ManageStudent .status-active {
+    border: none;
+    background-color: rgb(6, 145, 6);
+    color: white;
+}
+
+#ManageStudent .status-ban {
+    border: none;
+    background-color: #c53631;
+    color: white;
+}
+
+#ManageStudent .dropdown-status {
+    display: inline-block;
+}
+
+#ManageStudent .role-student {
+    background-color: blue;
+    color: white;
+}
+
+#ManageStudent .role-instructor {
+    background-color: orange;
+    color: white;
+}
+
+#ManageStudent .dropdown-role {
+    display: inline-block;
+}
+
+#ManageStudent .management-student-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#ManageStudent .button-view {
+    border: solid 1.5px #54d6df;
+    color: #54d6df;
+    ;
+    border-radius: 5px;
+    font-size: 24px;
+}
+
+#ManageStudent .button-delete {
+    border: solid 1.5px rgb(243, 141, 141);
+    border-radius: 5px;
+    font-size: 24px;
+    margin-left: 20px;
+    color: rgb(243, 141, 141);
+}
+
+#ManageStudent .button-view:hover {
+    cursor: pointer;
+    color: #40a6ad;
+    border-color: #40a6ad;
+}
+
+#ManageStudent .button-delete:hover {
+    cursor: pointer;
+    color: #c53631;
+    border-color: #c53631;
+}
+
+#ManageStudent .button-view svg,
+.button-delete svg {
+    margin-bottom: 5px;
+}
