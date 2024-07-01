@@ -14,12 +14,11 @@ export default function DashBoard() {
             </div>
             <div className="Layout">
                 <div className="SideBar-container">
-                    <SideBar/>
+                    <SideBar />
                 </div>
                 <div className="Weekly-container">
-                    <Weekly/>
-                    <Statistics/>
-                    
+                    <Weekly />
+                    <Statistics />
                 </div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 import React from "react";
-import './sidebar.css';
+import './SideBar.css';
 
-export default function sidebar() {
+export default function Sidebar() {
     return (
         <div id="sidebar">
 
@@ -23,7 +23,7 @@ export default function sidebar() {
                 <a className="sidebar-text">Course Management</a>
 
                 <div className="sidebar-container">
-                    <a>Request Management</a>  
+                    <a>Request Management</a>
                     <a>Course List</a>
                 </div>
 
