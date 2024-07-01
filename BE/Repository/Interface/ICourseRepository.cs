@@ -24,6 +24,7 @@ namespace BE.Repository.Interface
                 Task<Course?> CreateCourse(Course course);
                 Task<Course?> UpdateCourse(Course course);
                 Task<bool> DeleteCourse(string courseId);
+                Task<Course?> FindCourseByCourseName(string courseName);
                 Task<string> CreateChapter(CreateChapterData data);
                 Task<string> CreateQuiz(CreateQuizData data);
         }

@@ -14,7 +14,6 @@ namespace BE.Services.Interfaces
 
 
         //---------------------CRUD--------------------------//
-        Task<Chapter?> GetChapterByName(string chapName); 
         Task<List<Chapter>> ViewAllChapters();
         Task<Chapter?> CreateChapter(CreateChapterDto createChapterDto);
         Task<Chapter?> UpdateChapter(UpdateChapterDto updateChapterDto);

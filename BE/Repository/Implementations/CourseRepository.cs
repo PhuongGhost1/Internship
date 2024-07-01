@@ -383,5 +383,14 @@ namespace BE.Repository.Implementations
             await _context.SaveChangesAsync();
             return true;
         }
+
+        public async Task<Course?> FindCourseByCourseName(string courseName)
+        {
+            if(courseName.Contains("-")){
+                courseName = courseName.Replace("-", " ");
+            }
+
+            return await _context.Courses.FirstOrDefaultAsync(course => course.Name.ToLower().Contains(courseName.ToLower()));
+        }
     }
 }

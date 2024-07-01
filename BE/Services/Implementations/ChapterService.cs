@@ -98,12 +98,5 @@ namespace BE.Services.Implementations
         {
             return await _chapRepo.FindChapterById(chapId);
         }
-
-        public async Task<Chapter?> GetChapterByName(string chapName)
-        {
-            if(chapName == null) throw new Exception("Unable to find chapter!");
-
-            return await _chapRepo.FindChapterByName(chapName);
-        }
     }
 }
