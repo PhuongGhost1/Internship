@@ -1,206 +1,239 @@
 import React, { useState } from "react";
 import './FilterBar.css';
+import { IoFilter } from "react-icons/io5";
 import { IoIosArrowDown } from "react-icons/io";
-import MultiRangeSlider from "multi-range-slider-react";
+import Checkbox from '@mui/material/Checkbox';
+import Box from '@mui/material/Box';
+import Slider from '@mui/material/Slider';
+import Rating from '@mui/material/Rating';
+import { FaCircleCheck } from "react-icons/fa6";
 
 export default function FilterBar() {
-    const categoriesData = [
-        { id: 1, name: "Back-end" },
-        { id: 2, name: "Front-end" }
-    ];
+    const datas = [
+        {
+            name: "Mobile Application Development"
+        },
+        {
+            name: "Mobile Application Development"
+        },
+        {
+            name: "Mobile Application Development"
+        },
+        {
+            name: "Mobile Application Development"
+        },
+        {
+            name: "Mobile Application Development"
+        },
+        {
+            name: "Mobile Application Development"
+        },
+        {
+            name: "Mobile Application Development"
+        },
+        {
+            name: "Mobile Application Development"
+        },
+    ]
 
-    const priceData = [
-        { id: 1, name: "Free" },
-        { id: 2, name: "Paid" }
-    ];
-
-    const timeData = [
-        { id: 1, name: "Short" },
-        { id: 2, name: "Medium" },
-        { id: 3, name: "Long" }
-    ];
-
-    const hardLevelData = [
-        { id: 1, name: "Easy" },
-        { id: 2, name: "Intermediate" },
-        { id: 3, name: "Advanced" }
-    ];
-
-    const [openSection, setOpenSection] = useState(null);
-    const [selectedFilters, setSelectedFilters] = useState({
-        categories: [],
-        time: [],
-        hardLevel: []
+    const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+    const [openDropdowns, setOpenDropdowns] = useState({
+        categorycontainer: false,
+        pricerangecontainer: false,
+        ratingcontainer: false,
+        difficultcontainer: false
     });
     const [priceFilter, setPriceFilter] = useState(null);
     const [priceRange, setPriceRange] = useState({ min: 1, max: 200 });
 
-    const toggleSection = (section) => {
-        setOpenSection(openSection === section ? null : section);
+    const [ratingSelected, setRatingSelected] = useState(
+        [
+            {
+                starCount: 5,
+                isSelected: false,
+            },
+            {
+                starCount: 4,
+                isSelected: false,
+            },
+            {
+                starCount: 3,
+                isSelected: false,
+            },
+            {
+                starCount: 2,
+                isSelected: false,
+            },
+            {
+                starCount: 1,
+                isSelected: false,
+            },
+        ]
+    )
+
+    const [difficultSelected, setDifficultSelected] = useState(
+        [
+            {
+                name: 'Beginner',
+                isSelected: false,
+            },
+            {
+                name: 'Intermediate',
+                isSelected: false,
+            },
+            {
+                name: 'Advanced',
+                isSelected: false,
+            },
+        ]
+    )
+
+    function removeHyphens(str) {
+        return str.replace(/-/g, '');
+    }
+
+    const [value, setValue] = useState([20, 37]);
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
     };
 
-    const handleCheckboxChange = (section, value) => {
-        setSelectedFilters(prevState => {
-            const sectionFilters = prevState[section];
-            if (sectionFilters.includes(value)) {
-                return {
-                    ...prevState,
-                    [section]: sectionFilters.filter(item => item !== value)
-                };
-            } else {
-                return {
-                    ...prevState,
-                    [section]: [...sectionFilters, value]
-                };
-            }
-        });
+    const handleDropdownClick = (target) => () => {
+        const progress = document.querySelector(`#filter-bar .${target} .items`);
+        if (progress) {
+            progress.classList.toggle('active');
+        }
+        const newTarget = removeHyphens(target)
+        setOpenDropdowns((prev) => ({
+            ...prev,
+            [newTarget]: !prev[newTarget]
+        }));
     };
 
-    const handlePriceChange = (value) => {
-        setPriceFilter(priceFilter === value ? null : value);
-    };
-
-    const renderSelectedFilters = () => {
-        const filters = [
-            ...Object.keys(selectedFilters).flatMap(section =>
-                selectedFilters[section].map(filter => ({ section, filter }))
-            ),
-            ...(priceFilter ? [{
-                section: 'price',
-                filter: priceFilter === 'Free' ? 'Free' : `Paid: $${priceRange.min} - $${priceRange.max}`
-            }] : [])
-        ];
-
-        return filters.map(({ section, filter }) => (
-            <div key={`${section}-${filter}`} className="selected-filter">
-                {filter}
-                <button onClick={() => section === 'price' ? handlePriceChange(null) : handleCheckboxChange(section, filter)}>x</button>
-            </div>
-        ));
-    };
-
-    const renderOptions = (data, section) => {
-        return (
-            <ul className="sub-options">
-                {data.map(item => (
-                    <li key={item.id}>
-                        <label>
-                            <input
-                                type="checkbox"
-                                value={item.name}
-                                checked={selectedFilters[section]?.includes(item.name)}
-                                onChange={() => handleCheckboxChange(section, item.name)}
-                            /> {item.name}
-                        </label>
-                    </li>
-                ))}
-            </ul>
-        );
-    };
-
-    const renderPriceOptions = () => {
-        return (
-            <ul className="sub-options">
-                {priceData.map(item => (
-                    <li key={item.id}>
-                        <label>
-                            <input
-                                type="radio"
-                                value={item.name}
-                                checked={priceFilter === item.name}
-                                onChange={() => handlePriceChange(item.name)}
-                            /> {item.name}
-                        </label>
-                    </li>
-                ))}
-            </ul>
-        );
-    };
+    const hanldeDifficultClick = (index) => {
+        setDifficultSelected(prev => {
+            return prev.map((item, i) => {
+                if (i === index) {
+                    return {
+                        ...item,
+                        isSelected: !item.isSelected
+                    }
+                }
+                return item
+            })
+        })
+    }
 
     return (
         <div id="filter-bar">
-            <div className="selected-filters">
-                {renderSelectedFilters()}
+            <div className="filter-title">
+                <IoFilter />
+                <span>Filter</span>
             </div>
-
-            <div className="filter-item">
-                <div className="filter-btn-container">
-                    <a className="filter-text">Categories</a>
-                    <button
-                        className={`filter-button ${openSection === 'categories' ? 'active' : ''}`}
-                        onClick={() => toggleSection('categories')}><IoIosArrowDown />
-                    </button>
+            <div className="category-container block">
+                <div className="title">
+                    <span>Categories</span>
+                    <div className="action-container ">
+                        <IoIosArrowDown onClick={handleDropdownClick('category-container')} className={openDropdowns.categorycontainer ? 'rotated' : ''} />
+                    </div>
                 </div>
-                <div className={`sub-options-container ${openSection === 'categories' ? 'open' : ''}`}>
-                    {renderOptions(categoriesData, 'categories')}
+                <div className="dropdown-container">
+                    <div className="categories items">
+                        {datas.map((data, index) => {
+                            return (
+                                <div className="category item" key={index}>
+                                    <Checkbox {...label} />
+                                    <span className="data-name">{data.name}</span>
+                                </div>
+                            )
+                        })}
+                    </div>
                 </div>
             </div>
-
-            <div className="filter-item">
-                <div className="filter-btn-container">
-                    <a className="filter-text">Price</a>
-                    <button
-                        className={`filter-button ${openSection === 'price' ? 'active' : ''}`}
-                        onClick={() => toggleSection('price')}><IoIosArrowDown />
-                    </button>
+            <div className="price-range-container block">
+                <div className="title">
+                    <span>Price Range</span>
+                    <div className="action-container ">
+                        <IoIosArrowDown onClick={handleDropdownClick('price-range-container')} className={openDropdowns.pricerangecontainer ? 'rotated' : ''} />
+                    </div>
                 </div>
-                <div className={`sub-options-container ${openSection === 'price' ? 'open' : ''}`}>
-                    {renderPriceOptions()}
-                    {priceFilter === "Paid" && (
-                        <>
-                            <MultiRangeSlider
-                                label={false}
-                                ruler={false}
-                                style={{ border: 'none', boxShadow: 'none' }}
-                                min={1}
-                                max={200}
-                                step={1}
-                                minValue={priceRange.min}
-                                maxValue={priceRange.max}
-                                onChange={(e) => setPriceRange({ min: e.minValue, max: e.maxValue })}
-                                data-min="1"
-                                data-max="200"
+                <div className="dropdown-container">
+                    <div className="price items">
+                        <Box sx={{ width: '100%' }}>
+                            <Slider
+                                getAriaLabel={() => 'Temperature range'}
+                                value={value}
+                                onChange={handleChange}
+                                valueLabelDisplay="auto"
+                                min={0}
+                                max={300}
                             />
-                            <div className="price-display">
-                                <div className="price-min">
-                                    <p className="price-name">Min:&ensp;</p>
-                                    <p className="price-value">{priceRange.min}&nbsp;$</p>
-                                </div>
-                                <div className="price-max">
-                                    <p className="price-name">Max:&ensp;</p>
-                                    <p className="price-value">{priceRange.max}&nbsp;$</p>
-                                </div>
+                        </Box>
+                        <div className="price-show">
+                            <div className="min-container">
+                                <span>$ {value[0]}</span>
                             </div>
-                        </>
-                    )}
+                            <div className="connect">
+                            </div>
+                            <div className="max-container">
+                                <span>$ {value[1]}</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <div className="filter-item">
-                <div className="filter-btn-container">
-                    <a className="filter-text">Time</a>
-                    <button
-                        className={`filter-button ${openSection === 'time' ? 'active' : ''}`}
-                        onClick={() => toggleSection('time')}><IoIosArrowDown />
-                    </button>
+            <div className="rating-container block">
+                <div className="title">
+                    <span>Customers Rating</span>
+                    <div className="action-container ">
+                        <IoIosArrowDown onClick={handleDropdownClick('rating-container')} className={openDropdowns.ratingcontainer ? 'rotated' : ''} />
+                    </div>
                 </div>
-                <div className={`sub-options-container ${openSection === 'time' ? 'open' : ''}`}>
-                    {renderOptions(timeData, 'time')}
+                <div className="dropdown-container">
+                    <div className="ratings items">
+                        {ratingSelected.map((data, index) => {
+                            return (
+                                <div className="rating item">
+                                    <Checkbox {...label} />
+                                    <Box
+                                        sx={{
+                                            '& > legend': { mt: 2 },
+                                        }}
+                                    >
+                                        <Rating name="read-only" value={data.starCount} readOnly />
+                                    </Box>
+                                </div>
+                            )
+                        })}
+                    </div>
                 </div>
             </div>
-
-            <div className="filter-item">
-                <div className="filter-btn-container">
-                    <a className="filter-text">Hard Level</a>
-                    <button
-                        className={`filter-button ${openSection === 'hardLevel' ? 'active' : ''}`}
-                        onClick={() => toggleSection('hardLevel')}><IoIosArrowDown />
-                    </button>
+            <div className="difficult-container block">
+                <div className="title">
+                    <span>Difficult Level</span>
+                    <div className="action-container ">
+                        <IoIosArrowDown onClick={handleDropdownClick('difficult-container')} className={openDropdowns.difficultcontainer ? 'rotated' : ''} />
+                    </div>
                 </div>
-                <div className={`sub-options-container ${openSection === 'hardLevel' ? 'open' : ''}`}>
-                    {renderOptions(hardLevelData, 'hardLevel')}
+                <div className="dropdown-container">
+                    <div className="difficults items">
+                        <div className="block-height-difficults">
+                            {difficultSelected.map((data, index) => {
+                                return (
+                                    <div className={`difficult item ${data.isSelected ? 'selected' : ''}`} onClick={() => { hanldeDifficultClick(index) }}>
+                                        <span className="name">{data.name}</span>
+                                        {data.isSelected && (
+                                            <div className="icon-tick">
+                                                <FaCircleCheck />
+                                            </div>
+                                        )}
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    );
+    )
 }
