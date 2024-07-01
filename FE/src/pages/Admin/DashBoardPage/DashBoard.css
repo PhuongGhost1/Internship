@@ -1,0 +1,31 @@
+#DashBoard{
+margin-top: auto;
+}
+#DashBoard .Header{
+    height: 60px;
+    width: 100%;
+    position: fixed;
+    top : 0;
+    left: 0;
+    z-index: 99999;
+}
+
+#DashBoard .Layout {
+    display: flex;
+}
+#DashBoard .Layout .SideBar-container{
+    flex: 2;
+}
+#DashBoard .Layout .Layout-container{
+    flex:11;
+}
+
+#DashBoard .Sta-Chart {
+   display: flex;
+}
+#DashBoard .Sta-Chart .Statistics{
+    flex: 3;
+}
+#DashBoard .Sta-Chart .Chart{
+    flex: 6;
+}
