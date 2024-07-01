@@ -1,12 +1,12 @@
 import React from "react";
-import "./ManageCoursePage.css";
-import ManageCourse from "../../../components/Admin/ManageCourse/ManageCourse";
+import "./ManageStudentPage.css";
 import Header from "../../../components/Admin/Header/Header";
+import ManageStudent from "../../../components/Admin/ManageStudent/ManageStudebt";
 import SideBar from "../../../components/Admin/SideBar/SideBar";
 
-export default function ManageCoursePage() {
+export default function ManageStudentPage() {
   return (
-    <div id="ManageCoursePage">
+    <div id="ManageStudentPage">
       <div className="Header">
         <Header />
       </div>
@@ -15,8 +15,8 @@ export default function ManageCoursePage() {
           <SideBar />
         </div>
         <div className="Layout-container">
-          <div className="ManageCourse-container">
-            <ManageCourse />
+          <div className="ManageStudent-container">
+            <ManageStudent />
           </div>
         </div>
       </div>
