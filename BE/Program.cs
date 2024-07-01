@@ -97,23 +97,23 @@ builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo { Title = "Demo API", Version = "v1" });
 
-    options.SwaggerDoc("Email", new OpenApiInfo { Title = "Email APIs", Version = "v1" });
-    options.SwaggerDoc("User", new OpenApiInfo { Title = "User APIs", Version = "v1" });
-    options.SwaggerDoc("Course", new OpenApiInfo { Title = "Course APIs", Version = "v1" });
-    options.SwaggerDoc("Chapter", new OpenApiInfo { Title = "Chapter APIs", Version = "v1" });
-    options.SwaggerDoc("Category", new OpenApiInfo { Title = "Category APIs", Version = "v1" });
+    // options.SwaggerDoc("Email", new OpenApiInfo { Title = "Email APIs", Version = "v1" });
+    // options.SwaggerDoc("User", new OpenApiInfo { Title = "User APIs", Version = "v1" });
+    // options.SwaggerDoc("Course", new OpenApiInfo { Title = "Course APIs", Version = "v1" });
+    // options.SwaggerDoc("Chapter", new OpenApiInfo { Title = "Chapter APIs", Version = "v1" });
+    // options.SwaggerDoc("Category", new OpenApiInfo { Title = "Category APIs", Version = "v1" });
 
-    options.DocInclusionPredicate((docName, apiDesc) =>
-    {
-        if (apiDesc.TryGetMethodInfo(out var methodInfo))
-        {
-            var groupName = methodInfo.DeclaringType.GetCustomAttributes(true)
-                               .OfType<ApiExplorerSettingsAttribute>()
-                               .FirstOrDefault()?.GroupName;
-            return groupName == docName;
-        }
-        return false;
-    });
+    // options.DocInclusionPredicate((docName, apiDesc) =>
+    // {
+    //     if (apiDesc.TryGetMethodInfo(out var methodInfo))
+    //     {
+    //         var groupName = methodInfo.DeclaringType.GetCustomAttributes(true)
+    //                            .OfType<ApiExplorerSettingsAttribute>()
+    //                            .FirstOrDefault()?.GroupName;
+    //         return groupName == docName;
+    //     }
+    //     return false;
+    // });
 
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -164,8 +164,8 @@ builder.Services.AddScoped<ILectureRepository, LectureRepository>(); builder.Ser
 builder.Services.AddScoped<ICourseRepository, CourseRepository>(); builder.Services.AddScoped<IChapterRepository, ChapterRepository>(); builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 //Services
-builder.Services.AddScoped<IUserService, UserService>();builder.Services.AddScoped<IEmailService, EmailService>();builder.Services.AddScoped<ICourseService, CourseService>();
-builder.Services.AddScoped<IChapterService, ChapterService>();builder.Services.AddScoped<ICategoryService, CategoryService>();builder.Services.AddScoped<ILectureService, LectureService>();
+builder.Services.AddScoped<IUserService, UserService>(); builder.Services.AddScoped<IEmailService, EmailService>(); builder.Services.AddScoped<ICourseService, CourseService>();
+builder.Services.AddScoped<IChapterService, ChapterService>(); builder.Services.AddScoped<ICategoryService, CategoryService>(); builder.Services.AddScoped<ILectureService, LectureService>();
 builder.Services.AddScoped<IQuizService, QuizService>();
 
 var app = builder.Build();

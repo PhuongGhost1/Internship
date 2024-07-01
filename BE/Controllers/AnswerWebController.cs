@@ -15,12 +15,13 @@ namespace BE.Controllers
         private readonly IAnswerService _answerService;
         public AnswerWebController(IAnswerService answerService)
         {
-            _answerService = answerService;   
+            _answerService = answerService;
         }
 
         [HttpGet]
         [Route("answer-data/{quizId}")]
-        public async Task<List<Answer>> GetAllDataOfAnswerFromQuizById([FromRoute] string quizId){
+        public async Task<List<Answer>> GetAllDataOfAnswerFromQuizById([FromRoute] string quizId)
+        {
             return await _answerService.GetAllDataOfAnswerFromQuizById(quizId);
         }
     }
