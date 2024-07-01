@@ -1,0 +1,217 @@
+#filter-bar {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 0 1px #949494;
+}
+
+#filter-bar .filter-title {
+    padding: 20px;
+    border-bottom: 1px solid #ececec;
+    display: flex;
+    align-items: center;
+}
+
+#filter-bar .filter-title svg {
+    font-size: 16px;
+    margin-right: 8px;
+}
+
+#filter-bar .filter-title span {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+#filter-bar .block {
+    padding: 20px;
+    border-bottom: 1px solid #ececec;
+}
+
+#filter-bar .block .title {
+    display: flex;
+}
+
+#filter-bar .block .title span {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+#filter-bar .block .title .action-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+#filter-bar .block .title .action-container svg {
+    font-size: 16px;
+    transition: transform 0.3s ease;
+}
+
+#filter-bar .block .title .action-container .rotated {
+    transform: rotate(180deg);
+}
+
+#filter-bar .block .items {
+    height: 0px;
+    overflow-y: scroll;
+    transition: all 0.3s ease;
+}
+
+#filter-bar .category-container .dropdown-container .items.active {
+    height: 170px;
+    overflow-y: scroll;
+    margin-top: 10px;
+}
+
+#filter-bar .block .items::-webkit-scrollbar {
+    width: 3px;
+}
+
+#filter-bar .block .items::-webkit-scrollbar-thumb {
+    background-color: #0080e8;
+}
+
+#filter-bar .block .items::-webkit-scrollbar-track {
+    background-color: #f3f6f8;
+}
+
+#filter-bar .block .items .category {
+    display: flex;
+    align-items: center;
+}
+
+#filter-bar .block .items .category .data-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #949494;
+}
+
+#filter-bar .block .price-show {
+    display: flex;
+    margin: 10px 0 0 0;
+}
+
+#filter-bar .block .price-show .min-container,
+#filter-bar .block .price-show .max-container {
+    flex: 5;
+    border-radius: 10px;
+    border: 1px solid #dbdbdb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 0;
+}
+
+#filter-bar .block .price-show .connect {
+    flex: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#filter-bar .block .price-show .connect::before {
+    content: '';
+    width: 10px;
+    height: 2px;
+    background-color: #dbdbdb;
+}
+
+#filter-bar .block .price-show .min-container span,
+#filter-bar .block .price-show .max-container span {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+#filter-bar .block .dropdown-container .items {
+    overflow: hidden;
+}
+
+#filter-bar .price-range-container .dropdown-container .items.active {
+    height: 87px;
+    z-index: 2;
+    overflow: visible;
+}
+
+#filter-bar .price-range-container .css-7o8aqz-MuiSlider-rail {
+    background-color: #dbdbdb;
+}
+
+#filter-bar .price-range-container .css-ttgsjq-MuiSlider-track {
+    background-color: #0080e8;
+}
+
+#filter-bar .price-range-container .MuiSlider-thumb {
+    background: white;
+    border: 1px solid #0080e8;
+}
+
+#filter-bar .price-range-container .MuiBox-root.css-8atqhb {
+    margin-top: 10px;
+}
+
+#filter-bar .rating-container .dropdown-container .items.active {
+    height: 108px;
+    overflow: scroll;
+}
+
+#filter-bar .block .dropdown-container .items .item {
+    display: flex;
+    align-items: center;
+}
+
+#filter-bar .block .dropdown-container .items.active {
+    margin-top: 10px;
+}
+
+#filter-bar .block .dropdown-container .difficults.active {
+    height: 123px;
+    overflow: visible;
+}
+
+#filter-bar .block .dropdown-container .difficults .block-height-difficults {
+    display: flex;
+    height: 123px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+#filter-bar .block .dropdown-container .difficults .difficult {
+    border: 1px solid #949494;
+    border-radius: 10px;
+    padding: 10px 30px 10px 10px;
+    margin: 10px 20px 10px 0;
+    position: relative;
+    cursor: pointer;
+}
+
+#filter-bar .block .dropdown-container .difficults .difficult span {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+#filter-bar .block .dropdown-container .difficults .difficult .icon-tick {
+    position: absolute;
+    right: 10px;
+    display: flex;
+    align-items: center;
+}
+
+#filter-bar .block .dropdown-container .difficults .difficult .icon-tick svg {
+    color: #1975f2;
+}
+
+#filter-bar .block .dropdown-container .difficults .difficult.selected {
+    background-color: #e8f1fe;
+    border-color: #61a1f7;
+}
+
+#filter-bar .block .dropdown-container .difficults .difficult.selected span {
+    color: #1975f2;
+}
+
+#filter-bar .difficult-container {
+    border: none;
+}

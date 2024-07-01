@@ -60,7 +60,7 @@ export default function PersonalDetail() {
     };
 
     useEffect(() => {
-        const avatars = document.querySelectorAll(".row-avatar img");
+        const avatars = document.querySelectorAll("#personal-detail .row-avatar img");
         let currentIndex = 0;
 
         function changeAvatar() {

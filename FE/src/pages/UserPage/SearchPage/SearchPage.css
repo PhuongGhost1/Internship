@@ -1,15 +1,19 @@
-#search-page .search-page-container {
-    padding: 40px 200px;
+#search-page {
+    background-color: #f9f9f9;
 }
 
 #search-page .search-page-container .filter-result {
     display: flex;
+    padding: 40px 20px;
+    margin-top: 40px;
 }
 
 #search-page .search-page-container .filter-result .filter-container {
     flex: 3;
+    padding: 0 60px;
 }
 
 #search-page .search-page-container .filter-result .result-container {
-    flex: 9;
+    flex: 13;
+    padding: 0 50px;
 }
