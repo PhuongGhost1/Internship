@@ -2,6 +2,15 @@ import React, { useState } from "react";
 import './SearchResult.css';
 import { IoIosArrowDown } from "react-icons/io";
 import { IoMdCheckmark } from "react-icons/io";
+import user from '../../../../assets/user-avatar.jpg'
+import { GoBookmark } from "react-icons/go";
+import { BsBarChartLine } from "react-icons/bs";
+import { IoVideocamOutline } from "react-icons/io5";
+import { AiOutlineFieldTime } from "react-icons/ai";
+import { TiStarOutline } from "react-icons/ti";
+import { PiUserCircleFill } from "react-icons/pi";
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 
 export default function SearchResult({ query }) {
     const datas = [
@@ -175,6 +184,13 @@ export default function SearchResult({ query }) {
     const toggleDropdown = () => {
         setIsDropDown(!isDropDown);
     };
+
+    const itemsPerPage = 9;
+
+    const [pagination, setPagination] = useState(1);
+
+    const paginatedData = datas.slice((pagination - 1) * itemsPerPage, pagination * itemsPerPage);
+
     return (
         <div id="search-result">
             <div className="sort-info">
@@ -208,7 +224,42 @@ export default function SearchResult({ query }) {
                     </div>
                 </div>
             </div>
-            <div className="results"></div>
+            <div className="results">
+                {paginatedData.map((data, index) => {
+                    return (
+                        <div className="result" key={index}>
+                            <div className="img-container">
+                                <img src={data.imgUrl} className="background" alt="" />
+                                <div className="owner">
+                                    <img src={user} alt="" />
+                                    <span>Nguyễn Mạnh Duy</span>
+                                </div>
+                                <div className="save-course-btn">
+                                    <GoBookmark />
+                                </div>
+                            </div>
+                            <div className="title">{data.name}</div>
+                            <div className="info">
+                                <div className="difficult tag"><BsBarChartLine /><span>Beginner</span></div>
+                                <div className="lecture tag"><IoVideocamOutline /><span>Videos</span></div>
+                                <div className="time tag"><AiOutlineFieldTime /><span>3.5 Hrs</span></div>
+                            </div>
+                            <div className="rating-countS">
+                                <div className="rating card"><TiStarOutline /> <span className="card-info">{data.ratingAVG}</span><span className="card-hint">({data.ratingCount})</span></div>
+                                <div className="student card"><PiUserCircleFill /> <span className="card-info">128</span><span className="card-hint">Students</span></div>
+                            </div>
+                            <div className="price-add">
+                                <span className="price">$ 30</span>
+                                <div className="btn-contain">
+                                    <Stack spacing={2} direction="row">
+                                        <Button variant="contained" style={{ borderRadius: '10px', padding: '10px 20px' }}>Add To Cart</Button>
+                                    </Stack>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                })}
+            </div>
             <div className="pagination"></div>
         </div>
     );
