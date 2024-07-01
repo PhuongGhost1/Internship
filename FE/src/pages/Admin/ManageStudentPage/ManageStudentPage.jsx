@@ -1,7 +1,7 @@
 import React from "react";
 import "./ManageStudentPage.css";
 import Header from "../../../components/Admin/Header/Header";
-import ManageStudent from "../../../components/Admin/ManageStudent/ManageStudebt";
+import ManageStudent from "../../../components/Admin/ManageStudent/ManageStudent";
 import SideBar from "../../../components/Admin/SideBar/SideBar";
 
 export default function ManageStudentPage() {

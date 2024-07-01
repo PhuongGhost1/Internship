@@ -161,7 +161,7 @@
     transform: rotate(-45deg);
     /* Rotate to create checkmark */
 }
- 
+
 #personal-detail .popup-row-button {
     width: 130px;
     height: 50px;
@@ -238,7 +238,7 @@
 
     transform: translateX(680%) translateY(110%);
 }
- 
+
 #personal-detail .popup-edit-buttonclose {
     width: 70px;
     height: 18px;
