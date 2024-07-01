@@ -30,8 +30,6 @@ namespace BE.Services.Implementations
             _imageRepo = imageRepo;
             _quizRepo = quizRepo;
             _lectureRepo = lectureRepo;
-            var googleCredential = GoogleCredential.FromFile("config/firebase.json");
-            _storageClient = StorageClient.Create(googleCredential);
             _cateRepo = cateRepo;
             _userRepo = userRepo;
         }

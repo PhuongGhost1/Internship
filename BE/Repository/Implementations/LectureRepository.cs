@@ -45,7 +45,6 @@ namespace BE.Repository.Implementations
         }
 
         private int ToMinutes(TimeSpan? timeOnly)
-        private int ToMinutes(TimeSpan? timeOnly)
         {
             if (timeOnly.HasValue)
             {

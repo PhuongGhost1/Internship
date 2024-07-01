@@ -8,7 +8,7 @@ namespace BE.Dto.ImageD
     public class ImageDto
     {
         public string? Id { get; set; }
-        public string? Base64Code { get; set; }
+        public string? Url { get; set; }
         public string? User_Id { get; set; }
         public string? Course_Id { get; set; }
         public string? Lecture_Id { get; set; }
