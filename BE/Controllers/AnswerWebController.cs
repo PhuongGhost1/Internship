@@ -20,9 +20,9 @@ namespace BE.Controllers
         }
 
         [HttpGet]
-        [Route("answer-data/{quizId}")]
-        public async Task<List<Answer>> GetAllDataOfAnswerFromQuizById([FromRoute] string quizId){
-            return await _answerService.GetAllDataOfAnswerFromQuizById(quizId);
+        [Route("answer-data")]
+        public async Task<List<Answer>> GetAllDataOfAnswerFromQuizById([FromBody] AnswerDto answerDto){
+            return await _answerService.GetAllDataOfAnswerFromQuizById(answerDto);
         }
 
 
@@ -34,21 +34,21 @@ namespace BE.Controllers
         }
 
         [HttpPost]
-        [Route("create-answer/{questionId}")]
-        public async Task<Answer?> CreateAnswer([FromRoute] string questionId, [FromBody] CreateAnswerDto createAnswerDto){
-            return await _answerService.CreateAnswer(questionId, createAnswerDto);
+        [Route("create-answer")]
+        public async Task<Answer?> CreateAnswer([FromBody] CreateAnswerDto createAnswerDto){
+            return await _answerService.CreateAnswer(createAnswerDto);
         }
 
         [HttpPost]
-        [Route("update-answer/{answerId}")]
-        public async Task<Answer?> UpdateAnswer([FromRoute] string answerId, [FromBody] UpdateAnswerDto updateAnswerDto){
-            return await _answerService.UpdateAnswer(answerId, updateAnswerDto);
+        [Route("update-answer")]
+        public async Task<Answer?> UpdateAnswer([FromBody] UpdateAnswerDto updateAnswerDto){
+            return await _answerService.UpdateAnswer(updateAnswerDto);
         }
 
         [HttpPost]
-        [Route("delete-answer/{answerId}")]
-        public async Task<bool> DeleteAnswer([FromRoute] string answerId){
-            return await _answerService.DeleteAnswer(answerId);
+        [Route("delete-answer")]
+        public async Task<bool> DeleteAnswer([FromBody] AnswerDto answerDto){
+            return await _answerService.DeleteAnswer(answerDto.AnswerId);
         }
     }
 }

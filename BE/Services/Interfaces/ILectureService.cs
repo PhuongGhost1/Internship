@@ -15,8 +15,8 @@ namespace BE.Services.Interfaces
 
         //---------------------CRUD--------------------------//
         Task<List<Lecture>> ViewAllLectures();
-        Task<Lecture?> CreateLecture(string chapId, CreateLectureDto createLectureDto);
-        Task<Lecture?> UpdateLecture(string lectureId, UpdateLectureDto updateLectureDto);
+        Task<Lecture?> CreateLecture(CreateLectureDto createLectureDto);
+        Task<Lecture?> UpdateLecture(UpdateLectureDto updateLectureDto);
         Task<bool> DeleteLecture(string lectureId);
     }
 }

@@ -33,14 +33,14 @@ namespace BE.Controllers
         }
 
         [HttpGet]
-        [Route("course-info/{courseId}")]
-        public async Task<CourseDto> GetInformationOfCourse([FromRoute] string courseId){
+        [Route("course-info")]
+        public async Task<CourseDto> GetInformationOfCourse([FromBody] string courseId){
             return await _courseService.GetInformationOfCourse(courseId);
         }
 
         [HttpGet]
-        [Route("content/{courseId}")]
-        public async Task<List<object>> GetLecturesAndQuizzesByCourseId([FromRoute] string courseId)
+        [Route("content")]
+        public async Task<List<object>> GetLecturesAndQuizzesByCourseId([FromBody] string courseId)
         {
             return await _courseService.GetLecturesAndQuizzesByCourseId(courseId);
         }
@@ -61,29 +61,29 @@ namespace BE.Controllers
         }
 
         
-        [HttpGet]
-        [Route("find-course-by-category/{cateName}")]
-        public async Task<List<Course>> FindAllCoursesByCategoryName([FromRoute] string cateName){
+        [HttpPost]
+        [Route("find-course-by-category")]
+        public async Task<List<Course>> FindAllCoursesByCategoryName([FromForm] string cateName){
             return await _courseService.GetAllCoursesByCategoryName(cateName);
         }
 
 
         //---------------------CRUD--------------------------//
         [HttpPost]
-        [Route("create-course/{userId}")]
-        public async Task<Course?> CreateCourse([FromRoute] string userId, [FromBody] CreateCourseDto createCourseDto){
-            return await _courseService.CreateCourse(userId, createCourseDto);
+        [Route("create-course")]
+        public async Task<Course?> CreateCourse([FromBody] CreateCourseDto createCourseDto){
+            return await _courseService.CreateCourse(createCourseDto);
         }
 
         [HttpPost]
-        [Route("update-course/{courseId}")]
-        public async Task<Course?> UpdateCourse(UpdateCourseDto updateCourseDto, string courseId){
-            return await _courseService.UpdateCourse(updateCourseDto, courseId);
+        [Route("update-course")]
+        public async Task<Course?> UpdateCourse([FromBody] UpdateCourseDto updateCourseDto){
+            return await _courseService.UpdateCourse(updateCourseDto);
         }
 
         [HttpPost]
-        [Route("delete-course/{courseId}")]
-        public async Task<bool> DeleteCourse([FromRoute] string courseId){
+        [Route("delete-course")]
+        public async Task<bool> DeleteCourse([FromBody] string courseId){
             return await _courseService.DeleteCourse(courseId);
         }
     }

@@ -17,8 +17,8 @@ namespace BE.Controllers
         }
 
         [HttpGet]
-        [Route("lecture-data/{courseId}")]
-        public async Task<LectureDto> GetAllDataFromLectureByCourseId([FromRoute] string courseId){
+        [Route("lecture-data")]
+        public async Task<LectureDto> GetAllDataFromLectureByCourseId([FromBody] string courseId){
             return await _lectureService.GetAllDataFromLectureByCourseId(courseId);
         }
 
@@ -31,20 +31,20 @@ namespace BE.Controllers
         }
 
         [HttpPost]
-        [Route("create-lecture/{chapId}")]
-        public async Task<Lecture?> CreateLecture([FromRoute] string chapId, [FromBody] CreateLectureDto createLectureDto){
-            return await _lectureService.CreateLecture(chapId, createLectureDto);
+        [Route("create-lecture")]
+        public async Task<Lecture?> CreateLecture([FromBody] CreateLectureDto createLectureDto){
+            return await _lectureService.CreateLecture(createLectureDto);
         }
 
         [HttpPost]
-        [Route("update-lecture/{lectureId}")]
-        public async Task<Lecture?> UpdateLecture([FromRoute] string lectureId, [FromBody] UpdateLectureDto updateLectureDto){
-            return await _lectureService.UpdateLecture(lectureId, updateLectureDto);
+        [Route("update-lecture")]
+        public async Task<Lecture?> UpdateLecture([FromBody] UpdateLectureDto updateLectureDto){
+            return await _lectureService.UpdateLecture(updateLectureDto);
         }
 
         [HttpPost]
-        [Route("delete-lecture/{lectureId}")]
-        public async Task<bool> DeleteLecture([FromRoute] string lectureId){
+        [Route("delete-lecture")]
+        public async Task<bool> DeleteLecture([FromBody] string lectureId){
             return await _lectureService.DeleteLecture(lectureId);
         }
     }

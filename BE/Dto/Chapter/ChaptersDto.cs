@@ -5,11 +5,9 @@ using System.Threading.Tasks;
 
 namespace BE.Dto.Chapter
 {
-    public class CreateChapterDto
+    public class ChaptersDto
     {
+        public string? ChapId {get; set;}
         public string? CourseId {get; set;}
-        public int? Index { get; set; }
-        public string? Name { get; set; }
-        public string? Description { get; set; }
     }
 }

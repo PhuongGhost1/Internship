@@ -24,9 +24,9 @@ namespace BE.Controllers
         }
 
         [HttpPost]
-        [Route("create-certification/{courseId}")]
-        public async Task<Certification?> CreateCertification([FromRoute] string courseId, [FromBody] CreateCertificatonDto createCertificatonDto){
-            return await _certiService.CreateCertification(courseId, createCertificatonDto);
+        [Route("create-certification")]
+        public async Task<Certification?> CreateCertification([FromBody] CreateCertificatonDto createCertificatonDto){
+            return await _certiService.CreateCertification(createCertificatonDto);
         }
     }
 }

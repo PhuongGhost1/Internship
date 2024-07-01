@@ -9,13 +9,13 @@ namespace BE.Services.Interfaces
 {
     public interface IAnswerService
     {
-        Task<List<Answer>> GetAllDataOfAnswerFromQuizById(string quizId);
+        Task<List<Answer>> GetAllDataOfAnswerFromQuizById(AnswerDto answerDto);
 
 
         //---------------------CRUD--------------------------//
         Task<List<Answer>> GetAllAnswers();
-        Task<Answer?> CreateAnswer(string questionId, CreateAnswerDto createAnswerDto);
-        Task<Answer?> UpdateAnswer(string answerId, UpdateAnswerDto updateAnswerDto);
+        Task<Answer?> CreateAnswer(CreateAnswerDto createAnswerDto);
+        Task<Answer?> UpdateAnswer(UpdateAnswerDto updateAnswerDto);
         Task<bool> DeleteAnswer(string answerId);
     }
 }

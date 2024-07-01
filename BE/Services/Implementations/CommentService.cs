@@ -20,17 +20,17 @@ namespace BE.Services.Implementations
 
 
         //---------------------CRUD--------------------------//
-        public async Task<Comment?> CreateComment(string userId, string courseId, CreateCommentDto createCommentDto)
+        public async Task<Comment?> CreateComment(CreateCommentDto createCommentDto)
         {
-            var user = await _userRepo.GetUserById(userId);
+            var user = await _userRepo.GetUserById(createCommentDto.UserId);
 
             if(user == null) throw new Exception("Unable to find user!");
 
-            var course = await _courseRepo.RetriveCourseInformationById(courseId);
+            var course = await _courseRepo.RetriveCourseInformationById(createCommentDto.UserId);
 
             if(course == null) throw new Exception("Unable to find course!");
 
-            var createComment = createCommentDto.ToCreateCommentDto(userId, courseId);
+            var createComment = createCommentDto.ToCreateCommentDto(createCommentDto.UserId, createCommentDto.CourseId);
 
             if(createComment == null) throw new Exception("Unable to create comment");
 
@@ -46,9 +46,9 @@ namespace BE.Services.Implementations
             return await _commentRepo.DeleteComment(commentId);
         }
 
-        public async Task<Comment?> UpdateComment(string commentId, UpdateCommentDto updateCommentDto)
+        public async Task<Comment?> UpdateComment(UpdateCommentDto updateCommentDto)
         {
-            var comment = await _commentRepo.GetCommentById(commentId);
+            var comment = await _commentRepo.GetCommentById(updateCommentDto.CommentId);
 
             if(comment == null) throw new Exception("Unable to find comment!");
 

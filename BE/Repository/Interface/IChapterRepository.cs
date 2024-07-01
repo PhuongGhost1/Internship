@@ -11,6 +11,7 @@ namespace BE.Repository.Interface
         Task<int?> CountNumberChaptersByCourseId(string courseId);
 
         //---------------------CRUD--------------------------//
+        Task<Chapter?> FindChapterByName(string chapName);
         Task<Chapter?> FindChapterById(string chapId);
         Task<List<Chapter>> GetAllChapters();
         Task<Chapter?> CreateChapter(Chapter chapter);

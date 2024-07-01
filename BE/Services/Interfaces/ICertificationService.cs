@@ -9,6 +9,6 @@ namespace BE.Services.Interfaces
 
         //---------------------CRUD--------------------------//
         Task<List<Certification>> ViewAllCertifications();
-        Task<Certification?> CreateCertification(string courseId, CreateCertificatonDto createCertificatonDto);
+        Task<Certification?> CreateCertification(CreateCertificatonDto createCertificatonDto);
     }
 }

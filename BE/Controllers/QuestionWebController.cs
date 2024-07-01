@@ -25,20 +25,20 @@ namespace BE.Controllers
         }
 
         [HttpPost]
-        [Route("create-question/{quizId}")]
-        public async Task<Question?> CreateQuestion([FromRoute] string quizId, [FromBody] CreateQuestionDto createQuestionDto){
+        [Route("create-question")]
+        public async Task<Question?> CreateQuestion([FromForm] string quizId, [FromBody] CreateQuestionDto createQuestionDto){
             return await _quesService.CreateQuestion(createQuestionDto, quizId);
         }
 
         [HttpPost]
-        [Route("update-question/{questionId}")]
-        public async Task<Question?> UpdateQuestion([FromRoute] string questionId, [FromBody] UpdateQuestionDto updateQuestionDto){
+        [Route("update-question")]
+        public async Task<Question?> UpdateQuestion([FromForm] string questionId, [FromBody] UpdateQuestionDto updateQuestionDto){
             return await _quesService.UpdateQuestion(questionId, updateQuestionDto);
         }
 
         [HttpPost]
-        [Route("delete-question/{questionId}")]
-        public async Task<bool> DeleteQuestion([FromRoute] string questionId){
+        [Route("delete-question")]
+        public async Task<bool> DeleteQuestion([FromForm] string questionId){
             return await _quesService.DeleteQuestion(questionId);
         }
     }

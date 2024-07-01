@@ -37,13 +37,13 @@ namespace BE.Services.Implementations
 
 
         //---------------------CRUD--------------------------//
-        public async Task<Lecture?> CreateLecture(string chapId, CreateLectureDto createLectureDto)
+        public async Task<Lecture?> CreateLecture(CreateLectureDto createLectureDto)
         {
-            var chapter = await _chapRepo.FindChapterById(chapId);
+            var chapter = await _chapRepo.FindChapterById(createLectureDto.ChapId);
 
             if(chapter == null) throw new Exception("Unable to find chapter!");
 
-            var createLecture = createLectureDto.ToCreateLectureDto(chapId);
+            var createLecture = createLectureDto.ToCreateLectureDto(createLectureDto.ChapId);
 
             if(createLecture == null) throw new Exception("Unable to create Lecture!");
 
@@ -59,9 +59,9 @@ namespace BE.Services.Implementations
             return await _lectureRepo.DeleteLecture(lectureId);
         }
 
-        public async Task<Lecture?> UpdateLecture(string lectureId, UpdateLectureDto updateLectureDto)
+        public async Task<Lecture?> UpdateLecture(UpdateLectureDto updateLectureDto)
         {
-            var lecture = await _lectureRepo.GetLectureById(lectureId);
+            var lecture = await _lectureRepo.GetLectureById(updateLectureDto.LectureId);
 
             if(lecture == null) throw new Exception("Unable to find lecture");
 

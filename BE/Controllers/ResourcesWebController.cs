@@ -15,8 +15,6 @@ namespace BE.Controllers
             _resService = resService;
         }
 
-
-
         //---------------------CRUD--------------------------//
         [HttpGet]
         [Route("view-all-resources")]
@@ -31,14 +29,14 @@ namespace BE.Controllers
         }
 
         [HttpPost]
-        [Route("update-resource/{resId}")]
-        public async Task<Resource?> UpdateResource([FromRoute] string resId, [FromBody] UpdateResourceDto updateResourceDto){
+        [Route("update-resource")]
+        public async Task<Resource?> UpdateResource([FromForm] string resId, [FromBody] UpdateResourceDto updateResourceDto){
             return await _resService.UpdateResource(resId, updateResourceDto);
         }
 
         [HttpPost]
-        [Route("delete-resource/{resId}")]
-        public async Task<bool> CreateResource([FromRoute] string resId){
+        [Route("delete-resource")]
+        public async Task<bool> CreateResource([FromForm] string resId){
             return await _resService.DeleteResource(resId);
         }
     }

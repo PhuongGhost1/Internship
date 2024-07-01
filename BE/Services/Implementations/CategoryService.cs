@@ -47,9 +47,9 @@ namespace BE.Services.Implementations
             return await _cateRepo.DeleteCategory(cateId);
         }
 
-        public async Task<Category?> UpdateCategory(string cateId, UpdateCategoryDto updateCategoryDto)
+        public async Task<Category?> UpdateCategory(UpdateCategoryDto updateCategoryDto)
         {
-            var category = await _cateRepo.GetCategoryById(cateId);
+            var category = await _cateRepo.GetCategoryById(updateCategoryDto.Id);
 
             if(category == null) throw new Exception("Unable to find category!");
 

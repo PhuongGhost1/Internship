@@ -18,8 +18,8 @@ namespace BE.Controllers
         }
 
         [HttpGet]
-        [Route("find-user/{email}")]
-        public async Task<User> GetUserByEmail([FromRoute] string email)
+        [Route("find-user")]
+        public async Task<User> GetUserByEmail([FromForm] string email)
         {
             return await _userService.GetUserByEmail(email);
         }
@@ -62,8 +62,8 @@ namespace BE.Controllers
         }
 
         [HttpPut]
-        [Route("forgot-password/{email}")]
-        public async Task<UserLoginToken> Forgot([FromRoute] string email, [FromBody] ForgotDto forgotDto){
+        [Route("forgot-password")]
+        public async Task<UserLoginToken> Forgot([FromForm] string email, [FromBody] ForgotDto forgotDto){
             return await _userService.Forgot(email, forgotDto);
         }
 

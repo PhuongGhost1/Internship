@@ -7,6 +7,7 @@ namespace BE.Dto.Lecture
 {
     public class CreateLectureDto
     {
+        public string? ChapId {get; set;}
         public int? Index { get; set; }
         public string? Name { get; set; }
         public TimeSpan? TimeVideo { get; set; }

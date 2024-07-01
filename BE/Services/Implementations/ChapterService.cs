@@ -54,13 +54,13 @@ namespace BE.Services.Implementations
 
 
         //---------------------CRUD--------------------------//
-        public async Task<Chapter?> CreateChapter(string courseId, CreateChapterDto createChapterDto)
+        public async Task<Chapter?> CreateChapter(CreateChapterDto createChapterDto)
         {
-            var couse = await _courseRepo.RetriveCourseInformationById(courseId);
+            var couse = await _courseRepo.RetriveCourseInformationById(createChapterDto.CourseId);
 
             if(couse == null) throw new Exception("Unable to find course!");
 
-            var createChapter = createChapterDto.ToCreateChapterDto(courseId);
+            var createChapter = createChapterDto.ToCreateChapterDto(createChapterDto.CourseId);
 
             if(createChapter == null) throw new Exception("Unable to create chapter");
 
@@ -76,11 +76,11 @@ namespace BE.Services.Implementations
             return await _chapRepo.DeleteChapter(chapId);
         }
 
-        public async Task<Chapter?> UpdateChapter(string chapId, UpdateChapterDto updateChapterDto)
+        public async Task<Chapter?> UpdateChapter(UpdateChapterDto updateChapterDto)
         {
-            var chapter = await _chapRepo.FindChapterById(chapId);
+            var chapter = await _chapRepo.FindChapterById(updateChapterDto.ChapId);
 
-            if(chapId == null) throw new Exception("Unable to find chapter");
+            if(updateChapterDto.ChapId == null) throw new Exception("Unable to find chapter");
 
             var updateChapter = updateChapterDto.ToUpdateChapterDto();
 
@@ -92,6 +92,18 @@ namespace BE.Services.Implementations
         public async Task<List<Chapter>> ViewAllChapters()
         {
             return await _chapRepo.GetAllChapters();
+        }
+
+        public async Task<Chapter?> GetChapterById(string chapId)
+        {
+            return await _chapRepo.FindChapterById(chapId);
+        }
+
+        public async Task<Chapter?> GetChapterByName(string chapName)
+        {
+            if(chapName == null) throw new Exception("Unable to find chapter!");
+
+            return await _chapRepo.FindChapterByName(chapName);
         }
     }
 }
