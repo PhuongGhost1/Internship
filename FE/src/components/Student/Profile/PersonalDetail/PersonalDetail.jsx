@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import './PersonalDetail.css'
+
 import Pic1 from '../../../../assets/Collection-Avatar/1.png'
 import Pic2 from '../../../../assets/Collection-Avatar/2.png'
 import Pic3 from '../../../../assets/Collection-Avatar/3.png'

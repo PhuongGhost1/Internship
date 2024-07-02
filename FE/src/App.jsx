@@ -16,6 +16,7 @@ import CourseCompletedPage from './pages/StudentPage/MyLearning/Completed/Course
 import FollowingPage from './pages/StudentPage/MyLearning/Following/FollowingPage';
 import CourseInProgressPage from './pages/StudentPage/MyLearning/InProgress/CourseInProgressPage';
 import CourseSavedPage from './pages/StudentPage/MyLearning/Saved/CourseSavedPage';
+import CertificationPage from './pages/StudentPage/CertificationPage/CertificationPage';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path='learning/:courseType/:itemName' element={<CourseLearning />} />
         </Route>
         <Route path='/student'>
+          <Route path='certification' element={<CertificationPage />} />
           <Route path='profile' element={<StudentProfilePage />} />
           <Route path='my-learning'>
             <Route path='completed' element={<CourseCompletedPage />} />
@@ -40,6 +42,7 @@ function App() {
             <Route path='in-progress' element={<CourseInProgressPage />} />
             <Route path='saved' element={<CourseSavedPage />} />
           </Route>
+
         </Route>
         <Route path='/instructor'>
           <Route path='profile' element={<InstructorProfilePage />} />
