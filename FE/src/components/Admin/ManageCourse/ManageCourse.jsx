@@ -179,6 +179,7 @@ const DataTable = () => {
                     </tbody>
                 </Table>
             </div>
+
             <div className="Pagination">
                 <ReactPaginate
                     previousLabel={'Previous'}
