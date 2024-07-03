@@ -24,6 +24,7 @@ export default function Header() {
           <div className="avatar-user">
             <RxAvatar className="avatar" />
             <div className="user-name">GUN</div>
+
           </div>
         </div>
       </div>

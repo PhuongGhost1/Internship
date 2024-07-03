@@ -16,7 +16,7 @@ export default function DashBoard() {
       </div>
       <div className="Layout">
         <div className="SideBar-container">
-          <SideBar />
+          <SideBar type = 'dashboard'/>
         </div>
         <div className="Layout-container">
           <div className="Weekly-container">

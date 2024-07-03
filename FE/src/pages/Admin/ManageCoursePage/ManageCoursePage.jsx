@@ -12,7 +12,7 @@ export default function ManageCoursePage() {
       </div>
       <div className="Layout">
         <div className="SideBar-container">
-          <SideBar />
+          <SideBar type= 'course'/>
         </div>
         <div className="Layout-container">
           <div className="ManageCourse-container">
