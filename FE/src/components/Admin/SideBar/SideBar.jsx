@@ -80,14 +80,6 @@ export default function SideBar({ type }) {
                          </span>
                     </li>
                </ul>
-               <div className="sidebar-settings">
-                    <div className="settings-header">Settings</div>
-                    <ul>
-                         <li className="settings-item">Roles</li>
-                         <li className="settings-item">Requests</li>
-                         <li className="settings-item">Preferences</li>
-                    </ul>
-               </div>
           </div>
      );
 }

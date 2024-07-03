@@ -95,31 +95,7 @@ body {
      padding: 2px 8px;
      font-size: 12px;
      margin-left: auto;
- }
- 
- #SideBar .sidebar-settings {
-     padding: 20px;
-     border-top: 1px solid #ddd;
-     background-color: #f8f9fa;
- }
- 
- #SideBar .settings-header {
-     font-size: 14px;
-     font-weight: bold;
-     color: #666;
-     margin-bottom: 10px;
- }
- 
- #SideBar .settings-item {
-     padding: 10px 0;
-     cursor: pointer;
-     transition: background-color 0.3s;
- }
- 
- #SideBar .settings-item:hover {
-     background-color: #e9ecef;
- }
- 
+ } 
  .main-content {
      margin-left: 250px;
      padding: 20px;
