@@ -43,6 +43,8 @@ export default function FilterBar() {
         ratingcontainer: false,
         difficultcontainer: false
     });
+    const [priceFilter, setPriceFilter] = useState(null);
+    const [priceRange, setPriceRange] = useState({ min: 1, max: 200 });
 
     const [ratingSelected, setRatingSelected] = useState(
         [

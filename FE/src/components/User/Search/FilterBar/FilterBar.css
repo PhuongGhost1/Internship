@@ -82,6 +82,7 @@
 #filter-bar .block .items .category {
     display: flex;
     align-items: center;
+    font-size: 18px;
 }
 
 #filter-bar .block .items .category .data-name {
@@ -124,6 +125,8 @@
 #filter-bar .block .price-show .max-container span {
     font-size: 14px;
     font-weight: 600;
+    font-size: 13px;
+    margin: 0 5px;
 }
 
 #filter-bar .block .dropdown-container .items {
