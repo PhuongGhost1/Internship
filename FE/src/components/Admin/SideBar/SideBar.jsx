@@ -6,6 +6,7 @@ import { PiStudentBold } from "react-icons/pi";
 import { SiCoursera } from "react-icons/si";
 import { MdOutlineManageAccounts } from "react-icons/md";
 import { IoGitPullRequestSharp } from "react-icons/io5";
+import { IoSettingsSharp } from "react-icons/io5";
 
 export default function SideBar({ type }) {
      const [activeItem, setActiveItem] = useState(localStorage.getItem("activeItem") || "dashboard");
@@ -76,6 +77,13 @@ export default function SideBar({ type }) {
                          <span onClick={() => handleItemClick("requests")}>
                               <a href="/admin/requests">
                                    <IoGitPullRequestSharp className="requests" /> &nbsp;Requests
+                              </a>
+                         </span>
+                    </li>
+                    <li className={`menu-item ${activeItem === "setting" ? "active" : ""}`}>
+                         <span onClick={() => handleItemClick("setting")}>
+                              <a href="/admin/setting">
+                                   <IoSettingsSharp className="setting" /> &nbsp;Setting
                               </a>
                          </span>
                     </li>
