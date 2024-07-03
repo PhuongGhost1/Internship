@@ -165,7 +165,6 @@ const DataTable = () => {
                                             </DropdownItem>
                                         </DropdownMenu>
                                     </Dropdown>
-
                                 </td>
                                 <td className="action">
                                     <span className="button-view">
