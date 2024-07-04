@@ -32,15 +32,15 @@ namespace BE.Controllers
             return await _courseService.FilterAllCourses(filterQueryObject);
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("course-info")]
         public async Task<CourseDto> GetInformationOfCourse([FromForm] string courseId){
             return await _courseService.GetInformationOfCourse(courseId);
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("content")]
-        public async Task<List<object>> GetLecturesAndQuizzesByCourseId([FromForm] string courseId)
+        public async Task<CourseDto?> GetLecturesAndQuizzesByCourseId([FromForm] string courseId)
         {
             return await _courseService.GetLecturesAndQuizzesByCourseId(courseId);
         }
