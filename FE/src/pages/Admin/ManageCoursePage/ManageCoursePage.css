@@ -1,21 +1,21 @@
 #ManageCoursePage{
-    margin-top: auto;
-}
-#ManageCoursePage .Header{
-    height: 60px;
-    width: 100%;
-    position: fixed;
-    top : 0;
-    left: 0;
-    z-index: 99999;
-}
-
-#ManageCoursePage .Layout {
-    display: flex;
-}
-#ManageCoursePage .Layout .SideBar-container{
-    flex: 2;
-}
-#ManageCoursePage .Layout .Layout-container{
-    flex:11;
+     margin-top: auto;
+ }
+ #ManageCoursePage .Header-Admin{
+     height: 60px;
+     width: 100%;
+     position: fixed;
+     top : 0;
+     left: 0;
+     z-index: 99999;
+ }
+ 
+ #ManageCoursePage .Layout {
+     display: flex;
+ }
+ #ManageCoursePage .Layout .SideBar-container{
+     flex: 2;
+ }
+ #ManageCoursePage .Layout .Layout-container{
+     flex:11;
 }

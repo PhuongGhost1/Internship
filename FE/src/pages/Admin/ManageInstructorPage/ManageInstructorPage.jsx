@@ -9,12 +9,12 @@ import SideBar from "../../../components/Admin/SideBar/SideBar";
 export default function ManageInstructorPage(){
     return(
         <div id="ManageInstructorPage">
-      <div className="Header">
+      <div className="Header-Admin">
         <Header />
       </div>
       <div className="Layout">
         <div className="SideBar-container">
-          <SideBar />
+          <SideBar type = 'instructor' />
         </div>
         <div className="Layout-container">
           <div className="ManageInstructor-container">
