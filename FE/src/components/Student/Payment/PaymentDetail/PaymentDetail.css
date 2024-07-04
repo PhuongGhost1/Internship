@@ -1,30 +1,89 @@
-.form-container {
+#form-container {
     display: flex;
     justify-content: center;
-    align-items: center;
-    background-color: #f5f5f5;
 }
 
-.add-new-card {
+#form-container .add-new-card {
+    padding: 80px 60px;
+    background-color: white;
+    display: flex;
+    border-radius: 20px;
+    flex-direction: column;
+    align-items: center;
+}
+
+#form-container .add-new-card .form-contain {
+    display: flex;
+}
+
+#root .payment-container .card-visa {
     background-color: white;
     border-radius: 8px;
     padding: 20px;
-    width: 350px;
+    /* width: 30px; */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     font-family: Arial, sans-serif;
+    margin-left: 100px;
 }
 
-h2 {
-    margin-top: 0;
-    margin-bottom: 20px;
-    font-size: 18px;
+.form-title {
     font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #1f1f1f;
 }
 
 .paymentOptions {
     display: flex;
     justify-content: space-around;
     margin-bottom: 15px;
+}
+
+.paymentOptions label {
+    width: 200px;
+    height: 60px;
+    border-radius: 10px;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #33333381;
+}
+
+.paymentOptions label svg {
+    margin-right: 10px;
+    font-size: 15px;
+}
+
+
+.paymentOptions input[type="radio"] {
+    display: none;
+}
+
+.form-group label {
+    margin-bottom: 20px;
+}
+
+.form-group.holderName {
+    margin-bottom: 40px;
+}
+
+.form-group.addWallet {
+    margin-top: 40px;
+}
+
+.paymentOptions input[type="radio"]:checked+label {
+    border: 2px solid #74b95b;
+    color: #1f1f1f;
+}
+
+.paymentOptions input[type="radio"]:checked+label svg {
+    color: #74b95b;
+}
+
+.form-fields {
+    min-height: 200px;
+    /* Maintain height to keep layout */
 }
 
 .form-group {
@@ -87,4 +146,33 @@ input[type="text"]::placeholder {
 
 .submit-button:hover {
     background-color: #0056b3;
+}
+
+
+#form-container .add-new-card .button-contain {
+    display: flex;
+}
+
+#form-container .add-new-card .button-contain .button {
+    width: 200px;
+    height: 50px;
+    background-color: #015ffa;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin: 0 10px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#form-container .add-new-card .button-contain .cancel {
+    background-color: rgba(0, 0, 0, 0);
+    color: #727272;
+}
+
+.rccs {
+    box-shadow: 1px 1px 2px 1px rgb(124, 124, 124);
+    border-radius: 15px;
 }
