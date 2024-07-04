@@ -1,219 +1,90 @@
-#payment-detail {
+.form-container {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f5f5;
 }
 
-#payment-detail .form-input {
-    flex: 7;
-    padding: 0 100px;
+.add-new-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    width: 350px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
 }
 
-#payment-detail .form-css {
-    margin: 0 auto;
-    padding: 30px;
-    border: 1px solid #ccc;
-    border-radius: 15px;
-    background-color: #f9f9f9;
+h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: bold;
 }
 
-#payment-detail .bill-conatiner {
-    flex: 3;
-    padding: 0 20px;
+.paymentOptions {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 15px;
 }
 
-#payment-detail .bill-conatiner .bill {
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #666;
+}
+
+input[type="text"] {
     width: 100%;
-    height: 300px;
-    background-color: #f9f9f9;
-    border: 1px solid black;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
 }
 
-#payment-detail .title {
-    text-align: center;
-    margin-bottom: 20px;
+input[type="text"]::placeholder {
+    color: #aaa;
 }
 
-#payment-detail .payment-option {
-    margin-bottom: 20px;
-}
-
-#payment-detail .option {
+.checkbox {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
 }
 
-#payment-detail .option label {
-    margin-left: 5px;
+.checkbox input {
+    margin-right: 10px;
 }
 
-#payment-detail .logo {
-    width: 150px;
-    height: auto;
-    margin-left: 10px;
+.checkbox label {
+    margin-bottom: 0;
+    color: #333;
 }
 
-#payment-detail .payment-option .option-container {
-    display: flex;
-}
-
-#payment-detail .card-number,
-#payment-detail .card-name,
-#payment-detail .card-info {
-    margin-bottom: 20px;
-}
-
-#payment-detail h3 {
-    margin-bottom: 5px;
-}
-
-#payment-detail input[type="number"],
-#payment-detail input[type="text"],
-#payment-detail input[type="date"] {
+.submit-button {
     width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-#payment-detail .submit {
-    text-align: center;
-}
-
-#payment-detail .submit button {
-    padding: 10px 20px;
-    background-color: rgb(255, 143, 38);
+    padding: 12px;
+    background-color: #007bff;
     color: white;
     border: none;
-    border-radius: 10px;
+    border-radius: 4px;
+    font-size: 16px;
     cursor: pointer;
+    transition: background-color 0.2s;
 }
 
-#payment-detail .submit button:hover {
-    background-color: rgb(253, 89, 48);
-}
-
-#payment-detail .card-info {
-    display: flex;
-}
-
-#payment-detail .card-info #exp-date {
-    width: 80%;
-}
-
-#payment-detail .bill-conatiner .bill .bill-header {
-    display: flex;
-}
-
-#payment-detail .bill-conatiner .bill .bill-header p {
-    padding: 7px 20px;
-}
-
-#payment-detail .bill-conatiner .bill .bill-body1 {
-    display: flex;
-}
-
-#payment-detail .bill-conatiner .bill .bill-body1 .text1 {
-    padding: 0 60px;
-    margin-right: 80px;
-}
-
-#payment-detail .bill-conatiner .bill .bill-body2 {
-    display: flex;
-}
-
-#payment-detail .bill-conatiner .bill .bill-body2 .text1 {
-    padding: 0 40px;
-    margin-right: 60px;
-}
-
-#payment-detail .bill-conatiner .bill .bill-footer {
-    display: flex;
-}
-
-#payment-detail .form-input .payment-option .option-container .option {
-    width: 48%;
-    margin: 15px;
-    background: rgb(17, 4, 134);
-    border-radius: 15px;
-    display: flex;
-    color: white;
-    justify-content: center;
-    position: relative;
-    background: linear-gradient(to right, rgb(253, 89, 48), rgb(255, 143, 38));
-    transition: all 0.3s ease-in-out;
-}
-
-#payment-detail .form-input .payment-option .option-container .option:hover {
-    box-shadow: rgb(255, 92, 23) 5px 5px 25px, rgb(247, 177, 74) -5px 0px 250px;
-}
-
-#payment-detail .form-input .payment-option .option-container .option #visa {
-    margin-left: 20px;
-}
-
-#payment-detail .form-input .payment-option .option-container .option #paypal {
-    margin-left: 20px;
-}
-
-#payment-detail .form-input .card-info .expdate {
-    width: 55%;
-}
-
-#payment-detail .form-input .card-info .cvv-detail {
-    width: 45%;
-}
-
-#payment-detail .bill-container {
-    flex: 3;
-    padding: 0 20px;
-    box-sizing: border-box;
-}
-
-#payment-detail .bill-container .bill {
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 15px;
-    background-color: #f9f9f9;
-}
-
-#payment-detail .bill-header {
-    display: flex;
-    justify-content: center;
-    font-weight: bold;
-    padding: 10px 0;
-    border-bottom: 1px solid #ccc;
-    margin-bottom: 10px;
-}
-
-#payment-detail .bill-body {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 0;
-}
-
-#payment-detail .bill-body .text1 {
-    flex: 1;
-    font-size: 1.2rem;
-}
-
-#payment-detail .bill-body .text2 {
-    flex: 0;
-    width: 80px;
-    font-size: 1.2rem;
-    text-align: right;
-}
-
-#payment-detail .option input[type="radio"] {
-    transform: scale(1.6);
-}
-
-#payment-detail .bill-footer {
-    display: flex;
-    justify-content: space-between;
-    font-weight: bold;
-    padding: 10px 0;
-    border-top: 1px solid #ccc;
-    margin-top: 10px;
+.submit-button:hover {
+    background-color: #0056b3;
 }
