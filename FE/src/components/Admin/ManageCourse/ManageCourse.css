@@ -67,6 +67,9 @@
   display: inline-block;
 }
 
+#management-course .course-active{
+  margin-bottom: 50px;
+}
 
 #management-course .table-info th{
     padding: 15px 10px;
@@ -76,14 +79,14 @@
   margin-right: 50px;
 }
 
-#management-course .table-info .company, .image, .status, .owner{
+#management-course .table-info .name, .image, .status, .owner{
     vertical-align: middle;
     padding: 15px 0px;
     padding-left: 10px;
 
 }
 
-#management-course .company{
+#management-course .name{
     width: 20%;
 }
 
