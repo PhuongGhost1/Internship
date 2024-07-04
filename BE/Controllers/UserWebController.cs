@@ -76,5 +76,11 @@ namespace BE.Controllers
                 status = "hi"
             });
         }
+
+        [HttpGet("get-statistic")]
+        public async Task<(int a, int c)> GetUserStatistic()
+        {
+            return await _userService.GetUserStatisticsAsync();
+        }
     }
 }

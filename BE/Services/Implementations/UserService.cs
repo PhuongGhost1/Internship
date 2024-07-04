@@ -107,6 +107,11 @@ namespace BE.Services.Implementations
             return user;
         }
 
+        public async Task<(int a, int c)> GetUserStatisticsAsync()
+        {
+            return await _userRepo.GetUserStatisticsAsync();
+        }
+
         public async Task<ReturnResponseDto> GoogleResponse()
         {
             var code = _httpContextAccessor.HttpContext.Request.Query["code"];
