@@ -362,7 +362,7 @@ export default function ManageInstructor() {
 
     const handleStatusChange = (id) => {
         setInstructors(prevInstructors => prevInstructors.map(
-            instructor => instructor.id === id ? { ...instructor, status: instructor.status === "Active" ? "Ban" : "Active" } : instructor
+            instructor => instructor.id === id ? { ...instructor, status: instructor.status === "Active" ? "Block" : "Active" } : instructor
         ));
     };
 
