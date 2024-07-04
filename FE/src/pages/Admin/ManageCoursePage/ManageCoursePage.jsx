@@ -1,8 +1,10 @@
 import React from "react";
 import "./ManageCoursePage.css";
-import ManageCourse from "../../../components/Admin/ManageCourse/ManageCourse";
 import Header from "../../../components/Admin/Header/Header";
 import SideBar from "../../../components/Admin/SideBar/SideBar";
+import PostedCourse from "../../../components/Admin/ManageCourse/PostedCourse/PostedCourse";
+import CourseSold from "../../../components/Admin/ManageCourse/CourseSold/CourseSold";
+import CourseStatus from "../../../components/Admin/ManageCourse/CourseStatus/CourseStatus";
 
 export default function ManageCoursePage() {
   return (
@@ -12,13 +14,22 @@ export default function ManageCoursePage() {
       </div>
       <div className="Layout">
         <div className="SideBar-container">
-          <SideBar />
+          <SideBar type = 'managecourse'/>
         </div>
-        <div className="Layout-container">
-          <div className="ManageCourse-container">
-            <ManageCourse />
+
+        <div className="Layout_Status_Posted">
+          <div className="CourseStatus">
+               <CourseStatus/>
+          </div>
+          <div className="PostedCourse">
+               <PostedCourse/>
+               <CourseSold/>
           </div>
         </div>
+   
+
+
+
       </div>
     </div>
   );
