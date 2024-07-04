@@ -235,7 +235,18 @@ namespace BE.Repository.Implementations
                 courseName = courseName.Replace("-", " ");
             }
 
-            return await _context.Courses.FirstOrDefaultAsync(course => course.Name.ToLower().Contains(courseName.ToLower()));
+            return await _context.Courses.Include(course => course.CategoryCourses)
+                                            .ThenInclude(cateCourse => cateCourse.Category)
+                                                .ThenInclude(cate => cate.CategoryCourses)
+                                        .Include(course => course.Chapters)
+                                            .ThenInclude(chapter => chapter.Lectures)
+                                                .ThenInclude(image => image.Images)
+                                        .Include(course => course.Chapters)
+                                            .ThenInclude(quiz => quiz.Quizzes)
+                                                .ThenInclude(question => question.Questions)
+                                        .Include(course => course.Comments)
+                                        .Include(images => images.Images)
+                                        .FirstOrDefaultAsync(course => course.Name.ToLower().Contains(courseName.ToLower()));
         }
     }
 }

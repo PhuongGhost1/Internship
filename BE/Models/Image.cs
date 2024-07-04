@@ -7,8 +7,6 @@ public partial class Image
 {
     public string Id { get; set; } = null!;
 
-    public string? Base64Code { get; set; }
-
     public string? UserId { get; set; }
 
     public string? CourseId { get; set; }

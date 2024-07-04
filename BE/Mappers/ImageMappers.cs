@@ -12,7 +12,7 @@ namespace BE.Mappers
         public static ImageDto ToImageData(this Image imageModel){
             return new ImageDto{
                 Id = imageModel.Id,
-                Base64Code = imageModel.Base64Code,
+                Base64Code = imageModel.Url,
                 User_Id = imageModel.UserId,
                 Course_Id = imageModel.CourseId,
                 Lecture_Id = imageModel.LectureId,

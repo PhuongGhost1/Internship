@@ -68,7 +68,7 @@ namespace BE.Services.Implementations
                 RatingAvg = ratingAvg,
                 RatingNumber = ratingNum,
                 EstimatedLearningTime = totalVideoTimeMinutes + NumberOfQuizInChapter * 30,
-                ImageBackground = imageModel?.Base64Code,
+                ImageBackground = imageModel?.Url,
             };
             return courseDto;
         }

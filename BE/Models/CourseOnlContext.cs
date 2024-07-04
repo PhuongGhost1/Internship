@@ -570,9 +570,6 @@ public partial class CourseOnlContext : DbContext
             entity.Property(e => e.Id)
                 .HasMaxLength(20)
                 .HasColumnName("id");
-            entity.Property(e => e.Base64Code)
-                .HasColumnType("mediumtext")
-                .HasColumnName("base64Code");
             entity.Property(e => e.CourseId)
                 .HasMaxLength(20)
                 .HasColumnName("course_id");
