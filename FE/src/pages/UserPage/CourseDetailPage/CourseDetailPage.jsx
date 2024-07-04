@@ -13,6 +13,8 @@ import SliderCards from "../../../components/Items/SliderCards/SliderCards";
 import CoursesReview from "../../../components/Courses/CoursesReview/CoursesReview";
 import axios from 'axios'
 
+import api from '../../../api/ApiService';
+
 export default function CourseDetailPage() {
     const [isIn, setIsIn] = useState('about')
     const [isOpenHeader, setIsOpenHeader] = useState(false)
@@ -45,13 +47,25 @@ export default function CourseDetailPage() {
     }, [])
 
     useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await api.getCourseByName('a');
+                console.log(data);
+            } catch (error) {
+                console.error("Error fetching course:", error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    useEffect(() => {
         const options = {
             root: null, // root là viewport của trình duyệt
             rootMargin: '0px 0px -850px 0px', // Điều chỉnh rootMargin để phần tử chạm vào đầu viewport
             threshold: 0, // Kích hoạt ngay khi phần tử chạm vào viewport
         };
 
-        let isAboveAboutRef = false;
 
         const handleIntersection = (entries) => {
             entries.forEach(entry => {

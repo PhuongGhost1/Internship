@@ -15,8 +15,19 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
-
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("http://localhost:5173")
+      .WithHeaders("Content-Type", "Authorization") // Add other headers as needed
+      .AllowAnyMethod();
+
+                      });
+});
 
 // Add services to the container.
 
@@ -140,15 +151,6 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll", builder =>
-    {
-        builder.AllowAnyOrigin()
-               .AllowAnyMethod()
-               .AllowAnyHeader();
-    });
-});
 
 builder.Services.AddOptions();
 var emailSetting = builder.Configuration.GetSection("MailSettings");
@@ -160,16 +162,16 @@ builder.Services.AddHttpContextAccessor();
 
 //Repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>(); builder.Services.AddScoped<ITokenRepository, TokenRepository>(); builder.Services.AddScoped<IQuizRepository, QuizRepository>();
-builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();builder.Services.AddScoped<ILectureRepository, LectureRepository>(); builder.Services.AddScoped<IImageRepository, ImageRepository>(); 
-builder.Services.AddScoped<IEmailRepository, EmailRepository>();builder.Services.AddScoped<ICourseRepository, CourseRepository>();builder.Services.AddScoped<ICommentRepository, CommentRepository>();
-builder.Services.AddScoped<IChapterRepository, ChapterRepository>(); builder.Services.AddScoped<ICertificationRepository, CertificationRepository>();builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IQuestionRepository, QuestionRepository>(); builder.Services.AddScoped<ILectureRepository, LectureRepository>(); builder.Services.AddScoped<IImageRepository, ImageRepository>();
+builder.Services.AddScoped<IEmailRepository, EmailRepository>(); builder.Services.AddScoped<ICourseRepository, CourseRepository>(); builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<IChapterRepository, ChapterRepository>(); builder.Services.AddScoped<ICertificationRepository, CertificationRepository>(); builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IAnswerRepository, AnswerRepository>();
 
 //Services
-builder.Services.AddScoped<IUserService, UserService>();builder.Services.AddScoped<IQuizService, QuizService>();builder.Services.AddScoped<IQuestionService, QuestionService>();
-builder.Services.AddScoped<ILectureService, LectureService>();builder.Services.AddScoped<IEmailService, EmailService>();builder.Services.AddScoped<ICourseService, CourseService>();
-builder.Services.AddScoped<ICommentService, CommentService>();builder.Services.AddScoped<IChapterService, ChapterService>();builder.Services.AddScoped<ICertificationService, CertificationService>();
-builder.Services.AddScoped<ICategoryService, CategoryService>();builder.Services.AddScoped<IAnswerService, AnswerService>();
+builder.Services.AddScoped<IUserService, UserService>(); builder.Services.AddScoped<IQuizService, QuizService>(); builder.Services.AddScoped<IQuestionService, QuestionService>();
+builder.Services.AddScoped<ILectureService, LectureService>(); builder.Services.AddScoped<IEmailService, EmailService>(); builder.Services.AddScoped<ICourseService, CourseService>();
+builder.Services.AddScoped<ICommentService, CommentService>(); builder.Services.AddScoped<IChapterService, ChapterService>(); builder.Services.AddScoped<ICertificationService, CertificationService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>(); builder.Services.AddScoped<IAnswerService, AnswerService>();
 
 var app = builder.Build();
 
@@ -179,6 +181,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseHttpsRedirection();
 
@@ -188,8 +191,6 @@ app.UseExceptionHandleMiddleware();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
-app.UseCors("AllowAll");
 
 app.MapControllers();
 
