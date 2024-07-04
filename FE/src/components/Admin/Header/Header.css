@@ -32,7 +32,7 @@
     align-items: center;
     font-size: 24px;
     color: #a855f7;
-    flex:3;
+    flex: 3;
 }
 
 #Header-Admin .logo .icon {
@@ -54,12 +54,12 @@
 #Header-Admin .user-info {
     display: flex;
     align-items: center;
-    flex:2;
+    flex: 2;
     justify-content: flex-end;
 }
 #Header-Admin .avatar-user{
     display: flex;
-    border-left:1px solid black;
+    border-left: 1px solid black;
 }
 
 #Header-Admin .user-info .user-name {
@@ -74,7 +74,7 @@
 }
 #Header-Admin .avatar{
     font-size: 25px;
-    margin-left: 30px ;
+    margin-left: 30px;
 }
 
 #Header-Admin .user-info .icons .icon {
