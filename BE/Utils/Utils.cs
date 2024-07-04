@@ -1,3 +1,5 @@
+using System.Security.Cryptography;
+using System.Text;
 using FirebaseAdmin;
 using FirebaseAdmin.Auth;
 using Google.Apis.Auth.OAuth2;
@@ -182,6 +184,19 @@ namespace BE.Utils
             };
             process.Start();
             process.WaitForExit();
+        }
+
+        public static string GenerateHashCode(object o)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] inputBytes = Encoding.UTF8.GetBytes(o.ToString());
+                byte[] hashBytes = sha256.ComputeHash(inputBytes);
+
+                string hash = BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
+
+                return $"{hash.Substring(0, 4)}-{hash.Substring(4, 4)}-{hash.Substring(8, 4)}-{hash.Substring(12, 4)}-{hash.Substring(16, 4)}";
+            }
         }
     }
 }

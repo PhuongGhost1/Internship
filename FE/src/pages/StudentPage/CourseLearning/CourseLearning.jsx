@@ -9,9 +9,6 @@ import CourseQuizContent from "../../../components/Courses/CourseLearning/Course
 
 export default function CourseLearning() {
     const { courseType, itemName } = useParams();
-    useEffect(() => {
-        console.log(courseType, itemName)
-    }, [])
     const data = [
         {
             name: 'Modern Data Ecosystem and the Role of Data Analytics',
@@ -132,7 +129,7 @@ export default function CourseLearning() {
                 </div>
                 <div className="content-container">
                     {courseType === 'lecture' && (
-                        <CourseVideoContent />
+                        <CourseVideoContent lectureName={itemName} />
                     )}
                     {courseType === 'quiz' && (
                         <CourseQuizContent />
