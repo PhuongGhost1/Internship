@@ -126,6 +126,13 @@ namespace BE.Services.Implementations
             return course;
         }
 
+        public async Task<List<Course>> GetRecentRandomCourses(int numberOfCourses)
+        {
+            if(numberOfCourses < 0) throw new Exception("Cannot take under 0 course!");
+
+            return await _courseRepo.GetRecentRandomCourses(6);
+        }
+
         //---------------------CRUD--------------------------//
         public async Task<Course?> CreateCourse(CreateCourseDto createCourseDto)
         {
@@ -168,5 +175,6 @@ namespace BE.Services.Implementations
 
             return await _courseRepo.FindCourseByCourseName(courseName);
         }
+
     }
 }

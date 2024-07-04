@@ -8,7 +8,7 @@ using static BE.Utils.Utils;
 
 namespace BE.Controllers
 {
-    
+
     [Route("api/v1/web/course")]
     [ApiController]
     public class CourseWebController : ControllerBase
@@ -93,10 +93,16 @@ namespace BE.Controllers
             return await _courseService.GetCourseByCourseName(courseName);
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("search-course")]
         public async Task<Course?> SearchCourseByUserId([FromForm] string userId){
             return await _courseService.SearchCourseByUserId(userId);
+        }
+
+        [HttpPost]
+        [Route("new-release-course")]
+        public async Task<List<Course>> GetRecentRandomCourses([FromForm] int numberOfSize){
+            return await _courseService.GetRecentRandomCourses(numberOfSize);
         }
     }
 }

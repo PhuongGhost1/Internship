@@ -18,7 +18,7 @@ namespace BE.Services.Interfaces
         Task<string> CreateCourse(CreateCoursData data);
         Task<List<Course>> GetAllCoursesByCategoryName(string cateName);
         Task<Course?> SearchCourseByUserId(string userId);
-
+        Task<List<Course>> GetRecentRandomCourses(int numberOfCourses);
 
         //---------------------CRUD--------------------------//
         Task<Course?> CreateCourse(CreateCourseDto createCourseDto);

@@ -200,6 +200,28 @@ namespace BE.Repository.Implementations
             return await _context.Courses.FirstOrDefaultAsync(course => course.UserId == userId);
         }
 
+        public async Task<List<Course>> GetRecentRandomCourses(int numberOfCourses)
+        {
+            var thirtyDaysAgo = DateTime.UtcNow.AddDays(-30);
+
+            var recentCourses = await _context.Courses
+                                        .Include(course => course.CategoryCourses)
+                                            .ThenInclude(cateCourse => cateCourse.Category)
+                                                .ThenInclude(cate => cate.CategoryCourses)
+                                        .Include(course => course.Chapters)
+                                            .ThenInclude(chapter => chapter.Lectures)
+                                                .ThenInclude(image => image.Images)
+                                        .Include(course => course.Chapters)
+                                            .ThenInclude(quiz => quiz.Quizzes)
+                                                .ThenInclude(question => question.Questions)
+                                        .Include(course => course.Comments)
+                                        .Include(images => images.Images)
+                                        .Where(course => course.CreateAt >= thirtyDaysAgo)
+                                        .OrderBy(c => Guid.NewGuid())
+                                        .Take(numberOfCourses)
+                                        .ToListAsync();
+            return recentCourses;
+        }
 
         //---------------------CRUD--------------------------//
         public async Task<Course?> CreateCourse(Course course)
