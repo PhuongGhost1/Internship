@@ -14,7 +14,7 @@ export default function ManageInstructorPage(){
       </div>
       <div className="Layout">
         <div className="SideBar-container">
-          <SideBar />
+          <SideBar type = 'instructor' />
         </div>
         <div className="Layout-container">
           <div className="ManageInstructor-container">

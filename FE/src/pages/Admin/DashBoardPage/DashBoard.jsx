@@ -5,7 +5,8 @@ import SideBar from "../../../components/Admin/SideBar/SideBar";
 import Weekly from "../../../components/Admin/Weekly/Weekly";
 import Statistics from "../../../components/Admin/Statistics/Statistics";
 import Analytics from "../../../components/Admin/Analytics/Analytics";
-import Order from "../../../components/Admin/Order/Order";
+import Appointment from "../../../components/Admin/Appointment/Appointment";
+
 
 export default function DashBoard() {
   return (
@@ -15,7 +16,7 @@ export default function DashBoard() {
       </div>
       <div className="Layout">
         <div className="SideBar-container">
-          <SideBar />
+          <SideBar type = 'dashboard'/>
         </div>
         <div className="Layout-container">
           <div className="Weekly-container">
@@ -29,7 +30,8 @@ export default function DashBoard() {
             <div className="Chart">
               <div className="">
               <Analytics/>
-              <Order />
+              <Appointment/>
+            
               </div>
             
             </div>

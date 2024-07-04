@@ -38,7 +38,7 @@ const data = [
 
 ];
 
-const ITEMS_PER_PAGE = 12;
+const ITEMS_PER_PAGE = 11;
 
 const DataTable = () => {
     const [courses, setCourses] = useState(data);

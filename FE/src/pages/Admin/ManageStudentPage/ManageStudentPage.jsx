@@ -12,7 +12,7 @@ export default function ManageStudentPage() {
       </div>
       <div className="Layout">
         <div className="SideBar-container">
-          <SideBar />
+          <SideBar type = 'student' />
         </div>
         <div className="Layout-container">
           <div className="ManageStudent-container">

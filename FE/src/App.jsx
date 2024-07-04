@@ -20,6 +20,8 @@ import DashBoard from './pages/Admin/DashBoardPage/DashBoard';
 import ManageInstructorPage from './pages/Admin/ManageInstructorPage/ManageInstructorPage';
 import ManageStudentPage from './pages/Admin/ManageStudentPage/ManageStudentPage';
 import ManageCoursePage from './pages/Admin/ManageCoursePage/ManageCoursePage';
+import RequestsPage from './pages/Admin/RequestsPage/RequestsPage';
+import SettingPage from './pages/Admin/SettingPage/SettingPage';
 
 function App() {
   return (
@@ -54,6 +56,10 @@ function App() {
           <Route path='instructor' element={<ManageInstructorPage />} />
           <Route path='student' element={<ManageStudentPage />} />
           <Route path='course' element={<ManageCoursePage />} />
+          <Route path='requests' element={<RequestsPage/>} />
+          <Route path='setting' element={<SettingPage/>} />
+          
+          
 
 
 

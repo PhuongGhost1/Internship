@@ -40,6 +40,7 @@
 }
 
 #ManageStudent .ManageStudent-top {
+    width: 100%;
     display: flex;
 }
 
@@ -53,11 +54,13 @@
     margin-bottom: 20px;
     text-align: left;
     justify-content: flex-end;
+    flex: 1;
 }
 
 
 #ManageStudent .search-bar input {
     width: 300px;
+    height: 35px;
     border: 1px solid #ccc;
     border-radius: 10px;
     font-size: 12px;
@@ -65,10 +68,12 @@
 
 #ManageStudent .search-bar svg {
     color: rgb(207, 206, 206);
-    margin-top: 10px;
+    margin-top: 8px;
     margin-right: 10px;
+    margin-left: 270px;
     font-size: 20px;
     position: absolute;
+    
 }
 
 

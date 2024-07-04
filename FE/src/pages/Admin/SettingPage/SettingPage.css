@@ -1,8 +1,8 @@
-#ManageStudentPage {
+#SettingPage {
      margin-top: auto;
 }
 
-#ManageStudentPage .Header-Admin {
+#SettingPage .Header-Admin {
      height: 60px;
      width: 100%;
      position: fixed;
@@ -11,14 +11,14 @@
      z-index: 99999;
 }
 
-#ManageStudentPage .Layout {
+#SettingPage .Layout {
      display: flex;
 }
 
-#ManageStudentPage .Layout .SideBar-container {
+#SettingPage .Layout .SideBar-container {
      flex: 2;
 }
 
-#ManageStudentPage .Layout .Layout-container {
+#SettingPage .Layout .Layout-container {
      flex: 11;
 }

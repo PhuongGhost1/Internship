@@ -14,9 +14,9 @@ export default function Header() {
           </span>{" "}
           <span className="logo-text">CodeCourse</span>
         </div>
-        <div className="search-bar">
+        {/* <div className="search-bar">
           <input type="text" placeholder="Search projects" />
-        </div>
+        </div> */}
         <div className="user-info">
           <span>
             <FiBell className="Bell" />
@@ -24,6 +24,7 @@ export default function Header() {
           <div className="avatar-user">
             <RxAvatar className="avatar" />
             <div className="user-name">GUN</div>
+
           </div>
         </div>
       </div>
