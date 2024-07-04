@@ -113,7 +113,18 @@ namespace BE.Services.Implementations
             return courses;
         }
 
+        public async Task<Course?> SearchCourseByUserId(string userId)
+        {
+            var user = await _userRepo.GetUserById(userId);
 
+            if(user == null) throw new Exception("Unable to user!");
+
+            var course = await _courseRepo.SearchCourseByUserId(userId);
+
+            if(course == null) throw new Exception("Unable to search course!");
+
+            return course;
+        }
 
         //---------------------CRUD--------------------------//
         public async Task<Course?> CreateCourse(CreateCourseDto createCourseDto)

@@ -195,6 +195,11 @@ namespace BE.Repository.Implementations
             return result;
         }
 
+        public async Task<Course?> SearchCourseByUserId(string userId)
+        {
+            return await _context.Courses.FirstOrDefaultAsync(course => course.UserId == userId);
+        }
+
 
         //---------------------CRUD--------------------------//
         public async Task<Course?> CreateCourse(Course course)

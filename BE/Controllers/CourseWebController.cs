@@ -92,5 +92,11 @@ namespace BE.Controllers
         public async Task<Course?> FindCourseByName([FromForm] string courseName){
             return await _courseService.GetCourseByCourseName(courseName);
         }
+
+        [HttpGet]
+        [Route("search-course")]
+        public async Task<Course?> SearchCourseByUserId([FromForm] string userId){
+            return await _courseService.SearchCourseByUserId(userId);
+        }
     }
 }

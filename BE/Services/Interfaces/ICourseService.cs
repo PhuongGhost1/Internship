@@ -17,6 +17,7 @@ namespace BE.Services.Interfaces
         Task<string> UploadImgCourse(int courseId, IFormFile image);
         Task<string> CreateCourse(CreateCoursData data);
         Task<List<Course>> GetAllCoursesByCategoryName(string cateName);
+        Task<Course?> SearchCourseByUserId(string userId);
 
 
         //---------------------CRUD--------------------------//
