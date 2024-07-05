@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import './ManageInstructor.css';
 import { Pagination, PaginationItem, PaginationLink, Table } from "reactstrap";
 import { FaInfoCircle } from "react-icons/fa";
@@ -17,9 +17,7 @@ import { MdEmail } from "react-icons/md";
 import { GrTransaction } from "react-icons/gr";
 import CNXlogo from '../../../assets/CNX.png';
 import Mlogo from '../../../assets/M.png';
-import MMlogo from '../../../assets/MM.png';
 import CUlogo from '../../../assets/CU.png';
-import SYSNEYlogo from '../../../assets/SYSNEY.png';
 import { FaUsers } from "react-icons/fa";
 import { FaRegStarHalfStroke } from "react-icons/fa6";
 import { SiGmail } from "react-icons/si";
@@ -393,6 +391,7 @@ export default function ManageInstructor() {
                 progress.classList.add('open');
             }, 200);
         } catch (error) {
+            <h2>Error Search</h2>
         }
         setCurrentNum(num);
     }

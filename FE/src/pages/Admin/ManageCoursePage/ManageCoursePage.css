@@ -23,10 +23,10 @@
      display: flex;
 }
 #ManageCoursePage .Layout_Status_Posted .CourseStatus{
-     flex: 8;
+     flex: 6;
 }
 #ManageCoursePage .Layout_Status_Posted .PostedCourse{
-     flex: 5;
+     flex: 6;
 }
 
 
