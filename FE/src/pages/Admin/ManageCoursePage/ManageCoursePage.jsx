@@ -3,7 +3,6 @@ import "./ManageCoursePage.css";
 import Header from "../../../components/Admin/Header/Header";
 import SideBar from "../../../components/Admin/SideBar/SideBar";
 import PostedCourse from "../../../components/Admin/ManageCourse/PostedCourse/PostedCourse";
-import CourseSold from "../../../components/Admin/ManageCourse/CourseSold/CourseSold";
 import CourseStatus from "../../../components/Admin/ManageCourse/CourseStatus/CourseStatus";
 import Angular_logo from "../../..//assets/Angular_logo.png";
 
