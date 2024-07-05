@@ -1,0 +1,63 @@
+#AdminRequests {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+}
+
+#AdminRequests h2 {
+    color: #333;
+    font-weight: bold;
+}
+
+#AdminRequests ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#AdminRequests li {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 10px 0;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#AdminRequests li p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+#AdminRequests li .actions {
+    display: flex;
+    gap: 10px;
+}
+
+#AdminRequests li button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: var(--light-orange);
+    color: white;
+}
+
+#AdminRequests li button:hover {
+    background-color: rgb(226, 126, 32);
+}
+
+#AdminRequests li button:last-child {
+    background-color: #c0c0c0;
+}
+
+#AdminRequests li button:last-child:hover {
+    background-color: #b3b3b3;
+}
+
+#AdminRequests li.approved {
+    border-left: 5px solid #28a745;
+}
+
+#AdminRequests li.rejected {
+    border-left: 5px solid #dc3545;
+}
