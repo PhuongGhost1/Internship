@@ -34,7 +34,7 @@
 }
 
 #management-course .btn-action {
-  margin-right: 5px;
+  align-items: center;
 }
 
 #management-course .status-active {
@@ -110,42 +110,6 @@
     width: 10%;
 }
 
-
-#management-course .pagination {
-    display: flex;
-    justify-content: end;
-    padding: 1rem;
-    list-style-type: none;
-    position: absolute;
-    right: 20px;
-    bottom: 40px;
-    margin-right: 50px;
-  }
-  
-  #management-course .pagination li {
-    margin: 0 0.5rem;
-    cursor: pointer;
-  }
-  
-  #management-course .pagination li a {
-    text-decoration: none;
-    color: black;
-    padding: 0.5rem 1rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-  }
-  
-  #management-course .pagination li a:hover {
-    background-color: #f0f0f0;
-  }
-  
-  #management-course .pagination li.active a {
-    font-weight: bold;
-    color: white;
-    background-color: #007bff;
-    border-color: #007bff;
-  }
-
   #management-course .button-view svg, .button-delete svg {
     margin-bottom: 5px;
 }
@@ -162,4 +126,8 @@
     font-size: 24px;
     margin-left: 20px;
     color: rgb(243, 141, 141);
+  }
+
+  #management-course .table-header h3{
+    font-weight: bold;
   }
