@@ -13,15 +13,18 @@ import SliderCards from "../../../components/Items/SliderCards/SliderCards";
 import CoursesReview from "../../../components/Courses/CoursesReview/CoursesReview";
 
 import api from '../../../api/ApiService';
+import { useParams } from "react-router-dom";
 
 export default function CourseDetailPage() {
     const [isIn, setIsIn] = useState('about')
+    const [courseData, setCourseData] = useState(null)
     const [isOpenHeader, setIsOpenHeader] = useState(false)
     const aboutRef = useRef(null);
     const outcomesRef = useRef(null);
     const contentsRef = useRef(null)
     const recommendRef = useRef(null);
     const reviewRef = useRef(null);
+    const { courseName } = useParams();
 
     const scrollToSection = (sectionRef) => {
         const yOffset = -60;
@@ -30,17 +33,17 @@ export default function CourseDetailPage() {
     };
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data = await api.getCourseByName('a');
-                console.log(data);
-            } catch (error) {
-                console.error("Error fetching course:", error);
-            }
-        };
-
         fetchData();
     }, []);
+
+    const fetchData = async () => {
+        try {
+            const data = await api.getCourseByName(courseName);
+            setCourseData(data)
+        } catch (error) {
+            console.error("Error fetching course:", error);
+        }
+    };
 
     useEffect(() => {
         const options = {
@@ -109,7 +112,7 @@ export default function CourseDetailPage() {
             <div className="courser-detail-container">
                 <div className="flex-container">
                     <div className="course-detail-learning-map-container">
-                        <CoursesDetail />
+                        <CoursesDetail courseData={courseData} />
                         <CoursesDetailBar
                             onAboutClick={() => { scrollToSection(aboutRef) }}
                             onOutcomesClick={() => { scrollToSection(outcomesRef) }}
@@ -120,7 +123,7 @@ export default function CourseDetailPage() {
                             isOpenHeader={isOpenHeader} />
                         <div ref={aboutRef}>
                         </div>
-                        <CoursesAbout />
+                        <CoursesAbout courseData={courseData} />
                     </div>
                     <div className="course-info-container">
                         <CoursesInfo />
