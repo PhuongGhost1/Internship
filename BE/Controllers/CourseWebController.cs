@@ -125,5 +125,10 @@ namespace BE.Controllers
         {
             return GenerateIdModel("category");
         }
+        [HttpPost("test")]
+        public async Task<string> HashTest([FromForm] string courseName)
+        {
+            return GenerateHashCode(courseName);
+        }
     }
 }

@@ -44,7 +44,6 @@ function App() {
         <Route path='/instructor'>
           <Route path='profile' element={<InstructorProfilePage />} />
         </Route>
-
       </Routes>
     </BrowserRouter>
   )

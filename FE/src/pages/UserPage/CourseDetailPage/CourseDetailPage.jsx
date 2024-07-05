@@ -11,6 +11,7 @@ import CoursesAbout from "../../../components/Courses/CoursesAbout/CoursesAbout"
 import CoursesOutcomes from "../../../components/Courses/CoursesOutcomes/CoursesOutcomes";
 import SliderCards from "../../../components/Items/SliderCards/SliderCards";
 import CoursesReview from "../../../components/Courses/CoursesReview/CoursesReview";
+import axios from 'axios'
 
 import api from '../../../api/ApiService';
 import { useParams } from "react-router-dom";
@@ -31,6 +32,22 @@ export default function CourseDetailPage() {
         const yPosition = sectionRef.current.getBoundingClientRect().top + window.pageYOffset + yOffset;
         window.scrollTo({ top: yPosition, behavior: 'smooth' });
     };
+
+    async function fetchApiGetCourse(courseName) {
+        const data = {
+            courseName: courseName
+        }
+        const response = await axios.post('http://localhost:5144/api/v1/web/course/find-course', data, {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+        });
+        console.log(response.data);
+    }
+
+    useEffect(() => {
+        fetchApiGetCourse('prompt-engineering-specialization')
+    }, [])
 
     useEffect(() => {
         fetchData();
