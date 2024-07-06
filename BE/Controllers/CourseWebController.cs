@@ -1,4 +1,5 @@
 using BE.Dto.Course;
+using BE.Helpers;
 using BE.Dto.Course.Chapter;
 using BE.Models;
 using BE.Services.Interfaces;
@@ -8,9 +9,9 @@ using static BE.Utils.Utils;
 
 namespace BE.Controllers
 {
-    [ApiController]
+
     [Route("api/v1/web/course")]
-    [ApiExplorerSettings(GroupName = "Course")]
+    [ApiController]
     public class CourseWebController : ControllerBase
     {
         private readonly ICourseService _courseService;
@@ -21,16 +22,31 @@ namespace BE.Controllers
         }
 
         [HttpGet]
-        public async Task<List<Course>> GetAllCourses()
+        [Route("all-courses")]
+        public async Task<List<Course>> GetAllCourses([FromQuery] SearchQueryObject searchQueryObject)
         {
-            return await _courseService.GetAllCourses();
+            return await _courseService.GetAllCourses(searchQueryObject);
         }
 
-        [HttpGet("course-info")]
-        [Route("{courseId}")]
-        public async Task<CourseDto> GetInformationOfCourse([FromRoute] string courseId)
+        [HttpGet]
+        [Route("filter-all-courses")]
+        public async Task<List<Course>> FilterAllCourses([FromQuery] FilterQueryObject filterQueryObject)
+        {
+            return await _courseService.FilterAllCourses(filterQueryObject);
+        }
+
+        [HttpGet]
+        [Route("course-info")]
+        public async Task<CourseDto> GetInformationOfCourse([FromBody] string courseId)
         {
             return await _courseService.GetInformationOfCourse(courseId);
+        }
+
+        [HttpGet]
+        [Route("content")]
+        public async Task<List<object>> GetLecturesAndQuizzesByCourseId([FromBody] string courseId)
+        {
+            return await _courseService.GetLecturesAndQuizzesByCourseId(courseId);
         }
 
         [HttpPost("upload-img")]
@@ -46,6 +62,44 @@ namespace BE.Controllers
         public async Task<string> CreateCourse([FromForm] CreateCoursData data)
         {
             return await _courseService.CreateCourse(data);
+        }
+
+
+        [HttpPost]
+        [Route("find-course-by-category")]
+        public async Task<List<Course>> FindAllCoursesByCategoryName([FromForm] string cateName)
+        {
+            return await _courseService.GetAllCoursesByCategoryName(cateName);
+        }
+
+
+        //---------------------CRUD--------------------------//
+        [HttpPost]
+        [Route("create-course")]
+        public async Task<Course?> CreateCourse([FromBody] CreateCourseDto createCourseDto)
+        {
+            return await _courseService.CreateCourse(createCourseDto);
+        }
+
+        [HttpPost]
+        [Route("update-course")]
+        public async Task<Course?> UpdateCourse([FromBody] UpdateCourseDto updateCourseDto)
+        {
+            return await _courseService.UpdateCourse(updateCourseDto);
+        }
+
+        [HttpPost]
+        [Route("delete-course")]
+        public async Task<bool> DeleteCourse([FromBody] string courseId)
+        {
+            return await _courseService.DeleteCourse(courseId);
+        }
+
+        [HttpPost]
+        [Route("find-course")]
+        public async Task<Course?> FindCourseByName([FromForm] string courseName)
+        {
+            return await _courseService.GetCourseByCourseName(courseName);
         }
 
         [HttpPost("createChapter")]
@@ -70,6 +124,11 @@ namespace BE.Controllers
         public async Task<string> GenerateId()
         {
             return GenerateIdModel("category");
+        }
+        [HttpPost("test")]
+        public async Task<string> HashTest([FromForm] string courseName)
+        {
+            return GenerateHashCode(courseName);
         }
     }
 }

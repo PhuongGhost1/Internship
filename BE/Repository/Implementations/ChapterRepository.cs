@@ -26,5 +26,44 @@ namespace BE.Repository.Implementations
 
             return numberChapters;
         }
+
+
+        //---------------------CRUD--------------------------//
+        public async Task<Chapter?> FindChapterById(string chapId)
+        {
+            return await _context.Chapters.FirstOrDefaultAsync(chap => chap.Id == chapId);
+        }
+
+        public async Task<Chapter?> CreateChapter(Chapter chapter)
+        {
+            await _context.Chapters.AddAsync(chapter);
+            await _context.SaveChangesAsync();
+            return chapter;
+        }
+
+        public async Task<bool> DeleteChapter(string chapterId)
+        {
+            var chapter = await _context.Chapters.FindAsync(chapterId);
+
+            if(chapter == null) return false;
+
+            chapter.Status = 0;
+
+            _context.Chapters.Update(chapter);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<List<Chapter>> GetAllChapters()
+        {
+            return await _context.Chapters.ToListAsync();
+        }
+
+        public async Task<Chapter?> UpdateChapter(Chapter chapter)
+        {
+            _context.Chapters.Update(chapter);
+            await _context.SaveChangesAsync();
+            return chapter;
+        }
     }
 }

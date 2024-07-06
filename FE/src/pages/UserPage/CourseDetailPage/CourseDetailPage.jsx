@@ -11,20 +11,55 @@ import CoursesAbout from "../../../components/Courses/CoursesAbout/CoursesAbout"
 import CoursesOutcomes from "../../../components/Courses/CoursesOutcomes/CoursesOutcomes";
 import SliderCards from "../../../components/Items/SliderCards/SliderCards";
 import CoursesReview from "../../../components/Courses/CoursesReview/CoursesReview";
+import axios from 'axios'
+
+import api from '../../../api/ApiService';
+import { useParams } from "react-router-dom";
 
 export default function CourseDetailPage() {
     const [isIn, setIsIn] = useState('about')
+    const [courseData, setCourseData] = useState(null)
     const [isOpenHeader, setIsOpenHeader] = useState(false)
     const aboutRef = useRef(null);
     const outcomesRef = useRef(null);
     const contentsRef = useRef(null)
     const recommendRef = useRef(null);
     const reviewRef = useRef(null);
+    const { courseName } = useParams();
 
     const scrollToSection = (sectionRef) => {
         const yOffset = -60;
         const yPosition = sectionRef.current.getBoundingClientRect().top + window.pageYOffset + yOffset;
         window.scrollTo({ top: yPosition, behavior: 'smooth' });
+    };
+
+    async function fetchApiGetCourse(courseName) {
+        const data = {
+            courseName: courseName
+        }
+        const response = await axios.post('http://localhost:5144/api/v1/web/course/find-course', data, {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+        });
+        console.log(response.data);
+    }
+
+    useEffect(() => {
+        fetchApiGetCourse('prompt-engineering-specialization')
+    }, [])
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = async () => {
+        try {
+            const data = await api.getCourseByName(courseName);
+            setCourseData(data)
+        } catch (error) {
+            console.error("Error fetching course:", error);
+        }
     };
 
     useEffect(() => {
@@ -34,7 +69,6 @@ export default function CourseDetailPage() {
             threshold: 0, // Kích hoạt ngay khi phần tử chạm vào viewport
         };
 
-        let isAboveAboutRef = false;
 
         const handleIntersection = (entries) => {
             entries.forEach(entry => {
@@ -95,7 +129,7 @@ export default function CourseDetailPage() {
             <div className="courser-detail-container">
                 <div className="flex-container">
                     <div className="course-detail-learning-map-container">
-                        <CoursesDetail />
+                        <CoursesDetail courseData={courseData} />
                         <CoursesDetailBar
                             onAboutClick={() => { scrollToSection(aboutRef) }}
                             onOutcomesClick={() => { scrollToSection(outcomesRef) }}
@@ -106,7 +140,7 @@ export default function CourseDetailPage() {
                             isOpenHeader={isOpenHeader} />
                         <div ref={aboutRef}>
                         </div>
-                        <CoursesAbout />
+                        <CoursesAbout courseData={courseData} />
                     </div>
                     <div className="course-info-container">
                         <CoursesInfo />
