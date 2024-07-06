@@ -71,7 +71,7 @@ namespace BE.Services.Implementations
             return courseDto;
         }
 
-        public async Task<List<object>> GetLecturesAndQuizzesByCourseId(string courseId)
+        public async Task<CourseDto?> GetLecturesAndQuizzesByCourseId(string courseId)
         {
             var course = await _courseRepo.RetriveCourseInformationById(courseId);
 
@@ -79,7 +79,7 @@ namespace BE.Services.Implementations
 
             var combinedList = await _courseRepo.GetLecturesAndQuizzesByCourseId(courseId);
 
-            if (combinedList == null || !combinedList.Any()) throw new Exception("Not found lectures or quizzes!");
+            if (combinedList == null) throw new Exception("Not found lectures or quizzes!");
 
             return combinedList;
         }
@@ -111,7 +111,25 @@ namespace BE.Services.Implementations
             return courses;
         }
 
+        public async Task<Course?> SearchCourseByUserId(string userId)
+        {
+            var user = await _userRepo.GetUserById(userId);
 
+            if (user == null) throw new Exception("Unable to user!");
+
+            var course = await _courseRepo.SearchCourseByUserId(userId);
+
+            if (course == null) throw new Exception("Unable to search course!");
+
+            return course;
+        }
+
+        public async Task<List<Course>> GetRecentRandomCourses(int numberOfCourses)
+        {
+            if (numberOfCourses < 0) throw new Exception("Cannot take under 0 course!");
+
+            return await _courseRepo.GetRecentRandomCourses(6);
+        }
 
         //---------------------CRUD--------------------------//
         public async Task<Course?> CreateCourse(CreateCourseDto createCourseDto)

@@ -161,17 +161,28 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
 
 //Repositories
-builder.Services.AddScoped<IUserRepository, UserRepository>(); builder.Services.AddScoped<ITokenRepository, TokenRepository>(); builder.Services.AddScoped<IQuizRepository, QuizRepository>();
-builder.Services.AddScoped<IQuestionRepository, QuestionRepository>(); builder.Services.AddScoped<ILectureRepository, LectureRepository>(); builder.Services.AddScoped<IImageRepository, ImageRepository>();
-builder.Services.AddScoped<IEmailRepository, EmailRepository>(); builder.Services.AddScoped<ICourseRepository, CourseRepository>(); builder.Services.AddScoped<ICommentRepository, CommentRepository>();
-builder.Services.AddScoped<IChapterRepository, ChapterRepository>(); builder.Services.AddScoped<ICertificationRepository, CertificationRepository>(); builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddScoped<IAnswerRepository, AnswerRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>(); builder.Services.AddScoped<ITokenRepository, TokenRepository>(); builder.Services.AddScoped<IRoleUserRepository, RoleUserRepository>();
+builder.Services.AddScoped<IQuizRepository, QuizRepository>(); builder.Services.AddScoped<IQuestionRepository, QuestionRepository>(); builder.Services.AddScoped<ILectureRepository, LectureRepository>();
+builder.Services.AddScoped<IImageRepository, ImageRepository>(); builder.Services.AddScoped<IEmailRepository, EmailRepository>(); builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+builder.Services.AddScoped<ICommentRepository, CommentRepository>(); builder.Services.AddScoped<IChapterRepository, ChapterRepository>(); builder.Services.AddScoped<ICertificationRepository, CertificationRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>(); builder.Services.AddScoped<IAnswerRepository, AnswerRepository>();
+builder.Services.AddScoped<IRoleRepository, RoleRepository>(); builder.Services.AddScoped<IPermissonRepository, PermissonRepository>(); builder.Services.AddScoped<IFollowRepository, FollowRepository>();
+builder.Services.AddScoped<IUserCertificationRepository, UserCertificationRepository>(); builder.Services.AddScoped<ISaveCourseRepository, SaveCourseRepository>();
+builder.Services.AddScoped<ICategoryCourseRepository, CategoryCourseRepository>(); builder.Services.AddScoped<IEnrollCourseRepository, EnrollCourseRepository>();
+
+
+
 
 //Services
-builder.Services.AddScoped<IUserService, UserService>(); builder.Services.AddScoped<IQuizService, QuizService>(); builder.Services.AddScoped<IQuestionService, QuestionService>();
-builder.Services.AddScoped<ILectureService, LectureService>(); builder.Services.AddScoped<IEmailService, EmailService>(); builder.Services.AddScoped<ICourseService, CourseService>();
-builder.Services.AddScoped<ICommentService, CommentService>(); builder.Services.AddScoped<IChapterService, ChapterService>(); builder.Services.AddScoped<ICertificationService, CertificationService>();
-builder.Services.AddScoped<ICategoryService, CategoryService>(); builder.Services.AddScoped<IAnswerService, AnswerService>();
+builder.Services.AddScoped<IUserService, UserService>(); builder.Services.AddScoped<IRoleUserService, RoleUserService>(); builder.Services.AddScoped<IResourceService, ResourceService>();
+builder.Services.AddScoped<IQuizService, QuizService>(); builder.Services.AddScoped<IQuestionService, QuestionService>(); builder.Services.AddScoped<ILectureService, LectureService>();
+builder.Services.AddScoped<IEmailService, EmailService>(); builder.Services.AddScoped<ICourseService, CourseService>(); builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<IChapterService, ChapterService>(); builder.Services.AddScoped<ICertificationService, CertificationService>(); builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IAnswerService, AnswerService>();
+builder.Services.AddScoped<IRoleService, RoleService>(); builder.Services.AddScoped<IPermissonService, PermissonService>(); builder.Services.AddScoped<IFollowService, FollowService>();
+builder.Services.AddScoped<IUserCertificationService, UserCertificationService>(); builder.Services.AddScoped<ISaveCourseService, SaveCourseService>();
+builder.Services.AddScoped<ICategoryCourseService, CategoryCourseService>(); builder.Services.AddScoped<IEnrollCourseService, EnrollCourseService>();
+
 
 var app = builder.Build();
 
@@ -186,7 +197,7 @@ app.UseCors(MyAllowSpecificOrigins);
 app.UseHttpsRedirection();
 
 app.UseRequestResponseLoggingMiddleware();
-//app.UseAuthenticationMiddleware();
+// app.UseAuthenticationMiddleware();
 app.UseExceptionHandleMiddleware();
 
 app.UseAuthentication();

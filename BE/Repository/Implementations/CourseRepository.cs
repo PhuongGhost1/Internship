@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BE.Dto.Chapter;
 using BE.Dto.Course;
+using BE.Dto.Course.Chapter;
 using BE.Helpers;
 using BE.Dto.Course.Chapter;
 using BE.Models;
@@ -32,30 +34,61 @@ namespace BE.Repository.Implementations
             return await courses.ToListAsync();
         }
 
-        public async Task<List<object>> GetLecturesAndQuizzesByCourseId(string courseId)
+        public async Task<CourseDto?> GetLecturesAndQuizzesByCourseId(string courseId)
         {
-            var lectures = await
-                    (from lecture in _context.Lectures
-                     join chap in _context.Chapters on lecture.ChapterId equals chap.Id
-                     join course in _context.Courses on chap.CourseId equals course.Id
-                     where course.Id == courseId
-                     select new { lecture.Index, Item = (object)lecture })
-                    .ToListAsync();
+            var course = await _context.Courses
+                .Where(c => c.Id == courseId)
+                .Include(c => c.Chapters)
+                .FirstOrDefaultAsync();
 
-            var quizzes = await
-                        (from quiz in _context.Quizzes
-                         join chap in _context.Chapters on quiz.ChapterId equals chap.Id
-                         join course in _context.Courses on chap.CourseId equals course.Id
-                         where course.Id == courseId
-                         select new { quiz.Index, Item = (object)quiz })
-                        .ToListAsync();
+            if (course == null) return null;
 
-            var combinedList = lectures.Concat(quizzes)
-                                    .OrderBy(x => x.Index)
-                                    .Select(x => x.Item)
-                                    .ToList();
+            var chapterIds = course.Chapters.Select(ch => ch.Id).ToList();
 
-            return combinedList;
+            var lectures = await _context.Lectures
+                .Where(l => chapterIds.Contains(l.ChapterId))
+                .Select(l => new ChapterItemDto
+                {
+                    ItemId = l.Id,
+                    Name = l.Name,
+                    Index = l.Index,
+                    Type = "Lecture",
+                    ChapterId = l.ChapterId
+                })
+                .ToListAsync();
+
+            var quizzes = await _context.Quizzes
+                .Where(q => chapterIds.Contains(q.ChapterId))
+                .Select(q => new ChapterItemDto
+                {
+                    ItemId = q.Id,
+                    Name = q.Name,
+                    Index = q.Index,
+                    Type = "Quiz",
+                    ChapterId = q.ChapterId
+                })
+                .ToListAsync();
+
+            var chapterDtos = course.Chapters.Select(ch => new ChaptersDto
+            {
+                Id = ch.Id,
+                Name = ch.Name,
+                Index = ch.Index,
+                Items = lectures
+                    .Where(l => l.ChapterId == ch.Id)
+                    .Concat(quizzes.Where(q => q.ChapterId == ch.Id))
+                    .OrderBy(item => item.Index)
+                    .ToList()
+            }).OrderBy(x => x.Index).ToList();
+
+            var courseDto = new CourseDto
+            {
+                CourseId = course.Id,
+                Name = course.Name,
+                Chapters = chapterDtos
+            };
+
+            return courseDto;
         }
 
         public async Task<Course?> RetriveCourseInformationById(string courseId)
@@ -355,6 +388,33 @@ namespace BE.Repository.Implementations
             return result;
         }
 
+        public async Task<Course?> SearchCourseByUserId(string userId)
+        {
+            return await _context.Courses.FirstOrDefaultAsync(course => course.UserId == userId);
+        }
+
+        public async Task<List<Course>> GetRecentRandomCourses(int numberOfCourses)
+        {
+            var thirtyDaysAgo = DateTime.UtcNow.AddDays(-30);
+
+            var recentCourses = await _context.Courses
+                                        .Include(course => course.CategoryCourses)
+                                            .ThenInclude(cateCourse => cateCourse.Category)
+                                                .ThenInclude(cate => cate.CategoryCourses)
+                                        .Include(course => course.Chapters)
+                                            .ThenInclude(chapter => chapter.Lectures)
+                                                .ThenInclude(image => image.Images)
+                                        .Include(course => course.Chapters)
+                                            .ThenInclude(quiz => quiz.Quizzes)
+                                                .ThenInclude(question => question.Questions)
+                                        .Include(course => course.Comments)
+                                        .Include(images => images.Images)
+                                        .Where(course => course.CreateAt >= thirtyDaysAgo)
+                                        .OrderBy(c => Guid.NewGuid())
+                                        .Take(numberOfCourses)
+                                        .ToListAsync();
+            return recentCourses;
+        }
 
         //---------------------CRUD--------------------------//
         public async Task<Course?> CreateCourse(Course course)
@@ -386,11 +446,20 @@ namespace BE.Repository.Implementations
 
         public async Task<Course?> FindCourseByCourseName(string courseName)
         {
-            if(courseName.Contains("-")){
+            if (courseName.Contains("-"))
+            {
                 courseName = courseName.Replace("-", " ");
             }
 
-            return await _context.Courses.FirstOrDefaultAsync(course => course.Name.ToLower().Contains(courseName.ToLower()));
+            return await _context.Courses.Include(course => course.CategoryCourses)
+                                            .ThenInclude(cateCourse => cateCourse.Category)
+                                                .ThenInclude(cate => cate.CategoryCourses)
+                                        .Include(course => course.Chapters)
+                                            .ThenInclude(chapter => chapter.Lectures)
+                                        .Include(course => course.Chapters)
+                                            .ThenInclude(quiz => quiz.Quizzes)
+                                                .ThenInclude(question => question.Questions)
+                                        .FirstOrDefaultAsync(course => course.Name.ToLower().Contains(courseName.ToLower()));
         }
     }
 }

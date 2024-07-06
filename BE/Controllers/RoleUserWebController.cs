@@ -25,13 +25,13 @@ namespace BE.Controllers
 
         [HttpPost]
         [Route("create-roleUser")]
-        public async Task<RoleUser?> CreateRoleUser([FromForm] string userId, [FromBody] CreateRoleUserDto createRoleUserDto){
+        public async Task<RoleUser?> CreateRoleUser([FromForm] string userId, [FromForm] CreateRoleUserDto createRoleUserDto){
             return await _roleUserService.CreateRoleUser(userId, createRoleUserDto);
         }
 
         [HttpPost]
         [Route("update-roleUser")]
-        public async Task<RoleUser?> UpdateRoleUser([FromForm] string roleUserId, [FromBody] UpdateRoleUserDto updateRoleUserDto){
+        public async Task<RoleUser?> UpdateRoleUser([FromForm] string roleUserId, [FromForm] UpdateRoleUserDto updateRoleUserDto){
             return await _roleUserService.UpdateRoleUser(roleUserId, updateRoleUserDto);
         }
 

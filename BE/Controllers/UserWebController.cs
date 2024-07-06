@@ -26,13 +26,15 @@ namespace BE.Controllers
 
         [HttpGet]
         [Route("login-facebook")]
-        public async Task<ReturnLoginDto> LoginWithFaceBook(){
+        public async Task<ReturnLoginDto> LoginWithFaceBook()
+        {
             return await _userService.LoginWithFacebook();
         }
 
         [HttpGet]
         [Route("facebook-response")]
-        public async Task<ReturnResponseDto> FacebookResponse(){
+        public async Task<ReturnResponseDto> FacebookResponse()
+        {
             return await _userService.FacebookResponse();
         }
 
@@ -45,25 +47,26 @@ namespace BE.Controllers
 
         [HttpGet]
         [Route("signin-google")]
-        public async Task<ReturnResponseDto> GoogleResponse(){
-           return await _userService.GoogleResponse(); 
+        public async Task<ReturnResponseDto> GoogleResponse()
+        {
+            return await _userService.GoogleResponse();
         }
 
         [HttpPost]
         [Route("user-login")]
-        public async Task<UserLoginToken> Login([FromBody] UserLoginDto userLoginDto){
+        public async Task<UserLoginToken> Login([FromForm] UserLoginDto userLoginDto){
             return await _userService.Login(userLoginDto);
         }
 
         [HttpPost]
         [Route("user-register")]
-        public async Task<UserLoginToken> Register([FromBody] RegisterDto registerDto){
+        public async Task<UserLoginToken> Register([FromForm] RegisterDto registerDto){
             return await _userService.Register(registerDto);
         }
 
         [HttpPut]
         [Route("forgot-password")]
-        public async Task<UserLoginToken> Forgot([FromForm] string email, [FromBody] ForgotDto forgotDto){
+        public async Task<UserLoginToken> Forgot([FromForm] string email, [FromForm] ForgotDto forgotDto){
             return await _userService.Forgot(email, forgotDto);
         }
 
@@ -75,6 +78,12 @@ namespace BE.Controllers
             {
                 status = "hi"
             });
+        }
+
+        [HttpGet("get-statistic")]
+        public async Task<(int a, int c)> GetUserStatistic()
+        {
+            return await _userService.GetUserStatisticsAsync();
         }
     }
 }

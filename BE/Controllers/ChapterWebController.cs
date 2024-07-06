@@ -18,7 +18,7 @@ namespace BE.Controllers
 
         [HttpGet]
         [Route("chapters-in-course")]
-        public async Task<ChapterDto> GetDataFromChapterInCourse([FromBody] ChaptersDto chaptersDto){
+        public async Task<ChapterDto> GetDataFromChapterInCourse([FromForm] ChaptersDto chaptersDto){
             return await _chapterService.GetDataFromChapterInCourse(chaptersDto.CourseId);
         }
 
@@ -33,19 +33,19 @@ namespace BE.Controllers
 
         [HttpPost]
         [Route("create-chapter")]
-        public async Task<Chapter?> CreateChapter([FromBody] CreateChapterDto createChapterDto){
+        public async Task<Chapter?> CreateChapter([FromForm] CreateChapterDto createChapterDto){
             return await _chapterService.CreateChapter(createChapterDto);
         }
 
         [HttpPost]
         [Route("update-chapter")]
-        public async Task<Chapter?> UpdateChapter([FromBody] UpdateChapterDto updateChapterDto){
+        public async Task<Chapter?> UpdateChapter([FromForm] UpdateChapterDto updateChapterDto){
             return await _chapterService.UpdateChapter(updateChapterDto);
         }
 
         [HttpPost]
         [Route("delete-chapter")]
-        public async Task<bool> DeleteChapter([FromBody] ChaptersDto chaptersDto){
+        public async Task<bool> DeleteChapter([FromForm] ChaptersDto chaptersDto){
             return await _chapterService.DeleteChapter(chaptersDto.ChapId);
         }
     }

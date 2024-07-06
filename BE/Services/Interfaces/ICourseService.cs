@@ -14,11 +14,12 @@ namespace BE.Services.Interfaces
                 Task<List<Course>> GetAllCourses(SearchQueryObject searchQueryObject);
                 Task<List<Course>> FilterAllCourses(FilterQueryObject filterQueryObject);
                 Task<CourseDto> GetInformationOfCourse(string courseId);
-                Task<List<object>> GetLecturesAndQuizzesByCourseId(string courseId);
+                Task<CourseDto?> GetLecturesAndQuizzesByCourseId(string courseId);
                 Task<string> UploadImgCourse(int courseId, IFormFile image);
                 Task<string> CreateCourse(CreateCoursData data);
                 Task<List<Course>> GetAllCoursesByCategoryName(string cateName);
-
+                Task<Course?> SearchCourseByUserId(string userId);
+                Task<List<Course>> GetRecentRandomCourses(int numberOfCourses);
 
                 //---------------------CRUD--------------------------//
                 Task<Course?> CreateCourse(CreateCourseDto createCourseDto);

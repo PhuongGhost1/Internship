@@ -17,13 +17,13 @@ namespace BE.Controllers
 
         [HttpPost]
         [Route("register-email")]
-        public async Task<EmailSendResultDto> RegisterEmail([FromBody] EmailDto emailDto){ //EmailDto emailDto
+        public async Task<EmailSendResultDto> RegisterEmail([FromForm] EmailDto emailDto){ //EmailDto emailDto
             return await _emailService.SendEmail(emailDto);
         }
 
         [HttpPost]
         [Route("forgot-email")]
-        public async Task<EmailSendResultDto> ForgotEmail([FromBody] EmailDto emailDto){ //EmailDto emailDto
+        public async Task<EmailSendResultDto> ForgotEmail([FromForm] EmailDto emailDto){ //EmailDto emailDto
             return await _emailService.SendEmail(emailDto);
         }
     }

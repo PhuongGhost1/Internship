@@ -11,7 +11,7 @@ namespace BE.Repository.Interface
         Task<int?> NumberOfQuizInChapterByCourseId(string courseId);
         Task<Quiz?> GetAllDataFromQuizByCourseId(string courseId);
         Task<Quiz?> GetDataOfQuizByQuizId(string quizId);
-        
+
         //---------------------CRUD--------------------------//
         Task<Quiz?> GetQuizById(string id);
         Task<Quiz?> CreateQuiz(Quiz quiz);

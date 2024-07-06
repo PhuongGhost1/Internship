@@ -24,13 +24,13 @@ namespace BE.Controllers
 
         [HttpPost]
         [Route("create-resource")]
-        public async Task<Resource?> CreateResource([FromBody] CreateResourceDto createResourceDto){
+        public async Task<Resource?> CreateResource([FromForm] CreateResourceDto createResourceDto){
             return await _resService.CreateResource(createResourceDto);
         }
 
         [HttpPost]
         [Route("update-resource")]
-        public async Task<Resource?> UpdateResource([FromForm] string resId, [FromBody] UpdateResourceDto updateResourceDto){
+        public async Task<Resource?> UpdateResource([FromForm] string resId, [FromForm] UpdateResourceDto updateResourceDto){
             return await _resService.UpdateResource(resId, updateResourceDto);
         }
 

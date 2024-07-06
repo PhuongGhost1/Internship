@@ -33,13 +33,13 @@ namespace BE.Controllers
 
         [HttpPost]
         [Route("create-quiz")]
-        public async Task<Quiz?> CreateQuiz([FromBody] CreateQuizDto createQuizDto){
+        public async Task<Quiz?> CreateQuiz([FromForm] CreateQuizDto createQuizDto){
             return await _quizService.CreateQuiz(createQuizDto, createQuizDto.ChapId);
         }
 
         [HttpPost]
         [Route("update-quiz")]
-        public async Task<Quiz?> UpdateQuiz([FromForm] string quizId, [FromBody] UpdateQuizDto updateQuizDto){
+        public async Task<Quiz?> UpdateQuiz([FromForm] string quizId, [FromForm] UpdateQuizDto updateQuizDto){
             return await _quizService.UpdateQuiz(quizId, updateQuizDto);
         }
 
