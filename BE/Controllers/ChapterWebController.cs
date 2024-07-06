@@ -1,12 +1,13 @@
+using BE.Dto.Chapter;
 using BE.Dto.Course.Chapter;
+using BE.Models;
 using BE.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BE.Controllers
 {
-    [ApiController]
     [Route("api/v1/web/chapter")]
-    [ApiExplorerSettings(GroupName = "Chapter")]
+    [ApiController]
     public class ChapterWebController : ControllerBase
     {
         private readonly IChapterService _chapterService;
@@ -15,11 +16,37 @@ namespace BE.Controllers
             _chapterService = chapterService;
         }
 
-        [HttpGet("chapters-in-course")]
-        [Route("{courseId}")]
-        public async Task<ChapterDto> GetDataFromChapterInCourse([FromRoute] string courseId)
-        {
-            return await _chapterService.GetDataFromChapterInCourse(courseId);
+        [HttpGet]
+        [Route("chapters-in-course")]
+        public async Task<ChapterDto> GetDataFromChapterInCourse([FromForm] ChaptersDto chaptersDto){
+            return await _chapterService.GetDataFromChapterInCourse(chaptersDto.CourseId);
+        }
+
+
+
+        //---------------------CRUD--------------------------//
+        [HttpGet]
+        [Route("view-all-chapter")]
+        public async Task<List<Chapter>> GetDataFromChapterInCourse(){
+            return await _chapterService.ViewAllChapters();
+        }
+
+        [HttpPost]
+        [Route("create-chapter")]
+        public async Task<Chapter?> CreateChapter([FromForm] CreateChapterDto createChapterDto){
+            return await _chapterService.CreateChapter(createChapterDto);
+        }
+
+        [HttpPost]
+        [Route("update-chapter")]
+        public async Task<Chapter?> UpdateChapter([FromForm] UpdateChapterDto updateChapterDto){
+            return await _chapterService.UpdateChapter(updateChapterDto);
+        }
+
+        [HttpPost]
+        [Route("delete-chapter")]
+        public async Task<bool> DeleteChapter([FromForm] ChaptersDto chaptersDto){
+            return await _chapterService.DeleteChapter(chaptersDto.ChapId);
         }
     }
 }

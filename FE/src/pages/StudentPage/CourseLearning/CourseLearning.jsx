@@ -9,9 +9,6 @@ import CourseQuizContent from "../../../components/Courses/CourseLearning/Course
 
 export default function CourseLearning() {
     const { courseType, itemName } = useParams();
-    useEffect(() => {
-        console.log(courseType, itemName)
-    }, [])
     const data = [
         {
             name: 'Modern Data Ecosystem and the Role of Data Analytics',
@@ -123,6 +120,249 @@ export default function CourseLearning() {
 
     ]
 
+    const quizData = [
+        {
+            index: 1,
+            text: `Which of the following commands would you use to retrieve the concise summary of a dataset loaded as pandas data frame ?`,
+            mark: 1,
+            type: '',
+            answer: [
+                {
+                    text: 'df.describe(include=’all’)',
+                    status: true,
+                },
+                {
+                    text: 'df. dtypes',
+                    status: false,
+                },
+                {
+                    text: 'df.info()',
+                    status: false,
+                },
+                {
+                    text: 'df. describe()',
+                    status: false,
+                }
+            ]
+        },
+        {
+            index: 2,
+            text: 'What description best describes the library, Numpy?',
+            mark: 1,
+            type: '',
+            answer: [
+                {
+                    text: 'Includes functions for some advanced math problems and scientific processes.',
+                    status: true,
+                },
+                {
+                    text: 'A highly efficient array processing library capable of quickly performing mathematical transformation functions on single or multi-dimensional arrays.',
+                    status: false,
+                },
+                {
+                    text: 'Includes functions for creating various plots that can be used to create different visualizations for the dataset.',
+                    status: false,
+                },
+                {
+                    text: 'Offers data structure and tools for effective data manipulation and analysis. It provides fast access to structured data:',
+                    status: false,
+                }
+            ]
+        },
+        {
+            index: 3,
+            text: '',
+            mark: 1,
+            type: '',
+            answer: [
+                {
+                    text: '',
+                    status: true,
+                },
+                {
+                    text: '',
+                    status: false,
+                },
+                {
+                    text: '',
+                    status: false,
+                },
+                {
+                    text: '',
+                    status: false,
+                }
+            ]
+        },
+        {
+            index: 4,
+            text: '',
+            mark: 1,
+            type: '',
+            answer: [
+                {
+                    text: '',
+                    status: true,
+                },
+                {
+                    text: '',
+                    status: false,
+                },
+                {
+                    text: '',
+                    status: false,
+                },
+                {
+                    text: '',
+                    status: false,
+                }
+            ]
+        },
+        {
+            index: 5,
+            text: '',
+            mark: 1,
+            type: '',
+            answer: [
+                {
+                    text: '',
+                    status: true,
+                },
+                {
+                    text: '',
+                    status: false,
+                },
+                {
+                    text: '',
+                    status: false,
+                },
+                {
+                    text: '',
+                    status: false,
+                }
+            ]
+        },
+        {
+            index: 6,
+            text: '',
+            mark: 1,
+            type: '',
+            answer: [
+                {
+                    text: '',
+                    status: true,
+                },
+                {
+                    text: '',
+                    status: false,
+                },
+                {
+                    text: '',
+                    status: false,
+                },
+                {
+                    text: '',
+                    status: false,
+                }
+            ]
+        },
+        {
+            index: 7,
+            text: '',
+            mark: 1,
+            type: '',
+            answer: [
+                {
+                    text: '',
+                    status: true,
+                },
+                {
+                    text: '',
+                    status: false,
+                },
+                {
+                    text: '',
+                    status: false,
+                },
+                {
+                    text: '',
+                    status: false,
+                }
+            ]
+        },
+        {
+            index: 8,
+            text: '',
+            mark: 1,
+            type: '',
+            answer: [
+                {
+                    text: '',
+                    status: true,
+                },
+                {
+                    text: '',
+                    status: false,
+                },
+                {
+                    text: '',
+                    status: false,
+                },
+                {
+                    text: '',
+                    status: false,
+                }
+            ]
+        },
+        {
+            index: 9,
+            text: '',
+            mark: 1,
+            type: '',
+            answer: [
+                {
+                    text: '',
+                    status: true,
+                },
+                {
+                    text: '',
+                    status: false,
+                },
+                {
+                    text: '',
+                    status: false,
+                },
+                {
+                    text: '',
+                    status: false,
+                }
+            ]
+        },
+        {
+            index: 10,
+            text: '',
+            mark: 1,
+            type: '',
+            answer: [
+                {
+                    text: '',
+                    status: true,
+                },
+                {
+                    text: '',
+                    status: false,
+                },
+                {
+                    text: '',
+                    status: false,
+                },
+                {
+                    text: '',
+                    status: false,
+                }
+            ]
+        },
+    ]
+
     return (
         <div id="course-learning">
             <Header />
@@ -132,10 +372,10 @@ export default function CourseLearning() {
                 </div>
                 <div className="content-container">
                     {courseType === 'lecture' && (
-                        <CourseVideoContent />
+                        <CourseVideoContent lectureName={itemName} />
                     )}
                     {courseType === 'quiz' && (
-                        <CourseQuizContent />
+                        <CourseQuizContent quizData={quizData} quizName={itemName} />
                     )}
                 </div>
             </div>
