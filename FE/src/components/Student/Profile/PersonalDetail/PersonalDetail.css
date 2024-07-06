@@ -1,0 +1,664 @@
+#personal-detail .row-update .popup-visible-profile {
+    background: #fff;
+    overflow-y: hidden;
+    position: fixed;
+    top: 27%;
+    left: 55%;
+    transform: translateX(-60%) translateY(-30%);
+    min-height: 30vh;
+    min-height: 300px;
+    height: 600px;
+    max-height: 80vh;
+    width: 568px;
+    border-radius: 8px;
+
+    z-index: 2;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#personal-detail .popup-visible-profile-buttonclose {
+    /* margin-top: 15px; */
+    /* margin-left: 490px; */
+    background: rgb(238, 236, 236);
+    border: 0px solid #fff;
+    background-color: transparent;
+    color: #00419e;
+
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+
+    transform: translateX(680%) translateY(110%);
+}
+
+#personal-detail .popup-visible-profile-buttonclose-container {
+    width: 70px;
+    height: 18px;
+    margin-left: 5px;
+    margin-top: 5px;
+    border-radius: 5px;
+}
+
+#personal-detail .popup-visible-profile-buttonclose:hover {
+    background-color: #dbe6f5;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#personal-detail .row-update-container .text {
+    cursor: pointer;
+}
+
+#personal-detail .popup-row {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    /* align-items: center; */
+    gap: 10px;
+    margin-top: 40px;
+}
+
+#personal-detail .popup-row>div {
+    flex: 1;
+    text-align: left;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+#personal-detail .popup-row-title {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 2.3rem;
+}
+
+#personal-detail .popup-row-text {
+    font-family: "Roboto", sans-serif;
+    font-weight: 100;
+    font-style: normal;
+    font-size: 1.3rem;
+    margin-top: 15px;
+}
+
+#personal-detail .popup-row-text2 {
+    font-family: "Roboto", sans-serif;
+    font-weight: 550;
+    font-style: normal;
+    font-size: 1.3rem;
+    margin-top: 15px;
+    margin: 0;
+}
+
+#personal-detail .popup-row-text2-container {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+#personal-detail .popup-row-text2-container p.popup-row-text2 {
+    color: #00419e;
+}
+
+#personal-detail .popup-row-text2-container p.popup-row-text2:hover {
+    color: #2e5ca0;
+}
+
+#personal-detail .popup-row-text2-button {
+    width: 25px;
+    height: 25px;
+    appearance: none;
+    /* Remove default checkbox appearance */
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    background-color: #fff;
+    /* Background color for unchecked state */
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#personal-detail .popup-row-text2-button:checked {
+    background-color: #00419e;
+    /* Change this to the color you want when checked */
+    border-color: #00419e;
+}
+
+#personal-detail .popup-row-text2-button:checked::before,
+#personal-detail .popup-row-text2-button:checked::after {
+    content: '';
+    position: absolute;
+    background-color: white;
+    border-radius: 1px;
+}
+
+#personal-detail .popup-row-text2-button:checked::before {
+    width: 3px;
+    /* Width of the first part of the checkmark */
+    height: 15px;
+    /* Height of the first part of the checkmark */
+    top: 2px;
+    /* Adjust the vertical position */
+    left: 11.5px;
+    /* Adjust the horizontal position */
+    transform: rotate(40deg);
+    /* Rotate to create checkmark */
+}
+
+#personal-detail .popup-row-text2-button:checked::after {
+    width: 3px;
+    /* Width of the second part of the checkmark */
+    height: 7px;
+    /* Height of the second part of the checkmark */
+    top: 8px;
+    /* Adjust the vertical position */
+    left: 5px;
+    /* Adjust the horizontal position */
+    transform: rotate(-45deg);
+    /* Rotate to create checkmark */
+}
+
+#personal-detail .popup-row-button {
+    width: 130px;
+    height: 50px;
+    margin-top: 30px;
+    text-align: center;
+    position: fixed;
+    cursor: pointer;
+
+
+    color: #fff;
+    background-color: #00419e;
+    border: 1px solid #00419e;
+    border-radius: 3px;
+
+    font-family: "Roboto", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 1.3rem;
+}
+
+#personal-detail .popup-row-button:hover {
+    background-color: #002f7a;
+    color: #e5e7e8;
+}
+
+/*************************** Popup Edit Person Details  *****************************************/
+
+
+#personal-detail .row-edit .row-edit-button svg {
+    cursor: pointer;
+    transform: translateX(170px) translateY(30%);
+    position: absolute;
+    color: cornflowerblue;
+}
+
+#personal-detail .row-edit .row-edit-button svg:hover {
+    color: #2e5ca0;
+}
+
+#personal-detail .row-edit .popup-edit-container {
+    background: #fff;
+    overflow-y: hidden;
+    position: fixed;
+    top: 27%;
+    left: 55%;
+    transform: translateX(-55%) translateY(-23%);
+    min-height: 50vh;
+    min-height: 300px;
+    height: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    width: 568px;
+    border-radius: 8px;
+
+    z-index: 3;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+#personal-detail .popup-edit-buttonclose {
+    /* margin-top: 15px; */
+    /* margin-left: 490px; */
+    background: rgb(238, 236, 236);
+    border: 0px solid #fff;
+    background-color: transparent;
+    color: #00419e;
+
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+
+    transform: translateX(680%) translateY(110%);
+}
+
+#personal-detail .popup-edit-buttonclose {
+    width: 70px;
+    height: 18px;
+    margin-left: 5px;
+    margin-top: 5px;
+    border-radius: 5px;
+}
+
+#personal-detail .popup-edit-buttonclose:hover {
+    background-color: #dbe6f5;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#personal-detail .popup-row-iconphoto div {
+    margin-bottom: 20px;
+    width: 154px;
+}
+
+#personal-detail .uploaded-photo {
+    margin-top: 10px;
+    width: 200px;
+    height: 200px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    display: block;
+    object-fit: cover;
+    cursor: pointer;
+    display: flex;
+}
+
+#personal-detail .popup-row-addphotos {
+    width: 154px;
+}
+
+#personal-detail .photo-buttons {
+    display: flex;
+    margin-top: 10px;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+#personal-detail .photo-buttons .btChanged {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+
+    width: 117px;
+    height: 33px;
+
+    font-family: "Roboto", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 1.1rem;
+}
+
+#personal-detail .photo-buttons .btRemoved {
+    padding: 5px 10px;
+    background-color: white;
+    color: #002f7a;
+    border-radius: 2px;
+    cursor: pointer;
+    border: 1px solid #00419e;
+
+    width: 117px;
+    height: 33px;
+
+    font-family: "Roboto", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 1.1rem;
+
+}
+
+#personal-detail .upload-button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+
+    width: 117px;
+    height: 33px;
+
+    font-family: "Roboto", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 1.1rem;
+}
+
+#personal-detail .photo-buttons .btChanged:hover {
+    background-color: #0056b3;
+}
+
+#personal-detail .photo-buttons .btRemoved:hover {
+    background-color: #f5e9e9cf;
+}
+
+#personal-detail .photo-label {
+    display: inline-block;
+    cursor: pointer;
+}
+
+
+#personal-detail .popup-edit .popup2-row-text p {
+    font-family: "Roboto", sans-serif;
+    font-weight: 100;
+    font-style: normal;
+    font-size: 1.3rem;
+    margin-top: 25px;
+}
+
+#personal-detail .popup-edit .popup2-row-text2 p {
+    font-family: "Roboto", sans-serif;
+    font-weight: 100;
+    font-style: normal;
+    font-size: 1.3rem;
+    margin-top: 10px;
+}
+
+#personal-detail .popup2-row-title p {
+    font-family: "Roboto", sans-serif;
+    font-weight: 550;
+    font-style: normal;
+    font-size: 1.3rem;
+}
+
+#personal-detail .input-container {
+    margin-bottom: 15px;
+}
+
+#personal-detail .input-container input {
+    width: 90%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s ease;
+}
+
+#personal-detail .input-container input:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+#personal-detail .input-container textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+    transition: border-color 0.3s ease;
+
+    font-family: "Roboto", sans-serif;
+    font-weight: 100;
+    font-style: normal;
+    font-size: 1.3rem;
+}
+
+#personal-detail .input-container textarea:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+#personal-detail .line hr {
+    color: #000;
+    height: 0px;
+    width: 480px;
+}
+
+/* Style the select dropdown */
+#personal-detail .gender-select {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, #007bff 50%), linear-gradient(135deg, #007bff 50%, transparent 50%);
+    background-size: 10px 100px;
+    background-position: calc(100% - 15px) center, calc(100% - 15px) center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+#personal-detail .gender-select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Style the options */
+#personal-detail .gender-select option {
+    background-color: white;
+    color: #495057;
+    padding: 12px;
+    font-size: 16px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+#personal-detail .gender-select option:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+#personal-detail .gender-select option:checked {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Hide default dropdown arrow icon */
+#personal-detail .gender-select::-ms-expand {
+    display: none;
+}
+
+#personal-detail .btSavechanged {
+    padding: 5px 10px;
+    background-color: #00419e;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 15px;
+
+    width: 150px;
+    height: 50px;
+
+    font-family: "Roboto", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 1.3rem;
+}
+
+#personal-detail .btSavechanged:hover {
+    background-color: #002f7a;
+    color: #e5e7e8;
+}
+
+
+
+/*************************** Popup Edit Person Details  *****************************************/
+
+
+
+/*************************** Popup Bóng Mờ  *****************************************/
+
+#personal-detail .overlay1 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(112, 106, 106, 0.426);
+    backdrop-filter: blur(1px);
+    z-index: 1;
+}
+
+#personal-detail .overlay2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(112, 106, 106, 0.426);
+    backdrop-filter: blur(1px);
+    z-index: 2;
+}
+
+#personal-detail .popup-edit {
+    position: fixed;
+    z-index: 3;
+}
+
+#personal-detail .popup2-row>div {
+    flex: 1;
+    text-align: left;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+#personal-detail .popup2-row-title {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 2.3rem;
+    color: black;
+}
+
+/*************************** Popup Bóng Mờ  *****************************************/
+
+
+
+/**************************************** Personal Detail Container ***********************************************/
+
+#personal-detail {
+    background-color: #fff;
+    border: 1px solid #e5e7e8;
+    border-radius: 2%;
+    text-align: center;
+    margin-top: 40px;
+}
+
+
+#personal-detail .row-avatar {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+#personal-detail .row-avatar img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+#personal-detail .row-avatar img.active {
+    opacity: 1;
+}
+
+
+#personal-detail .personal-detail-container-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+#personal-detail .personal-detail-container-column .row {
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+#personal-detail .personal-detail-container-column .row-username {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 20px;
+}
+
+#personal-detail .personal-detail-container-column .row-share-profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+#personal-detail .personal-detail-container-column .row-share-profile-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+    height: 35px;
+    box-shadow: #00419e 0px 0px 0px 1px;
+    border-radius: 2%;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    padding: 0 10px;
+}
+
+#personal-detail .personal-detail-container-column .row-share-profile .icon {
+    display: flex;
+    align-items: center;
+    color: #00419e;
+}
+
+#personal-detail .personal-detail-container-column .row-share-profile .text h2 {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    color: #2e5ca0;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    letter-spacing: 0.16px;
+    line-height: 24px;
+    font-size: 20px;
+    margin: 0 10px;
+}
+
+#personal-detail .personal-detail-container-column .row-share-profile .text:hover {
+    color: #00419e;
+    transition: background-color 0.3s;
+}
+
+#personal-detail .personal-detail-container-column .row-update {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+#personal-detail .personal-detail-container-column .row-update-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* width: 250px; */
+    /* height: 35px; */
+    border-radius: 2%;
+    margin-bottom: 40px;
+    border-top: solid 1px #b1b1b1;
+}
+
+#personal-detail .personal-detail-container-column .row-update-container .text h2 {
+    margin-top: 20px;
+    color: #2e5ca0;
+    font-size: 20px;
+}
+
+#personal-detail .personal-detail-container-column .row-update-container .text:hover {
+    text-decoration: underline;
+    color: #00419e;
+    transition: background-color 0.3s;
+}
+
+/**************************************** Personal Detail Container ***********************************************/

@@ -1,0 +1,72 @@
+#Statistics {
+    background-color: #f4f6f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-top: 20px;
+}
+
+#Statistics h2 {
+    color: #333;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#Statistics .course-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#Statistics .course-item:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+#Statistics .course-details {
+    flex: 1;
+}
+
+#Statistics .course-details h4 {
+    color: #222;
+    font-size: 20px;
+    margin: 0;
+    font-weight: 500;
+}
+
+#Statistics .course-details p {
+    color: #555;
+    font-size: 14px;
+    margin: 5px 0 0;
+}
+
+#Statistics .course-status {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+#Statistics .course-status p {
+    margin: 0;
+    font-size: 14px;
+}
+
+#Statistics .course-status.ongoing {
+    color: #28a745;
+}
+
+#Statistics .course-status.upcoming {
+    color: #ff9900;
+}
+
+#Statistics .course-status.completed {
+    color: #6c757d;
+}

@@ -3,12 +3,13 @@ using BE.Dto.UserLogin;
 using BE.Models;
 using BE.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using static BE.Utils.Utils;
 
 namespace BE.Controllers
 {
-    [ApiController]
     [Route("api/v1/web/user")]
-    public class UserWebController
+    [ApiController]
+    public class UserWebController : ControllerBase
     {
         private readonly IUserService _userService;
         public UserWebController(IUserService userService)
@@ -17,47 +18,72 @@ namespace BE.Controllers
         }
 
         [HttpGet]
-        [Route("{email}")]
-        public async Task<User> GetUserByEmail([FromRoute] string email)
+        [Route("find-user")]
+        public async Task<User> GetUserByEmail([FromForm] string email)
         {
-           return await _userService.GetUserByEmail(email);
+            return await _userService.GetUserByEmail(email);
         }
 
-        [HttpGet("login-facebook")]
-        public async Task<ReturnLoginDto> LoginWithFaceBook(){
+        [HttpGet]
+        [Route("login-facebook")]
+        public async Task<ReturnLoginDto> LoginWithFaceBook()
+        {
             return await _userService.LoginWithFacebook();
         }
 
-        [HttpGet("facebook-response")]
-        public async Task<ReturnResponseDto> FacebookResponse(){
+        [HttpGet]
+        [Route("facebook-response")]
+        public async Task<ReturnResponseDto> FacebookResponse()
+        {
             return await _userService.FacebookResponse();
         }
 
-        [HttpGet("login-google")]
+        [HttpGet]
+        [Route("login-google")]
         public async Task<ReturnLoginDto> LoginWithGoogle()
         {
             return await _userService.LoginWithGoogle();
         }
 
-        [HttpGet("signin-google")]
-        public async Task<ReturnResponseDto> GoogleResponse(){
-           return await _userService.GoogleResponse(); 
+        [HttpGet]
+        [Route("signin-google")]
+        public async Task<ReturnResponseDto> GoogleResponse()
+        {
+            return await _userService.GoogleResponse();
         }
 
-        [HttpPost("login")]
-        public async Task<UserLoginToken> Login([FromBody] UserLoginDto userLoginDto){
+        [HttpPost]
+        [Route("user-login")]
+        public async Task<UserLoginToken> Login([FromForm] UserLoginDto userLoginDto){
             return await _userService.Login(userLoginDto);
         }
 
-        [HttpPost("register")]
-        public async Task<UserLoginToken> Register([FromBody] RegisterDto registerDto){
+        [HttpPost]
+        [Route("user-register")]
+        public async Task<UserLoginToken> Register([FromForm] RegisterDto registerDto){
             return await _userService.Register(registerDto);
         }
 
-        [HttpPut("forgot")]
-        [Route("{email}")]
-        public async Task<UserLoginToken> Forgot([FromRoute] string email, [FromBody] ForgotDto forgotDto){
+        [HttpPut]
+        [Route("forgot-password")]
+        public async Task<UserLoginToken> Forgot([FromForm] string email, [FromForm] ForgotDto forgotDto){
             return await _userService.Forgot(email, forgotDto);
+        }
+
+        [HttpPost("create")]
+        public async Task<IActionResult> CreateUser([FromForm] CreateUserData data)
+        {
+            bool status = await _userService.CreateUserData(data.Username, data.Email, data.Password, data.Description, data.Phone, data.Role);
+            return Ok(new
+            {
+                status = "hi"
+            });
+        }
+
+        [HttpGet("get-statistic")]
+        public async Task<(int a, int c)> GetUserStatistic()
+        {
+            return await _userService.GetUserStatisticsAsync();
         }
     }
 }

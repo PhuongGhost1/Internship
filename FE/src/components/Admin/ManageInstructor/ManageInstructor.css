@@ -1,0 +1,427 @@
+#ManageInstructor {
+    padding: 20px 7% 20px 20px;
+    font-size: 16px;
+}
+
+#ManageInstructor .instructor-list th {
+    padding: 12px 10px;
+    background-color: #eeeeee;
+    text-align: center;
+    font-size: 18px;
+}
+
+#ManageInstructor .instructor-list td {
+    vertical-align: middle;
+    text-align: center;
+    font-size: 16px;
+    padding: 10px;
+}
+
+#ManageInstructor .no {
+    width: 5%;
+    font-weight: bold;
+    text-align: center;
+}
+
+#ManageInstructor .email {
+    width: 25%;
+}
+
+
+#ManageInstructor .name {
+    width: 25%;
+}
+
+#ManageInstructor .status {
+    width: 15%;
+}
+
+#ManageInstructor .action {
+    width: 10%;
+}
+
+#ManageInstructor .ManageInstructor-top {
+    display: flex;
+    justify-content: space-between;
+}
+
+#ManageInstructor .management-instructor-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#ManageInstructor .ManageInstructor-top .search-bar {
+    display: flex;
+    position: relative;
+    justify-content: flex-end;
+    margin: 10px 0;
+}
+
+#ManageInstructor .search-bar input {
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 12px;
+    padding-left: 10px;
+}
+
+
+#ManageInstructor .search-bar svg {
+    color: rgb(207, 206, 206);
+    margin-top: 10px;
+    margin-right: 10px;
+    font-size: 20px;
+    position: absolute;
+}
+
+#ManageInstructor .instructor-list {
+    margin-bottom: 20px;
+}
+
+#ManageInstructor .status-active {
+    border: none;
+    background-color: rgb(6, 145, 6);
+    color: white;
+    border-radius: 5px;
+}
+
+#ManageInstructor .status-block {
+    border: none;
+    background-color: #c53631;
+    color: white;
+    border-radius: 5px;
+}
+
+#ManageInstructor .button-view {
+    color: grey;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+#ManageInstructor .button-view:hover {
+    cursor: pointer;
+    color: #000000;
+}
+
+#ManageInstructor .popup {
+    width: 0px;
+    height: 100vh;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-color: white;
+    z-index: 2;
+    transition: all 0.5s ease;
+    overflow: hidden;
+    padding: 60px 0 0 0;
+}
+
+#ManageInstructor .popup .cross {
+    font-size: 28px;
+    cursor: pointer;
+    border-bottom: 1px solid #eeeeee;
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+}
+
+#ManageInstructor .popup.open {
+    width: 600px;
+}
+
+#ManageInstructor .blur-popup {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
+#ManageInstructor .popup .popup-container {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+#ManageInstructor .popup .popup-container .popup-info {
+    display: flex;
+    align-items: center;
+}
+
+#ManageInstructor .popup .popup-container .popup-info-image {
+    margin-right: 20px;
+}
+
+#ManageInstructor .popup .popup-container .popup-info img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    object-position: center;
+}
+
+#ManageInstructor .popup .popup-container .popup-info .popup-info-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#ManageInstructor .popup .popup-container .popup-info .popup-info-title h2 {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 0;
+}
+
+#ManageInstructor .popup .popup-container .popup-info .popup-info-title2 {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: grey;
+    margin-top: 5px;
+}
+
+#ManageInstructor .popup .popup-container .popup-info .popup-info-title2 p {
+    margin: 0 10px 0 0;
+}
+
+#ManageInstructor .popup .popup-container .popup-info .popup-info-title2 svg {
+    font-size: 10px;
+    margin: 0 10px;
+}
+
+#ManageInstructor .popup .popup-container .popup-status {
+    display: flex;
+    margin-top: 20px;
+    justify-content: space-between;
+}
+
+#ManageInstructor .popup .popup-container .popup-status .popup-statuss {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+#ManageInstructor .popup .popup-container .popup-status svg {
+    margin-right: 10px;
+}
+
+#ManageInstructor .popup .popup-container .popup-contact {
+    display: flex;
+    margin-top: 20px;
+    justify-content: space-between;
+}
+
+#ManageInstructor .popup .popup-container .popup-contact .popup-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 10px;
+    border: 1px solid grey;
+    border-radius: 10px;
+    margin-right: 10px;
+    flex-grow: 1;
+    width: 292px;
+}
+
+#ManageInstructor .popup .popup-container .popup-contact .popup-card svg {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+#ManageInstructor .popup .popup-container .details {
+    margin-top: 50px;
+    border-top: 1px solid #dad9d9;
+    padding-top: 20px;
+}
+
+#ManageInstructor .popup .popup-container .details h3 {
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+#ManageInstructor .popup .popup-container .details .nav-bar {
+    display: flex;
+}
+
+#ManageInstructor .popup .popup-container .details .nav-bar .tag {
+    margin-right: 20px;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 5px;
+    cursor: pointer;
+}
+
+#ManageInstructor .popup .popup-container .details .nav-bar .tag.active::before {
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    content: '';
+    bottom: 0;
+    left: 0;
+    background-color: rgb(255 145 76);
+}
+
+#ManageInstructor .popup .popup-container .details .nav-bar .tag.active {
+    color: rgb(255 145 76);
+}
+
+/* Activity */
+#ManageInstructor .activity-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    overflow-y: auto;
+    max-height: 400px;
+}
+
+#ManageInstructor .activity-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #e6e6e6;
+    margin-right: 10px;
+}
+
+#ManageInstructor .activity-icon svg {
+    width: 21px;
+    height: 21px;
+}
+
+#ManageInstructor .activity-item {
+    display: flex;
+    align-items: center;
+}
+
+#ManageInstructor .activity-item p {
+    margin-left: 20px;
+}
+
+#ManageInstructor .activity-item p:first-child {
+    font-size: 14px;
+}
+
+#ManageInstructor .activity-item p:last-child {
+    font-weight: bold;
+    color: #000;
+    font-size: 16px;
+}
+
+#ManageInstructor .activity-item.payment .activity-icon {
+    background-color: #e6e6e6;
+}
+
+#ManageInstructor .activity-item.gmaill .activity-icon {
+    background-color: #e6e6e6;
+}
+
+#ManageInstructor .activity-item.checked .activity-icon {
+    background-color: #e6e6e6;
+}
+
+#ManageInstructor .activity-container {
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+#ManageInstructor .activity-container:last-child {
+    border-bottom: none;
+}
+
+/* Course */
+#ManageInstructor .popup-course {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    overflow-y: auto;
+    max-height: 400px;
+}
+
+#ManageInstructor .course-card {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    position: relative;
+}
+
+#ManageInstructor .course-logo {
+    width: 60px;
+    height: 60px;
+    margin-right: 20px;
+    border-radius: 5px;
+    object-fit: cover;
+    object-position: center;
+}
+
+#ManageInstructor .course-details {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#ManageInstructor .course-details h3 {
+    margin: 10px 0 0 0;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#ManageInstructor .popup-course .course-card .course-icon {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+#ManageInstructor .popup-course .course-card .course-icon .course-icon-item {
+    display: flex;
+    margin-right: 20px;
+    align-items: center;
+}
+
+#ManageInstructor .popup-course .course-card .course-icon .course-icon-item p {
+    margin-left: 6px;
+    font-size: 14px;
+    color: #4b4b4b;
+}
+
+/* Payment History*/
+#ManageInstructor .popup-payment {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    overflow-y: auto;
+    max-height: 400px;
+}
+
+#ManageInstructor .popup-payment .payment-history {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#ManageInstructor .popup-payment .payment-history .payment-item {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+#ManageInstructor .popup-payment .payment-history .payment-item p {
+    margin: 0;
+    font-size: 14px;
+}
+
+#ManageInstructor .popup-payment .payment-history .payment-item span {
+    color: var(--light-orange);
+}

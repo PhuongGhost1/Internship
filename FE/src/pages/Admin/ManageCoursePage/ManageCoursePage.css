@@ -1,0 +1,32 @@
+#ManageCoursePage{
+     margin-top: auto;
+ }
+ #ManageCoursePage .Header-Admin{
+     height: 60px;
+     width: 100%;
+     position: fixed;
+     top : 0;
+     left: 0;
+     z-index: 99999;
+ }
+ 
+ #ManageCoursePage .Layout {
+     display: flex;
+ }
+ #ManageCoursePage .Layout .SideBar-container{
+     flex: 2;
+ }
+ #ManageCoursePage .Layout .Layout_Status_Posted {
+     flex:11;
+}
+#ManageCoursePage .Layout_Status_Posted{
+     display: flex;
+}
+#ManageCoursePage .Layout_Status_Posted .CourseStatus{
+     flex: 6;
+}
+#ManageCoursePage .Layout_Status_Posted .PostedCourse{
+     flex: 6;
+}
+
+

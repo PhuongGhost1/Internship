@@ -7,8 +7,6 @@ public partial class Image
 {
     public string Id { get; set; } = null!;
 
-    public string? Base64Code { get; set; }
-
     public string? UserId { get; set; }
 
     public string? CourseId { get; set; }
@@ -18,6 +16,10 @@ public partial class Image
     public string? FeedbackId { get; set; }
 
     public DateTime? CreatedAt { get; set; }
+
+    public string? Url { get; set; }
+
+    public string? Type { get; set; }
 
     public virtual Course? Course { get; set; }
 
