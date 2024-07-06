@@ -16,7 +16,7 @@ namespace BE.Controllers
         private readonly IAnswerService _answerService;
         public AnswerWebController(IAnswerService answerService)
         {
-            _answerService = answerService;   
+            _answerService = answerService;
         }
 
         [HttpGet]

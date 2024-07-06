@@ -17,7 +17,8 @@ namespace BE.Controllers
 
         [HttpGet]
         [Route("categories-list")]
-        public async Task<List<Category>> GetAllCategories(){
+        public async Task<List<Category>> GetAllCategories()
+        {
             return await _cateService.GetAllCategories();
         }
 

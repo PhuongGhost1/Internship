@@ -26,13 +26,15 @@ namespace BE.Controllers
 
         [HttpGet]
         [Route("login-facebook")]
-        public async Task<ReturnLoginDto> LoginWithFaceBook(){
+        public async Task<ReturnLoginDto> LoginWithFaceBook()
+        {
             return await _userService.LoginWithFacebook();
         }
 
         [HttpGet]
         [Route("facebook-response")]
-        public async Task<ReturnResponseDto> FacebookResponse(){
+        public async Task<ReturnResponseDto> FacebookResponse()
+        {
             return await _userService.FacebookResponse();
         }
 
@@ -45,8 +47,9 @@ namespace BE.Controllers
 
         [HttpGet]
         [Route("signin-google")]
-        public async Task<ReturnResponseDto> GoogleResponse(){
-           return await _userService.GoogleResponse(); 
+        public async Task<ReturnResponseDto> GoogleResponse()
+        {
+            return await _userService.GoogleResponse();
         }
 
         [HttpPost]
