@@ -1,0 +1,133 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\FPT\\OJT\\group1\\BE\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|d:\\fpt\\ojt\\group1\\be\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|d:\\fpt\\ojt\\group1\\be\\controllers\\categorywebcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|solutionrelative:controllers\\categorywebcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|d:\\fpt\\ojt\\group1\\be\\controllers\\userwebcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|solutionrelative:controllers\\userwebcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|d:\\fpt\\ojt\\group1\\be\\controllers\\emailwebcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|solutionrelative:controllers\\emailwebcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|d:\\fpt\\ojt\\group1\\be\\controllers\\coursewebcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|solutionrelative:controllers\\coursewebcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|d:\\fpt\\ojt\\group1\\be\\controllers\\chapterwebcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|solutionrelative:controllers\\chapterwebcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|d:\\fpt\\ojt\\group1\\be\\repository\\interface\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|solutionrelative:repository\\interface\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ChapterWebController.cs",
+              "DocumentMoniker": "D:\\FPT\\OJT\\group1\\BE\\Controllers\\ChapterWebController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ChapterWebController.cs",
+              "ToolTip": "D:\\FPT\\OJT\\group1\\BE\\Controllers\\ChapterWebController.cs",
+              "RelativeToolTip": "Controllers\\ChapterWebController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-24T19:17:54.998Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CourseWebController.cs",
+              "DocumentMoniker": "D:\\FPT\\OJT\\group1\\BE\\Controllers\\CourseWebController.cs",
+              "RelativeDocumentMoniker": "Controllers\\CourseWebController.cs",
+              "ToolTip": "D:\\FPT\\OJT\\group1\\BE\\Controllers\\CourseWebController.cs",
+              "RelativeToolTip": "Controllers\\CourseWebController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAABBwCAAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-24T19:17:52.201Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "EmailWebController.cs",
+              "DocumentMoniker": "D:\\FPT\\OJT\\group1\\BE\\Controllers\\EmailWebController.cs",
+              "RelativeDocumentMoniker": "Controllers\\EmailWebController.cs",
+              "ToolTip": "D:\\FPT\\OJT\\group1\\BE\\Controllers\\EmailWebController.cs",
+              "RelativeToolTip": "Controllers\\EmailWebController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB0AAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-24T19:17:48.913Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UserWebController.cs",
+              "DocumentMoniker": "D:\\FPT\\OJT\\group1\\BE\\Controllers\\UserWebController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UserWebController.cs",
+              "ToolTip": "D:\\FPT\\OJT\\group1\\BE\\Controllers\\UserWebController.cs",
+              "RelativeToolTip": "Controllers\\UserWebController.cs",
+              "ViewState": "AQIAADUAAAAAAAAAAIBJwEUAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-24T19:17:47.483Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CategoryWebController.cs",
+              "DocumentMoniker": "D:\\FPT\\OJT\\group1\\BE\\Controllers\\CategoryWebController.cs",
+              "RelativeDocumentMoniker": "Controllers\\CategoryWebController.cs",
+              "ToolTip": "D:\\FPT\\OJT\\group1\\BE\\Controllers\\CategoryWebController.cs",
+              "RelativeToolTip": "Controllers\\CategoryWebController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-24T19:16:33.169Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\FPT\\OJT\\group1\\BE\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "D:\\FPT\\OJT\\group1\\BE\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AQIAABIAAAAAAAAAAAAAAIkAAAADAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-24T19:12:34.819Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "IUserRepository.cs",
+              "DocumentMoniker": "D:\\FPT\\OJT\\group1\\BE\\Repository\\Interface\\IUserRepository.cs",
+              "RelativeDocumentMoniker": "Repository\\Interface\\IUserRepository.cs",
+              "ToolTip": "D:\\FPT\\OJT\\group1\\BE\\Repository\\Interface\\IUserRepository.cs",
+              "RelativeToolTip": "Repository\\Interface\\IUserRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-10T21:37:16.028Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

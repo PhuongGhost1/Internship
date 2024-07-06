@@ -1,0 +1,24 @@
+#ManageStudentPage {
+     margin-top: auto;
+}
+
+#ManageStudentPage .Header-Admin {
+     height: 60px;
+     width: 100%;
+     position: fixed;
+     top: 0;
+     left: 0;
+     z-index: 99999;
+}
+
+#ManageStudentPage .Layout {
+     display: flex;
+}
+
+#ManageStudentPage .Layout .SideBar-container {
+     flex: 2;
+}
+
+#ManageStudentPage .Layout .Layout-container {
+     flex: 11;
+}

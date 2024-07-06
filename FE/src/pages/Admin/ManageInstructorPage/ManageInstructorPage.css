@@ -1,0 +1,21 @@
+#ManageInstructorPage{
+    margin-top: auto;
+}
+#ManageInstructorPage .Header-Admin{
+    height: 60px;
+    width: 100%;
+    position: fixed;
+    top : 0;
+    left: 0;
+    z-index: 99999;
+}
+
+#ManageInstructorPage .Layout {
+    display: flex;
+}
+#ManageInstructorPage .Layout .SideBar-container{
+    flex: 2;
+}
+#ManageInstructorPage .Layout .Layout-container{
+    flex:11;
+}

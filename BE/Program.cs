@@ -169,6 +169,7 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>(); builder.S
 builder.Services.AddScoped<IRoleRepository, RoleRepository>(); builder.Services.AddScoped<IPermissonRepository, PermissonRepository>(); builder.Services.AddScoped<IFollowRepository, FollowRepository>();
 builder.Services.AddScoped<IUserCertificationRepository, UserCertificationRepository>(); builder.Services.AddScoped<ISaveCourseRepository, SaveCourseRepository>();
 builder.Services.AddScoped<ICategoryCourseRepository, CategoryCourseRepository>(); builder.Services.AddScoped<IEnrollCourseRepository, EnrollCourseRepository>();
+builder.Services.AddScoped<IResourcesRepository, ResourceRepository>();
 
 
 
@@ -182,6 +183,7 @@ builder.Services.AddScoped<IAnswerService, AnswerService>();
 builder.Services.AddScoped<IRoleService, RoleService>(); builder.Services.AddScoped<IPermissonService, PermissonService>(); builder.Services.AddScoped<IFollowService, FollowService>();
 builder.Services.AddScoped<IUserCertificationService, UserCertificationService>(); builder.Services.AddScoped<ISaveCourseService, SaveCourseService>();
 builder.Services.AddScoped<ICategoryCourseService, CategoryCourseService>(); builder.Services.AddScoped<IEnrollCourseService, EnrollCourseService>();
+builder.Services.AddScoped<IResourceService, ResourceService>();
 
 
 var app = builder.Build();
