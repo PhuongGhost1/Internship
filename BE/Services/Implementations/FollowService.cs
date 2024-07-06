@@ -1,85 +1,58 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using BE.Dto.Follow;
+using BE.Mappers;
 using BE.Models;
 using BE.Repository.Interface;
 using BE.Services.Interfaces;
-using BE.Utils;
 
 namespace BE.Services.Implementations
 {
     public class FollowService : IFollowService
     {
-        private readonly IFollowRepository _followRepository;
-
-        public FollowService(IFollowRepository followRepository)
+        private readonly IFollowRepository _followRepo;
+        private readonly IUserRepository _userRepo;
+        public FollowService(IFollowRepository followRepo, IUserRepository userRepo)
         {
-            _followRepository = followRepository;
+            _followRepo = followRepo;
+            _userRepo = userRepo;
         }
 
-        public async Task<IEnumerable<Follow>> GetAllFollowsAsync()
+
+        //---------------------CRUD--------------------------//
+        public async Task<Follow?> CreateFollow( CreateFollowDto createFollowDto)
         {
-            return await _followRepository.GetAllFollowsAsync();
+
+            var createFollow = createFollowDto.ToCreateFollow();
+
+            if(createFollow == null) throw new Exception("Unable to create role-user!");
+
+            return await _followRepo.CreateFollow(createFollow);
         }
 
-        public async Task<Follow> GetFollowByIdAsync(string id)
+        public async Task<bool> DeleteFollow(string followId)
         {
-            if (string.IsNullOrEmpty(id))
-            {
-                throw new Exception("Follow ID cannot be null or empty.");
-            }
+            var follow = await _followRepo.GetFollowById(followId);
 
-            var follow = await _followRepository.GetFollowByIdAsync(id);
-            if (follow == null)
-            {
-                throw new Exception("Follow not found.");
-            }
+            if(follow == null) throw new Exception("Unable to find role-user!");
 
-            return follow;
+            return await _followRepo.DeleteFollow(followId);
         }
 
-        public async Task AddFollowAsync(Follow follow)
+        public async Task<Follow?> UpdateFollow(string followId, UpdateFollowDto updateFollowDto)
         {
-            if (follow == null)
-            {
-                throw new Exception("Follow cannot be null.");
-            }
-            follow.Id = Utils.Utils.GenerateIdModel("Follow");
-            follow.Time = Utils.Utils.GetTimeNow();
+            var follow = await _followRepo.GetFollowById(followId);
 
-            await _followRepository.AddFollowAsync(follow);
+            if(follow == null) throw new Exception("Unable to find role-user!");
+
+            var updateFollow = updateFollowDto.ToUpdateFollow();
+
+            if(updateFollow == null) throw new Exception("Unable to update role-user!");
+
+            return await _followRepo.UpdateFollow(updateFollow);
         }
 
-        public async Task UpdateFollowAsync(Follow follow)
+        public async Task<List<Follow>> ViewAllFollows()
         {
-            if (follow == null)
-            {
-                throw new Exception("Follow cannot be null.");
-            }
-
-            var existingFollow = await _followRepository.GetFollowByIdAsync(follow.Id);
-            if (existingFollow == null)
-            {
-                throw new Exception("Follow not found.");
-            }
-
-            await _followRepository.UpdateFollowAsync(follow);
-        }
-
-        public async Task DeleteFollowAsync(string id)
-        {
-            if (string.IsNullOrEmpty(id))
-            {
-                throw new Exception("Follow ID cannot be null or empty.");
-            }
-
-            var follow = await _followRepository.GetFollowByIdAsync(id);
-            if (follow == null)
-            {
-                throw new Exception("Follow not found.");
-            }
-
-            await _followRepository.DeleteFollowAsync(id);
+            return await _followRepo.GetAllFollows();
         }
     }
 }

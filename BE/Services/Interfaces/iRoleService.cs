@@ -1,15 +1,16 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using BE.Dto.Role;
 using BE.Models;
 
 namespace BE.Services.Interfaces
 {
     public interface IRoleService
     {
-        Task<IEnumerable<Role>> GetAllRolesAsync();
-        Task<Role> GetRoleByIdAsync(string id);
-        Task AddRoleAsync(Role role);
-        Task UpdateRoleAsync(Role role);
-        Task DeleteRoleAsync(string id);
+        
+
+        //---------------------CRUD--------------------------//
+        Task<List<Role>> ViewAllRoles();
+        Task<Role?> CreateRole(CreateRoleDto createRoleDto);
+        Task<Role?> UpdateRole(string roleId, UpdateRoleDto updateRoleDto);
+        Task<bool> DeleteRole(string roleId);
     }
 }

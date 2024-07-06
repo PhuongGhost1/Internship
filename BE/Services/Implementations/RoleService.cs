@@ -1,83 +1,58 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using BE.Dto.Role;
+using BE.Mappers;
 using BE.Models;
 using BE.Repository.Interface;
 using BE.Services.Interfaces;
-using BE.Utils;
 
 namespace BE.Services.Implementations
 {
     public class RoleService : IRoleService
     {
-        private readonly IRoleRepository _roleRepository;
-
-        public RoleService(IRoleRepository roleRepository)
+        private readonly IRoleRepository _roleRepo;
+        private readonly IUserRepository _userRepo;
+        public RoleService(IRoleRepository roleRepo, IUserRepository userRepo)
         {
-            _roleRepository = roleRepository;
+            _roleRepo = roleRepo;
+            _userRepo = userRepo;
         }
 
-        public async Task<IEnumerable<Role>> GetAllRolesAsync()
+
+        //---------------------CRUD--------------------------//
+        public async Task<Role?> CreateRole( CreateRoleDto createRoleDto)
         {
-            return await _roleRepository.GetAllRolesAsync();
+
+            var createRole = createRoleDto.ToCreateRole();
+
+            if(createRole == null) throw new Exception("Unable to create role-user!");
+
+            return await _roleRepo.CreateRole(createRole);
         }
 
-        public async Task<Role> GetRoleByIdAsync(string id)
+        public async Task<bool> DeleteRole(string roleId)
         {
-            if (string.IsNullOrEmpty(id))
-            {
-                throw new Exception("Role ID cannot be null or empty.");
-            }
+            var role = await _roleRepo.GetRoleById(roleId);
 
-            var role = await _roleRepository.GetRoleByIdAsync(id);
-            if (role == null)
-            {
-                throw new Exception("Role not found.");
-            }
+            if(role == null) throw new Exception("Unable to find role-user!");
 
-            return role;
+            return await _roleRepo.DeleteRole(roleId);
         }
 
-        public async Task AddRoleAsync(Role role)
+        public async Task<Role?> UpdateRole(string roleId, UpdateRoleDto updateRoleDto)
         {
-            if (role == null)
-            {
-                throw new Exception("Role cannot be null.");
-            }
-            role.Id = Utils.Utils.GenerateIdModel("Role");
-            await _roleRepository.AddRoleAsync(role);
+            var role = await _roleRepo.GetRoleById(roleId);
+
+            if(role == null) throw new Exception("Unable to find role-user!");
+
+            var updateRole = updateRoleDto.ToUpdateRole();
+
+            if(updateRole == null) throw new Exception("Unable to update role-user!");
+
+            return await _roleRepo.UpdateRole(updateRole);
         }
 
-        public async Task UpdateRoleAsync(Role role)
+        public async Task<List<Role>> ViewAllRoles()
         {
-            if (role == null)
-            {
-                throw new Exception("Role cannot be null.");
-            }
-
-            var existingRole = await _roleRepository.GetRoleByIdAsync(role.Id);
-            if (existingRole == null)
-            {
-                throw new Exception("Role not found.");
-            }
-
-            await _roleRepository.UpdateRoleAsync(role);
-        }
-
-        public async Task DeleteRoleAsync(string id)
-        {
-            if (string.IsNullOrEmpty(id))
-            {
-                throw new Exception("Role ID cannot be null or empty.");
-            }
-
-            var role = await _roleRepository.GetRoleByIdAsync(id);
-            if (role == null)
-            {
-                throw new Exception("Role not found.");
-            }
-
-            await _roleRepository.DeleteRoleAsync(id);
+            return await _roleRepo.GetAllRoles();
         }
     }
 }

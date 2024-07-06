@@ -1,15 +1,16 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using BE.Dto.EnrollCourse;
 using BE.Models;
 
 namespace BE.Services.Interfaces
 {
     public interface IEnrollCourseService
     {
-        Task<IEnumerable<EnrollCourse>> GetAllEnrollCoursesAsync();
-        Task<EnrollCourse> GetEnrollCourseByIdAsync(string id);
-        Task AddEnrollCourseAsync(EnrollCourse enrollCourse);
-        Task UpdateEnrollCourseAsync(EnrollCourse enrollCourse);
-        Task DeleteEnrollCourseAsync(string id);
+        
+
+        //---------------------CRUD--------------------------//
+        Task<List<EnrollCourse>> ViewAllEnrollCourses();
+        Task<EnrollCourse?> CreateEnrollCourse(CreateEnrollCourseDto createEnrollCourseDto);
+        Task<EnrollCourse?> UpdateEnrollCourse(string enrollCourseId, UpdateEnrollCourseDto updateEnrollCourseDto);
+        Task<bool> DeleteEnrollCourse(string enrollCourseId);
     }
 }

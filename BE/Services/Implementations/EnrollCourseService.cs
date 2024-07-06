@@ -1,85 +1,58 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using BE.Dto.EnrollCourse;
+using BE.Mappers;
 using BE.Models;
 using BE.Repository.Interface;
 using BE.Services.Interfaces;
-using BE.Utils;
 
 namespace BE.Services.Implementations
 {
     public class EnrollCourseService : IEnrollCourseService
     {
-        private readonly IEnrollCourseRepository _enrollCourseRepository;
-
-        public EnrollCourseService(IEnrollCourseRepository enrollCourseRepository)
+        private readonly IEnrollCourseRepository _enrollCourseRepo;
+        private readonly IUserRepository _userRepo;
+        public EnrollCourseService(IEnrollCourseRepository enrollCourseRepo, IUserRepository userRepo)
         {
-            _enrollCourseRepository = enrollCourseRepository;
+            _enrollCourseRepo = enrollCourseRepo;
+            _userRepo = userRepo;
         }
 
-        public async Task<IEnumerable<EnrollCourse>> GetAllEnrollCoursesAsync()
+
+        //---------------------CRUD--------------------------//
+        public async Task<EnrollCourse?> CreateEnrollCourse( CreateEnrollCourseDto createEnrollCourseDto)
         {
-            return await _enrollCourseRepository.GetAllEnrollCoursesAsync();
+
+            var createEnrollCourse = createEnrollCourseDto.ToCreateEnrollCourse();
+
+            if(createEnrollCourse == null) throw new Exception("Unable to create role-user!");
+
+            return await _enrollCourseRepo.CreateEnrollCourse(createEnrollCourse);
         }
 
-        public async Task<EnrollCourse> GetEnrollCourseByIdAsync(string id)
+        public async Task<bool> DeleteEnrollCourse(string enrollCourseId)
         {
-            if (string.IsNullOrEmpty(id))
-            {
-                throw new Exception("EnrollCourse ID cannot be null or empty.");
-            }
+            var enrollCourse = await _enrollCourseRepo.GetEnrollCourseById(enrollCourseId);
 
-            var enrollCourse = await _enrollCourseRepository.GetEnrollCourseByIdAsync(id);
-            if (enrollCourse == null)
-            {
-                throw new Exception("EnrollCourse not found.");
-            }
+            if(enrollCourse == null) throw new Exception("Unable to find role-user!");
 
-            return enrollCourse;
+            return await _enrollCourseRepo.DeleteEnrollCourse(enrollCourseId);
         }
 
-        public async Task AddEnrollCourseAsync(EnrollCourse enrollCourse)
+        public async Task<EnrollCourse?> UpdateEnrollCourse(string enrollCourseId, UpdateEnrollCourseDto updateEnrollCourseDto)
         {
-            if (enrollCourse == null)
-            {
-                throw new Exception("EnrollCourse cannot be null.");
-            }
-            enrollCourse.Id = Utils.Utils.GenerateIdModel("EnrollCourse");
-            enrollCourse.Date = Utils.Utils.GetTimeNow();
+            var enrollCourse = await _enrollCourseRepo.GetEnrollCourseById(enrollCourseId);
 
-            await _enrollCourseRepository.AddEnrollCourseAsync(enrollCourse);
+            if(enrollCourse == null) throw new Exception("Unable to find role-user!");
+
+            var updateEnrollCourse = updateEnrollCourseDto.ToUpdateEnrollCourse();
+
+            if(updateEnrollCourse == null) throw new Exception("Unable to update role-user!");
+
+            return await _enrollCourseRepo.UpdateEnrollCourse(updateEnrollCourse);
         }
 
-        public async Task UpdateEnrollCourseAsync(EnrollCourse enrollCourse)
+        public async Task<List<EnrollCourse>> ViewAllEnrollCourses()
         {
-            if (enrollCourse == null)
-            {
-                throw new Exception("EnrollCourse cannot be null.");
-            }
-
-            var existingEnrollCourse = await _enrollCourseRepository.GetEnrollCourseByIdAsync(enrollCourse.Id);
-            if (existingEnrollCourse == null)
-            {
-                throw new Exception("EnrollCourse not found.");
-            }
-
-            await _enrollCourseRepository.UpdateEnrollCourseAsync(enrollCourse);
-        }
-
-        public async Task DeleteEnrollCourseAsync(string id)
-        {
-            if (string.IsNullOrEmpty(id))
-            {
-                throw new Exception("EnrollCourse ID cannot be null or empty.");
-            }
-
-            var enrollCourse = await _enrollCourseRepository.GetEnrollCourseByIdAsync(id);
-            if (enrollCourse == null)
-            {
-                throw new Exception("EnrollCourse not found.");
-            }
-
-            await _enrollCourseRepository.DeleteEnrollCourseAsync(id);
+            return await _enrollCourseRepo.GetAllEnrollCourses();
         }
     }
 }

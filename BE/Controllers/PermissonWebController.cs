@@ -41,11 +41,6 @@ namespace BE.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdatePermisson(string id, Permisson permisson)
         {
-            if (id != permisson.Id)
-            {
-                return BadRequest("The permisson ID in the URL does not match the ID in the permisson data.");
-            }
-
             await _permissonService.UpdatePermissonAsync(permisson);
             return NoContent();
         }

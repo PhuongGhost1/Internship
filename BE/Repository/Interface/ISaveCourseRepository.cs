@@ -1,15 +1,16 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using BE.Models;
 
 namespace BE.Repository.Interface
 {
     public interface ISaveCourseRepository
     {
-        Task<IEnumerable<SaveCourse>> GetAllSaveCoursesAsync();
-        Task<SaveCourse> GetSaveCourseByIdAsync(string id);
-        Task AddSaveCourseAsync(SaveCourse saveCourse);
-        Task UpdateSaveCourseAsync(SaveCourse saveCourse);
-        Task DeleteSaveCourseAsync(string id);
+        
+
+        //---------------------CRUD--------------------------//
+        Task<SaveCourse?> GetSaveCourseById(string saveCourseUserId);
+        Task<List<SaveCourse>> GetAllSaveCourses();
+        Task<SaveCourse?> CreateSaveCourse(SaveCourse saveCourseUser);
+        Task<SaveCourse?> UpdateSaveCourse(SaveCourse saveCourseUser);
+        Task<bool> DeleteSaveCourse(string saveCourseUserId);
     }
 }
