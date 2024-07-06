@@ -164,7 +164,6 @@ builder.Services.AddScoped<IQuizRepository, QuizRepository>(); builder.Services.
 builder.Services.AddScoped<IImageRepository, ImageRepository>(); builder.Services.AddScoped<IEmailRepository, EmailRepository>();builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>(); builder.Services.AddScoped<IChapterRepository, ChapterRepository>(); builder.Services.AddScoped<ICertificationRepository, CertificationRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>(); builder.Services.AddScoped<IAnswerRepository, AnswerRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>(); builder.Services.AddScoped<ITokenRepository, TokenRepository>(); builder.Services.AddScoped<IQuizRepository, QuizRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();builder.Services.AddScoped<IPermissonRepository, PermissonRepository>();builder.Services.AddScoped<IFollowRepository, FollowRepository>();
 builder.Services.AddScoped<IUserCertificationRepository, UserCertificationRepository>();builder.Services.AddScoped<ISaveCourseRepository, SaveCourseRepository>();
 builder.Services.AddScoped<ICategoryCourseRepository, CategoryCourseRepository>();builder.Services.AddScoped<IEnrollCourseRepository, EnrollCourseRepository>();
