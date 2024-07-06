@@ -1,8 +1,8 @@
-#management-course{
-    font-size: 15px;
+#management-course {
+  font-size: 15px;
 }
 
-.table-header{
+.table-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -55,11 +55,11 @@
   color: rgb(255, 255, 255);
 }
 
-#management-course .menu{
+#management-course .menu {
   background-color: #e2b488;
 }
 
-#management-course .item{
+#management-course .item {
   font-weight: bold;
 }
 
@@ -67,67 +67,70 @@
   display: inline-block;
 }
 
-#management-course .course-active{
+#management-course .course-active {
   margin-bottom: 50px;
 }
 
-#management-course .table-info th{
-    padding: 15px 10px;
+#management-course .table-info th {
+  padding: 15px 10px;
 }
 
-#management-course .table-info{
+#management-course .table-info {
   margin-right: 50px;
 }
 
-#management-course .table-info .name, .image, .status, .owner{
-    vertical-align: middle;
-    padding: 15px 0px;
-    padding-left: 10px;
+#management-course .table-info .name,
+.image,
+.status,
+.owner,
+.action {
+  vertical-align: middle;
+  padding: 15px 0px;
+  padding-left: 10px;
 
 }
 
-#management-course .name{
-    width: 20%;
+#management-course .name {
+  width: 20%;
 }
 
-#management-course .image{
-    width: 20%;
+#management-course .image {
+  width: 20%;
 }
 
-#management-course .owner{
-    width: 20%;
+#management-course .owner {
+  width: 20%;
 }
 
-#management-course .status{
-    width: 15%;
+#management-course .status {
+  width: 15%;
 }
 
-#management-course .status-heading{
+#management-course .status-heading {
   display: flex;
 }
 
-#management-course .action{
-    width: 10%;
+#management-course .action {
+  width: 10%;
+  padding-left: 25px;
 }
 
-  #management-course .button-view svg, .button-delete svg {
-    margin-bottom: 5px;
+#management-course .button-view svg,
+.button-delete svg {
+  margin-bottom: 5px;
 }
 
-#management-course .button-view{
-    border: solid 1.5px #54d6df;
-    color: #54d6df;;
-    border-radius: 5px;
-    font-size: 24px;
-  }
-  #management-course .button-delete{
-    border: solid 1.5px rgb(243, 141, 141);
-    border-radius: 5px;
-    font-size: 24px;
-    margin-left: 20px;
-    color: rgb(243, 141, 141);
-  }
+#management-course .button-view {
+  color: grey;
+  border-radius: 5px;
+  font-size: 20px;
+}
 
-  #management-course .table-header h3{
-    font-weight: bold;
-  }
+#management-course .button-view:hover {
+  cursor: pointer;
+  color: #000000;
+}
+
+#management-course .table-header h3 {
+  font-weight: bold;
+}

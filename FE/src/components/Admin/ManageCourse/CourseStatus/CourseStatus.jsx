@@ -4,6 +4,7 @@ import { Table, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'rea
 import { CiCircleMore } from "react-icons/ci";
 import { MdDeleteOutline } from "react-icons/md";
 import { FaSearch } from "react-icons/fa";
+import { FaInfoCircle } from "react-icons/fa";
 import {
      Pagination,
      PaginationItem,
@@ -86,7 +87,7 @@ const DataTable = ({ data }) => {
                                                                       key={i}
                                                                       src={contact}
                                                                       alt="contact"
-                                                                      style={{ width: '50px', height: '50px', borderRadius: '50%', margin: '0 5px' }}
+                                                                      style={{ width: '70px', height: '70px', borderRadius: '50%', margin: '0 5px' }}
                                                                  />
                                                             ))}
                                                        </td>
@@ -113,12 +114,10 @@ const DataTable = ({ data }) => {
                                                                  </DropdownMenu>
                                                             </Dropdown>
                                                        </td>
+
                                                        <td className="action">
                                                             <span className="button-view">
-                                                                 <CiCircleMore onClick={() => { window.location.href = "#" }} />
-                                                            </span>
-                                                            <span className="button-delete">
-                                                                 <MdDeleteOutline onClick={() => { window.location.href = "#" }} />
+                                                                 <FaInfoCircle onClick={() => { handleOpenPopUpClick(index) }} />
                                                             </span>
                                                        </td>
                                                   </>

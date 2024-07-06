@@ -4,6 +4,7 @@ import { Table, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'rea
 import { CiCircleMore } from "react-icons/ci";
 import { MdDeleteOutline } from "react-icons/md";
 import { FaSearch } from "react-icons/fa";
+import { FaInfoCircle } from "react-icons/fa";
 import {
      Pagination,
      PaginationItem,
@@ -115,10 +116,7 @@ const DataTable = ({ data }) => {
                                                        </td>
                                                        <td className="action">
                                                             <span className="button-view">
-                                                                 <CiCircleMore onClick={() => { window.location.href = "#" }} />
-                                                            </span>
-                                                            <span className="button-delete">
-                                                                 <MdDeleteOutline onClick={() => { window.location.href = "#" }} />
+                                                                 <FaInfoCircle onClick={() => { handleOpenPopUpClick(index) }} />
                                                             </span>
                                                        </td>
                                                   </>
