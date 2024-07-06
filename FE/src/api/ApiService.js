@@ -1,5 +1,4 @@
 import axios from 'axios'
-import LoginPage from '../pages/AuthPage/LoginPage/LoginPage';
 
 const ApiService = {
     getCourseByName: async (courseName) => {
@@ -13,8 +12,7 @@ const ApiService = {
         } catch (error) {
 
         }
-    },
-    LoginPage: async()
+    }
 }
 
 export default ApiService;
