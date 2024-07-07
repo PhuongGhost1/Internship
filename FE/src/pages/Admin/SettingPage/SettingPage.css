@@ -1,0 +1,24 @@
+#SettingPage {
+     margin-top: auto;
+}
+
+#SettingPage .Header-Admin {
+     height: 60px;
+     width: 100%;
+     position: fixed;
+     top: 0;
+     left: 0;
+     z-index: 99999;
+}
+
+#SettingPage .Layout {
+     display: flex;
+}
+
+#SettingPage .Layout .SideBar-container {
+     flex: 2;
+}
+
+#SettingPage .Layout .Layout-container {
+     flex: 11;
+}

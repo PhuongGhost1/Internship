@@ -1,0 +1,60 @@
+#curriculum-course {
+    padding: 8px 0;
+    border-bottom: 1px solid #e5e7e8;
+}
+
+#curriculum-course .chapter-content {
+    padding: 12px 16px;
+    cursor: pointer;
+    display: flex;
+}
+
+#curriculum-course .chapter-content:hover {
+    background-color: #f3f8ff;
+}
+
+
+#curriculum-course .chapter-content .more-detail {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#curriculum-course .chapter-content .chapter-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+#curriculum-course .chapter-content .detail {
+    display: flex;
+    align-items: center;
+}
+
+#curriculum-course .chapter-content .detail span {
+    font-size: 15px;
+    color: rgb(99, 99, 99);
+}
+
+#curriculum-course .chapter-content .detail svg {
+    font-size: 6px;
+    margin: 0 5px;
+    color: rgb(99, 99, 99);
+}
+
+#curriculum-course .chapter-content .more-btn {
+    display: flex;
+    align-items: center;
+}
+
+#curriculum-course .chapter-content .more-btn svg {
+    font-size: 32px;
+    margin-left: 10px;
+    color: var(--light-orange);
+}
+
+#curriculum-course .chapter-content .more-btn span {
+    font-size: 16px;
+    color: var(--light-orange);
+}

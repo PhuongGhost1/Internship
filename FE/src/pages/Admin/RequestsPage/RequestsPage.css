@@ -1,0 +1,24 @@
+#RequestsPage {
+     margin-top: auto;
+}
+
+#RequestsPage .Header-Admin {
+     height: 60px;
+     width: 100%;
+     position: fixed;
+     top: 0;
+     left: 0;
+     z-index: 99999;
+}
+
+#RequestsPage .Layout {
+     display: flex;
+}
+
+#RequestsPage .Layout .SideBar-container {
+     flex: 2;
+}
+
+#RequestsPage .Layout .Layout-container {
+     flex: 11;
+}

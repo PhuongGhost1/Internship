@@ -28,15 +28,9 @@ export default function CoursesLearningMap() {
             <div className="course-content-container">
                 {datas.map((data, index) => {
                     return (
-                        <React.Fragment>
-                            <div className="chapter-detail" key={index}>
-
-                            </div>
-                        </React.Fragment>
+                        <CurriculumCourse />
                     )
-                })
-
-                }
+                })}
             </div>
         </div>
     )
