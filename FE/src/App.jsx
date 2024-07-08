@@ -22,6 +22,8 @@ import ManageStudentPage from "./pages/Admin/ManageStudentPage/ManageStudentPage
 import ManageCoursePage from "./pages/Admin/ManageCoursePage/ManageCoursePage";
 import RequestsPage from "./pages/Admin/RequestsPage/RequestsPage";
 import SettingPage from "./pages/Admin/SettingPage/SettingPage";
+import CertificationPage from "./pages/StudentPage/CertificationPage/CertificationPage";
+import CartPage from "./pages/StudentPage/CartPage/CartPage";
 
 function App() {
   return (
@@ -39,6 +41,8 @@ function App() {
                          <Route path='learning/:courseType/:itemName' element={<CourseLearning />} /> */}
         </Route>
         <Route path="/student">
+          <Route path="cart" element={<CartPage />} />
+          <Route path="certification" element={<CertificationPage />} />
           <Route path="profile" element={<StudentProfilePage />} />
           <Route path="my-learning">
             <Route path="completed" element={<CourseCompletedPage />} />
