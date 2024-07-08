@@ -3,11 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BE.Dto.Category;
+using BE.Models;
 
 namespace BE.Services.Interfaces
 {
     public interface ICategoryService
     {
-        Task<CategoryDto> GetAllCategories();
+        Task<List<Category>> GetAllCategories();
+
+
+        //---------------------CRUD--------------------------//
+        Task<Category?> CreateCategory(CreateCategoryDto createCategoryDto);
+        Task<Category?> UpdateCategory(UpdateCategoryDto updateCategoryDto);
+        Task<bool> DeleteCategory(string cateId);
     }
 }
