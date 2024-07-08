@@ -10,13 +10,23 @@ namespace BE.Services.Implementations
     {
         private readonly IRoleRepository _roleRepo;
         private readonly IUserRepository _userRepo;
-        public RoleService(IRoleRepository roleRepo, IUserRepository userRepo)
+        private readonly IRoleUserRepository _userRoleRepo;
+        public RoleService(IRoleRepository roleRepo, IUserRepository userRepo, IRoleUserRepository userRoleRepo)
         {
             _roleRepo = roleRepo;
             _userRepo = userRepo;
+            _userRoleRepo = userRoleRepo;
         }
 
+        public async Task<IEnumerable<string?>> GetUserRoleAsync(string userId)
+        {
+            var user = await _userRepo.GetUserById(userId);
 
+            if(user == null) throw new Exception("Unable to find user!");
+
+            return await _userRoleRepo.GetUserRole(userId);
+        }
+        
         //---------------------CRUD--------------------------//
         public async Task<Role?> CreateRole( CreateRoleDto createRoleDto)
         {

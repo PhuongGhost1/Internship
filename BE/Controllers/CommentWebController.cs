@@ -1,3 +1,4 @@
+using BE.Attributes;
 using BE.Dto.Comment;
 using BE.Models;
 using BE.Services.Interfaces;
@@ -23,19 +24,21 @@ namespace BE.Controllers
             return await _commentService.ViewAllComments();
         }
 
+        [CustomAuthorize("Student", "Instructor")]
         [HttpPost]
         [Route("create-comment")]
         public async Task<Comment?> CreateComment([FromForm] CreateCommentDto createCommentDto){
             return await _commentService.CreateComment(createCommentDto);
         }
 
+        [CustomAuthorize("Student", "Instructor")]
         [HttpPost]
         [Route("update-comment")]
         public async Task<Comment?> UpdateComment([FromForm] UpdateCommentDto updateCommentDto){
             return await _commentService.UpdateComment(updateCommentDto);
         }
 
-        [HttpPost]
+        [CustomAuthorize("Student", "Instructor")]
         [Route("delete-comment")]
         public async Task<bool> DeleteComment([FromForm] CommentDto commentDto){
             return await _commentService.DeleteComment(commentDto.CommentId);

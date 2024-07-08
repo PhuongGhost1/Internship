@@ -1,3 +1,4 @@
+using BE.Attributes;
 using BE.Dto.User;
 using BE.Dto.UserLogin;
 using BE.Models;
@@ -80,6 +81,7 @@ namespace BE.Controllers
             });
         }
 
+        [CustomAuthorize("Admin")]
         [HttpGet("get-statistic")]
         public async Task<(int a, int c)> GetUserStatistic()
         {

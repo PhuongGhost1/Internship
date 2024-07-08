@@ -12,7 +12,12 @@ namespace BE.Repository.Implementations
             _context = context;
         }
 
-
+        public async Task<IEnumerable<string?>> GetUserRole(string userId)
+        {
+            return await _context.RoleUsers.Where(rU => rU.UserId == userId)
+                                        .Select(rU => rU.Role.Name)
+                                        .ToListAsync();
+        }
 
         //---------------------CRUD--------------------------//
         public async Task<RoleUser?> CreateRoleUser(RoleUser roleUser)

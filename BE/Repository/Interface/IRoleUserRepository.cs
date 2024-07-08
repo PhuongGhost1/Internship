@@ -4,7 +4,7 @@ namespace BE.Repository.Interface
 {
     public interface IRoleUserRepository
     {
-        
+        Task<IEnumerable<string?>> GetUserRole(string userId);
 
         //---------------------CRUD--------------------------//
         Task<RoleUser?> GetRoleUserById(string roleUserId);
