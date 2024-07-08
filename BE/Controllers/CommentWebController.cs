@@ -39,6 +39,7 @@ namespace BE.Controllers
         }
 
         [CustomAuthorize("Student", "Instructor")]
+        [HttpPost]
         [Route("delete-comment")]
         public async Task<bool> DeleteComment([FromForm] CommentDto commentDto){
             return await _commentService.DeleteComment(commentDto.CommentId);

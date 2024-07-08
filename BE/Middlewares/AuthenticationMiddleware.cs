@@ -30,28 +30,15 @@ namespace BE.Middlewares
                 return;
             }
 
-            var token = context.Request.Headers["Authorization"].ToString();
-            
-            if (!ValidateToken(token))
+            var authorizationHeader = context.Request.Headers["Authorization"].ToString();
+            var token = authorizationHeader.StartsWith("Bearer ") ? authorizationHeader.Substring(7) : string.Empty;
+
+            if (string.IsNullOrEmpty(token) || !ValidateToken(token))
             {
                 context.Response.StatusCode = StatusCodes.Status401Unauthorized;
                 await context.Response.WriteAsync("Invalid token");
                 return;
             }
-
-            // var header = context.Request.Headers["Authorization"].ToString();
-            // var encodedCreds = header.Substring(6);
-            // var creds = Encoding.UTF8.GetString(Convert.FromBase64String(encodedCreds));
-            // string[] uidpwd = creds.Split(':');
-            // var uid = uidpwd[0];
-            // var pwd = uidpwd[1];
-            
-            // if (uid != "john" || pwd != "password")
-            // {
-            //     context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-            //     await context.Response.WriteAsync("Invalid uidpwd");
-            //     return;
-            // }
 
             await _next(context);
         }

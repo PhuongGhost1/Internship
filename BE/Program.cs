@@ -199,8 +199,8 @@ app.UseCors(MyAllowSpecificOrigins);
 app.UseHttpsRedirection();
 
 app.UseRequestResponseLoggingMiddleware();
-// app.UseAuthenticationMiddleware();
 app.UseExceptionHandleMiddleware();
+app.UseAuthenticationMiddleware();
 
 app.UseAuthentication();
 app.UseAuthorization();
