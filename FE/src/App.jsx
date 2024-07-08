@@ -35,8 +35,8 @@ function App() {
                          <Route path='search' element={<SearchPage />} />
                     </Route>
                     <Route path='/courses'>
-                         {/* <Route path=':courseName' element={<CourseDetailPage />} />
-                         <Route path='learning/:courseType/:itemName' element={<CourseLearning />} /> */}
+                         {/* <Route path=':courseName' element={<CourseDetailPage />} /> */}
+                         <Route path='learning/:courseType/:itemName' element={<CourseLearning />} />
                     </Route>
                     <Route path='/student'>
                          <Route path='profile' element={<StudentProfilePage />} />
@@ -51,17 +51,17 @@ function App() {
                          <Route path='profile' element={<InstructorProfilePage />} />
                     </Route>
 
-     <Route path='/admin'>
-          <Route path='dashboard' element={<DashBoard />} />
-          <Route path='instructor' element={<ManageInstructorPage />} />
-          <Route path='student' element={<ManageStudentPage />} />
-          <Route path='course' element={<ManageCoursePage />} />
-          <Route path='requests' element={<RequestsPage />} />
-          <Route path='setting' element={<SettingPage />} />
-     </Route>
-      </Routes >
-    </BrowserRouter >
-  )
+                    <Route path='/admin'>
+                         <Route path='dashboard' element={<DashBoard />} />
+                         <Route path='instructor' element={<ManageInstructorPage />} />
+                         <Route path='student' element={<ManageStudentPage />} />
+                         <Route path='course' element={<ManageCoursePage />} />
+                         <Route path='requests' element={<RequestsPage />} />
+                         <Route path='setting' element={<SettingPage />} />
+                    </Route>
+               </Routes >
+          </BrowserRouter >
+     )
 }
 
 export default App
