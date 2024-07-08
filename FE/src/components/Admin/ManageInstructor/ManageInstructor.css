@@ -37,6 +37,7 @@
 
 #ManageInstructor .ManageInstructor-top {
     display: flex;
+    justify-content: space-between;
 }
 
 #ManageInstructor .management-instructor-pagination {
@@ -48,15 +49,16 @@
 #ManageInstructor .ManageInstructor-top .search-bar {
     display: flex;
     position: relative;
-    margin-bottom: 20px;
     justify-content: flex-end;
+    margin: 10px 0;
 }
 
 #ManageInstructor .search-bar input {
     width: 300px;
     border: 1px solid #ccc;
-    border-radius: 10px;
+    border-radius: 20px;
     font-size: 12px;
+    padding-left: 10px;
 }
 
 #ManageInstructor .search-bar svg {

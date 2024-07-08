@@ -1,0 +1,44 @@
+.settings-page {
+    padding: 20px;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tabs button {
+    padding: 10px 15px;
+    border: none;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.tabs button.active {
+    background-color: #ec9b21;
+    color: white;
+}
+
+.tabs button:hover {
+    background-color: #ddd;
+}
+
+.tab-content {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
