@@ -1,4 +1,5 @@
-import React from "react";
+// import React, { useState } from "react";
+import React from 'react';
 import './Certification.css';
 
 import Pic1 from '../../../assets/Collection-Avatar/1.png'
@@ -12,14 +13,12 @@ import { IoCheckmarkOutline } from "react-icons/io5";
 import { SlShareAlt } from "react-icons/sl";
 import { BsDownload } from "react-icons/bs";
 
-
 export default function Certification() {
     // const [value, setValue] = React.useState(4);
 
     return (
         <div id="Certification">
             <div className="container">
-
                 <div className="container1">
                     <h5>Data structures and algorithms Practice with LeetCode</h5>
 
@@ -41,7 +40,7 @@ export default function Certification() {
 
                                 <div className="column-title">
                                     <div className="column-by">
-                                        <p>Hung Cong Le's</p>
+                                        <p>Hung Cong Le</p>
                                         <p>account is verified.</p>
                                     </div>
                                     <p>Coursera certifies their successful completion of University of Minnesota Software Development Lifecycle Specialization.</p>
