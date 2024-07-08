@@ -79,7 +79,10 @@ body {
  #SideBar .Student,
  #SideBar .course,
  #SideBar .requests,
- #SideBar .setting
+ #SideBar .setting,
+ #SideBar .report,
+ #SideBar .feedback,
+ #SideBar .category
   {
      font-size: 20px;
      margin-right: 10px;
