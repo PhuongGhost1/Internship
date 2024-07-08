@@ -22,6 +22,10 @@ import ManageStudentPage from './pages/Admin/ManageStudentPage/ManageStudentPage
 import ManageCoursePage from './pages/Admin/ManageCoursePage/ManageCoursePage';
 import RequestsPage from './pages/Admin/RequestsPage/RequestsPage';
 import SettingPage from './pages/Admin/SettingPage/SettingPage';
+import ReportPage from './pages/Admin/ReportPage/ReportPage';
+import FeedBackAdminPage from './pages/Admin/FeedBackAdminPage/FeedBackAdminPage';
+import CategoryPage from './pages/Admin/CategoryPage/CategoryPage';
+
 
 function App() {
   return (
@@ -56,16 +60,14 @@ function App() {
           <Route path='instructor' element={<ManageInstructorPage />} />
           <Route path='student' element={<ManageStudentPage />} />
           <Route path='course' element={<ManageCoursePage />} />
-          <Route path='requests' element={<RequestsPage/>} />
-          <Route path='setting' element={<SettingPage/>} />
-          
-          
-
-
-
+          <Route path='requests' element={<RequestsPage />} />
+          <Route path='setting' element={<SettingPage />} />
+          <Route path='report' element={<ReportPage />} />
+          <Route path='feedback' element={<FeedBackAdminPage />} />
+          <Route path='category' element={<CategoryPage />} />
         </Route>
-      </Routes>
-    </BrowserRouter>
+      </Routes >
+    </BrowserRouter >
   )
 }
 
