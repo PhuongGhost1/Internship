@@ -10,7 +10,9 @@ export default function Header() {
       <div className="header-container">
         <div className="logo">
           <span className="icon">
+               <a href="http://localhost:5173/admin/dashboard">
             <img src={Logo} alt="" />
+            </a>
           </span>{" "}
           <span className="logo-text">CodeCourse</span>
         </div>
