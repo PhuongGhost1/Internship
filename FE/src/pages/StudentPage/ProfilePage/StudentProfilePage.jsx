@@ -1,5 +1,6 @@
 import React from "react";
 import './StudentProfilePage.css'
+
 import Header from "../../../components/Items/Header/Header";
 import Footer from "../../../components/Items/Footer/Footer";
 import PersonalDetail from "../../../components/Student/Profile/PersonalDetail/PersonalDetail";
@@ -22,7 +23,7 @@ export default function StudentProfilePage() {
                 </div>
             </div>
             <Footer />
-            
+
         </div>
     )
 }
