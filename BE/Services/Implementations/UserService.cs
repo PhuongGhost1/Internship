@@ -107,11 +107,6 @@ namespace BE.Services.Implementations
             return user;
         }
 
-        public async Task<(int a, int c)> GetUserStatisticsAsync()
-        {
-            return await _userRepo.GetUserStatisticsAsync();
-        }
-
         public async Task<ReturnResponseDto> GoogleResponse()
         {
             var code = _httpContextAccessor.HttpContext.Request.Query["code"];
@@ -165,8 +160,7 @@ namespace BE.Services.Implementations
                 throw new Exception("Google Client ID is missing in the configuration");
             }
 
-            var redirectUri = $"{_httpContextAccessor.HttpContext.Request.Scheme}://{_httpContextAccessor.HttpContext.Request.Host}/api/v1/web/user/signin-google";
-
+            var redirectUri = _httpContextAccessor.HttpContext.Request.Host + "/User/GoogleResponse";
             if (string.IsNullOrEmpty(redirectUri))
             {
                 throw new Exception("Failed to generate the redirect URI");
