@@ -13,5 +13,7 @@ namespace BE.Repository.Interface
         Task<bool> CheckEmailExist(string email);
         Task<bool> CheckUserExistById(string userId);
         Task<bool> CreateUserData(string username, string email, string password, string description, string phone, string role);
+        Task<User?> GetUserById(string userId);
+        Task<(int a, int c)> GetUserStatisticsAsync();
     }
 }
