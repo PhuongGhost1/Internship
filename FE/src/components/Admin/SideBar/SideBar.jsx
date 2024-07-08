@@ -7,6 +7,9 @@ import { SiCoursera } from "react-icons/si";
 import { MdOutlineManageAccounts } from "react-icons/md";
 import { IoGitPullRequestSharp } from "react-icons/io5";
 import { IoSettingsSharp } from "react-icons/io5";
+import { TbReportAnalytics } from "react-icons/tb";
+import { VscFeedback } from "react-icons/vsc";
+import { BiCategory } from "react-icons/bi";
 
 export default function SideBar({ type }) {
      const [activeItem, setActiveItem] = useState(localStorage.getItem("activeItem") || "dashboard");
@@ -66,6 +69,14 @@ export default function SideBar({ type }) {
                               </a>
                          </div>
                     </div>
+
+                    <li className={`menu-item ${activeItem === "category" ? "active" : ""}`}>
+                         <span onClick={() => handleItemClick("category")}>
+                              <a href="/admin/category">
+                                   <BiCategory  className="category" /> &nbsp;Category
+                              </a>
+                         </span>
+                    </li>
                     <li className={`menu-item ${activeItem === "course" ? "active" : ""}`}>
                          <span onClick={() => handleItemClick("course")}>
                               <a href="/admin/course">
@@ -77,6 +88,20 @@ export default function SideBar({ type }) {
                          <span onClick={() => handleItemClick("requests")}>
                               <a href="/admin/requests">
                                    <IoGitPullRequestSharp className="requests" /> &nbsp;Requests
+                              </a>
+                         </span>
+                    </li>
+                    <li className={`menu-item ${activeItem === "report" ? "active" : ""}`}>
+                         <span onClick={() => handleItemClick("report")}>
+                              <a href="/admin/report">
+                                   <TbReportAnalytics  className="report" /> &nbsp;Report
+                              </a>
+                         </span>
+                    </li>
+                    <li className={`menu-item ${activeItem === "feedback" ? "active" : ""}`}>
+                         <span onClick={() => handleItemClick("feedback")}>
+                              <a href="/admin/feedback">
+                                   <VscFeedback  className="feedback" /> &nbsp;Feedback
                               </a>
                          </span>
                     </li>
