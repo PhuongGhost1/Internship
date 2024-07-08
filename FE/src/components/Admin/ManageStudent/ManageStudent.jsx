@@ -1,175 +1,217 @@
 import React, { useState } from "react";
-import "./ManageStudent.css";
-import {
-  Pagination,
-  PaginationItem,
-  PaginationLink,
-  Table,
-  Button,
-  Dropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-} from "reactstrap";
-import { CiCircleMore } from "react-icons/ci";
-import { MdDeleteOutline } from "react-icons/md";
+import './ManageStudent.css';
+import { Pagination, PaginationItem, PaginationLink, Table } from "reactstrap";
+import { FaInfoCircle } from "react-icons/fa";
 import { FaSearch } from "react-icons/fa";
+import { RxCross2 } from "react-icons/rx";
+import IntructorIMG from "../../../assets/IntructorIMG.png"
+import IntructorIMG2 from "../../../assets/IntructorIMG2.png"
+import IntructorIMG3 from "../../../assets/IntructorIMG3.png"
+import { FaCalendarDay } from "react-icons/fa6";
+import { GoDotFill } from "react-icons/go";
+import { IoIosMail } from "react-icons/io";
+import { FaPhoneAlt } from "react-icons/fa";
+import { FaUserCheck } from "react-icons/fa6";
+import { FaCheckCircle } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+import { GrTransaction } from "react-icons/gr";
+import CNXlogo from '../../../assets/CNX.png';
+import Mlogo from '../../../assets/M.png';
+import CUlogo from '../../../assets/CU.png';
+import { FaUsers } from "react-icons/fa";
+import { FaRegStarHalfStroke } from "react-icons/fa6";
+import { SiGmail } from "react-icons/si";
 
 const initialStudents = [
   {
     id: 1,
-    email: "marcus-krajcik-sr.@lueilwitz-kiehn.net",
-    name: "Marcus Krajcik Sr.",
+    email: "marcus@example.com",
+    name: "Marcus Krajcik",
     status: "Active",
-    role: "Instructor",
+    img: IntructorIMG,
+    phone: "0353747221",
+    calender: "Joined May 2020",
+    age: "22",
+    role: "Student",
+    country: "USA",
+    attended: "Attended 7 days ago",
+    activities: [
+      {
+        name: 'Enrolled in CertNexus Certified Ethical Emerging Technologist Professional Certificate',
+        datetime: '9:00 AM, May 5 2020',
+        type: "checked"
+      },
+      {
+        name: 'Completed module 1 of Web Design for Everybody',
+        datetime: '9:00 AM, Apr 8 2022',
+        type: "checked"
+      },
+      {
+        name: 'Payment of $99.00 made for Software Development Lifecycle Specialization',
+        datetime: '4:50 PM, Mar 30 2022',
+        type: "payment"
+      },
+      {
+        name: 'Received email about new course recommendations',
+        datetime: '10:33 AM, Mar 25 2022',
+        type: "emaill"
+      },
+      {
+        name: 'Submitted assignment for Web Design course',
+        datetime: '11:00 AM, Mar 23 2022',
+        type: "checked"
+      }
+    ],
+    courses: [
+      {
+        logo: CNXlogo,
+        name: 'CertNexus Certified Ethical Emerging Technologist Professional Certificate',
+        detailLink: '#',
+        rating: '4.5',
+        progress: '60%'
+      },
+      {
+        logo: Mlogo,
+        name: 'Software Development Lifecycle Specialization',
+        detailLink: '#',
+        rating: '4.8',
+        progress: '30%'
+      },
+      {
+        logo: CUlogo,
+        name: 'Web Design for Everybody: Basics of Web Development & Coding Specialization',
+        detailLink: '#',
+        rating: '4.7',
+        progress: '80%'
+      }
+    ],
+    payments: [
+      {
+        course: 'CertNexus Certified Ethical Emerging Technologist Professional Certificate',
+        amount: '$500'
+      },
+      {
+        course: 'Software Development Lifecycle Specialization',
+        amount: '$300'
+      },
+      {
+        course: 'Web Design for Everybody: Basics of Web Development & Coding Specialization',
+        amount: '$450'
+      }
+    ]
   },
   {
     id: 2,
-    email: "jerome-reichert-gutmann-iv@rowe-kassulke-and-olson.net",
-    name: "Jerome Reichert-Gutmann IV",
+    email: "jerome@example.com",
+    name: "Jerome Reichert",
     status: "Active",
-    role: "Instructor",
+    img: IntructorIMG3,
+    phone: "0353747222",
+    calender: "Joined June 2020",
+    age: "24",
+    role: "Student",
+    country: "Canada",
+    attended: "Attended 5 days ago",
+    activities: [
+      {
+        name: 'Enrolled in Software Development Lifecycle Specialization',
+        datetime: '10:00 AM, June 10 2020',
+        type: "checked"
+      },
+      {
+        name: 'Completed final project for Web Design course',
+        datetime: '2:00 PM, May 15 2022',
+        type: "checked"
+      },
+      {
+        name: 'Payment of $150.00 made for CertNexus Certificate',
+        datetime: '11:30 AM, May 1 2022',
+        type: "payment"
+      }
+    ],
+    courses: [
+      {
+        logo: Mlogo,
+        name: 'Software Development Lifecycle Specialization',
+        detailLink: '#',
+        rating: '4.6',
+        progress: '45%'
+      },
+      {
+        logo: CUlogo,
+        name: 'Web Design for Everybody: Basics of Web Development & Coding Specialization',
+        detailLink: '#',
+        rating: '4.9',
+        progress: '100%'
+      }
+    ],
+    payments: [
+      {
+        course: 'Software Development Lifecycle Specialization',
+        amount: '$350'
+      },
+      {
+        course: 'Web Design for Everybody: Basics of Web Development & Coding Specialization',
+        amount: '$400'
+      }
+    ]
   },
   {
     id: 3,
-    email: "oscar-witting@morar-llc.io",
+    email: "oscar@example.com",
     name: "Oscar Witting",
     status: "Active",
-    role: "Instructor",
-  },
-  {
-    id: 4,
-    email: "dorothy-o'reilly@runte-schneider-and-hoppe.co",
-    name: "Dorothy O'Reilly",
-    status: "Active",
-    role: "Instructor",
-  },
-  {
-    id: 5,
-    email: "edna-flatley@upton-group.dev",
-    name: "Edna Flatley",
-    status: "Active",
-    role: "Instructor",
-  },
-  {
-    id: 6,
-    email: "johnathan-morar@farrell-inc.co",
-    name: "Johnathan Morar",
-    status: "Active",
-    role: "Instructor",
-  },
-  {
-    id: 7,
-    email: "dr.-orville-grady@abernathy-jakubowski.io",
-    name: "Dr. Orville Grady",
-    status: "Active",
-    role: "Instructor",
-  },
-  {
-    id: 8,
-    email: "frances-hilll@vandervort-blick-and-breitenberg.com",
-    name: "Frances Hilll",
-    status: "Active",
+    img: IntructorIMG2,
+    phone: "0353747223",
+    calender: "Joined July 2020",
+    age: "26",
     role: "Student",
-  },
-  {
-    id: 9,
-    email: "jared-hand@walter-inc.com",
-    name: "Jared Hand",
-    status: "Active",
-    role: "Student",
-  },
-  {
-    id: 10,
-    email: "olga-stiedemann@upton-group.dev",
-    name: "Olga Stiedemann",
-    status: "Active",
-    role: "Student",
-  },
-  {
-    id: 11,
-    email: "monica-cronin@abernathy-jakubowski.io",
-    name: "Monica Cronin",
-    status: "Active",
-    role: "Student",
-  },
-  {
-    id: 12,
-    email: "nicole-hodkiewicz-md@rowe-kassulke-and-olson.net",
-    name: "Nicole Hodkiewicz MD",
-    status: "Active",
-    role: "Student",
-  },
-  {
-    id: 13,
-    email: "frances-hilll@vandervort-blick-and-breitenberg.com",
-    name: "Frances Hilll",
-    status: "Active",
-    role: "Student",
-  },
-  {
-    id: 14,
-    email: "jared-hand@walter-inc.com",
-    name: "Jared Hand",
-    status: "Active",
-    role: "Student",
-  },
-  {
-    id: 15,
-    email: "olga-stiedemann@upton-group.dev",
-    name: "Olga Stiedemann",
-    status: "Active",
-    role: "Student",
-  },
-  {
-    id: 16,
-    email: "monica-cronin@abernathy-jakubowski.io",
-    name: "Monica Cronin",
-    status: "Active",
-    role: "Student",
-  },
-  {
-    id: 17,
-    email: "nicole-hodkiewicz-md@rowe-kassulke-and-olson.net",
-    name: "Nicole Hodkiewicz MD",
-    status: "Active",
-    role: "Student",
-  },
-  {
-    id: 18,
-    email: "frances-hilll@vandervort-blick-and-breitenberg.com",
-    name: "Frances Hilll",
-    status: "Active",
-    role: "Student",
-  },
-  {
-    id: 19,
-    email: "jared-hand@walter-inc.com",
-    name: "Jared Hand",
-    status: "Active",
-    role: "Student",
-  },
-  {
-    id: 20,
-    email: "olga-stiedemann@upton-group.dev",
-    name: "Olga Stiedemann",
-    status: "Active",
-    role: "Student",
-  },
-  {
-    id: 21,
-    email: "monica-cronin@abernathy-jakubowski.io",
-    name: "Monica Cronin",
-    status: "Active",
-    role: "Student",
-  },
-  {
-    id: 22,
-    email: "nicole-hodkiewicz-md@rowe-kassulke-and-olson.net",
-    name: "Nicole Hodkiewicz MD",
-    status: "Active",
-    role: "Student",
-  },
+    country: "UK",
+    attended: "Attended 3 days ago",
+    activities: [
+      {
+        name: 'Enrolled in Web Design for Everybody',
+        datetime: '3:00 PM, July 20 2020',
+        type: "checked"
+      },
+      {
+        name: 'Completed module 3 of Software Development Lifecycle',
+        datetime: '1:00 PM, June 5 2022',
+        type: "checked"
+      },
+      {
+        name: 'Payment of $200.00 made for advanced courses',
+        datetime: '9:45 AM, May 28 2022',
+        type: "payment"
+      }
+    ],
+    courses: [
+      {
+        logo: CUlogo,
+        name: 'Web Design for Everybody: Basics of Web Development & Coding Specialization',
+        detailLink: '#',
+        rating: '4.7',
+        progress: '70%'
+      },
+      {
+        logo: Mlogo,
+        name: 'Software Development Lifecycle Specialization',
+        detailLink: '#',
+        rating: '4.5',
+        progress: '50%'
+      }
+    ],
+    payments: [
+      {
+        course: 'Web Design for Everybody: Basics of Web Development & Coding Specialization',
+        amount: '$400'
+      },
+      {
+        course: 'Software Development Lifecycle Specialization',
+        amount: '$350'
+      }
+    ]
+  }
 ];
 
 const pageSize = 12;
@@ -177,20 +219,15 @@ const pageSize = 12;
 export default function ManageStudent() {
   const [students, setStudents] = useState(initialStudents);
   const [currentPage, setCurrentPage] = useState(1);
-  const [dropdownOpen, setDropdownOpen] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [tagActive, setTagActive] = useState("Activity");
+  const [isVisiblePopUp, setIsVisiblePopUp] = useState(false);
+  const [currentNum, setCurrentNum] = useState(0);
 
-  const toggleDropdown = (id) => {
-    setDropdownOpen((prev) => (prev === id ? null : id));
-  };
-
-  const handleStatusChange = (id, status) => {
-    setStudents((prevStudents) =>
-      prevStudents.map((student) =>
-        student.id === id ? { ...student, status } : student
-      )
-    );
-    setDropdownOpen(null);
+  const handleStatusChange = (id) => {
+    setStudents(prevStudents => prevStudents.map(
+      student => student.id === id ? { ...student, status: student.status === "Active" ? "Block" : "Active" } : student
+    ));
   };
 
   const handleClick = (event, page) => {
@@ -202,19 +239,101 @@ export default function ManageStudent() {
     setSearchTerm(event.target.value);
   };
 
-  const filteredStudents = students.filter(
-    (student) =>
-      student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      student.email.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredStudents = students.filter(student =>
+    student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    student.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const indexOfLastStudent = currentPage * pageSize;
   const indexOfFirstStudent = indexOfLastStudent - pageSize;
-  const currentStudents = filteredStudents.slice(
-    indexOfFirstStudent,
-    indexOfLastStudent
-  );
+  const currentStudents = filteredStudents.slice(indexOfFirstStudent, indexOfLastStudent);
   const totalPages = Math.ceil(filteredStudents.length / pageSize);
+
+  const handleOpenPopUpClick = (num) => {
+    setIsVisiblePopUp(true)
+    try {
+      setTimeout(() => {
+        let progress = document.querySelector('.popup');
+        progress.classList.add('open');
+      }, 200);
+    } catch (error) {
+      <h2>Error Search</h2>
+    }
+    setCurrentNum(num);
+  }
+
+  const handleCrossClick = () => {
+    let progress = document.querySelector('.popup');
+    progress.classList.remove('open');
+    setTimeout(() => {
+      setIsVisiblePopUp(false)
+    }, 500);
+  }
+
+  const renderContent = () => {
+    switch (tagActive) {
+      case 'Activity':
+        return (
+          <div className="popup-activity">
+            <div className="activity-card">
+              <div className="activity-content">
+                {initialStudents[currentNum].activities.map((activity, index) => (
+                  <div key={index} className={`activity-item ${activity.type}`}>
+                    <div className="activity-icon">
+                      {(activity.type === 'payment') && <GrTransaction />}
+                      {(activity.type === 'emaill') && <MdEmail />}
+                      {(activity.type === 'checked') && <FaCheckCircle />}
+                    </div>
+                    <div>
+                      <p>{activity.datetime}</p>
+                      <p>{activity.name}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+      case 'Course':
+        return (
+          <div className="popup-course">
+            {initialStudents[currentNum].courses.map((course, index) => (
+              <div key={index} className="course-card">
+                <img src={course.logo} alt={`${course.name} logo`} className="course-logo" />
+                <div className="course-details">
+                  <h3>{course.name}</h3>
+                  <div className="course-icon">
+                    <div className="course-icon-item">
+                      <FaRegStarHalfStroke />
+                      <p>{course.rating}</p>
+                    </div>
+                    <div className="course-icon-item">
+                      <FaUsers />
+                      <p>{course.progress}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        );
+      case 'Payment-History':
+        return (
+          <div className="popup-payment">
+            <div className="payment-history">
+              {initialStudents[currentNum].payments.map((payment, index) => (
+                <div key={index} className="payment-item">
+                  <p><strong>Course:</strong> {payment.course}</p>
+                  <p><strong>Amount: </strong><span>-{payment.amount}</span> </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
 
   return (
     <div id="ManageStudent">
@@ -222,10 +341,7 @@ export default function ManageStudent() {
         <div className="management-student-pagination">
           <Pagination>
             <PaginationItem disabled={currentPage <= 1}>
-              <PaginationLink
-                previous
-                onClick={(e) => handleClick(e, currentPage - 1)}
-              />
+              <PaginationLink previous onClick={(e) => handleClick(e, currentPage - 1)} />
             </PaginationItem>
             {[...Array(totalPages)].map((_, page) => (
               <PaginationItem key={page + 1} active={page + 1 === currentPage}>
@@ -235,23 +351,18 @@ export default function ManageStudent() {
               </PaginationItem>
             ))}
             <PaginationItem disabled={currentPage >= totalPages}>
-              <PaginationLink
-                next
-                onClick={(e) => handleClick(e, currentPage + 1)}
-              />
+              <PaginationLink next onClick={(e) => handleClick(e, currentPage + 1)} />
             </PaginationItem>
           </Pagination>
         </div>
         <div className="search-bar">
-          <div>
-            <FaSearch />
-            <input
-              type="text"
-              placeholder="Search by name or email"
-              value={searchTerm}
-              onChange={handleSearchChange}
-            />
-          </div>
+          <FaSearch />
+          <input
+            type="text"
+            placeholder="Search by name or email"
+            value={searchTerm}
+            onChange={handleSearchChange}
+          />
         </div>
       </div>
       <Table className="student-list">
@@ -260,7 +371,6 @@ export default function ManageStudent() {
             <th>No</th>
             <th>Email</th>
             <th>Name</th>
-            <th>Role</th>
             <th>Status</th>
             <th>Action</th>
           </tr>
@@ -268,59 +378,84 @@ export default function ManageStudent() {
         <tbody>
           {currentStudents.map((student, index) => (
             <tr key={student.id}>
-              <th className="no" scope="row">
-                {indexOfFirstStudent + index + 1}
-              </th>
+              <td className="no" scope="row">{indexOfFirstStudent + index + 1}</td>
               <td className="email">{student.email}</td>
               <td className="name">{student.name}</td>
-              <td className="role">{student.role}</td>
               <td className="status">
-                <Dropdown
-                  isOpen={dropdownOpen === student.id}
-                  toggle={() => toggleDropdown(student.id)}
-                  className="dropdown-status"
+                <button
+                  className={`status-toggle status-${student.status.toLowerCase()}`}
+                  onClick={() => handleStatusChange(student.id)}
                 >
-                  <DropdownToggle
-                    caret
-                    className={`status-toggle status-${student.status.toLowerCase()}`}
-                  >
-                    {student.status}
-                  </DropdownToggle>
-                  <DropdownMenu>
-                    <DropdownItem
-                      onClick={() => handleStatusChange(student.id, "Active")}
-                    >
-                      Active
-                    </DropdownItem>
-                    <DropdownItem
-                      onClick={() => handleStatusChange(student.id, "Ban")}
-                    >
-                      Ban
-                    </DropdownItem>
-                  </DropdownMenu>
-                </Dropdown>
+                  {student.status}
+                </button>
               </td>
               <td className="action">
                 <span className="button-view">
-                  <CiCircleMore
-                    onClick={() => {
-                      window.location.href = "#";
-                    }}
-                  />
-                </span>
-                <span className="button-delete">
-                  <MdDeleteOutline
-                    onClick={() => {
-                      window.location.href = "#";
-                    }}
-                  />
+                  <FaInfoCircle onClick={() => { handleOpenPopUpClick(index) }} />
                 </span>
               </td>
             </tr>
           ))}
         </tbody>
       </Table>
-      
+      <div style={isVisiblePopUp ? {} : { display: 'none' }}>
+        <div className="popup">
+          <div className="cross"> <RxCross2 onClick={handleCrossClick} /></div>
+          <div className="popup-container">
+            <div className="popup-info">
+              <div className="popup-info-image">
+                <img src={initialStudents[currentNum].img} alt={initialStudents[currentNum].name} />
+              </div>
+              <div className="popup-info-title">
+                <h2>{initialStudents[currentNum].name}</h2>
+                <div className="popup-info-title2">
+                  <p>Age {initialStudents[currentNum].age}</p> <GoDotFill />
+                  <p>{initialStudents[currentNum].role}</p> <GoDotFill />
+                  <p>{initialStudents[currentNum].country}</p>
+                </div>
+              </div>
+            </div>
+            <div className="popup-status">
+              <div className="popup-statuss">
+                <FaCalendarDay />
+                <p>{initialStudents[currentNum].calender}</p>
+              </div>
+              <div className="popup-statuss">
+                <FaUserCheck />
+                <p>{initialStudents[currentNum].attended}</p>
+              </div>
+            </div>
+            <div className="popup-contact">
+              <div className="popup-card">
+                <SiGmail />
+                <p>{initialStudents[currentNum].email}</p>
+              </div>
+              <div className="popup-card">
+                <FaPhoneAlt />
+                <p>{initialStudents[currentNum].phone}</p>
+              </div>
+            </div>
+            <div className="details">
+              <h3>Details</h3>
+              <div className="nav-bar">
+                <div className={`activity tag ${tagActive === 'Activity' ? 'active' : ''}`} onClick={() => { setTagActive('Activity') }}>
+                  Activity
+                </div>
+                <div className={`course tag ${tagActive === 'Course' ? 'active' : ''}`} onClick={() => { setTagActive('Course') }}>
+                  Course
+                </div>
+                <div className={`payment-history tag ${tagActive === 'Payment-History' ? 'active' : ''}`} onClick={() => { setTagActive('Payment-History') }}>
+                  Payment History
+                </div>
+              </div>
+              <div className="content">
+                {renderContent()}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="blur-popup"></div>
+      </div>
     </div>
   );
 }
