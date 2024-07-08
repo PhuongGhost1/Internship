@@ -127,3 +127,30 @@
   cursor: pointer;
   color: #000000;
 }
+
+.content-popup {
+  font-size: 16px;
+}
+
+.courseName {
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.course-status-waiting {
+  font-weight: bold;
+  color: rgb(128, 128, 128);
+  font-style: italic;
+}
+
+.content-popup svg {
+  margin-bottom: 5px;
+  font-size: 22px;
+  color: rgb(247, 163, 9);
+}
+
+.des {
+  text-align: justify;
+}
