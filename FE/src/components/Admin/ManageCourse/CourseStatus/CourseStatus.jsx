@@ -1,8 +1,6 @@
 import { useState } from "react";
 import './CourseStatus.css';
 import { Table, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'react-bootstrap';
-import { CiCircleMore } from "react-icons/ci";
-import { MdDeleteOutline } from "react-icons/md";
 import { FaSearch } from "react-icons/fa";
 import { FaInfoCircle } from "react-icons/fa";
 import {
@@ -12,7 +10,7 @@ import {
 } from "reactstrap";
 
 const DataTable = ({ data }) => {
-     const pageSize = 8;
+     const pageSize = 10;
      const [currentPage, setCurrentPage] = useState(1);
      const [courses, setCourses] = useState(data);
      const [dropdownOpen, setDropdownOpen] = useState(null);

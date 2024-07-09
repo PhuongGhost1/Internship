@@ -22,6 +22,10 @@ import ManageStudentPage from './pages/Admin/ManageStudentPage/ManageStudentPage
 import ManageCoursePage from './pages/Admin/ManageCoursePage/ManageCoursePage';
 import RequestsPage from './pages/Admin/RequestsPage/RequestsPage';
 import SettingPage from './pages/Admin/SettingPage/SettingPage';
+import ReportPage from './pages/Admin/ReportPage/ReportPage';
+import FeedBackAdminPage from './pages/Admin/FeedBackAdminPage/FeedBackAdminPage';
+import CategoryPage from './pages/Admin/CategoryPage/CategoryPage';
+
 
 function App() {
      return (
@@ -35,8 +39,8 @@ function App() {
                          <Route path='search' element={<SearchPage />} />
                     </Route>
                     <Route path='/courses'>
-                         {/* <Route path=':courseName' element={<CourseDetailPage />} />
-                         <Route path='learning/:courseType/:itemName' element={<CourseLearning />} /> */}
+                         {/* <Route path=':courseName' element={<CourseDetailPage />} /> */}
+                         <Route path='learning/:courseType/:itemName' element={<CourseLearning />} />
                     </Route>
                     <Route path='/student'>
                          <Route path='profile' element={<StudentProfilePage />} />
@@ -58,6 +62,9 @@ function App() {
           <Route path='course' element={<ManageCoursePage />} />
           <Route path='requests' element={<RequestsPage />} />
           <Route path='setting' element={<SettingPage />} />
+          <Route path='report' element={<ReportPage/>} />
+          <Route path='feedback' element={<FeedBackAdminPage/>} />
+          <Route path='category' element ={<CategoryPage/>} />
      </Route>
       </Routes >
     </BrowserRouter >
