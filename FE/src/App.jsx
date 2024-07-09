@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import Home from "./pages/Home/Home";
-// import CourseDetailPage from './pages/UserPage/CourseDetailPage/CourseDetailPage';
+import CourseDetailPage from "./pages/UserPage/CourseDetailPage/CourseDetailPage";
 import LoginPage from "./pages/AuthPage/LoginPage/LoginPage";
 import RegisterPage from "./pages/AuthPage/RegisterPage/RegisterPage";
 import StudentProfilePage from "./pages/StudentPage/ProfilePage/StudentProfilePage";
