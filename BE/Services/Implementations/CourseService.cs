@@ -182,5 +182,15 @@ namespace BE.Services.Implementations
         {
             return await _courseRepo.CreateQuiz(data);
         }
+
+        public async Task<List<Course>> GetMostPurchasedCoursesAsync()
+        {
+            return await _courseRepo.GetMostPurchasedCourses();
+        }
+
+        public async Task<List<MonthlyAnalyticsDto>> GetMonthlyExpenseAndRevenueAsync()
+        {
+            return await _courseRepo.GetMonthlyExpenseAndRevenue();
+        }
     }
 }

@@ -12,6 +12,7 @@ using BE.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using static BE.Utils.Utils;
+using System.Globalization;
 
 namespace BE.Repository.Implementations
 {
@@ -460,6 +461,61 @@ namespace BE.Repository.Implementations
                                             .ThenInclude(quiz => quiz.Quizzes)
                                                 .ThenInclude(question => question.Questions)
                                         .FirstOrDefaultAsync(course => course.Name.ToLower().Contains(courseName.ToLower()));
+        }
+
+        public async Task<List<Course>> GetMostPurchasedCourses()
+        {
+            var mostPurchasedCourses = await _context.PaymentCourses
+                                                    .Join(_context.CartCourses, 
+                                                            paymentCourse => paymentCourse.CartcourseId, 
+                                                            cartCourse => cartCourse.Id, 
+                                                            (paymentCourse, cartCourse) => new { paymentCourse, cartCourse })
+                                                    .Join(_context.Courses, 
+                                                            combined => combined.cartCourse.CourseId, 
+                                                            course => course.Id, 
+                                                            (combined, course) => course)
+                                                    .GroupBy(c => c.Id)
+                                                    .OrderByDescending(g => g.Count())
+                                                    .Select(g => new 
+                                                    { 
+                                                        Course = g.First(), 
+                                                        PurchaseCount = g.Count() 
+                                                    })
+                                                    .ToListAsync();
+
+            return mostPurchasedCourses.Select(c => c.Course).ToList();
+        }
+
+        public async Task<List<MonthlyAnalyticsDto>> GetMonthlyExpenseAndRevenue()
+        {
+            var monthlyData = new List<MonthlyAnalyticsDto>();
+
+            for (int month = 1; month <= 12; month++)
+            {
+                var startDate = new DateTime(DateTime.UtcNow.Year, month, 1);
+                var endDate = startDate.AddMonths(1).AddTicks(-1);
+
+                var expense = await _context.Payments
+                                        .Where(p => p.CreateDate >= startDate && p.CreateDate <= endDate)
+                                        .SumAsync(p => p.Total);
+
+                var revenue = await _context.EnrollCourses
+                                            .Where(e => e.Date >= startDate && e.Date <= endDate)
+                                            .Join(_context.Courses,
+                                                enroll => enroll.CourseId,
+                                                course => course.Id,
+                                                (enroll, course) => course.Price)
+                                            .SumAsync();
+
+                monthlyData.Add(new MonthlyAnalyticsDto
+                {
+                    Month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month),
+                    Expense = expense,
+                    Revenue = revenue
+                });
+            }
+
+            return monthlyData;
         }
     }
 }

@@ -159,5 +159,17 @@ namespace BE.Controllers
         {
             return GenerateHashCode(courseName);
         }
+
+        [HttpGet, Route("most-purchased-courses")]
+        public async Task<List<Course>> GetMostPurchasedCourses()
+        {
+            return await _courseService.GetMostPurchasedCoursesAsync();
+        }
+
+        [HttpGet, Route("monthly-expense-revenue")]
+        public async Task<List<MonthlyAnalyticsDto>> GetMonthlyExpenseAndRevenue()
+        {
+            return await _courseService.GetMonthlyExpenseAndRevenueAsync();
+        }
     }
 }

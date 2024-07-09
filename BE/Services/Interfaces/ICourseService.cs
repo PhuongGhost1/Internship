@@ -20,6 +20,8 @@ namespace BE.Services.Interfaces
                 Task<List<Course>> GetAllCoursesByCategoryName(string cateName);
                 Task<Course?> SearchCourseByUserId(string userId);
                 Task<List<Course>> GetRecentRandomCourses(int numberOfCourses);
+                Task<List<Course>> GetMostPurchasedCoursesAsync();
+                Task<List<MonthlyAnalyticsDto>> GetMonthlyExpenseAndRevenueAsync();
 
                 //---------------------CRUD--------------------------//
                 Task<Course?> CreateCourse(CreateCourseDto createCourseDto);

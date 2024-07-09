@@ -95,6 +95,21 @@ namespace BE.Services.Implementations
             }
         }
 
+        public async Task<double?> GetPercentageChangeForInstructorAccountsLastMonthAsync()
+        {
+            return await _userRepo.GetPercentageChangeForInstructorAccountsLastMonth();
+        }
+
+        public async Task<double?> GetPercentageChangeForStudentAccountsLastMonthAsync()
+        {
+            return await _userRepo.GetPercentageChangeForStudentAccountsLastMonth();
+        }
+
+        public async Task<int?> CountAccountsByRoleForMonthAsync(string roleName, DateTime month)
+        {
+            return await _userRepo.CountAccountsByRoleForMonth(roleName, month);
+        }
+
         public async Task<User> GetUserByEmail(string email)
         {
             var user = await _userRepo.GetUserByEmail(email);

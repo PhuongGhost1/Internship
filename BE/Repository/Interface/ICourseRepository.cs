@@ -21,6 +21,8 @@ namespace BE.Repository.Interface
                 Task<List<Course>> FindCourseByCategoryName(string categoryName);
                 Task<Course?> SearchCourseByUserId(string userId);
                 Task<List<Course>> GetRecentRandomCourses(int numberOfCourses);
+                Task<List<Course>> GetMostPurchasedCourses();
+                Task<List<MonthlyAnalyticsDto>> GetMonthlyExpenseAndRevenue();
 
                 //---------------------CRUD--------------------------//
                 Task<Course?> CreateCourse(Course course);

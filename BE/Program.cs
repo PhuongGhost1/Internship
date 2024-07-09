@@ -200,7 +200,7 @@ app.UseHttpsRedirection();
 
 app.UseRequestResponseLoggingMiddleware();
 app.UseExceptionHandleMiddleware();
-app.UseAuthenticationMiddleware();
+//app.UseAuthenticationMiddleware();
 
 app.UseAuthentication();
 app.UseAuthorization();

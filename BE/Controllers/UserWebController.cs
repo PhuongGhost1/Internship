@@ -87,5 +87,33 @@ namespace BE.Controllers
         {
             return await _userService.GetUserStatisticsAsync();
         }
+
+        [CustomAuthorize("Admin")]
+        [HttpGet("count-total-student-monthly")]
+        public async Task<int?> CountAccountsByStudentRoleForMonthAsync()
+        {
+            return await _userService.CountAccountsByRoleForMonthAsync("Student", new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, 1));
+        }
+
+        [CustomAuthorize("Admin")]
+        [HttpGet("count-total-instructor-monthly")]
+        public async Task<int?> CountAccountsByInstructorForMonthAsync()
+        {
+            return await _userService.CountAccountsByRoleForMonthAsync("Instructor", new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, 1));
+        }
+
+        [CustomAuthorize("Admin")]
+        [HttpGet("get-instructor-percentage-changes-monthly")]
+        public async Task<double?> GetPercentageChangeForInstructorAccountsLastMonthAsync()
+        {
+            return await _userService.GetPercentageChangeForInstructorAccountsLastMonthAsync();
+        }
+
+        [CustomAuthorize("Admin")]
+        [HttpGet("get-student-percentage-changes-monthly")]
+        public async Task<double?> GetPercentageChangeForStudentAccountsLastMonthAsync()
+        {
+            return await _userService.GetPercentageChangeForStudentAccountsLastMonthAsync();
+        }
     }
 }
