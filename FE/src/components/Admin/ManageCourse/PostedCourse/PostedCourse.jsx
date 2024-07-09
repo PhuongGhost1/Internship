@@ -1,8 +1,6 @@
 import { useState } from "react";
 import './PostedCourse.css';
 import { Table, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'react-bootstrap';
-import { CiCircleMore } from "react-icons/ci";
-import { MdDeleteOutline } from "react-icons/md";
 import { FaSearch } from "react-icons/fa";
 import { FaInfoCircle } from "react-icons/fa";
 import {
@@ -12,7 +10,7 @@ import {
 } from "reactstrap";
 
 const DataTable = ({ data }) => {
-     const pageSize = 8;
+     const pageSize = 20;
      const [currentPage, setCurrentPage] = useState(1);
      const [courses, setCourses] = useState(data);
      const [dropdownOpen, setDropdownOpen] = useState(null);
@@ -87,7 +85,7 @@ const DataTable = ({ data }) => {
                                                                       key={i}
                                                                       src={contact}
                                                                       alt="contact"
-                                                                      style={{ width: '50px', height: '50px', borderRadius: '50%', margin: '0 5px' }}
+                                                                      style={{ width: '70px', height: '70px', borderRadius: '50%', margin: '0 5px' }}
                                                                  />
                                                             ))}
                                                        </td>
