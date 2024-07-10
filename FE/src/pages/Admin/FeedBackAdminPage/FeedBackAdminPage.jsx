@@ -14,8 +14,10 @@ export default function FeedBackAdminPage() {
                     <div className="SideBar-container">
                          <SideBar type='feedback' />
                     </div>
-                    <div className="FeedBack-container">
-                         <FeedBackAdmin />
+                    <div className="Layout-container">
+                         <div className="FeedBack-container">
+                              <FeedBackAdmin />
+                         </div>
                     </div>
                </div>
           </div>
