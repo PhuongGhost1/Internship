@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using static BE.Utils.Utils;
 using System.Globalization;
+using BE.Dto.ImageD;
 
 namespace BE.Repository.Implementations
 {
@@ -516,6 +517,79 @@ namespace BE.Repository.Implementations
             }
 
             return monthlyData;
+        }
+
+        public async Task<List<CourseManagementForAdminDto>> GetCourseManagementByAdmin()
+        {
+            var courses = await _context.Courses
+                                .Where(c => c.Status == 0 || c.Status == 1)
+                                .Select(c => new CourseManagementForAdminDto{
+                                    Id = c.Id,
+                                    Name = c.Name,
+                                    Username = c.User != null ? c.User.Username : null,
+                                    Phone = c.User != null ? c.User.Phone : null,
+                                    Email = c.User != null ? c.User.Email : null,
+                                    Status = c.Status,
+                                    CreateAt = c.CreateAt,
+                                    UpdateAt = c.UpdateAt,
+                                    WhatLearn = c.WhatLearn,
+                                    Images = c.Images
+                                                .OrderByDescending(i => i.CreatedAt)
+                                                .Select(i => new ImageForAdminDto{
+                                                    Id = i.Id,
+                                                    Url = i.Url,
+                                                    Type = i.Type,
+                                                    LastUpdated = i.CreatedAt 
+                                                })
+                                                .Take(1)
+                                                .ToList()
+                                }).ToListAsync();
+
+            return courses;
+        }
+
+        public async Task<List<CourseManagementForAdminDto>> GetCourseManagementForWaitingByAdmin()
+        {
+            var courses = await _context.Courses
+                                .Where(c => c.Status == 2)
+                                .Select(c => new CourseManagementForAdminDto{
+                                    Id = c.Id,
+                                    Name = c.Name,
+                                    Username = c.User != null ? c.User.Username : null,
+                                    Phone = c.User != null ? c.User.Phone : null,
+                                    Email = c.User != null ? c.User.Email : null,
+                                    Status = c.Status,
+                                    CreateAt = c.CreateAt,
+                                    UpdateAt = c.UpdateAt,
+                                    WhatLearn = c.WhatLearn,
+                                    Images = c.Images
+                                                .OrderByDescending(i => i.CreatedAt)
+                                                .Select(i => new ImageForAdminDto{
+                                                    Id = i.Id,
+                                                    Url = i.Url,
+                                                    Type = i.Type,
+                                                    LastUpdated = i.CreatedAt 
+                                                })
+                                                .Take(1)
+                                                .ToList()
+                                }).ToListAsync();
+
+            return courses;
+        }
+
+        public async Task<bool> UpdateCourseByAdmin(string courseId, int status)
+        {
+            var course = await _context.Courses.FindAsync(courseId);
+
+            if(course == null) return false;
+
+            course.Status = status;
+
+            _context.Courses.Update(course);
+
+            await _context.SaveChangesAsync();
+
+            return true;
         }
     }
 }

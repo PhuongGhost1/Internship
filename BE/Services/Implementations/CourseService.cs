@@ -206,5 +206,32 @@ namespace BE.Services.Implementations
 
             return chart;
         }
+
+        public async Task<List<CourseManagementForAdminDto>> GetCourseManagementByAdminAsync()
+        {
+            var courses = await _courseRepo.GetCourseManagementByAdmin();
+
+            if(courses == null || courses.Count == 0) return new List<CourseManagementForAdminDto>();
+
+            return courses;
+        }
+
+        public async Task<List<CourseManagementForAdminDto>> GetCourseManagementForWaitingByAdminAsync()
+        {
+            var courses = await _courseRepo.GetCourseManagementForWaitingByAdmin();
+
+            if(courses == null || courses.Count == 0) return new List<CourseManagementForAdminDto>();
+
+            return courses;
+        }
+
+        public async Task<bool> UpdateCourseByAdminAysnc(string courseId, int status)
+        {
+            var course = await _courseRepo.RetriveCourseInformationById(courseId);
+
+            if(course == null) throw new Exception("Unable to find course!");
+
+            return await _courseRepo.UpdateCourseByAdmin(courseId, status);
+        }
     }
 }

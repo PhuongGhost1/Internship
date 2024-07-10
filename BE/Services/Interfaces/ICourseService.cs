@@ -22,6 +22,9 @@ namespace BE.Services.Interfaces
                 Task<List<Course>> GetRecentRandomCourses(int numberOfCourses);
                 Task<List<Course>> GetMostPurchasedCoursesAsync();
                 Task<List<MonthlyAnalyticsDto>> GetMonthlyExpenseAndRevenueAsync();
+                Task<List<CourseManagementForAdminDto>> GetCourseManagementByAdminAsync();
+                Task<List<CourseManagementForAdminDto>> GetCourseManagementForWaitingByAdminAsync();
+                Task<bool> UpdateCourseByAdminAysnc(string courseId, int status);
 
                 //---------------------CRUD--------------------------//
                 Task<Course?> CreateCourse(CreateCourseDto createCourseDto);

@@ -171,5 +171,23 @@ namespace BE.Controllers
         {
             return await _courseService.GetMonthlyExpenseAndRevenueAsync();
         }
+
+        [HttpGet, Route("manage-courses")]
+        public async Task<List<CourseManagementForAdminDto>> TakeCourseManagementByAdmin()
+        {
+            return await _courseService.GetCourseManagementByAdminAsync();
+        }
+
+        [HttpGet, Route("manage-waiting-courses")]
+        public async Task<List<CourseManagementForAdminDto>> TakeCourseManagementForWaitingByAdmin()
+        {
+            return await _courseService.GetCourseManagementForWaitingByAdminAsync();
+        }
+
+        [HttpPut, Route("update-course-management")]
+        public async Task<bool> UpdateCourseByAdmin([FromForm] string courseId, [FromForm] int status)
+        {
+            return await _courseService.UpdateCourseByAdminAysnc(courseId, status);
+        }
     }
 }
