@@ -250,7 +250,7 @@ const ManageInstructor = () => {
                   onClick={() => handleStatusChange(instructor.id)}
                   disabled={updateInProgress}
                 >
-                  {instructor.isVisible === true ? <p>Active</p> : <p>Block</p>}
+                  {instructor.isVisible === true ? <p>Block</p> : <p>Active</p>}
                 </button>
               </td>
               <td className="action">
