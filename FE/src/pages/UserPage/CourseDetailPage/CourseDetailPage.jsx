@@ -12,40 +12,19 @@ import CoursesOutcomes from "../../../components/Courses/CoursesOutcomes/Courses
 import SliderCards from "../../../components/Items/SliderCards/SliderCards";
 import CoursesReview from "../../../components/Courses/CoursesReview/CoursesReview";
 
-import api from '../../../api/ApiService';
-import { useParams } from "react-router-dom";
-
 export default function CourseDetailPage() {
     const [isIn, setIsIn] = useState('about')
-    const [courseData, setCourseData] = useState(null)
     const [isOpenHeader, setIsOpenHeader] = useState(false)
     const aboutRef = useRef(null);
     const outcomesRef = useRef(null);
     const contentsRef = useRef(null)
     const recommendRef = useRef(null);
     const reviewRef = useRef(null);
-    const { courseName } = useParams();
 
     const scrollToSection = (sectionRef) => {
         const yOffset = -60;
         const yPosition = sectionRef.current.getBoundingClientRect().top + window.pageYOffset + yOffset;
         window.scrollTo({ top: yPosition, behavior: 'smooth' });
-    };
-
-
-
-    useEffect(() => {
-        fetchData();
-    }, []);
-
-    const fetchData = async () => {
-        try {
-            const data = await api.getCourseByName(courseName);
-            setCourseData(data)
-            console.log(data)
-        } catch (error) {
-            console.error("Error fetching course:", error);
-        }
     };
 
     useEffect(() => {
@@ -55,6 +34,7 @@ export default function CourseDetailPage() {
             threshold: 0, // Kích hoạt ngay khi phần tử chạm vào viewport
         };
 
+        let isAboveAboutRef = false;
 
         const handleIntersection = (entries) => {
             entries.forEach(entry => {
@@ -115,7 +95,7 @@ export default function CourseDetailPage() {
             <div className="courser-detail-container">
                 <div className="flex-container">
                     <div className="course-detail-learning-map-container">
-                        <CoursesDetail courseData={courseData} />
+                        <CoursesDetail />
                         <CoursesDetailBar
                             onAboutClick={() => { scrollToSection(aboutRef) }}
                             onOutcomesClick={() => { scrollToSection(outcomesRef) }}
@@ -126,7 +106,7 @@ export default function CourseDetailPage() {
                             isOpenHeader={isOpenHeader} />
                         <div ref={aboutRef}>
                         </div>
-                        <CoursesAbout courseData={courseData} />
+                        <CoursesAbout />
                     </div>
                     <div className="course-info-container">
                         <CoursesInfo />

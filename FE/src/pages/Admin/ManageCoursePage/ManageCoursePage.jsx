@@ -1,10 +1,8 @@
 import React from "react";
 import "./ManageCoursePage.css";
+import ManageCourse from "../../../components/Admin/ManageCourse/ManageCourse";
 import Header from "../../../components/Admin/Header/Header";
 import SideBar from "../../../components/Admin/SideBar/SideBar";
-import PostedCourse from "../../../components/Admin/ManageCourse/PostedCourse/PostedCourse";
-import CourseStatus from "../../../components/Admin/ManageCourse/CourseStatus/CourseStatus";
-import Angular_logo from "../../..//assets/Angular_logo.png";
 
 export default function ManageCoursePage() {
   const data = [
@@ -46,15 +44,11 @@ export default function ManageCoursePage() {
       </div>
       <div className="Layout">
         <div className="SideBar-container">
-          <SideBar type='managecourse' />
+          <SideBar />
         </div>
-
-        <div className="Layout_Status_Posted">
-          <div className="CourseStatus">
-            <CourseStatus data={data} />
-          </div>
-          <div className="PostedCourse">
-            <PostedCourse data={data} />
+        <div className="Layout-container">
+          <div className="ManageCourse-container">
+            <ManageCourse />
           </div>
         </div>
       </div>

@@ -49,7 +49,7 @@ const courseData = [
 export default function Statistics(){
     return(
         <div id="Statistics">
-          <h2>Most Purchased Course</h2>
+          <h2>Transactions</h2>
             {courseData.map((course, index) => (
                 <div key={index} className="course-item">
                     <div>

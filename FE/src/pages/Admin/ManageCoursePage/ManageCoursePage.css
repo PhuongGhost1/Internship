@@ -16,17 +16,6 @@
  #ManageCoursePage .Layout .SideBar-container{
      flex: 2;
  }
- #ManageCoursePage .Layout .Layout_Status_Posted {
+ #ManageCoursePage .Layout .Layout-container{
      flex:11;
 }
-#ManageCoursePage .Layout_Status_Posted{
-     display: flex;
-}
-#ManageCoursePage .Layout_Status_Posted .CourseStatus{
-     flex: 6;
-}
-#ManageCoursePage .Layout_Status_Posted .PostedCourse{
-     flex: 6;
-}
-
-
