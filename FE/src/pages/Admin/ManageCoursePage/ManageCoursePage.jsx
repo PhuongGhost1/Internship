@@ -1,8 +1,10 @@
 import React from "react";
 import "./ManageCoursePage.css";
-import ManageCourse from "../../../components/Admin/ManageCourse/ManageCourse";
+import PostedCourse from "../../../components/Admin/ManageCourse/PostedCourse/PostedCourse";
+import CourseStatus from "../../../components/Admin/ManageCourse/CourseStatus/CourseStatus";
 import Header from "../../../components/Admin/Header/Header";
 import SideBar from "../../../components/Admin/SideBar/SideBar";
+import Angular_logo from "../../..//assets/Angular_logo.png";
 
 export default function ManageCoursePage() {
 
@@ -35,6 +37,7 @@ export default function ManageCoursePage() {
     { id: 26, name: "Steuber, Yundt and Torp", owner: "Creed Bratton", status: "Cancel", contacts: [Angular_logo], description: "AngularJS is a powerful web application framework. It is a very useful tool for web developers who want to use web applications in a variety of scenarios. AngularJS can also be used to create HTML pages in different ways. I just wanted to eat some fish. ", price: "340", rating: "4.7" },
     { id: 27, name: "Weimann - Shanahan", owner: "Ryan Howard", status: "Active", contacts: [Angular_logo], description: "AngularJS is a powerful web application framework. It is a very useful tool for web developers who want to use web applications in a variety of scenarios. AngularJS can also be used to create HTML pages in different ways. I just wanted to eat some fish. ", price: "350", rating: "4.8" }
   ];
+
   return (
     <div id="ManageCoursePage">
       <div className="Header-Admin">
@@ -42,11 +45,15 @@ export default function ManageCoursePage() {
       </div>
       <div className="Layout">
         <div className="SideBar-container">
-          <SideBar />
+          <SideBar type='managecourse' />
         </div>
-        <div className="Layout-container">
-          <div className="ManageCourse-container">
-            <ManageCourse />
+
+        <div className="Layout_Status_Posted">
+          <div className="CourseStatus">
+            <CourseStatus data={data} />
+          </div>
+          <div className="PostedCourse">
+            <PostedCourse data={data} />
           </div>
         </div>
       </div>
