@@ -18,6 +18,7 @@ namespace BE.Controllers
         }
 
         [HttpGet]
+        
         public async Task<ActionResult<IEnumerable<Permisson>>> GetAllPermissons()
         {
             var permissons = await _permissonService.GetAllPermissonsAsync();
