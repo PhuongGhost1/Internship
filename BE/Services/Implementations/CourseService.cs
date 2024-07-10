@@ -185,12 +185,26 @@ namespace BE.Services.Implementations
 
         public async Task<List<Course>> GetMostPurchasedCoursesAsync()
         {
-            return await _courseRepo.GetMostPurchasedCourses();
+            var courses = await _courseRepo.GetMostPurchasedCourses();
+
+            if (courses == null || courses.Count == 0)
+            {
+                return new List<Course>();
+            }
+
+            return courses;
         }
 
         public async Task<List<MonthlyAnalyticsDto>> GetMonthlyExpenseAndRevenueAsync()
         {
-            return await _courseRepo.GetMonthlyExpenseAndRevenue();
+            var chart = await _courseRepo.GetMonthlyExpenseAndRevenue();
+            
+            if (chart == null || chart.Count == 0)
+            {
+                return new List<MonthlyAnalyticsDto>();
+            }
+
+            return chart;
         }
     }
 }

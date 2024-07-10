@@ -242,5 +242,23 @@ namespace BE.Services.Implementations
                 throw new Exception(e.Message);
             }
         }
+
+        public async Task<List<UserInfoManageByAdminDto>> GetInstructorsAsync()
+        {
+            var result = await _userRepo.GetInstructors();
+
+            if(result == null || result.Count == 0) return new List<UserInfoManageByAdminDto>();
+
+            return result;
+        }
+
+        public async Task<bool> UpdateUserStatusAsync(string userId)
+        {
+            var user = await _userRepo.GetUserById(userId);
+
+            if(user == null) throw new Exception("Unable to find user!");
+
+            return await _userRepo.UpdateUserStatus(userId);
+        }
     }
 }

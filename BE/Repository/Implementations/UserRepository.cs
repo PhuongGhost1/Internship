@@ -1,3 +1,11 @@
+using BE.Dto.Course;
+using BE.Dto.ImageD;
+using BE.Dto.Notification;
+using BE.Dto.Payment;
+using BE.Dto.Payment.CartCourse;
+using BE.Dto.Payment.PaymentCourse;
+using BE.Dto.Role;
+using BE.Dto.RoleUser;
 using BE.Dto.User;
 using BE.Models;
 using BE.Repository.Interface;
@@ -140,12 +148,15 @@ namespace BE.Repository.Implementations
             var currentMonthCount = await CountAccountsByRoleForMonth(roleName, currentMonth);
             var previousMonthCount = await CountAccountsByRoleForMonth(roleName, previousMonth);
 
-            if (previousMonthCount == 0) return currentMonthCount > 0 ? 100 : (double?)null;
+            if (previousMonthCount == 0) return currentMonthCount > 0 ? 100 : 0;
 
-            if (currentMonthCount == null || previousMonthCount == null) return null;
+            if (currentMonthCount == null || previousMonthCount == null) return 0;
 
             var percentageChange = ((currentMonthCount.Value - previousMonthCount.Value) / (double)previousMonthCount.Value) * 100;
-            return percentageChange;
+            
+            var formattedPercentageChange = Math.Round(percentageChange, 2);
+
+            return formattedPercentageChange;
         }
 
         public async Task<double?> GetPercentageChangeForStudentAccountsLastMonth()
@@ -176,6 +187,132 @@ namespace BE.Repository.Implementations
                                             .Where(u => u.CreateAt >= startOfMonth && u.CreateAt <= endOfMonth)
                                             .CountAsync();
             return accountCount;
+        }
+
+        public async Task<List<UserInfoManageByAdminDto>> GetInstructors()
+        {
+            var instructors = await _context.Users
+                .Where(u => u.RoleUsers.Any(ru => ru.Role.Name == "Instructor"))
+                .Select(u => new UserInfoManageByAdminDto
+                {
+                    Id = u.Id,
+                    Email = u.Email,
+                    Name = u.Username,
+                    IsVisible = u.IsVisible,
+                    Images = u.Images
+                                    .Where(i => i.UserId == u.Id)
+                                    .OrderByDescending(i => i.CreatedAt)
+                                    .Select(i => new ImageForAdminDto
+                                    {
+                                        Id = i.Id,
+                                        Url = i.Url,
+                                        Type = i.Type,
+                                        LastUpdated = i.CreatedAt
+                                    })
+                                    .Take(1)
+                                    .ToList(),
+                    Phone = u.Phone,
+                    CreateAt = u.CreateAt,
+                    Description = u.Description,
+                    RoleUsers = u.RoleUsers.Select(ru => new RoleUserDto
+                    {
+                        Roles = new List<RoleDto>
+                        {
+                            new RoleDto { Name = ru.Role.Name }
+                        }
+                    }).ToList(),
+                    Notifications = u.NotificationReceiveds.Select(n => new NotificationDto
+                    {
+                        Description = n.Description,
+                        DateUp = n.DateUp,
+                        Type = n.Type,
+                        Course = n.Course != null ? new CourseForAdminDto
+                        {
+                            Id = n.Course.Id,
+                            Name = n.Course.Name,
+                            Rating = n.Course.Rating,
+                            Price = n.Course.Price,
+                            Images = n.Course.Images
+                                    .OrderByDescending(i => i.CreatedAt)
+                                    .Select(i => new ImageForAdminDto
+                                    {
+                                        Id = i.Id,
+                                        Url = i.Url,
+                                        Type = i.Type,
+                                        LastUpdated = i.CreatedAt
+                                    })
+                                    .Take(1)
+                                    .ToList()
+                        } : null
+                    }).ToList(),
+                    Courses = u.Courses.Select(c => new CourseForAdminDto
+                    {
+                        Id = c.Id,
+                        Name = c.Name,
+                        Rating = c.Rating,
+                        Price = c.Price,
+                        Images = c.Images
+                                    .OrderByDescending(i => i.CreatedAt)
+                                    .Select(i => new ImageForAdminDto
+                                    {
+                                        Id = i.Id,
+                                        Url = i.Url,
+                                        Type = i.Type,
+                                        LastUpdated = i.CreatedAt
+                                    })
+                                    .Take(1)
+                                    .ToList()
+                    }).ToList(),
+                    Payments = u.Payments.Select(p => new PaymentDto
+                    {
+                        PaymentCourses = p.PaymentCourses.Select(pc => new PaymentCourseDto
+                        {
+                            CartCourseDto = pc.Cartcourse != null ? new CartCourseDto {
+                                CourseForAdminDto = pc.Cartcourse.Course != null ? new CourseForAdminDto
+                                {
+                                    Id = pc.Cartcourse.Course.Id,
+                                    Name = pc.Cartcourse.Course.Name,
+                                    Rating = pc.Cartcourse.Course.Rating,
+                                    Price = pc.Cartcourse.Course.Price,
+                                    Images = pc.Cartcourse.Course.Images
+                                                .OrderByDescending(i => i.CreatedAt)
+                                                .Select(i => new ImageForAdminDto
+                                                {
+                                                    Id = i.Id,
+                                                    Url = i.Url,
+                                                    Type = i.Type,
+                                                    LastUpdated = i.CreatedAt
+                                                })
+                                                .Take(1)
+                                                .ToList()
+                                    } : null
+                            } : null
+                        }).ToList(),
+                        Total = p.Total
+                    }).ToList()
+                })
+                .ToListAsync();
+
+            return instructors;
+        }
+
+        public async Task<bool> UpdateUserStatus(string userId)
+        {
+            var user = await _context.Users.FindAsync(userId);
+
+            if(user == null) return false;
+
+            if(user.IsVisible == true){
+                user.IsVisible = false;
+            }else{
+                user.IsVisible = true;
+            }
+            
+            _context.Users.Update(user);
+
+            await _context.SaveChangesAsync();
+
+            return true;
         }
     }
 }

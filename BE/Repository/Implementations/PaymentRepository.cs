@@ -49,13 +49,12 @@ namespace BE.Repository.Implementations
                                                 .Select(pay => pay.Total)
                                                 .SumAsync();
 
-            if (previousMonthTotal == 0)
-            {
-                return currentMonthTotal > 0 ? 100 : 0;
-            }
+            if (previousMonthTotal == 0) return currentMonthTotal > 0 ? 100 : 0;
 
             var percentageChange = ((currentMonthTotal.Value - previousMonthTotal.Value) / (double)previousMonthTotal.Value) * 100;
-            return percentageChange;
+
+            var formattedPercentageChange = Math.Round(percentageChange, 2);
+            return formattedPercentageChange;
         }
 
         public async Task<int?> GetTotalPricesForCurrentWeek()
@@ -92,18 +91,14 @@ namespace BE.Repository.Implementations
             var currentWeekTotal = await GetTotalPricesForCurrentWeek();
             var previousWeekTotal = await GetTotalPricesForPreviousWeek();
 
-            if (previousWeekTotal == 0)
-            {
-                return currentWeekTotal > 0 ? 100 : (double?)null;
-            }
+            if (previousWeekTotal == 0) return currentWeekTotal > 0 ? 100 : 0;
 
-            if (currentWeekTotal == null || previousWeekTotal == null)
-            {
-                return null;
-            }
+            if (currentWeekTotal == null || previousWeekTotal == null) return 0;
 
             var percentageChange = ((currentWeekTotal.Value - previousWeekTotal.Value) / (double)previousWeekTotal.Value) * 100;
-            return percentageChange;
+
+            var formattedPercentageChange = Math.Round(percentageChange, 2);
+            return formattedPercentageChange;
         }
     }
 }

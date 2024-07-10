@@ -18,25 +18,25 @@ namespace BE.Controllers
             _payService = payService;
         }
 
-        [CustomAuthorize("Admin")]
-        [HttpGet, Route($"total-prices-single-month")]
+        //[CustomAuthorize("Admin")]
+        [HttpGet, Route("total-prices-single-month")]
         public async Task<int?> GetTotalPricesForSingleMonthAsync(){
             return await _payService.GetTotalPricesForSingleMonthAsync();
         }
 
-        [CustomAuthorize("Admin")]
+        //[CustomAuthorize("Admin")]
         [HttpGet, Route("get-current-monthly-changes")]
         public async Task<double?> GetPercentageChangeForCurrentMonthAsync(){
             return await _payService.GetPercentageChangeForCurrentMonthAsync();
         }
 
-        [CustomAuthorize("Admin")]
+        //[CustomAuthorize("Admin")]
         [HttpGet, Route("total-prices-single-week")]
         public async Task<double?> GetTotalPricesForCurrentWeekAsync(){
             return await _payService.GetTotalPricesForCurrentWeekAsync();
         }
 
-        [CustomAuthorize("Admin")]
+        //[CustomAuthorize("Admin")]
         [HttpGet, Route("get-current-weekly-changes")]
         public async Task<double?> GetPercentageChangeForCurrentWeekAsync(){
             return await _payService.GetPercentageChangeForCurrentWeekAsync();

@@ -18,5 +18,7 @@ namespace BE.Repository.Interface
         Task<double?> GetPercentageChangeForStudentAccountsLastMonth();
         Task<double?> GetPercentageChangeForInstructorAccountsLastMonth();
         Task<int?> CountAccountsByRoleForMonth(string roleName, DateTime month);
+        Task<List<UserInfoManageByAdminDto>> GetInstructors();
+        Task<bool> UpdateUserStatus(string userId);
     }
 }
