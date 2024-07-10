@@ -177,6 +177,50 @@ const ApiService = {
       throw error;
     }
   },
+  getCourseManagementByAdmin: async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:5144/api/v1/web/course/manage-courses"
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching get courses info:", error);
+      throw error;
+    }
+  },
+  getCourseManagementForWaitingByAdmin: async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:5144/api/v1/web/course/manage-waiting-courses"
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching get waiting courses info:", error);
+      throw error;
+    }
+  },
+  updateCourseByAdmin: async (courseId, status) => {
+    try {
+      const formData = new FormData();
+      formData.append("courseId", courseId);
+      formData.append("status", status);
+
+      const response = await axios.put(
+        "http://localhost:5144/api/v1/web/course/update-course-management",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      console.error("Error updating status:", error);
+      throw error;
+    }
+  },
 };
 
 export default ApiService;
