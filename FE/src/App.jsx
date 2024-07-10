@@ -22,6 +22,7 @@ import ManageStudentPage from './pages/Admin/ManageStudentPage/ManageStudentPage
 import ManageCoursePage from './pages/Admin/ManageCoursePage/ManageCoursePage';
 import RequestsPage from './pages/Admin/RequestsPage/RequestsPage';
 import SettingPage from './pages/Admin/SettingPage/SettingPage';
+import CreateCoursePage from './pages/InstructorPage/CreateCourse/CreateCoursePage';
 
 function App() {
      return (
@@ -37,6 +38,7 @@ function App() {
                     <Route path='/courses'>
                          <Route path=':courseName' element={<CourseDetailPage />} />
                          <Route path='learning/:courseType/:itemName' element={<CourseLearning />} />
+                         <Route path='create/:courseName' element={<CreateCoursePage />} />
                     </Route>
                     <Route path='/student'>
                          <Route path='profile' element={<StudentProfilePage />} />
