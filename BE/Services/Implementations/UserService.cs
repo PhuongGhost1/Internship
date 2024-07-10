@@ -243,9 +243,9 @@ namespace BE.Services.Implementations
             }
         }
 
-        public async Task<List<UserInfoManageByAdminDto>> GetInstructorsAsync()
+        public async Task<List<UserInfoManageByAdminDto>> GetUserRoleAsync(string roleName)
         {
-            var result = await _userRepo.GetInstructors();
+            var result = await _userRepo.GetInstructors(roleName);
 
             if(result == null || result.Count == 0) return new List<UserInfoManageByAdminDto>();
 

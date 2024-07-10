@@ -189,10 +189,10 @@ namespace BE.Repository.Implementations
             return accountCount;
         }
 
-        public async Task<List<UserInfoManageByAdminDto>> GetInstructors()
+        public async Task<List<UserInfoManageByAdminDto>> GetInstructors(string roleName)
         {
             var instructors = await _context.Users
-                .Where(u => u.RoleUsers.Any(ru => ru.Role.Name == "Instructor"))
+                .Where(u => u.RoleUsers.Any(ru => ru.Role.Name == roleName))
                 .Select(u => new UserInfoManageByAdminDto
                 {
                     Id = u.Id,

@@ -19,7 +19,7 @@ namespace BE.Services.Interfaces
         Task<double?> GetPercentageChangeForStudentAccountsLastMonthAsync();
         Task<double?> GetPercentageChangeForInstructorAccountsLastMonthAsync();
         Task<int?> CountAccountsByRoleForMonthAsync(string roleName, DateTime month);
-        Task<List<UserInfoManageByAdminDto>> GetInstructorsAsync();
+        Task<List<UserInfoManageByAdminDto>> GetUserRoleAsync(string roleName);
         Task<bool> UpdateUserStatusAsync(string userId);
     }
 }

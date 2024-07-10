@@ -125,7 +125,13 @@ namespace BE.Controllers
         [HttpGet, Route("get-instructors")]
         public async Task<List<UserInfoManageByAdminDto>> GetInstructorsAsync()
         {
-            return await _userService.GetInstructorsAsync();
+            return await _userService.GetUserRoleAsync("Instructor");
+        }
+
+        [HttpGet, Route("get-students")]
+        public async Task<List<UserInfoManageByAdminDto>> GetStudentAsync()
+        {
+            return await _userService.GetUserRoleAsync("Student");
         }
     }
 }
