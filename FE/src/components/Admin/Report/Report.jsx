@@ -14,7 +14,7 @@ import { SiGmail } from "react-icons/si";
 import IntructorIMG from "../../../assets/IntructorIMG.png";
 import IntructorIMG2 from "../../../assets/IntructorIMG2.png";
 import IntructorIMG3 from "../../../assets/IntructorIMG3.png";
-import Error from "../../../assets/error";
+import Error from "../../../assets/error.png";
 
 const initialError = [
   {
