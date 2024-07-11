@@ -80,35 +80,35 @@ export default function SideBar({ type }) {
                     <li className={`menu-item ${activeItem === "course" ? "active" : ""}`}>
                          <span onClick={() => handleItemClick("course")}>
                               <a href="/admin/course">
-                                   <SiCoursera className="course" /> &nbsp;Course management
+                                   <SiCoursera className="course" />&nbsp;Course management
                               </a>
                          </span>
                     </li>
                     <li className={`menu-item ${activeItem === "requests" ? "active" : ""}`}>
                          <span onClick={() => handleItemClick("requests")}>
                               <a href="/admin/requests">
-                                   <IoGitPullRequestSharp className="requests" /> &nbsp;Requests
+                                   <IoGitPullRequestSharp className="requests" />&nbsp;Requests
                               </a>
                          </span>
                     </li>
                     <li className={`menu-item ${activeItem === "report" ? "active" : ""}`}>
                          <span onClick={() => handleItemClick("report")}>
                               <a href="/admin/report">
-                                   <TbReportAnalytics  className="report" /> &nbsp;Report
+                                   <TbReportAnalytics  className="report" />&nbsp;Report
                               </a>
                          </span>
                     </li>
                     <li className={`menu-item ${activeItem === "feedback" ? "active" : ""}`}>
                          <span onClick={() => handleItemClick("feedback")}>
                               <a href="/admin/feedback">
-                                   <VscFeedback  className="feedback" /> &nbsp;Feedback
+                                   <VscFeedback  className="feedback" />&nbsp;Feedback
                               </a>
                          </span>
                     </li>
                     <li className={`menu-item ${activeItem === "setting" ? "active" : ""}`}>
                          <span onClick={() => handleItemClick("setting")}>
                               <a href="/admin/setting">
-                                   <IoSettingsSharp className="setting" /> &nbsp;Setting
+                                   <IoSettingsSharp className="setting" />&nbsp;Setting
                               </a>
                          </span>
                     </li>
