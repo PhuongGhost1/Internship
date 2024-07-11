@@ -12,17 +12,16 @@
 #management-course .search-bar {
   display: flex;
   position: relative;
+  text-align: left;
   justify-content: flex-end;
-  margin: 10px 0;
 }
-
 
 #management-course .search-bar input {
   width: 300px;
+  height: 40px;
   border: 1px solid #ccc;
   border-radius: 20px;
   font-size: 12px;
-  padding-left: 10px;
 }
 
 #management-course .search-bar svg {
@@ -73,7 +72,6 @@
 
 #management-course .table-info th {
   padding: 15px 10px;
-  background-color: #eeeeee;
 }
 
 #management-course .table-info {
@@ -88,7 +86,6 @@
   vertical-align: middle;
   padding: 15px 0px;
   padding-left: 10px;
-
 }
 
 #management-course .name {
@@ -136,35 +133,230 @@
   font-weight: bold;
 }
 
-.content-popup {
-  font-size: 16px;
+#management-course .popup {
+  width: 0px;
+  height: 100vh;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: white;
+  z-index: 2;
+  transition: all 0.5s ease;
+  overflow: hidden;
+  padding: 60px 0 0 0;
 }
 
-.courseName {
+#management-course .popup .cross {
+  font-size: 28px;
+  cursor: pointer;
+  border-bottom: 1px solid #eeeeee;
   display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+}
+
+#management-course .popup.open {
+  width: 600px;
+}
+
+#management-course .blur-popup {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+#management-course .popup .popup-container {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+}
+
+#management-course .popup .popup-container .popup-info {
+  display: flex;
+  align-items: center;
+}
+
+#management-course .popup .popup-container .popup-info-image {
+  margin-right: 20px;
+}
+
+#management-course .popup .popup-container .popup-info img {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  object-position: center;
+}
+
+#management-course .popup .popup-container .popup-info .popup-info-title {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
+}
+
+#management-course .popup .popup-container .popup-info .popup-info-title h2 {
+  font-size: 22px;
   font-weight: bold;
+  margin: 0;
+}
+
+#management-course .popup .popup-container .popup-info .popup-info-title2 {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: grey;
+  margin-top: 5px;
+}
+
+#management-course .popup .popup-container .popup-info .popup-info-title2 p {
+  margin: 0 10px 0 0;
+}
+
+#management-course .popup .popup-container .popup-info .popup-info-title2 svg {
+  font-size: 10px;
+  margin: 0 10px;
+}
+
+#management-course .popup .popup-container .popup-status {
+  display: flex;
+  margin-top: 20px;
+  justify-content: space-between;
+}
+
+#management-course .popup .popup-container .popup-status .popup-statuss {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+#management-course .popup .popup-container .popup-status svg {
+  margin-right: 10px;
+}
+
+#management-course .popup .popup-container .popup-contact {
+  display: flex;
+  margin-top: 20px;
+  justify-content: space-between;
+}
+
+#management-course .popup .popup-container .popup-contact .popup-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 10px;
+  border: 1px solid grey;
+  border-radius: 10px;
+  margin-right: 10px;
+  flex-grow: 1;
+  width: 292px;
+}
+
+#management-course .popup .popup-container .popup-contact .popup-card svg {
+  margin-right: 10px;
   font-size: 20px;
 }
 
-.course-status-active {
-  font-style: italic;
+#management-course .popup .popup-container .details {
+  margin-top: 50px;
+  border-top: 1px solid #dad9d9;
+  padding-top: 20px;
+}
+
+#management-course .popup .popup-container .details h3 {
   font-weight: bold;
-  color: green;
+  margin-bottom: 20px;
 }
 
-.course-status-cancel {
-  font-style: italic;
-  font-weight: bold;
-  color: red;
+#management-course .popup .popup-container .details .nav-bar {
+  display: flex;
 }
 
-.content-popup svg {
-  margin-bottom: 5px;
-  font-size: 22px;
-  color: rgb(247, 163, 9);
+#management-course .popup .popup-container .details .nav-bar .tag {
+  margin-right: 20px;
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 5px;
+  cursor: pointer;
 }
 
-.des {
-  text-align: justify;
+#management-course
+  .popup
+  .popup-container
+  .details
+  .nav-bar
+  .tag.active::before {
+  position: absolute;
+  width: 100%;
+  height: 5px;
+  content: "";
+  bottom: 0;
+  left: 0;
+  background-color: rgb(255 145 76);
+}
+
+#management-course .popup .popup-container .details .nav-bar .tag.active {
+  color: rgb(255 145 76);
+}
+
+#management-course .popup-course {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  overflow-y: auto;
+  max-height: 400px;
+}
+
+#management-course .popup-course .course-card .course-icon {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+#management-course .popup-course .course-card .course-icon .course-icon-item {
+  display: flex;
+  margin-right: 20px;
+  align-items: center;
+}
+
+#management-course .popup-course .course-card .course-icon .course-icon-item p {
+  margin-left: 6px;
+  font-size: 14px;
+  color: #4b4b4b;
+}
+
+/* Payment History*/
+#management-course .popup-payment {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  overflow-y: auto;
+  max-height: 400px;
+}
+
+#management-course .popup-payment .payment-history {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#management-course .popup-payment .payment-history .payment-item {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+#management-course .popup-payment .payment-history .payment-item p {
+  margin: 0;
+  font-size: 14px;
+}
+
+#management-course .popup-payment .payment-history .payment-item span {
+  color: var(--light-orange);
 }

@@ -22,7 +22,6 @@ export default function PersonalDetail() {
     const [isOpenEdit, setIsOpenEdit] = useState(false);
     const [isOpenAddInfo, setIsOpenAddInfo] = useState(false);
     const [photo, setPhoto] = useState(null);
-    const [error, setError] = useState(null);
 
     useEffect(() => {
         if (isOpenVisible, isOpenEdit, isOpenAddInfo) {
@@ -39,26 +38,12 @@ export default function PersonalDetail() {
     const handlePhotoChange = (event) => {
         const file = event.target.files[0];
         if (file) {
-            if (validateFile(file)) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    setPhoto(e.target.result);
-                    setError(null);
-                };
-                reader.readAsDataURL(file);
-            } else {
-                setError("Invalid file format or size. Please upload a file of type JPG, GIF, or PNG and maximum size 1MB.");
-            }
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                setPhoto(e.target.result);
+            };
+            reader.readAsDataURL(file);
         }
-    };
-
-    const validateFile = (file) => {
-        const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
-        const maxSizeMB = 2;
-        if (allowedTypes.includes(file.type) && file.size <= maxSizeMB * 1024 * 1024) {
-            return true;
-        }
-        return false;
     };
 
     const handleIconClick = () => {
