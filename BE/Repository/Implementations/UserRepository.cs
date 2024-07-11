@@ -314,5 +314,46 @@ namespace BE.Repository.Implementations
 
             return true;
         }
+
+        public async Task<List<FeedbackRequestDto>> GetFeedbacksManagementByAdmin()
+        {
+            var feedback = await _context.Feedbacks
+                                        .Select(f => new FeedbackRequestDto{
+                                            Id = f.Id,
+                                            Title = f.Title,
+                                            Description = f.Description,
+                                            IsRead = f.IsRead,
+                                            UserRequest = new UserRequestManagementByAdminDto{
+                                                Id = f.User.Id,
+                                                Username = f.User.Username,
+                                                Email = f.User.Email,
+                                                Password = f.User.Password,
+                                                Description = f.User.Description,
+                                                Phone = f.User.Phone,
+                                                CreateAt = f.User.CreateAt,
+                                                Images = f.User.Images
+                                                            .Where(i => i.UserId == f.User.Id)
+                                                            .OrderByDescending(i => i.CreatedAt)
+                                                            .Select(i => new ImageForAdminDto
+                                                            {
+                                                                Id = i.Id,
+                                                                Url = i.Url,
+                                                                Type = i.Type,
+                                                                LastUpdated = i.CreatedAt
+                                                            })
+                                                            .Take(1)
+                                                            .ToList(),
+                                                RoleUserReqs = f.User.RoleUsers.Select(ru => new RoleUserRequestDto
+                                                                {
+                                                                    Id = ru.Id,
+                                                                    RoleId = ru.RoleId,
+                                                                    UserId = ru.UserId,
+                                                                    Status = ru.Status
+                                                                }).ToList(),
+                                            }      
+                                        }).ToListAsync();
+
+            return feedback;
+        }
     }
 }

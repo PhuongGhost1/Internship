@@ -20,5 +20,6 @@ namespace BE.Repository.Interface
         Task<int?> CountAccountsByRoleForMonth(string roleName, DateTime month);
         Task<List<UserInfoManageByAdminDto>> GetInstructors(string roleName);
         Task<bool> UpdateUserStatus(string userId);
+        Task<List<FeedbackRequestDto>> GetFeedbacksManagementByAdmin();
     }
 }

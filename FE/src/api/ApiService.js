@@ -221,6 +221,61 @@ const ApiService = {
       throw error;
     }
   },
+  getRequestBecomeInstructorManagementByAdmin: async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:5144/api/v1/web/user/get-request-feedbacks"
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching get waiting courses info:", error);
+      throw error;
+    }
+  },
+  updateUserToBecomeInstructorByAdmin: async (userId, status) => {
+    try {
+      const formData = new FormData();
+      formData.append("userId", userId);
+      formData.append("status", status);
+
+      const response = await axios.post(
+        "http://localhost:5144/api/v1/web/role-user/request-roleUser",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      console.error("Error updating status:", error);
+      throw error;
+    }
+  },
+  UpdateRequestRoleUserByAdmin: async (userId, status) => {
+    try {
+      const formData = new FormData();
+      formData.append("userId", userId);
+      formData.append("status", status);
+
+      const response = await axios.post(
+        "http://localhost:5144/api/v1/web/role-user/update-request-roleUser",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      console.error("Error updating status:", error);
+      throw error;
+    }
+  },
 };
 
 export default ApiService;

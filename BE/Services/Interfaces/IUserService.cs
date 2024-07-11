@@ -21,5 +21,6 @@ namespace BE.Services.Interfaces
         Task<int?> CountAccountsByRoleForMonthAsync(string roleName, DateTime month);
         Task<List<UserInfoManageByAdminDto>> GetUserRoleAsync(string roleName);
         Task<bool> UpdateUserStatusAsync(string userId);
+        Task<List<FeedbackRequestDto>> GetFeedbacksManagementByAdminAsync();
     }
 }

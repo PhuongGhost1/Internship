@@ -133,5 +133,11 @@ namespace BE.Controllers
         {
             return await _userService.GetUserRoleAsync("Student");
         }
+
+        [HttpGet, Route("get-request-feedbacks")]
+        public async Task<List<FeedbackRequestDto>> GetFeedbacksManagementByAdminAsync()
+        {
+            return await _userService.GetFeedbacksManagementByAdminAsync();
+        }
     }
 }

@@ -260,5 +260,14 @@ namespace BE.Services.Implementations
 
             return await _userRepo.UpdateUserStatus(userId);
         }
+
+        public async Task<List<FeedbackRequestDto>> GetFeedbacksManagementByAdminAsync()
+        {
+            var feedback = await _userRepo.GetFeedbacksManagementByAdmin();
+
+            if(feedback == null || feedback.Count == 0) return new List<FeedbackRequestDto>();
+
+            return feedback;
+        }
     }
 }

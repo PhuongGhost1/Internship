@@ -18,11 +18,9 @@ namespace BE.Services.Implementations
 
 
         //---------------------CRUD--------------------------//
-        public async Task<RoleUser?> CreateRoleUser(string userId, CreateRoleUserDto createRoleUserDto)
+        public async Task<RoleUser?> CreateRoleUser(CreateRoleUserDto createRoleUserDto)
         {
-            var user = await _userRepo.GetUserById(userId);
-
-            if(user == null) throw new Exception("Unable to find user!");
+            if(createRoleUserDto == null) throw new Exception("Unable to find role User!");
 
             var createRoleUser = createRoleUserDto.ToCreateRoleUser();
 
@@ -38,6 +36,24 @@ namespace BE.Services.Implementations
             if(roleUser == null) throw new Exception("Unable to find role-user!");
 
             return await _roleUserRepo.DeleteRoleUser(roleUserId);
+        }
+
+        public async Task<bool> RequestForRoleUserAsync(string userId, string roleName)
+        {
+            var user = await _userRepo.GetUserById(userId);
+
+            if(user == null) throw new Exception("Unable to find user!");
+
+            return await _roleUserRepo.RequestForRoleUser(userId, roleName);
+        }
+
+        public async Task<bool> UpdateRequestForRoleUserAsync(string userId, int status)
+        {
+            var user = await _userRepo.GetUserById(userId);
+
+            if(user == null) throw new Exception("Unable to find user!");
+
+            return await _roleUserRepo.UpdateRequestForRoleUser(userId, status);
         }
 
         public async Task<RoleUser?> UpdateRoleUser(string roleUserId, UpdateRoleUserDto updateRoleUserDto)

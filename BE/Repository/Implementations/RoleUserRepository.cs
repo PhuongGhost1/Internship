@@ -1,6 +1,9 @@
+using BE.Dto.RoleUser;
+using BE.Dto.User;
 using BE.Models;
 using BE.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
+using static BE.Utils.Utils;
 
 namespace BE.Repository.Implementations
 {
@@ -55,6 +58,50 @@ namespace BE.Repository.Implementations
             _context.RoleUsers.Update(roleUser);
             await _context.SaveChangesAsync();
             return roleUser;
+        }
+
+        public async Task<bool> RequestForRoleUser(string userId, string roleName)
+        {
+            var roleId = await _context.Roles.Where(r => r.Name == roleName).Select(r => r.Id).FirstOrDefaultAsync();
+
+            if(roleId == null) return false;
+
+            var request = new RoleUser{
+                Id = GenerateIdModel("roleuser"),
+                UserId = userId,
+                RoleId = roleId,
+                Status = 0
+            };
+
+            await _context.RoleUsers.AddAsync(request);
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<bool> UpdateRequestForRoleUser(string userId, int status)
+        {
+            var roleId = await _context.Roles.Where(r => r.Name == "Student").Select(r => r.Id).FirstOrDefaultAsync();
+
+            var roleUser = await _context.RoleUsers
+                                        .Where(ru => ru.UserId == userId && ru.RoleId == roleId)
+                                        .FirstOrDefaultAsync();
+
+            if(roleUser == null) return false;
+
+            var feedback = await _context.Feedbacks.Where(f => f.UserId == userId).FirstOrDefaultAsync();
+
+            if(feedback == null) return false;
+
+            roleUser.Status = status;
+            feedback.IsRead = true;
+            roleUser.UpdateDate = DateTime.UtcNow;
+
+            _context.RoleUsers.Update(roleUser);
+            _context.Feedbacks.Update(feedback);
+            await _context.SaveChangesAsync();
+
+            return true;
         }
     }
 }

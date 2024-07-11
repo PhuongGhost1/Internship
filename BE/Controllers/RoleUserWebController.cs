@@ -28,8 +28,8 @@ namespace BE.Controllers
         [CustomAuthorize("Super Admin")]
         [HttpPost]
         [Route("create-roleUser")]
-        public async Task<RoleUser?> CreateRoleUser([FromForm] string userId, [FromForm] CreateRoleUserDto createRoleUserDto){
-            return await _roleUserService.CreateRoleUser(userId, createRoleUserDto);
+        public async Task<RoleUser?> CreateRoleUser([FromForm] CreateRoleUserDto createRoleUserDto){
+            return await _roleUserService.CreateRoleUser(createRoleUserDto);
         }
 
         [CustomAuthorize("Super Admin")]
@@ -44,6 +44,17 @@ namespace BE.Controllers
         [Route("delete-roleUser")]
         public async Task<bool> DeleteRoleUser([FromForm] string roleUserId){
             return await _roleUserService.DeleteRoleUser(roleUserId);
+        }
+
+        //[CustomAuthorize("Admin")]
+        [HttpPost, Route("request-roleUser")]
+        public async Task<bool> RequestRoleUser([FromForm] string userId){
+            return await _roleUserService.RequestForRoleUserAsync(userId, "Student");
+        }
+
+        [HttpPost, Route("update-request-roleUser")]
+        public async Task<bool> UpdateRequestRoleUserAsync([FromForm] string userId, [FromForm] int status){
+            return await _roleUserService.UpdateRequestForRoleUserAsync(userId, status);
         }
     }
 }
