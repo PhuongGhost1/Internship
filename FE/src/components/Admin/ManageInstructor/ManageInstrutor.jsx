@@ -22,6 +22,7 @@ import CUlogo from '../../../assets/CU.png';
 import SYSNEYlogo from '../../../assets/SYSNEY.png';
 import { FaUsers } from "react-icons/fa";
 import { FaRegStarHalfStroke } from "react-icons/fa6";
+import { SiGmail } from "react-icons/si";
 
 
 const initialInstructors = [
@@ -31,7 +32,7 @@ const initialInstructors = [
         name: "Nguyễn Hửu Cảnh",
         status: "Active",
         img: IntructorIMG,
-        phone: "(+84)353747221",
+        phone: "353747221",
         calender: "Joined May 2020",
         age: "22",
         role: "Instructor",
@@ -134,7 +135,7 @@ const initialInstructors = [
         name: "Nguyễn Chí Hải",
         status: "Active",
         img: IntructorIMG3,
-        phone: "(+84)353747221",
+        phone: "0353747221",
         calender: "Joined May 2020",
         age: "22",
         role: "Instructor",
@@ -230,7 +231,7 @@ const initialInstructors = [
         name: "Nguyễn Minh Quân",
         status: "Active",
         img: IntructorIMG2,
-        phone: "(+84)353747221",
+        phone: "0353747221",
         calender: "Joined May 2020",
         age: "22",
         role: "Instructor",
@@ -348,9 +349,10 @@ const initialInstructors = [
             }
         ]
     }
+
 ];
 
-const pageSize = 12;
+const pageSize = 3;
 
 export default function ManageInstructor() {
     const [instructors, setInstructors] = useState(initialInstructors);
@@ -513,7 +515,7 @@ export default function ManageInstructor() {
                 <tbody>
                     {currentInstructors.map((instructor, index) => (
                         <tr key={instructor.id}>
-                            <th className="no" scope="row">{indexOfFirstInstructor + index + 1}</th>
+                            <td className="no" scope="row">{indexOfFirstInstructor + index + 1}</td>
                             <td className="email">{instructor.email}</td>
                             <td className="name">{instructor.name}</td>
                             <td className="status">
@@ -562,7 +564,7 @@ export default function ManageInstructor() {
                         </div>
                         <div className="popup-contact">
                             <div className="popup-card">
-                                <IoIosMail />
+                                <SiGmail />
                                 <p>{initialInstructors[currentNum].email}</p>
                             </div>
                             <div className="popup-card">

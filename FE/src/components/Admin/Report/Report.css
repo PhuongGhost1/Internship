@@ -3,21 +3,21 @@
     font-size: 16px;
 }
 
-#Report .student-list th {
+#Report .report-list th {
     padding: 12px 10px;
     background-color: #eeeeee;
     text-align: center;
     font-size: 18px;
 }
 
-#Report .student-list td {
+#Report .report-list td {
     vertical-align: middle;
     text-align: center;
     font-size: 16px;
     padding: 10px;
 }
 
-#Report .student-list td:nth-child(4) {
+#Report .report-list td:nth-child(4) {
     text-align: left;
     padding-left: 100px;
 }
@@ -32,10 +32,6 @@
     width: 25%;
 }
 
-#Report .name {
-    width: 25%;
-}
-
 #Report .status {
     width: 15%;
 }
@@ -44,22 +40,45 @@
     width: 10%;
 }
 
-#Report .ManageStudent-top {
+#Report .ManageReport-top {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-#Report .management-student-pagination {
+#Report .management-report-pagination {
+    flex-shrink: 0;
+}
+
+#Report .management-report-pagination .pagination {
     display: flex;
-    justify-content: center;
-    margin-top: 20px;
+    gap: 5px;
 }
 
-#Report .ManageStudent-top .search-bar {
+#Report .management-report-pagination .page-item {
+    list-style-type: none;
+}
+
+#Report .management-report-pagination .page-link {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-decoration: none;
+    color: black;
+}
+
+#Report .management-report-pagination .page-item.active .page-link {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+#Report .ManageReport-top .search-bar {
     display: flex;
     position: relative;
     justify-content: flex-end;
-    margin: 10px 0;
+    height: 40px;
 }
 
 #Report .search-bar input {
@@ -78,7 +97,7 @@
     position: absolute;
 }
 
-#Report .student-list {
+#Report .report-list {
     margin-bottom: 20px;
 }
 
@@ -248,183 +267,4 @@
 
 #Report .popup .popup-container .details .nav-bar {
     font-size: 16px;
-}
-
-#Report .popup .popup-container .details .nav-bar .tag {
-    margin-right: 20px;
-    font-weight: 600;
-    position: relative;
-    padding-bottom: 5px;
-    cursor: pointer;
-}
-
-#Report .popup .popup-container .details .nav-bar .tag.active::before {
-    position: absolute;
-    width: 100%;
-    height: 5px;
-    content: '';
-    bottom: 0;
-    left: 0;
-    background-color: rgb(255 145 76);
-}
-
-#Report .popup .popup-container .details .nav-bar .tag.active {
-    color: rgb(255 145 76);
-}
-
-/* Activity */
-#Report .activity-content {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 20px;
-    overflow-y: auto;
-    max-height: 400px;
-}
-
-#Report .activity-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: #e6e6e6;
-    margin-right: 10px;
-}
-
-#Report .activity-icon svg {
-    width: 21px;
-    height: 21px;
-}
-
-#Report .activity-item {
-    display: flex;
-    align-items: center;
-}
-
-#Report .activity-item p {
-    margin-left: 20px;
-}
-
-#Report .activity-item p:first-child {
-    font-size: 14px;
-}
-
-#Report .activity-item p:last-child {
-    font-weight: bold;
-    color: #000;
-    font-size: 16px;
-}
-
-#Report .activity-item.payment .activity-icon {
-    background-color: #e6e6e6;
-}
-
-#Report .activity-item.gmaill .activity-icon {
-    background-color: #e6e6e6;
-}
-
-#Report .activity-item.checked .activity-icon {
-    background-color: #e6e6e6;
-}
-
-#Report .activity-container {
-    padding: 10px 0;
-    border-bottom: 1px solid #ccc;
-}
-
-#Report .activity-container:last-child {
-    border-bottom: none;
-}
-
-/* Course */
-#Report .popup-course {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 20px;
-    overflow-y: auto;
-    max-height: 400px;
-}
-
-#Report .course-card {
-    display: flex;
-    align-items: center;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    position: relative;
-}
-
-#Report .course-logo {
-    width: 60px;
-    height: 60px;
-    margin-right: 20px;
-    border-radius: 5px;
-    object-fit: cover;
-    object-position: center;
-}
-
-#Report .course-details {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-#Report .course-details h3 {
-    margin: 10px 0 0 0;
-    font-size: 14px;
-    font-weight: bold;
-}
-
-#Report .popup-course .course-card .course-icon {
-    display: flex;
-    margin-bottom: 10px;
-}
-
-#Report .popup-course .course-card .course-icon .course-icon-item {
-    display: flex;
-    margin-right: 20px;
-    align-items: center;
-}
-
-#Report .popup-course .course-card .course-icon .course-icon-item p {
-    margin-left: 6px;
-    font-size: 14px;
-    color: #4b4b4b;
-}
-
-/* Payment History */
-#Report .popup-payment {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 20px;
-    overflow-y: auto;
-    max-height: 400px;
-}
-
-#Report .popup-payment .payment-history {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-#Report .popup-payment .payment-history .payment-item {
-    background-color: #f9f9f9;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-#Report .popup-payment .payment-history .payment-item p {
-    margin: 0;
-    font-size: 14px;
-}
-
-#Report .popup-payment .payment-history .payment-item span {
-    color: var(--light-orange);
 }

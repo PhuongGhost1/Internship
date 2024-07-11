@@ -5,18 +5,23 @@
 
 #ManageInstructor .instructor-list th {
     padding: 12px 10px;
+    text-align: center;
+    background-color: #eeeeee;
+    font-weight: bold;
+
 }
 
 #ManageInstructor .instructor-list td {
     vertical-align: middle;
+    text-align: center;
 }
 
 #ManageInstructor .no {
-    width: 3%;
+    width: 5%;
 }
 
 #ManageInstructor .email {
-    width: 32%;
+    width: 20%;
 }
 
 #ManageInstructor .instructor-list .name {
@@ -28,7 +33,7 @@
 }
 
 #ManageInstructor .status {
-    width: 10%;
+    width: 20%;
 }
 
 #ManageInstructor .action {
@@ -38,19 +43,43 @@
 #ManageInstructor .ManageInstructor-top {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 #ManageInstructor .management-instructor-pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+    flex-shrink: 0;
 }
+
+#ManageInstructor .management-instructor-pagination .pagination {
+    display: flex;
+    gap: 5px;
+}
+
+#ManageInstructor .management-instructor-pagination .page-item {
+    list-style-type: none;
+}
+
+#ManageInstructor .management-instructor-pagination .page-link {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-decoration: none;
+    color: black;
+}
+
+#ManageInstructor .management-instructor-pagination .page-item.active .page-link {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
 
 #ManageInstructor .ManageInstructor-top .search-bar {
     display: flex;
     position: relative;
     justify-content: flex-end;
-    margin: 10px 0;
+    height: 40px;
 }
 
 #ManageInstructor .search-bar input {
@@ -91,7 +120,6 @@
     color: grey;
     border-radius: 5px;
     font-size: 20px;
-    margin-left: 18px;
 }
 
 #ManageInstructor .button-view:hover {
@@ -175,7 +203,7 @@
     display: flex;
     align-items: center;
     font-size: 14px;
-    color: grey;
+    color: rgb(165, 163, 163);
     margin-top: 5px;
 }
 
@@ -197,7 +225,7 @@
 #ManageInstructor .popup .popup-container .popup-status .popup-statuss {
     display: flex;
     align-items: center;
-    margin-right: 20px;
+    color: #818181;
 }
 
 #ManageInstructor .popup .popup-container .popup-status svg {
@@ -208,17 +236,17 @@
     display: flex;
     margin-top: 20px;
     justify-content: space-between;
+    gap: 20px;
 }
 
 #ManageInstructor .popup .popup-container .popup-contact .popup-card {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10px 20px;
-    border: 1px solid grey;
+    padding: 10px 10px;
+    border: 1px solid rgb(165, 164, 164);
     border-radius: 10px;
-    margin-right: 20px;
-    flex-grow: 1;
+    flex: 1;
 }
 
 #ManageInstructor .popup .popup-container .popup-contact .popup-card svg {

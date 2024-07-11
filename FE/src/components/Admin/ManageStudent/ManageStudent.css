@@ -5,56 +5,75 @@
 
 #ManageStudent .student-list th {
     padding: 12px 10px;
-    background-color: #eeeeee;
     text-align: center;
-    font-size: 18px;
+    background-color: #eeeeee;
+    font-weight: bold;
 }
 
 #ManageStudent .student-list td {
     vertical-align: middle;
     text-align: center;
-    font-size: 16px;
-    padding: 10px;
 }
 
 #ManageStudent .no {
     width: 5%;
-    font-weight: bold;
-    text-align: center;
 }
 
 #ManageStudent .email {
-    width: 25%;
+    width: 20%;
 }
 
 #ManageStudent .name {
-    width: 25%;
+    width: 20%;
 }
 
 #ManageStudent .status {
-    width: 15%;
+    width: 20%;
 }
 
 #ManageStudent .action {
-    width: 10%;
+    width: 5%;
 }
 
 #ManageStudent .ManageStudent-top {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 #ManageStudent .management-student-pagination {
+    flex-shrink: 0;
+}
+
+#ManageStudent .management-student-pagination .pagination {
     display: flex;
-    justify-content: center;
-    margin-top: 20px;
+    gap: 5px;
+}
+
+#ManageStudent .management-student-pagination .page-item {
+    list-style-type: none;
+}
+
+#ManageStudent .management-student-pagination .page-link {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-decoration: none;
+    color: black;
+}
+
+#ManageStudent .management-student-pagination .page-item.active .page-link {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
 }
 
 #ManageStudent .ManageStudent-top .search-bar {
     display: flex;
     position: relative;
     justify-content: flex-end;
-    margin: 10px 0;
+    height: 40px;
 }
 
 #ManageStudent .search-bar input {
@@ -72,6 +91,7 @@
     font-size: 20px;
     position: absolute;
 }
+
 
 #ManageStudent .student-list {
     margin-bottom: 20px;

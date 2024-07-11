@@ -1,26 +1,21 @@
 import React, { useState } from "react";
 import './Report.css';
 import { Pagination, PaginationItem, PaginationLink, Table } from "reactstrap";
-import { FaInfoCircle, FaSearch, FaCalendarDay, FaPhoneAlt, FaUserCheck, FaCheckCircle, FaUsers } from "react-icons/fa";
-import { FaRegStarHalfStroke } from "react-icons/fa6";
+import { FaInfoCircle, FaSearch, FaCalendarDay, FaPhoneAlt, FaUserCheck } from "react-icons/fa";
 import { RxCross2 } from "react-icons/rx";
 import { GoDotFill } from "react-icons/go";
-import { MdEmail } from "react-icons/md";
-import { GrTransaction } from "react-icons/gr";
 import { SiGmail } from "react-icons/si";
 import IntructorIMG from "../../../assets/IntructorIMG.png";
 import IntructorIMG2 from "../../../assets/IntructorIMG2.png";
 import IntructorIMG3 from "../../../assets/IntructorIMG3.png";
-import CNXlogo from '../../../assets/CNX.png';
-import Mlogo from '../../../assets/M.png';
-import CUlogo from '../../../assets/CU.png';
+import Error from "../../../assets/error.png";
 
-const initialStudents = [
+const initialError = [
      {
           id: 1,
           email: "bapcon@example.com",
           name: "Bap",
-          course: "Blockchain Developer",
+          course: "Python",
           title: "Course error cannot load video",
           status: "New",
           img: IntructorIMG,
@@ -30,76 +25,15 @@ const initialStudents = [
           role: "Student",
           country: "USA",
           attended: "Attended 7 days ago",
-          activities: [
-               {
-                    name: 'Enrolled in CertNexus Certified Ethical Emerging Technologist Professional Certificate',
-                    datetime: '9:00 AM, May 5 2020',
-                    type: "checked"
-               },
-               {
-                    name: 'Completed module 1 of Web Design for Everybody',
-                    datetime: '9:00 AM, Apr 8 2022',
-                    type: "checked"
-               },
-               {
-                    name: 'Payment of $99.00 made for Software Development Lifecycle Specialization',
-                    datetime: '4:50 PM, Mar 30 2022',
-                    type: "payment"
-               },
-               {
-                    name: 'Received email about new course recommendations',
-                    datetime: '10:33 AM, Mar 25 2022',
-                    type: "emaill"
-               },
-               {
-                    name: 'Submitted assignment for Web Design course',
-                    datetime: '11:00 AM, Mar 23 2022',
-                    type: "checked"
-               }
-          ],
-          courses: [
-               {
-                    logo: CNXlogo,
-                    name: 'CertNexus Certified Ethical Emerging Technologist Professional Certificate',
-                    detailLink: '#',
-                    rating: '4.5',
-                    progress: '60%'
-               },
-               {
-                    logo: Mlogo,
-                    name: 'Software Development Lifecycle Specialization',
-                    detailLink: '#',
-                    rating: '4.8',
-                    progress: '30%'
-               },
-               {
-                    logo: CUlogo,
-                    name: 'Web Design for Everybody: Basics of Web Development & Coding Specialization',
-                    detailLink: '#',
-                    rating: '4.7',
-                    progress: '80%'
-               }
-          ],
-          payments: [
-               {
-                    course: 'CertNexus Certified Ethical Emerging Technologist Professional Certificate',
-                    amount: '$500'
-               },
-               {
-                    course: 'Software Development Lifecycle Specialization',
-                    amount: '$300'
-               },
-               {
-                    course: 'Web Design for Everybody: Basics of Web Development & Coding Specialization',
-                    amount: '$450'
-               }
-          ]
+          chapter: "1",
+          description: "The video cannot load",
+          image: Error
      },
      {
           id: 2,
           email: "jerome@example.com",
           name: "Jerome Reichert",
-          course: "Blockchain Developer",
+          course: "C#",
           title: "Course error cannot load video",
           status: "New",
           img: IntructorIMG3,
@@ -109,57 +43,17 @@ const initialStudents = [
           role: "Student",
           country: "Canada",
           attended: "Attended 5 days ago",
-          activities: [
-               {
-                    name: 'Enrolled in Software Development Lifecycle Specialization',
-                    datetime: '10:00 AM, June 10 2020',
-                    type: "checked"
-               },
-               {
-                    name: 'Completed final project for Web Design course',
-                    datetime: '2:00 PM, May 15 2022',
-                    type: "checked"
-               },
-               {
-                    name: 'Payment of $150.00 made for CertNexus Certificate',
-                    datetime: '11:30 AM, May 1 2022',
-                    type: "payment"
-               }
-          ],
-          courses: [
-               {
-                    logo: Mlogo,
-                    name: 'Software Development Lifecycle Specialization',
-                    detailLink: '#',
-                    rating: '4.6',
-                    progress: '45%'
-               },
-               {
-                    logo: CUlogo,
-                    name: 'Web Design for Everybody: Basics of Web Development & Coding Specialization',
-                    detailLink: '#',
-                    rating: '4.9',
-                    progress: '100%'
-               }
-          ],
-          payments: [
-               {
-                    course: 'Software Development Lifecycle Specialization',
-                    amount: '$350'
-               },
-               {
-                    course: 'Web Design for Everybody: Basics of Web Development & Coding Specialization',
-                    amount: '$400'
-               }
-          ]
+          chapter: "3",
+          description: "The video cannot load",
+          image: Error
      },
      {
           id: 3,
           email: "oscar@example.com",
           name: "Oscar Witting",
-          status: "New",
-          course: "Blockchain Developer",
+          course: "NodeJS",
           title: "Course error cannot load video",
+          status: "New",
           img: IntructorIMG2,
           phone: "0353747223",
           calender: "Joined July 2020",
@@ -167,59 +61,18 @@ const initialStudents = [
           role: "Student",
           country: "UK",
           attended: "Attended 3 days ago",
-          activities: [
-               {
-                    name: 'Enrolled in Web Design for Everybody',
-                    datetime: '3:00 PM, July 20 2020',
-                    type: "checked"
-               },
-               {
-                    name: 'Completed module 3 of Software Development Lifecycle',
-                    datetime: '1:00 PM, June 5 2022',
-                    type: "checked"
-               },
-               {
-                    name: 'Payment of $200.00 made for advanced courses',
-                    datetime: '9:45 AM, May 28 2022',
-                    type: "payment"
-               }
-          ],
-          courses: [
-               {
-                    logo: CUlogo,
-                    name: 'Web Design for Everybody: Basics of Web Development & Coding Specialization',
-                    detailLink: '#',
-                    rating: '4.7',
-                    progress: '70%'
-               },
-               {
-                    logo: Mlogo,
-                    name: 'Software Development Lifecycle Specialization',
-                    detailLink: '#',
-                    rating: '4.5',
-                    progress: '50%'
-               }
-          ],
-          payments: [
-               {
-                    course: 'Web Design for Everybody: Basics of Web Development & Coding Specialization',
-                    amount: '$400'
-               },
-               {
-                    course: 'Software Development Lifecycle Specialization',
-                    amount: '$350'
-               }
-          ]
+          chapter: "2",
+          description: "The video cannot load",
+          image: Error
      }
 ];
 
 const pageSize = 12;
 
 export default function Report() {
-     const [students, setStudents] = useState(initialStudents);
+     const [students, setStudents] = useState(initialError);
      const [currentPage, setCurrentPage] = useState(1);
      const [searchTerm, setSearchTerm] = useState("");
-     const [tagActive, setTagActive] = useState("Activity");
      const [isVisiblePopUp, setIsVisiblePopUp] = useState(false);
      const [currentNum, setCurrentNum] = useState(0);
 
@@ -249,30 +102,30 @@ export default function Report() {
      const totalPages = Math.ceil(filteredStudents.length / pageSize);
 
      const handleOpenPopUpClick = (num) => {
-          setIsVisiblePopUp(true)
-          try {
-               setTimeout(() => {
-                    let progress = document.querySelector('.popup');
-                    progress.classList.add('open');
-               }, 200);
-          } catch (error) {
-               <h2>Error Search</h2>
-          }
+          setIsVisiblePopUp(true);
           setCurrentNum(num);
+          setTimeout(() => {
+               let progress = document.querySelector('.popup');
+               if (progress) {
+                    progress.classList.add('open');
+               }
+          }, 200);
      }
 
      const handleCrossClick = () => {
           let progress = document.querySelector('.popup');
-          progress.classList.remove('open');
+          if (progress) {
+               progress.classList.remove('open');
+          }
           setTimeout(() => {
-               setIsVisiblePopUp(false)
+               setIsVisiblePopUp(false);
           }, 500);
      }
 
      return (
           <div id="Report">
-               <div className="ManageStudent-top">
-                    <div className="management-student-pagination">
+               <div className="ManageReport-top">
+                    <div className="management-report-pagination">
                          <Pagination>
                               <PaginationItem disabled={currentPage <= 1}>
                                    <PaginationLink previous onClick={(e) => handleClick(e, currentPage - 1)} />
@@ -299,7 +152,7 @@ export default function Report() {
                          />
                     </div>
                </div>
-               <Table className="student-list">
+               <Table className="report-list">
                     <thead>
                          <tr>
                               <th>No</th>
@@ -327,62 +180,67 @@ export default function Report() {
                                    </td>
                                    <td className="action">
                                         <span className="button-view">
-                                             <FaInfoCircle onClick={() => { handleOpenPopUpClick(index) }} />
+                                             <FaInfoCircle onClick={() => handleOpenPopUpClick(index)} />
                                         </span>
                                    </td>
                               </tr>
                          ))}
                     </tbody>
                </Table>
-               <div style={isVisiblePopUp ? {} : { display: 'none' }}>
-                    <div className="popup">
-                         <div className="cross"> <RxCross2 onClick={handleCrossClick} /></div>
-                         <div className="popup-container">
-                              <div className="popup-info">
-                                   <div className="popup-info-image">
-                                        <img src={initialStudents[currentNum].img} alt={initialStudents[currentNum].name} />
+               {isVisiblePopUp && (
+                    <div>
+                         <div className="popup">
+                              <div className="cross">
+                                   <RxCross2 onClick={handleCrossClick} />
+                              </div>
+                              <div className="popup-container">
+                                   <div className="popup-info">
+                                        <div className="popup-info-image">
+                                             <img src={initialError[currentNum].img} alt={initialError[currentNum].name} />
+                                        </div>
+                                        <div className="popup-info-title">
+                                             <h2>{initialError[currentNum].name}</h2>
+                                             <div className="popup-info-title2">
+                                                  <p>Age {initialError[currentNum].age}</p> <GoDotFill />
+                                                  <p>{initialError[currentNum].role}</p> <GoDotFill />
+                                                  <p>{initialError[currentNum].country}</p>
+                                             </div>
+                                        </div>
                                    </div>
-                                   <div className="popup-info-title">
-                                        <h2>{initialStudents[currentNum].name}</h2>
-                                        <div className="popup-info-title2">
-                                             <p>Age {initialStudents[currentNum].age}</p> <GoDotFill />
-                                             <p>{initialStudents[currentNum].role}</p> <GoDotFill />
-                                             <p>{initialStudents[currentNum].country}</p>
+                                   <div className="popup-status">
+                                        <div className="popup-statuss">
+                                             <FaCalendarDay />
+                                             <p>{initialError[currentNum].calender}</p>
+                                        </div>
+                                        <div className="popup-statuss">
+                                             <FaUserCheck />
+                                             <p>{initialError[currentNum].attended}</p>
+                                        </div>
+                                   </div>
+                                   <div className="popup-contact">
+                                        <div className="popup-card">
+                                             <SiGmail />
+                                             <p>{initialError[currentNum].email}</p>
+                                        </div>
+                                        <div className="popup-card">
+                                             <FaPhoneAlt />
+                                             <p>{initialError[currentNum].phone}</p>
+                                        </div>
+                                   </div>
+                                   <div className="details">
+                                        <h3>Detail</h3>
+                                        <div className="nav-bar">
+                                             <p><strong>Subject: </strong>{initialError[currentNum].course}</p>
+                                             <p><strong>Chapter: </strong>{initialError[currentNum].chapter}</p>
+                                             <p><strong>Description: </strong>{initialError[currentNum].description}</p>
+                                             <img src={initialError[currentNum].image} />
                                         </div>
                                    </div>
                               </div>
-                              <div className="popup-status">
-                                   <div className="popup-statuss">
-                                        <FaCalendarDay />
-                                        <p>{initialStudents[currentNum].calender}</p>
-                                   </div>
-                                   <div className="popup-statuss">
-                                        <FaUserCheck />
-                                        <p>{initialStudents[currentNum].attended}</p>
-                                   </div>
-                              </div>
-                              <div className="popup-contact">
-                                   <div className="popup-card">
-                                        <SiGmail />
-                                        <p>{initialStudents[currentNum].email}</p>
-                                   </div>
-                                   <div className="popup-card">
-                                        <FaPhoneAlt />
-                                        <p>{initialStudents[currentNum].phone}</p>
-                                   </div>
-                              </div>
-                              <div className="details">
-                                   <h3>Description</h3>
-                                   <div className="nav-bar">
-                                        <h4>Chapter 1</h4>
-                                        <p>The video cannot load, please fix</p>
-                                        <img src="https://gcs.tripi.vn/public-tripi/tripi-feed/img/473935Fys/5-cach-sua-loi-this-video-file-cannot-be-played-error-code-thumb-1.jpg" alt="Video error" />
-                                   </div>
-                              </div>
                          </div>
+                         <div className="blur-popup"></div>
                     </div>
-                    <div className="blur-popup"></div>
-               </div>
+               )}
           </div>
      );
 }
