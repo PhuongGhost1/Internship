@@ -1,0 +1,164 @@
+#management-category {
+  font-size: 15px;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px;
+}
+
+#management-category .search-bar {
+  display: flex;
+  position: relative;
+  text-align: left;
+  justify-content: flex-end;
+}
+
+#management-category .create-cate {
+  border-radius: 10px;
+  border: none;
+  height: 40px;
+  background-color: rgba(219, 142, 54, 0.808);
+  color: white;
+  font-weight: bold;
+}
+
+#management-category .create-cate:hover {
+  background-color: rgba(177, 115, 44, 0.808);
+}
+
+#management-category .search-bar input {
+  width: 300px;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+#management-category .search-bar svg {
+  color: rgb(207, 206, 206);
+  margin-top: 10px;
+  margin-right: 10px;
+  font-size: 20px;
+  position: absolute;
+}
+
+#management-category .btn-action {
+  align-items: center;
+}
+
+#management-category .status-active {
+  border: none;
+  background-color: rgb(221, 149, 55);
+  color: white;
+}
+
+#management-category .status-inactive {
+  border: none;
+  background-color: #c53631;
+  color: white;
+}
+
+#management-category .status-waiting {
+  border: none;
+  background-color: #a0a0a0;
+  color: rgb(255, 255, 255);
+}
+
+#management-category .menu {
+  background-color: #e2b488;
+}
+
+#management-category .item {
+  font-weight: bold;
+}
+
+#management-category .dropdown-status {
+  display: inline-block;
+}
+
+#management-category .course-active {
+  margin-bottom: 50px;
+}
+
+#management-category .table-info th {
+  padding: 15px 10px;
+}
+
+#management-category .table-info {
+  margin-right: 50px;
+}
+
+#management-category .table-info .name,
+.status {
+  vertical-align: middle;
+  padding: 15px 0px;
+  padding-left: 10px;
+}
+
+#management-category .cate-info {
+  padding: 0px 100px;
+}
+
+#management-category .name {
+  width: 90%;
+}
+
+#management-category .status {
+  width: 10%;
+}
+
+#management-category .status-heading {
+  display: flex;
+}
+
+#management-category .button-view svg,
+.button-delete svg {
+  margin-bottom: 5px;
+}
+
+#management-category .button-view {
+  color: grey;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+#management-category .button-view:hover {
+  cursor: pointer;
+  color: #000000;
+}
+
+#management-category .table-header h3 {
+  font-weight: bold;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.cate-name {
+  margin-bottom: 20px;
+}
+
+.form-Create {
+  font-size: 16px;
+}
+
+.control {
+  height: 40px;
+  font-size: 14px;
+}
+
+.btn-save {
+  background-color: #e2a452;
+  border: none;
+  height: 30px;
+}
+
+.btn-save:hover {
+  background-color: #af7f40;
+}

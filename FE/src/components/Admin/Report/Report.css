@@ -1,0 +1,270 @@
+#Report {
+  padding: 20px 7% 20px 20px;
+  font-size: 16px;
+}
+
+#Report .report-list th {
+  padding: 12px 10px;
+  background-color: #eeeeee;
+  text-align: center;
+  font-size: 18px;
+}
+
+#Report .report-list td {
+  vertical-align: middle;
+  text-align: center;
+  font-size: 16px;
+  padding: 10px;
+}
+
+#Report .report-list td:nth-child(4) {
+  text-align: left;
+  padding-left: 100px;
+}
+
+#Report .no {
+  width: 5%;
+  font-weight: bold;
+  text-align: center;
+}
+
+#Report .email {
+  width: 25%;
+}
+
+#Report .status {
+  width: 15%;
+}
+
+#Report .action {
+  width: 10%;
+}
+
+#Report .ManageReport-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+#Report .management-report-pagination {
+  flex-shrink: 0;
+}
+
+#Report .management-report-pagination .pagination {
+  display: flex;
+  gap: 5px;
+}
+
+#Report .management-report-pagination .page-item {
+  list-style-type: none;
+}
+
+#Report .management-report-pagination .page-link {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-decoration: none;
+  color: black;
+}
+
+#Report .management-report-pagination .page-item.active .page-link {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+#Report .ManageReport-top .search-bar {
+  display: flex;
+  position: relative;
+  justify-content: flex-end;
+  height: 40px;
+}
+
+#Report .search-bar input {
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  font-size: 12px;
+  padding-left: 10px;
+}
+
+#Report .search-bar svg {
+  color: rgb(207, 206, 206);
+  margin-top: 10px;
+  margin-right: 10px;
+  font-size: 20px;
+  position: absolute;
+}
+
+#Report .report-list {
+  margin-bottom: 20px;
+}
+
+#Report .status-new {
+  border: none;
+  background-color: rgb(6, 145, 6);
+  color: white;
+  border-radius: 5px;
+}
+
+#Report .status-fixed {
+  border: none;
+  background-color: #c53631;
+  color: white;
+  border-radius: 5px;
+}
+
+#Report .button-view {
+  color: grey;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+#Report .button-view:hover {
+  cursor: pointer;
+  color: #000000;
+}
+
+#Report .popup {
+  width: 0px;
+  height: 100vh;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: white;
+  z-index: 2;
+  transition: all 0.5s ease;
+  overflow: hidden;
+  padding: 60px 0 0 0;
+}
+
+#Report .popup .cross {
+  font-size: 28px;
+  cursor: pointer;
+  border-bottom: 1px solid #eeeeee;
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+}
+
+#Report .popup.open {
+  width: 600px;
+}
+
+#Report .blur-popup {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+#Report .popup .popup-container {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+}
+
+#Report .popup .popup-container .popup-info {
+  display: flex;
+  align-items: center;
+}
+
+#Report .popup .popup-container .popup-info-image {
+  margin-right: 20px;
+}
+
+#Report .popup .popup-container .popup-info img {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  object-position: center;
+}
+
+#Report .popup .popup-container .popup-info .popup-info-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#Report .popup .popup-container .popup-info .popup-info-title h2 {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 0;
+}
+
+#Report .popup .popup-container .popup-info .popup-info-title2 {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: grey;
+  margin-top: 5px;
+}
+
+#Report .popup .popup-container .popup-info .popup-info-title2 p {
+  margin: 0 10px 0 0;
+}
+
+#Report .popup .popup-container .popup-info .popup-info-title2 svg {
+  font-size: 10px;
+  margin: 0 10px;
+}
+
+#Report .popup .popup-container .popup-status {
+  display: flex;
+  margin-top: 20px;
+  justify-content: space-between;
+}
+
+#Report .popup .popup-container .popup-status .popup-statuss {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+#Report .popup .popup-container .popup-status svg {
+  margin-right: 10px;
+}
+
+#Report .popup .popup-container .popup-contact {
+  display: flex;
+  margin-top: 20px;
+  justify-content: space-between;
+}
+
+#Report .popup .popup-container .popup-contact .popup-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 10px;
+  border: 1px solid grey;
+  border-radius: 10px;
+  margin-right: 10px;
+  flex-grow: 1;
+  width: 292px;
+}
+
+#Report .popup .popup-container .popup-contact .popup-card svg {
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+#Report .popup .popup-container .details {
+  margin-top: 50px;
+  border-top: 1px solid #dad9d9;
+  padding-top: 20px;
+}
+
+#Report .popup .popup-container .details h3 {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+#Report .popup .popup-container .details .nav-bar {
+  font-size: 16px;
+}
