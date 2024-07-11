@@ -2,7 +2,7 @@
   font-size: 15px;
 }
 
-.table-header {
+#management-category .table-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -134,31 +134,31 @@
   font-weight: bold;
 }
 
-.title {
+#management-category .title {
   font-size: 20px;
   font-weight: bold;
   text-align: center;
 }
 
-.cate-name {
+#management-category .cate-name {
   margin-bottom: 20px;
 }
 
-.form-Create {
+#management-category .form-Create {
   font-size: 16px;
 }
 
-.control {
+#management-category .control {
   height: 40px;
   font-size: 14px;
 }
 
-.btn-save {
+#management-category .btn-save {
   background-color: #e2a452;
   border: none;
   height: 30px;
 }
 
-.btn-save:hover {
+#management-category .btn-save:hover {
   background-color: #af7f40;
 }
