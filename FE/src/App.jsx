@@ -62,17 +62,20 @@ function App() {
           <Route path='profile' element={<InstructorProfilePage />} />
         </Route>
 
-        <Route path='/admin'>
-          <Route path='dashboard' element={<DashBoard />} />
-          <Route path='instructor' element={<ManageInstructorPage />} />
-          <Route path='student' element={<ManageStudentPage />} />
-          <Route path='course' element={<ManageCoursePage />} />
-          <Route path='requests' element={<RequestsPage />} />
-          <Route path='setting' element={<SettingPage />} />
-        </Route>
-      </Routes >
-    </BrowserRouter >
-  )
+                    <Route path='/admin'>
+                         <Route path='dashboard' element={<DashBoard />} />
+                         <Route path='instructor' element={<ManageInstructorPage />} />
+                         <Route path='student' element={<ManageStudentPage />} />
+                         <Route path='course' element={<ManageCoursePage />} />
+                         <Route path='requests' element={<RequestsPage />} />
+                         <Route path='setting' element={<SettingPage />} />
+                         <Route path='report' element={<ReportPage />} />
+                         <Route path='feedback' element={<FeedBackAdminPage />} />
+                         <Route path='category' element={<CategoryPage />} />
+                    </Route>
+               </Routes >
+          </BrowserRouter >
+     )
 }
 
 export default App
