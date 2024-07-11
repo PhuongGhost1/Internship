@@ -461,7 +461,7 @@ namespace BE.Repository.Implementations
                                         .Include(course => course.Chapters)
                                             .ThenInclude(quiz => quiz.Quizzes)
                                                 .ThenInclude(question => question.Questions)
-                                        .FirstOrDefaultAsync(course => course.Name.ToLower().Contains(courseName.ToLower()));
+                                        .FirstOrDefaultAsync(course => course.Name.ToLower() == courseName.ToLower());
         }
 
         public async Task<List<Course>> GetMostPurchasedCourses()
