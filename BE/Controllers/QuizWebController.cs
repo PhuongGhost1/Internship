@@ -1,3 +1,4 @@
+using BE.Attributes;
 using BE.Dto.Course.Chapter.Quiz;
 using BE.Dto.Quiz;
 using BE.Models;
@@ -16,6 +17,7 @@ namespace BE.Controllers
             _quizService = quizService;
         }
 
+        [CustomAuthorize("Student", "Instructor")]
         [HttpPost]
         [Route("quiz-data")]
         public async Task<QuizDto> GetAllDataFromQuizByCourseId([FromForm] string courseId){
@@ -24,25 +26,28 @@ namespace BE.Controllers
 
 
         //---------------------CRUD--------------------------//
+        [CustomAuthorize("Student", "Instructor")]
         [HttpGet]
         [Route("view-all-quizzes")]
         public async Task<List<Quiz>> ViewAllQuizzes(){
             return await _quizService.ViewAllQuizzes();
         }
 
-
+        [CustomAuthorize("Instructor")]
         [HttpPost]
         [Route("create-quiz")]
         public async Task<Quiz?> CreateQuiz([FromForm] CreateQuizDto createQuizDto){
             return await _quizService.CreateQuiz(createQuizDto, createQuizDto.ChapId);
         }
 
+        [CustomAuthorize("Instructor")]
         [HttpPost]
         [Route("update-quiz")]
         public async Task<Quiz?> UpdateQuiz([FromForm] string quizId, [FromForm] UpdateQuizDto updateQuizDto){
             return await _quizService.UpdateQuiz(quizId, updateQuizDto);
         }
 
+        [CustomAuthorize("Instructor")]
         [HttpPost]
         [Route("delete-quiz")]
         public async Task<bool> DeleteQuiz([FromForm] string quizId){

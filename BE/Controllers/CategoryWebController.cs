@@ -1,3 +1,4 @@
+using BE.Attributes;
 using BE.Dto.Category;
 using BE.Models;
 using BE.Services.Interfaces;
@@ -24,18 +25,21 @@ namespace BE.Controllers
 
 
         //---------------------CRUD--------------------------//
+        [CustomAuthorize("Admin")]
         [HttpPost]
         [Route("create-category")]
         public async Task<Category?> CreateCategory([FromForm] CreateCategoryDto createCategoryDto){
             return await _cateService.CreateCategory(createCategoryDto);
         }
 
+        [CustomAuthorize("Admin")]
         [HttpPost]
         [Route("update-category")]
         public async Task<Category?> UpdateCategory([FromForm] UpdateCategoryDto updateCategoryDto){
             return await _cateService.UpdateCategory(updateCategoryDto);
         }
 
+        [CustomAuthorize("Admin")]
         [HttpPost]
         [Route("delete-category")]
         public async Task<bool> DeleteCategory([FromForm] CategoryDto categoryDto){
