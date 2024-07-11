@@ -1,0 +1,503 @@
+#item-content {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(243, 243, 243);
+}
+
+#item-content .chapter-edit {
+    padding: 40px 50% 0 20px;
+}
+
+#item-content .chapter-edit .action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#item-content .chapter-edit .action-btn .title {
+    font-size: 25px;
+    font-weight: 600;
+    color: var(--light-orange);
+}
+
+#item-content .chapter-edit .action-btn .button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 1px solid var(--light-orange);
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+#item-content .chapter-edit .action-btn .btn-contain {
+    display: flex;
+}
+
+#item-content .chapter-edit .action-btn .discard {
+    color: var(--light-orange);
+}
+
+#item-content .chapter-edit .action-btn .save {
+    color: white;
+    background-color: var(--light-orange);
+    border: 1px solid var(--light-orange);
+}
+
+#item-content .chapter-edit .action-btn .button:hover {
+    color: white;
+    background-color: var(--dark-orange);
+    border: 1px solid var(--dark-orange);
+}
+
+#item-content .chapter-edit .chapter-title {
+    width: 100%;
+    padding: 30px 20px;
+    background-color: #ffffff;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+#item-content .chapter-edit .chapter-title p {
+    color: #707383;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+#item-content .chapter-edit .chapter-title input {
+    background-color: rgba(0, 0, 0, 0);
+    border: 1px solid #cecece;
+    color: #707383;
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 15px;
+    border-radius: 5px;
+    font-weight: 600;
+}
+
+#item-content .chapter-edit .chapter-title input:focus-visible {
+    outline: none;
+}
+
+#item-content .lesson {
+    padding: 40px 15%;
+}
+
+#item-content .lesson .title-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#item-content .lesson .title-btn p {
+    font-size: 25px;
+    font-weight: 600;
+    color: var(--light-orange);
+}
+
+#item-content .lesson .title-btn .save-btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 1px solid var(--light-orange);
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    color: white;
+    background-color: var(--light-orange);
+}
+
+#item-content .lesson .assess {
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+#item-content .lesson .selection {
+    display: flex;
+}
+
+#item-content .lesson .selection .block {
+    flex: 1;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+#item-content .lesson .selection .block:hover,
+#item-content .lesson .selection .block.active {
+    background-color: #fef7df;
+    cursor: pointer;
+}
+
+#item-content .lesson .selection .block .icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: 50px;
+    background-color: #ffffff;
+    border: 1px solid #bbbbbb;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+#item-content .lesson .selection .block .icon-container svg {
+    font-size: 25px;
+}
+
+#item-content .lecture {
+    padding: 40px 20%;
+}
+
+#item-content .lecture .form {
+    background: white;
+    border-radius: 10px;
+    border: 1px solid #e2e2e2;
+}
+
+#item-content .lecture .title-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: #f9f9f9;
+    border-radius: 10px 10px 0 0;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+#item-content .lecture .title-btn p {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+#item-content .lecture .title-btn .save-btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 1px solid var(--light-orange);
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    color: white;
+    background-color: var(--light-orange);
+}
+
+#item-content .lecture .title-upload {
+    padding: 30px 40px;
+}
+
+#item-content .lecture .title-upload .title-edit p {
+    font-size: 14px;
+}
+
+#item-content .lecture .title-upload .title-edit .title-input {
+    border: none;
+    padding: 10px 15px;
+    width: 100%;
+    margin-top: 15px;
+    font-size: 15px;
+    border: 3px solid #eeeeee;
+    border-radius: 6px;
+}
+
+#item-content .lecture .title-upload .title-edit .title-input:focus-visible {
+    outline: none;
+}
+
+#item-content .lecture .title-upload .upload-edit {
+    margin-top: 20px;
+}
+
+#item-content .lecture .title-upload .upload-edit p {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+#item-content .lecture .title-upload .upload-edit .button-container {
+    height: 40px;
+    width: 170px;
+    position: relative;
+    background-color: var(--light-orange);
+    margin-top: 15px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+#item-content .lecture .title-upload .upload-edit .button-container:hover {
+    background-color: var(--dark-orange);
+}
+
+#item-content .lecture .title-upload .upload-edit .button-container svg {
+    font-size: 22px
+}
+
+#item-content .lecture .title-upload .upload-edit .button-container .plus {
+    margin-right: 10px;
+}
+
+#item-content .lecture .title-upload .upload-edit .button-container .cross {
+    margin-left: 10px;
+    font-size: 16px;
+    z-index: 1;
+    cursor: pointer;
+}
+
+#item-content .lecture .title-upload .upload-edit .button-container span {
+    font-size: 17px;
+}
+
+#item-content .lecture .title-upload .upload-edit .input-video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+#item-content .quiz {
+    padding: 40px 20%;
+}
+
+#item-content .quiz .form {
+    background: white;
+    border-radius: 10px;
+    border: 1px solid #e2e2e2;
+}
+
+#item-content .quiz .title-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: #f9f9f9;
+    border-radius: 10px 10px 0 0;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+#item-content .quiz .title-btn p {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+#item-content .quiz .title-btn .save-btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 1px solid var(--light-orange);
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    color: white;
+    background-color: var(--light-orange);
+}
+
+#item-content .quiz .title-upload {
+    padding: 30px 40px;
+}
+
+#item-content .quiz .title-upload .title-edit p {
+    font-size: 14px;
+}
+
+#item-content .quiz .title-upload .title-edit .title-input {
+    border: none;
+    padding: 10px 15px;
+    width: 100%;
+    margin-top: 15px;
+    font-size: 15px;
+    border: 3px solid #eeeeee;
+    border-radius: 6px;
+}
+
+#item-content .quiz .title-upload .title-edit .title-input:focus-visible {
+    outline: none;
+}
+
+#item-content .quiz .quiz-add .add-question-btn {
+    display: flex;
+    align-items: center;
+    padding: 6px 10px;
+    border: 1px solid rgb(216, 216, 216);
+    width: fit-content;
+    border-radius: 9px;
+    color: var(--light-orange);
+    cursor: pointer;
+}
+
+#item-content .quiz .quiz-add .add-question-btn svg {
+    margin-right: 5px;
+    font-size: 16px;
+}
+
+#item-content .quiz .quiz-add .add-question-btn span {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+#item-content .quiz .quiz-add .title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 20px;
+}
+
+#item-content .quiz .quiz-add .questions {
+    margin-top: 20px;
+    max-height: 452px;
+    overflow-y: scroll;
+    margin-bottom: 30px;
+}
+
+#item-content .quiz .quiz-add .question {
+    border-radius: 10px;
+    border: 1px solid #eef2f6;
+    margin-bottom: 15px;
+}
+
+#item-content .quiz .quiz-add .question .introduce-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 24px;
+    background-color: #f8fafc;
+    border-radius: 10px 10px 0 0;
+    border-bottom: 1px solid #eef2f6;
+}
+
+#item-content .quiz .quiz-add .question .introduce-bar .name-icon {
+    display: flex;
+    align-items: center;
+}
+
+#item-content .quiz .quiz-add .question .introduce-bar .action-btn {
+    display: flex;
+    align-items: center;
+}
+
+#item-content .quiz .quiz-add .question .introduce-bar .name-icon .title-question {
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+}
+
+#item-content .quiz .quiz-add .question .introduce-bar .name-icon .title-question svg {
+    font-size: 18px;
+    color: #029fd2;
+    margin-right: 8px;
+}
+
+#item-content .quiz .quiz-add .question .introduce-bar .name-icon .title-question span {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+#item-content .quiz .quiz-add .question .introduce-bar .name-icon .type-Selection {
+    padding: 6px 10px;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    box-shadow: 1px 2px 2px 1px rgb(240, 240, 240);
+    border-radius: 5px;
+    position: relative;
+    cursor: pointer;
+}
+
+#item-content .quiz .quiz-add .question .introduce-bar .name-icon .type-Selection svg {
+    color: var(--light-orange);
+    font-size: 14px;
+}
+
+#item-content .quiz .quiz-add .question .introduce-bar .name-icon .type-Selection span {
+    margin: 0 6px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+#item-content .quiz .quiz-add .question .introduce-bar .name-icon .type-Selection .arrow {
+    margin: 0;
+    color: black;
+}
+
+#item-content .quiz .quiz-add .question .type-Selection .selection-dropdown {
+    position: absolute;
+    left: 0;
+    top: calc(100% + 8px);
+    padding: 5px 0;
+    background-color: white;
+    box-shadow: 1px 2px 2px 1px rgb(240, 240, 240);
+    width: 180px;
+    border-radius: 5px;
+    z-index: 1;
+}
+
+#item-content .quiz .quiz-add .question .type-Selection .selection-dropdown p {
+    padding: 5px 10px;
+    color: #949faf;
+    font-weight: 700;
+}
+
+#item-content .quiz .quiz-add .question .type-Selection .selection-dropdown .selection {
+    padding: 8px 10px;
+    font-weight: 700;
+}
+
+#item-content .quiz .quiz-add .question .type-Selection .selection-dropdown .selection.active {
+    background-color: #f8fafc;
+}
+
+#item-content .quiz .quiz-add .question .action-btn svg {
+    font-size: 15px;
+    margin-left: 10px;
+}
+
+#item-content .quiz .quiz-add .question .action-btn .edit-btn {
+    padding: 5px 10px;
+    color: var(--light-orange);
+    border-right: 1px solid #ced3d8;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#item-content .quiz .quiz-add .question .dropdown-question {
+    padding: 15px 24px;
+}
+
+#item-content .quiz .quiz-add .question .dropdown-question .input-container p {
+    color: #949faf;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+#item-content .quiz .quiz-add .question .dropdown-question .input-container textarea {
+    margin-bottom: 15px;
+    border: 1px solid #ced3d8;
+    padding: 6px 10px;
+    width: 100%;
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+#item-content .quiz .quiz-add .question .dropdown-question .input-container textarea:focus-visible {
+    outline: none;
+}
+
+#item-content .quiz .quiz-add .question .answer {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#item-content .quiz .quiz-add .question .answer input {
+    flex: 1;
+    border: 1px solid #ced3d8;
+    padding: 4px 10px;
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+#item-content .quiz .quiz-add .question .answer input:focus-visible {
+    outline: none;
+}

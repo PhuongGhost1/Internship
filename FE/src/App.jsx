@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Home from './pages/Home/Home'
-// import CourseDetailPage from './pages/UserPage/CourseDetailPage/CourseDetailPage';
+import CourseDetailPage from './pages/UserPage/CourseDetailPage/CourseDetailPage';
 import LoginPage from './pages/AuthPage/LoginPage/LoginPage';
 import RegisterPage from './pages/AuthPage/RegisterPage/RegisterPage';
 import StudentProfilePage from './pages/StudentPage/ProfilePage/StudentProfilePage';
@@ -26,6 +26,7 @@ import ReportPage from './pages/Admin/ReportPage/ReportPage';
 import FeedBackAdminPage from './pages/Admin/FeedBackAdminPage/FeedBackAdminPage';
 import CategoryPage from './pages/Admin/CategoryPage/CategoryPage';
 
+import CreateCoursePage from './pages/InstructorPage/CreateCourse/CreateCoursePage';
 
 function App() {
      return (
@@ -39,8 +40,9 @@ function App() {
                          <Route path='search' element={<SearchPage />} />
                     </Route>
                     <Route path='/courses'>
-                         {/* <Route path=':courseName' element={<CourseDetailPage />} />
-                         <Route path='learning/:courseType/:itemName' element={<CourseLearning />} /> */}
+                         <Route path=':courseName' element={<CourseDetailPage />} />
+                         <Route path='learning/:courseType/:itemName' element={<CourseLearning />} />
+                         <Route path='create/:courseName' element={<CreateCoursePage />} />
                     </Route>
                     <Route path='/student'>
                          <Route path='profile' element={<StudentProfilePage />} />
