@@ -8,7 +8,5 @@ namespace BE.Dto.Category
     public class CategoryDto
     {
         public List<string?>? Names { get; set; }
-        public string? cateId {get; set;}
-        public string? Name {get; set;}
     }
 }

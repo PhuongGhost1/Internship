@@ -94,11 +94,6 @@ namespace BE.Repository.Implementations
             return user;
         }
 
-        public async Task<User?> GetUserById(string userId)
-        {
-            return await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
-        }
-
         public async Task<User?> UpdateUser(ForgotDto forgotDto, string email)
         {
             var userModel = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
@@ -110,25 +105,6 @@ namespace BE.Repository.Implementations
             await _context.SaveChangesAsync();
 
             return userModel;
-        }
-
-        public async Task<(int a, int c)> GetUserStatisticsAsync()
-        {
-            var now = DateTime.UtcNow;
-            var thirtyDaysAgo = now.AddDays(-30);
-            var sixtyDaysAgo = now.AddDays(-60);
-
-            int a = await _context.Users //ngày đăng kí nằm trong khoảng 30 ngày trc tính từ ngày hiện tại
-                                .Where(user => user.CreateAt >= thirtyDaysAgo)
-                                .CountAsync();
-
-            int b = await _context.Users  //ngày đăng kí nằm trong khoảng 60 ngày trc và 30 ngày trc tính từ ngày hiện tại
-                                .Where(user => user.CreateAt >= sixtyDaysAgo && user.CreateAt < thirtyDaysAgo)
-                                .CountAsync();
-
-            int c = b == 0 ? 0 : (int)Math.Round((a * 100.0 / b) - 100);
-
-            return (a, c);
         }
     }
 }

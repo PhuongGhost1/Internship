@@ -2,11 +2,10 @@ import React from "react";
 import './Weekly.css';
 
 const weeklyData = [
-     { title: "Weekly Income", value: "$123,000", subtext: "5% vs last month" },
-     { title: "Monthly Income", value: "$24,000", subtext: "71% of total goals" },
-     { title: "Student Accounts", value: "423", subtext: "22% higher" },
-     { title: "Instructor Accounts", value: "150", subtext: "10% increase" }
-     
+    { title: "Net Revenue", value: "$123,000", subtext: "5% vs last month" },
+    { title: "Weekly Sales", value: "$24,000", subtext: "71% of total goals" },
+    { title: "Page Visits", value: "423", subtext: "22% higher" },
+    { title: "New Customers", value: "150", subtext: "10% increase" }
 ];
 
 export default function Weekly() {

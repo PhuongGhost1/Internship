@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import './ManageInstructor.css';
 import { Pagination, PaginationItem, PaginationLink, Table } from "reactstrap";
 import { FaInfoCircle } from "react-icons/fa";
@@ -17,10 +17,13 @@ import { MdEmail } from "react-icons/md";
 import { GrTransaction } from "react-icons/gr";
 import CNXlogo from '../../../assets/CNX.png';
 import Mlogo from '../../../assets/M.png';
+import MMlogo from '../../../assets/MM.png';
 import CUlogo from '../../../assets/CU.png';
+import SYSNEYlogo from '../../../assets/SYSNEY.png';
 import { FaUsers } from "react-icons/fa";
 import { FaRegStarHalfStroke } from "react-icons/fa6";
 import { SiGmail } from "react-icons/si";
+
 
 const initialInstructors = [
     {
@@ -29,7 +32,7 @@ const initialInstructors = [
         name: "Nguyễn Hửu Cảnh",
         status: "Active",
         img: IntructorIMG,
-        phone: "0353747221",
+        phone: "353747221",
         calender: "Joined May 2020",
         age: "22",
         role: "Instructor",
@@ -346,9 +349,10 @@ const initialInstructors = [
             }
         ]
     }
+
 ];
 
-const pageSize = 12;
+const pageSize = 3;
 
 export default function ManageInstructor() {
     const [instructors, setInstructors] = useState(initialInstructors);
@@ -360,7 +364,7 @@ export default function ManageInstructor() {
 
     const handleStatusChange = (id) => {
         setInstructors(prevInstructors => prevInstructors.map(
-            instructor => instructor.id === id ? { ...instructor, status: instructor.status === "Active" ? "Block" : "Active" } : instructor
+            instructor => instructor.id === id ? { ...instructor, status: instructor.status === "Active" ? "Ban" : "Active" } : instructor
         ));
     };
 
@@ -391,7 +395,6 @@ export default function ManageInstructor() {
                 progress.classList.add('open');
             }, 200);
         } catch (error) {
-            <h2>Error Search</h2>
         }
         setCurrentNum(num);
     }

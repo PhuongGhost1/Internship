@@ -8,6 +8,6 @@ namespace BE.Services.Interfaces
 {
     public interface IEmailService
     {
-        Task<EmailSendResultDto> SendEmail(EmailDto emailDto);
+        Task<EmailSendResultDto> SendEmail(string email, string subject, string htmlBody);
     }
 }

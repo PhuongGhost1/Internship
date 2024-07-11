@@ -5,57 +5,81 @@
 
 #ManageInstructor .instructor-list th {
     padding: 12px 10px;
-    background-color: #eeeeee;
     text-align: center;
-    font-size: 18px;
+    background-color: #eeeeee;
+    font-weight: bold;
+
 }
 
 #ManageInstructor .instructor-list td {
     vertical-align: middle;
     text-align: center;
-    font-size: 16px;
-    padding: 10px;
 }
 
 #ManageInstructor .no {
     width: 5%;
-    font-weight: bold;
-    text-align: center;
 }
 
 #ManageInstructor .email {
-    width: 25%;
+    width: 20%;
 }
 
+#ManageInstructor .instructor-list .name {
+    width: 20%;
+}
 
 #ManageInstructor .name {
-    width: 25%;
+    width: 20%;
 }
 
 #ManageInstructor .status {
-    width: 15%;
+    width: 20%;
 }
 
 #ManageInstructor .action {
-    width: 10%;
+    width: 5%;
 }
 
 #ManageInstructor .ManageInstructor-top {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 #ManageInstructor .management-instructor-pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+    flex-shrink: 0;
 }
+
+#ManageInstructor .management-instructor-pagination .pagination {
+    display: flex;
+    gap: 5px;
+}
+
+#ManageInstructor .management-instructor-pagination .page-item {
+    list-style-type: none;
+}
+
+#ManageInstructor .management-instructor-pagination .page-link {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-decoration: none;
+    color: black;
+}
+
+#ManageInstructor .management-instructor-pagination .page-item.active .page-link {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
 
 #ManageInstructor .ManageInstructor-top .search-bar {
     display: flex;
     position: relative;
     justify-content: flex-end;
-    margin: 10px 0;
+    height: 40px;
 }
 
 #ManageInstructor .search-bar input {
@@ -65,7 +89,6 @@
     font-size: 12px;
     padding-left: 10px;
 }
-
 
 #ManageInstructor .search-bar svg {
     color: rgb(207, 206, 206);
@@ -86,7 +109,7 @@
     border-radius: 5px;
 }
 
-#ManageInstructor .status-block {
+#ManageInstructor .status-ban {
     border: none;
     background-color: #c53631;
     color: white;
@@ -180,7 +203,7 @@
     display: flex;
     align-items: center;
     font-size: 14px;
-    color: grey;
+    color: rgb(165, 163, 163);
     margin-top: 5px;
 }
 
@@ -202,7 +225,7 @@
 #ManageInstructor .popup .popup-container .popup-status .popup-statuss {
     display: flex;
     align-items: center;
-    margin-right: 20px;
+    color: #818181;
 }
 
 #ManageInstructor .popup .popup-container .popup-status svg {
@@ -213,6 +236,7 @@
     display: flex;
     margin-top: 20px;
     justify-content: space-between;
+    gap: 20px;
 }
 
 #ManageInstructor .popup .popup-container .popup-contact .popup-card {
@@ -220,16 +244,13 @@
     align-items: center;
     justify-content: center;
     padding: 10px 10px;
-    border: 1px solid grey;
+    border: 1px solid rgb(165, 164, 164);
     border-radius: 10px;
-    margin-right: 10px;
-    flex-grow: 1;
-    width: 292px;
+    flex: 1;
 }
 
 #ManageInstructor .popup .popup-container .popup-contact .popup-card svg {
     margin-right: 10px;
-    font-size: 20px;
 }
 
 #ManageInstructor .popup .popup-container .details {
@@ -269,8 +290,8 @@
     color: rgb(255 145 76);
 }
 
-/* Activity */
-#ManageInstructor .activity-content {
+/* Activity Content Styling */
+.activity-content {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -279,7 +300,7 @@
     max-height: 400px;
 }
 
-#ManageInstructor .activity-icon {
+.activity-icon {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -290,53 +311,53 @@
     margin-right: 10px;
 }
 
-#ManageInstructor .activity-icon svg {
+.activity-icon svg {
     width: 21px;
     height: 21px;
 }
 
-#ManageInstructor .activity-item {
+.activity-item {
     display: flex;
     align-items: center;
 }
 
-#ManageInstructor .activity-item p {
+.activity-item p {
     margin-left: 20px;
 }
 
-#ManageInstructor .activity-item p:first-child {
+.activity-item p:first-child {
     font-size: 14px;
 }
 
-#ManageInstructor .activity-item p:last-child {
+.activity-item p:last-child {
     font-weight: bold;
     color: #000;
     font-size: 16px;
 }
 
-#ManageInstructor .activity-item.payment .activity-icon {
+.activity-item.payment .activity-icon {
     background-color: #e6e6e6;
 }
 
-#ManageInstructor .activity-item.gmaill .activity-icon {
+.activity-item.gmaill .activity-icon {
     background-color: #e6e6e6;
 }
 
-#ManageInstructor .activity-item.checked .activity-icon {
+.activity-item.checked .activity-icon {
     background-color: #e6e6e6;
 }
 
-#ManageInstructor .activity-container {
+.activity-container {
     padding: 10px 0;
     border-bottom: 1px solid #ccc;
 }
 
-#ManageInstructor .activity-container:last-child {
+.activity-container:last-child {
     border-bottom: none;
 }
 
-/* Course */
-#ManageInstructor .popup-course {
+/* Course Content Styling */
+.popup-course {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -345,7 +366,7 @@
     max-height: 400px;
 }
 
-#ManageInstructor .course-card {
+.course-card {
     display: flex;
     align-items: center;
     background-color: white;
@@ -355,7 +376,7 @@
     position: relative;
 }
 
-#ManageInstructor .course-logo {
+.course-logo {
     width: 60px;
     height: 60px;
     margin-right: 20px;
@@ -364,38 +385,38 @@
     object-position: center;
 }
 
-#ManageInstructor .course-details {
+.course-details {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-#ManageInstructor .course-details h3 {
+.course-details h3 {
     margin: 10px 0 0 0;
     font-size: 14px;
     font-weight: bold;
 }
 
-#ManageInstructor .popup-course .course-card .course-icon {
+.popup-course .course-card .course-icon {
     display: flex;
     margin-bottom: 10px;
 }
 
-#ManageInstructor .popup-course .course-card .course-icon .course-icon-item {
+.popup-course .course-card .course-icon .course-icon-item {
     display: flex;
     margin-right: 20px;
     align-items: center;
 }
 
-#ManageInstructor .popup-course .course-card .course-icon .course-icon-item p {
+.popup-course .course-card .course-icon .course-icon-item p {
     margin-left: 6px;
     font-size: 14px;
     color: #4b4b4b;
 }
 
-/* Payment History*/
-#ManageInstructor .popup-payment {
+/* Payment History Content Styling */
+.popup-payment {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -404,24 +425,24 @@
     max-height: 400px;
 }
 
-#ManageInstructor .popup-payment .payment-history {
+.popup-payment .payment-history {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-#ManageInstructor .popup-payment .payment-history .payment-item {
+.popup-payment .payment-history .payment-item {
     background-color: #f9f9f9;
     padding: 10px;
     border-radius: 5px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-#ManageInstructor .popup-payment .payment-history .payment-item p {
+.popup-payment .payment-history .payment-item p {
     margin: 0;
     font-size: 14px;
 }
 
-#ManageInstructor .popup-payment .payment-history .payment-item span {
+.popup-payment .payment-history .payment-item span {
     color: var(--light-orange);
 }
