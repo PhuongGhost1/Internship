@@ -49,6 +49,7 @@ const Followed = () => {
 
   return (
     <div id="Followed">
+
       <div id="search-bar">
         <input
           type="text"
@@ -57,6 +58,7 @@ const Followed = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
+
       <div id="tutors-grid">
         {currentTutors.map((tutor, index) => (
           <div className="tutor-card" key={index}>
@@ -75,6 +77,7 @@ const Followed = () => {
           </div>
         ))}
       </div>
+
       {pageNumbers.length > 1 && ( // Only show pagination if there is more than 1 page
         <div className="pagination">
           <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>
@@ -94,6 +97,7 @@ const Followed = () => {
             Next
           </button>
         </div>
+
       )}
     </div>
   );
