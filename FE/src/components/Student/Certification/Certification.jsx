@@ -5,6 +5,7 @@ import './Certification.css';
 import Pic1 from '../../../assets/Collection-Avatar/1.png'
 import M from '../../../assets/M.png'
 import Certificate from '../../../assets/Certification.png'
+// import Certificate from '../../../assets/Certification_Background.png'
 
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
