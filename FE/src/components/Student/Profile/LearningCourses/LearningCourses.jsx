@@ -84,7 +84,7 @@ const courses = [
         completionDate: "Completed January 2024",
         certificateLink: "#",
         imageSrc: CNXLogo,
-        progress: 0,
+        progress: 55,
     },
 
 ];

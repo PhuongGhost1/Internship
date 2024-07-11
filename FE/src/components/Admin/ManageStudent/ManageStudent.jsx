@@ -222,13 +222,6 @@ const ManageStudent = () => {
             value={searchTerm}
             onChange={handleSearchChange}
           />
-          <FaSearch />
-          <input
-            type="text"
-            placeholder="Search by name or email"
-            value={searchTerm}
-            onChange={handleSearchChange}
-          />
         </div>
       </div>
       <Table className="student-list">

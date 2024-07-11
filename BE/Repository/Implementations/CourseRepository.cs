@@ -2,7 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BE.Dto.Chapter;
 using BE.Dto.Course;
+using BE.Dto.Course.Chapter;
+using BE.Helpers;
 using BE.Dto.Course.Chapter;
 using BE.Models;
 using BE.Repository.Interface;
@@ -21,9 +24,73 @@ namespace BE.Repository.Implementations
         {
             _context = context;
         }
-        public async Task<List<Course>> GetAllCourses()
+        public async Task<List<Course>> GetAllCoursesByQueryName(SearchQueryObject searchQueryObject)
         {
-            return await _context.Courses.ToListAsync();
+            var courses = _context.Courses.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(searchQueryObject.Name))
+            {
+                courses = _context.Courses.Where(c => c.Name.Contains(searchQueryObject.Name));
+            }
+
+            return await courses.ToListAsync();
+        }
+
+        public async Task<CourseDto?> GetLecturesAndQuizzesByCourseId(string courseId)
+        {
+            var course = await _context.Courses
+                .Where(c => c.Id == courseId)
+                .Include(c => c.Chapters)
+                .FirstOrDefaultAsync();
+
+            if (course == null) return null;
+
+            var chapterIds = course.Chapters.Select(ch => ch.Id).ToList();
+
+            var lectures = await _context.Lectures
+                .Where(l => chapterIds.Contains(l.ChapterId))
+                .Select(l => new ChapterItemDto
+                {
+                    ItemId = l.Id,
+                    Name = l.Name,
+                    Index = l.Index,
+                    Type = "Lecture",
+                    ChapterId = l.ChapterId
+                })
+                .ToListAsync();
+
+            var quizzes = await _context.Quizzes
+                .Where(q => chapterIds.Contains(q.ChapterId))
+                .Select(q => new ChapterItemDto
+                {
+                    ItemId = q.Id,
+                    Name = q.Name,
+                    Index = q.Index,
+                    Type = "Quiz",
+                    ChapterId = q.ChapterId
+                })
+                .ToListAsync();
+
+            var chapterDtos = course.Chapters.Select(ch => new ChaptersDto
+            {
+                Id = ch.Id,
+                Name = ch.Name,
+                Index = ch.Index,
+                Items = lectures
+                    .Where(l => l.ChapterId == ch.Id)
+                    .Concat(quizzes.Where(q => q.ChapterId == ch.Id))
+                    .OrderBy(item => item.Index)
+                    .ToList()
+            }).OrderBy(x => x.Index).ToList();
+
+            var courseDto = new CourseDto
+            {
+                CourseId = course.Id,
+                Name = course.Name,
+                Chapters = chapterDtos
+            };
+
+            return courseDto;
         }
 
         public async Task<Course?> RetriveCourseInformationById(string courseId)

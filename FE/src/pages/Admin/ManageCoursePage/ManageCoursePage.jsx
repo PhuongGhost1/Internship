@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./ManageCoursePage.css";
+import Header from "../../../components/Admin/Header/Header";
+import SideBar from "../../../components/Admin/SideBar/SideBar";
 import PostedCourse from "../../../components/Admin/ManageCourse/PostedCourse/PostedCourse";
 import CourseStatus from "../../../components/Admin/ManageCourse/CourseStatus/CourseStatus";
 import LoadingOverlay from "../../../components/LoadingOverlay";

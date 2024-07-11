@@ -12,16 +12,16 @@
 #management-course .search-bar {
   display: flex;
   position: relative;
+  text-align: left;
   justify-content: flex-end;
-  margin: 10px 0;
 }
 
 #management-course .search-bar input {
   width: 300px;
+  height: 40px;
   border: 1px solid #ccc;
   border-radius: 20px;
   font-size: 12px;
-  padding-left: 10px;
 }
 
 #management-course .search-bar svg {
@@ -72,7 +72,6 @@
 
 #management-course .table-info th {
   padding: 15px 10px;
-  background-color: #eeeeee;
 }
 
 #management-course .table-info {

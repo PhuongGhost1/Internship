@@ -46,7 +46,7 @@ export default function SliderCards({ items }) {
             ratingCount: 9567,
             timeLearing: "8 hours 45 minutes"
         },
-        
+
     ]
     return (
         <div id="slider-cards">

@@ -1,17 +1,13 @@
 using BE.Middlewares;
 using BE.Models;
-using BE.Repository;
 using BE.Repository.Implementations;
 using BE.Repository.Interface;
-using BE.Services;
 using BE.Services.Implementations;
 using BE.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OAuth;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -19,10 +15,7 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
-
-
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure CORS
@@ -115,23 +108,23 @@ builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo { Title = "Demo API", Version = "v1" });
 
-    options.SwaggerDoc("Email", new OpenApiInfo { Title = "Email APIs", Version = "v1" });
-    options.SwaggerDoc("User", new OpenApiInfo { Title = "User APIs", Version = "v1" });
-    options.SwaggerDoc("Course", new OpenApiInfo { Title = "Course APIs", Version = "v1" });
-    options.SwaggerDoc("Chapter", new OpenApiInfo { Title = "Chapter APIs", Version = "v1" });
-    options.SwaggerDoc("Category", new OpenApiInfo { Title = "Category APIs", Version = "v1" });
+    // options.SwaggerDoc("Email", new OpenApiInfo { Title = "Email APIs", Version = "v1" });
+    // options.SwaggerDoc("User", new OpenApiInfo { Title = "User APIs", Version = "v1" });
+    // options.SwaggerDoc("Course", new OpenApiInfo { Title = "Course APIs", Version = "v1" });
+    // options.SwaggerDoc("Chapter", new OpenApiInfo { Title = "Chapter APIs", Version = "v1" });
+    // options.SwaggerDoc("Category", new OpenApiInfo { Title = "Category APIs", Version = "v1" });
 
-    options.DocInclusionPredicate((docName, apiDesc) =>
-    {
-        if (apiDesc.TryGetMethodInfo(out var methodInfo))
-        {
-            var groupName = methodInfo.DeclaringType.GetCustomAttributes(true)
-                               .OfType<ApiExplorerSettingsAttribute>()
-                               .FirstOrDefault()?.GroupName;
-            return groupName == docName;
-        }
-        return false;
-    });
+    // options.DocInclusionPredicate((docName, apiDesc) =>
+    // {
+    //     if (apiDesc.TryGetMethodInfo(out var methodInfo))
+    //     {
+    //         var groupName = methodInfo.DeclaringType.GetCustomAttributes(true)
+    //                            .OfType<ApiExplorerSettingsAttribute>()
+    //                            .FirstOrDefault()?.GroupName;
+    //         return groupName == docName;
+    //     }
+    //     return false;
+    // });
 
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -158,21 +151,14 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll", builder =>
-    {
-        builder.AllowAnyOrigin()
-               .AllowAnyMethod()
-               .AllowAnyHeader();
-    });
-});
 
 builder.Services.AddOptions();
 var emailSetting = builder.Configuration.GetSection("MailSettings");
 builder.Services.Configure<MailSettings>(emailSetting);
 
-builder.Services.AddControllers();
+builder.Services.AddControllersWithViews();
+
+builder.Services.AddHttpContextAccessor();
 
 //Repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>(); builder.Services.AddScoped<ITokenRepository, TokenRepository>(); builder.Services.AddScoped<IRoleUserRepository, RoleUserRepository>();
@@ -219,16 +205,6 @@ app.UseExceptionHandleMiddleware();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseCors("AllowAll");
-
 app.MapControllers();
-
-// app.Use(async (context,next) => {
-//     await context.Response.WriteAsync("Hello from middleware 1");
-//     await next.Invoke();
-//     await context.Response.WriteAsync("Return from middleware 1");
-// });
-
-// app.UseMiddleware<SimpleMiddleware>();
 
 app.Run();

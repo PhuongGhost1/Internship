@@ -102,6 +102,11 @@ namespace BE.Repository.Implementations
             return user;
         }
 
+        public async Task<User?> GetUserById(string userId)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+        }
+
         public async Task<User?> UpdateUser(ForgotDto forgotDto, string email)
         {
             var userModel = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
