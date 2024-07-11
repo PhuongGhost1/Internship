@@ -22,6 +22,8 @@ import ManageStudentPage from './pages/Admin/ManageStudentPage/ManageStudentPage
 import ManageCoursePage from './pages/Admin/ManageCoursePage/ManageCoursePage';
 import RequestsPage from './pages/Admin/RequestsPage/RequestsPage';
 import SettingPage from './pages/Admin/SettingPage/SettingPage';
+import CertificationPage from './pages/StudentPage/CertificationPage/CertificationPage';
+import CartPage from './pages/StudentPage/CartPage/CartPage';
 import ReportPage from './pages/Admin/ReportPage/ReportPage';
 import FeedBackAdminPage from './pages/Admin/FeedBackAdminPage/FeedBackAdminPage';
 import CategoryPage from './pages/Admin/CategoryPage/CategoryPage';
@@ -29,45 +31,45 @@ import CategoryPage from './pages/Admin/CategoryPage/CategoryPage';
 import CreateCoursePage from './pages/InstructorPage/CreateCourse/CreateCoursePage';
 
 function App() {
-     return (
-          <BrowserRouter>
-               <Routes>
-                    <Route path="/">
-                         <Route index element={<Home />} />
-                         <Route path='login' element={<LoginPage />} />
-                         <Route path='signup' element={<RegisterPage />} />
-                         <Route path='payment' element={<PaymentPage />} />
-                         <Route path='search' element={<SearchPage />} />
-                    </Route>
-                    <Route path='/courses'>
-                         <Route path=':courseName' element={<CourseDetailPage />} />
-                         <Route path='learning/:courseType/:itemName' element={<CourseLearning />} />
-                         <Route path='create/:courseName' element={<CreateCoursePage />} />
-                    </Route>
-                    <Route path='/student'>
-                         <Route path='profile' element={<StudentProfilePage />} />
-                         <Route path='my-learning'>
-                              <Route path='completed' element={<CourseCompletedPage />} />
-                              <Route path='following' element={<FollowingPage />} />
-                              <Route path='in-progress' element={<CourseInProgressPage />} />
-                              <Route path='saved' element={<CourseSavedPage />} />
-                         </Route>
-                    </Route>
-                    <Route path='/instructor'>
-                         <Route path='profile' element={<InstructorProfilePage />} />
-                    </Route>
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/">
+          <Route index element={<Home />} />
+          <Route path='login' element={<LoginPage />} />
+          <Route path='signup' element={<RegisterPage />} />
+          <Route path='payment' element={<PaymentPage />} />
+          <Route path='search' element={<SearchPage />} />
+        </Route>
+        <Route path='/courses'>
+          <Route path=':courseName' element={<CourseDetailPage />} />
+          <Route path='learning/:courseType/:itemName' element={<CourseLearning />} />
+          <Route path='create/:courseName' element={<CreateCoursePage />} />
+        </Route>
+        <Route path='/student'>
+          <Route path='cart' element={<CartPage />} />
+          <Route path='certification' element={<CertificationPage />} />
+          <Route path='profile' element={<StudentProfilePage />} />
+          <Route path='my-learning'>
+            <Route path='completed' element={<CourseCompletedPage />} />
+            <Route path='following' element={<FollowingPage />} />
+            <Route path='in-progress' element={<CourseInProgressPage />} />
+            <Route path='saved' element={<CourseSavedPage />} />
+          </Route>
 
-     <Route path='/admin'>
+        </Route>
+        <Route path='/instructor'>
+          <Route path='profile' element={<InstructorProfilePage />} />
+        </Route>
+
+        <Route path='/admin'>
           <Route path='dashboard' element={<DashBoard />} />
           <Route path='instructor' element={<ManageInstructorPage />} />
           <Route path='student' element={<ManageStudentPage />} />
           <Route path='course' element={<ManageCoursePage />} />
           <Route path='requests' element={<RequestsPage />} />
           <Route path='setting' element={<SettingPage />} />
-          <Route path='report' element={<ReportPage/>} />
-          <Route path='feedback' element={<FeedBackAdminPage/>} />
-          <Route path='category' element ={<CategoryPage/>} />
-     </Route>
+        </Route>
       </Routes >
     </BrowserRouter >
   )
