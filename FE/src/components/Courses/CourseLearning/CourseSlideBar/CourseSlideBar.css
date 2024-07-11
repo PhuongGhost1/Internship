@@ -1,7 +1,7 @@
 #course-slidebar {
     border-right: 1px solid #e5e7e8;
     height: calc(-60px + 100vh);
-    padding: 16px 16px 16px 30px;
+    padding: 16px 16px 16px 50px;
     width: 380px;
     transition: all 0.5s ease;
     overflow: hidden;

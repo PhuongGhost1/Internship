@@ -1,5 +1,4 @@
 using BE.Dto.Course;
-using BE.Helpers;
 using BE.Dto.Course.Chapter;
 using BE.Models;
 using BE.Services.Interfaces;
@@ -10,9 +9,9 @@ using BE.Attributes;
 
 namespace BE.Controllers
 {
-
-    [Route("api/v1/web/course")]
     [ApiController]
+    [Route("api/v1/web/course")]
+    [ApiExplorerSettings(GroupName = "Course")]
     public class CourseWebController : ControllerBase
     {
         private readonly ICourseService _courseService;
@@ -23,22 +22,14 @@ namespace BE.Controllers
         }
 
         [HttpGet]
-        [Route("all-courses")]
-        public async Task<List<Course>> GetAllCourses([FromQuery] SearchQueryObject searchQueryObject)
+        public async Task<List<Course>> GetAllCourses()
         {
-            return await _courseService.GetAllCourses(searchQueryObject);
+            return await _courseService.GetAllCourses();
         }
 
-        [HttpGet]
-        [Route("filter-all-courses")]
-        public async Task<List<Course>> FilterAllCourses([FromQuery] FilterQueryObject filterQueryObject)
-        {
-            return await _courseService.FilterAllCourses(filterQueryObject);
-        }
-
-        [HttpPost]
-        [Route("course-info")]
-        public async Task<CourseDto> GetInformationOfCourse([FromForm] string courseId)
+        [HttpGet("course-info")]
+        [Route("{courseId}")]
+        public async Task<CourseDto> GetInformationOfCourse([FromRoute] string courseId)
         {
             return await _courseService.GetInformationOfCourse(courseId);
         }

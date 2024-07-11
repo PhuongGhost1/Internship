@@ -16,7 +16,7 @@ import ApiService from "../../../api/ApiService";
 import { FaPhoneAlt } from "react-icons/fa";
 import { SiGmail } from "react-icons/si";
 
-const pageSize = 12;
+const pageSize = 3;
 
 const ManageInstructor = () => {
   const [instructors, setInstructors] = useState([]);

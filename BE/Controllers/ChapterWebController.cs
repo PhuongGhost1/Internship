@@ -1,14 +1,14 @@
 using BE.Attributes;
 using BE.Dto.Chapter;
 using BE.Dto.Course.Chapter;
-using BE.Models;
 using BE.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BE.Controllers
 {
-    [Route("api/v1/web/chapter")]
     [ApiController]
+    [Route("api/v1/web/chapter")]
+    [ApiExplorerSettings(GroupName = "Chapter")]
     public class ChapterWebController : ControllerBase
     {
         private readonly IChapterService _chapterService;
