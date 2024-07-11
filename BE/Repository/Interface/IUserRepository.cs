@@ -13,5 +13,13 @@ namespace BE.Repository.Interface
         Task<bool> CheckEmailExist(string email);
         Task<bool> CheckUserExistById(string userId);
         Task<bool> CreateUserData(string username, string email, string password, string description, string phone, string role);
+        Task<User?> GetUserById(string userId);
+        Task<(int a, int c)> GetUserStatisticsAsync();
+        Task<double?> GetPercentageChangeForStudentAccountsLastMonth();
+        Task<double?> GetPercentageChangeForInstructorAccountsLastMonth();
+        Task<int?> CountAccountsByRoleForMonth(string roleName, DateTime month);
+        Task<List<UserInfoManageByAdminDto>> GetInstructors(string roleName);
+        Task<bool> UpdateUserStatus(string userId);
+        Task<List<FeedbackRequestDto>> GetFeedbacksManagementByAdmin();
     }
 }

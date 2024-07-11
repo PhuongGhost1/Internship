@@ -47,7 +47,7 @@ export default function CreatingCourse() {
                                 <h4 id={`course-title-${index}`}>{cert.title}</h4>
                                 <a href={cert.courseLink} className="view-course-detail" id={`view-course-detail-${index}`}>View course detail</a>
                             </div>
-                            <div className="creating-course-button">
+                            <div class="creating-course-button">
                                 <a href="#">Continue <FaArrowRight /></a>
                             </div>
                         </div>

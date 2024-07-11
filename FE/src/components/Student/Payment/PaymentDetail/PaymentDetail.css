@@ -1,178 +1,181 @@
 #form-container {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
+}
+
+#payment-page .payment-container {
+  padding: 60px 100px;
+  background-color: #d1d1d1;
 }
 
 #form-container .add-new-card {
-    padding: 80px 60px;
-    background-color: white;
-    display: flex;
-    border-radius: 20px;
-    flex-direction: column;
-    align-items: center;
+  padding: 80px 60px;
+  background-color: white;
+  display: flex;
+  border-radius: 20px;
+  flex-direction: column;
+  align-items: center;
 }
 
 #form-container .add-new-card .form-contain {
-    display: flex;
+  display: flex;
 }
 
 #root .payment-container .card-visa {
-    background-color: white;
-    border-radius: 8px;
-    padding: 20px;
-    /* width: 30px; */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
-    margin-left: 100px;
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  /* width: 30px; */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  margin-left: 100px;
 }
 
 .form-title {
-    font-weight: bold;
-    font-size: 14px;
-    margin-bottom: 5px;
-    color: #1f1f1f;
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #1f1f1f;
 }
 
 .paymentOptions {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 15px;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 15px;
 }
 
 .paymentOptions label {
-    width: 200px;
-    height: 60px;
-    border-radius: 10px;
-    font-weight: 600;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #33333381;
+  width: 200px;
+  height: 60px;
+  border-radius: 10px;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #33333381;
 }
 
 .paymentOptions label svg {
-    margin-right: 10px;
-    font-size: 15px;
+  margin-right: 10px;
+  font-size: 15px;
 }
 
-
 .paymentOptions input[type="radio"] {
-    display: none;
+  display: none;
 }
 
 .form-group label {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .form-group.holderName {
-    margin-bottom: 40px;
+  margin-bottom: 40px;
 }
 
 .form-group.addWallet {
-    margin-top: 40px;
+  margin-top: 40px;
 }
 
-.paymentOptions input[type="radio"]:checked+label {
-    border: 2px solid #74b95b;
-    color: #1f1f1f;
+.paymentOptions input[type="radio"]:checked + label {
+  border: 2px solid #74b95b;
+  color: #1f1f1f;
 }
 
-.paymentOptions input[type="radio"]:checked+label svg {
-    color: #74b95b;
+.paymentOptions input[type="radio"]:checked + label svg {
+  color: #74b95b;
 }
 
 .form-fields {
-    min-height: 200px;
-    /* Maintain height to keep layout */
+  min-height: 200px;
+  /* Maintain height to keep layout */
 }
 
 .form-group {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .form-row {
-    display: flex;
-    gap: 15px;
+  display: flex;
+  gap: 15px;
 }
 
 .form-row .form-group {
-    flex: 1;
+  flex: 1;
 }
 
 label {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 14px;
-    color: #666;
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #666;
 }
 
 input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
 }
 
 input[type="text"]::placeholder {
-    color: #aaa;
+  color: #aaa;
 }
 
 .checkbox {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .checkbox input {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 .checkbox label {
-    margin-bottom: 0;
-    color: #333;
+  margin-bottom: 0;
+  color: #333;
 }
 
 .submit-button {
-    width: 100%;
-    padding: 12px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.2s;
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .submit-button:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 
-
 #form-container .add-new-card .button-contain {
-    display: flex;
+  display: flex;
 }
 
 #form-container .add-new-card .button-contain .button {
-    width: 200px;
-    height: 50px;
-    background-color: #015ffa;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    margin: 0 10px;
-    font-size: 14px;
-    cursor: pointer;
+  width: 200px;
+  height: 50px;
+  background-color: #015ffa;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin: 0 10px;
+  font-size: 14px;
+  cursor: pointer;
 }
 
 #form-container .add-new-card .button-contain .cancel {
-    background-color: rgba(0, 0, 0, 0);
-    color: #727272;
+  background-color: rgba(0, 0, 0, 0);
+  color: #727272;
 }
 
 .rccs {
-    box-shadow: 1px 1px 2px 1px rgb(124, 124, 124);
-    border-radius: 15px;
+  box-shadow: 1px 1px 2px 1px rgb(124, 124, 124);
+  border-radius: 15px;
 }

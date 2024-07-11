@@ -9,6 +9,8 @@ using BE.Services.Interfaces;
 using Google.Cloud.Storage.V1;
 using Google.Apis.Auth.OAuth2;
 using Microsoft.AspNetCore.Mvc;
+using BE.Mappers;
+using BE.Helpers;
 using BE.Dto.Course.Chapter;
 
 namespace BE.Services.Implementations
@@ -19,18 +21,28 @@ namespace BE.Services.Implementations
         private readonly IImageRepository _imageRepo;
         private readonly IQuizRepository _quizRepo;
         private readonly ILectureRepository _lectureRepo;
+        private readonly ICategoryRepository _cateRepo;
+        private readonly IUserRepository _userRepo;
         public CourseService(ICourseRepository courseRepo, IImageRepository imageRepo, IQuizRepository quizRepo,
-                            ILectureRepository lectureRepo)
+                            ILectureRepository lectureRepo, ICategoryRepository cateRepo, IUserRepository userRepo)
         {
             _courseRepo = courseRepo;
             _imageRepo = imageRepo;
             _quizRepo = quizRepo;
             _lectureRepo = lectureRepo;
+            _cateRepo = cateRepo;
+            _userRepo = userRepo;
         }
 
-        public async Task<List<Course>> GetAllCourses()
+        public async Task<List<Course>> GetAllCourses(SearchQueryObject searchQueryObject)
         {
-            var courses = await _courseRepo.GetAllCourses();
+            var courses = await _courseRepo.GetAllCoursesByQueryName(searchQueryObject);
+            return courses;
+        }
+
+        public async Task<List<Course>> FilterAllCourses(FilterQueryObject filterQueryObject)
+        {
+            var courses = await _courseRepo.FilterAllCoursesByObject(filterQueryObject);
             return courses;
         }
 
@@ -59,6 +71,19 @@ namespace BE.Services.Implementations
             return courseDto;
         }
 
+        public async Task<CourseDto?> GetLecturesAndQuizzesByCourseId(string courseId)
+        {
+            var course = await _courseRepo.RetriveCourseInformationById(courseId);
+
+            if (course == null) throw new Exception("Cannot find course");
+
+            var combinedList = await _courseRepo.GetLecturesAndQuizzesByCourseId(courseId);
+
+            if (combinedList == null) throw new Exception("Not found lectures or quizzes!");
+
+            return combinedList;
+        }
+
         public async Task<string> UploadImgCourse(int courseId, IFormFile image)
         {
             if (image == null || image.Length == 0)
@@ -73,6 +98,82 @@ namespace BE.Services.Implementations
             return await _courseRepo.CreateCourse(data);
         }
 
+        public async Task<List<Course>> GetAllCoursesByCategoryName(string cateName)
+        {
+            var category = await _cateRepo.FindCategoryByName(cateName);
+
+            if (category == null) throw new Exception("Not found category!");
+
+            var courses = await _courseRepo.FindCourseByCategoryName(cateName);
+
+            if (courses == null) throw new Exception("Not found course!");
+
+            return courses;
+        }
+
+        public async Task<Course?> SearchCourseByUserId(string userId)
+        {
+            var user = await _userRepo.GetUserById(userId);
+
+            if (user == null) throw new Exception("Unable to user!");
+
+            var course = await _courseRepo.SearchCourseByUserId(userId);
+
+            if (course == null) throw new Exception("Unable to search course!");
+
+            return course;
+        }
+
+        public async Task<List<Course>> GetRecentRandomCourses(int numberOfCourses)
+        {
+            if (numberOfCourses < 0) throw new Exception("Cannot take under 0 course!");
+
+            return await _courseRepo.GetRecentRandomCourses(6);
+        }
+
+        //---------------------CRUD--------------------------//
+        public async Task<Course?> CreateCourse(CreateCourseDto createCourseDto)
+        {
+            var user = await _userRepo.GetUserById(createCourseDto.UserId);
+
+            if (user == null) throw new Exception("Unable to find user!");
+
+            var createCourse = createCourseDto.ToCreateCourseDto(createCourseDto.UserId);
+
+            if (createCourse == null) throw new Exception("Unable to create course!");
+
+            return await _courseRepo.CreateCourse(createCourse);
+        }
+
+        public async Task<Course?> UpdateCourse(UpdateCourseDto updateCourseDto)
+        {
+            var course = await _courseRepo.RetriveCourseInformationById(updateCourseDto.CourseId);
+
+            if (course == null) throw new Exception("Unable to find course!");
+
+            var updateCourse = updateCourseDto.ToUpdateCourseDto();
+
+            if (updateCourse == null) throw new Exception("Unable to update course!");
+
+            return await _courseRepo.UpdateCourse(updateCourse);
+        }
+
+        public async Task<bool> DeleteCourse(string courseId)
+        {
+            var course = await _courseRepo.RetriveCourseInformationById(courseId);
+
+            if (course == null) throw new Exception("Unable to find course!");
+
+            return await _courseRepo.DeleteCourse(courseId);
+        }
+
+        public async Task<Course?> GetCourseByCourseName(string courseName)
+        {
+            if (courseName == null) throw new Exception("Unable to find chapter!");
+
+            return await _courseRepo.FindCourseByCourseName(courseName);
+        }
+
         public async Task<string> CreateChapter(CreateChapterData data)
         {
             return await _courseRepo.CreateChapter(data);
@@ -80,6 +181,57 @@ namespace BE.Services.Implementations
         public async Task<string> CreateQuiz(CreateQuizData data)
         {
             return await _courseRepo.CreateQuiz(data);
+        }
+
+        public async Task<List<Course>> GetMostPurchasedCoursesAsync()
+        {
+            var courses = await _courseRepo.GetMostPurchasedCourses();
+
+            if (courses == null || courses.Count == 0)
+            {
+                return new List<Course>();
+            }
+
+            return courses;
+        }
+
+        public async Task<List<MonthlyAnalyticsDto>> GetMonthlyExpenseAndRevenueAsync()
+        {
+            var chart = await _courseRepo.GetMonthlyExpenseAndRevenue();
+            
+            if (chart == null || chart.Count == 0)
+            {
+                return new List<MonthlyAnalyticsDto>();
+            }
+
+            return chart;
+        }
+
+        public async Task<List<CourseManagementForAdminDto>> GetCourseManagementByAdminAsync()
+        {
+            var courses = await _courseRepo.GetCourseManagementByAdmin();
+
+            if(courses == null || courses.Count == 0) return new List<CourseManagementForAdminDto>();
+
+            return courses;
+        }
+
+        public async Task<List<CourseManagementForAdminDto>> GetCourseManagementForWaitingByAdminAsync()
+        {
+            var courses = await _courseRepo.GetCourseManagementForWaitingByAdmin();
+
+            if(courses == null || courses.Count == 0) return new List<CourseManagementForAdminDto>();
+
+            return courses;
+        }
+
+        public async Task<bool> UpdateCourseByAdminAysnc(string courseId, int status)
+        {
+            var course = await _courseRepo.RetriveCourseInformationById(courseId);
+
+            if(course == null) throw new Exception("Unable to find course!");
+
+            return await _courseRepo.UpdateCourseByAdmin(courseId, status);
         }
     }
 }

@@ -4,8 +4,8 @@ import Header from "../../../components/Admin/Header/Header";
 import SideBar from "../../../components/Admin/SideBar/SideBar";
 import FeedBackAdmin from "../../../components/Admin/FeedBackAdmin/FeedBackAdmin";
 
-export default function FeedBackAdminPage() {
-     return (
+export default function FeedBackAdminPage(){
+     return(
           <div id="FeedBack">
                <div className="Header-Admin">
                     <Header />
