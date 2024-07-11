@@ -1,3 +1,4 @@
+using BE.Attributes;
 using BE.Dto.CategoryCourse;
 using BE.Models;
 using BE.Services.Interfaces;
@@ -23,18 +24,21 @@ namespace BE.Controllers
             return await _categoryCourseService.ViewAllCategoryCourses();
         }
 
+        [CustomAuthorize("Admin")]
         [HttpPost]
         [Route("create-categoryCourse")]
         public async Task<CategoryCourse?> CreateCategoryCourse([FromForm] CreateCategoryCourseDto createCategoryCourseDto){
             return await _categoryCourseService.CreateCategoryCourse (createCategoryCourseDto);
         }
 
+        [CustomAuthorize("Admin")]
         [HttpPost]
         [Route("update-categoryCourse")]
         public async Task<CategoryCourse?> UpdateCategoryCourse([FromForm] string categoryCourseId, [FromForm] UpdateCategoryCourseDto updateCategoryCourseDto){
             return await _categoryCourseService.UpdateCategoryCourse(categoryCourseId, updateCategoryCourseDto);
         }
 
+        [CustomAuthorize("Admin")]
         [HttpPost]
         [Route("delete-categoryCourse")]
         public async Task<bool> DeleteCategoryCourse([FromForm] string categoryCourseId){

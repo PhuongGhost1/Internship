@@ -1,3 +1,4 @@
+using BE.Attributes;
 using BE.Dto.User;
 using BE.Dto.UserLogin;
 using BE.Models;
@@ -80,10 +81,63 @@ namespace BE.Controllers
             });
         }
 
+        [CustomAuthorize("Admin")]
         [HttpGet("get-statistic")]
         public async Task<(int a, int c)> GetUserStatistic()
         {
             return await _userService.GetUserStatisticsAsync();
+        }
+
+        //[CustomAuthorize("Admin")]
+        [HttpGet("count-total-student-monthly")]
+        public async Task<int?> CountAccountsByStudentRoleForMonthAsync()
+        {
+            return await _userService.CountAccountsByRoleForMonthAsync("Student", new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, 1));
+        }
+
+        //[CustomAuthorize("Admin")]
+        [HttpGet("count-total-instructor-monthly")]
+        public async Task<int?> CountAccountsByInstructorForMonthAsync()
+        {
+            return await _userService.CountAccountsByRoleForMonthAsync("Instructor", new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, 1));
+        }
+
+        //[CustomAuthorize("Admin")]
+        [HttpGet("get-instructor-percentage-changes-monthly")]
+        public async Task<double?> GetPercentageChangeForInstructorAccountsLastMonthAsync()
+        {
+            return await _userService.GetPercentageChangeForInstructorAccountsLastMonthAsync();
+        }
+
+        //[CustomAuthorize("Admin")]
+        [HttpGet("get-student-percentage-changes-monthly")]
+        public async Task<double?> GetPercentageChangeForStudentAccountsLastMonthAsync()
+        {
+            return await _userService.GetPercentageChangeForStudentAccountsLastMonthAsync();
+        }
+
+        [HttpPut, Route("update-user-status")]
+        public async Task<bool> UpdateUserStatusAsync([FromForm] string userId)
+        {
+            return await _userService.UpdateUserStatusAsync(userId);
+        }
+
+        [HttpGet, Route("get-instructors")]
+        public async Task<List<UserInfoManageByAdminDto>> GetInstructorsAsync()
+        {
+            return await _userService.GetUserRoleAsync("Instructor");
+        }
+
+        [HttpGet, Route("get-students")]
+        public async Task<List<UserInfoManageByAdminDto>> GetStudentAsync()
+        {
+            return await _userService.GetUserRoleAsync("Student");
+        }
+
+        [HttpGet, Route("get-request-feedbacks")]
+        public async Task<List<FeedbackRequestDto>> GetFeedbacksManagementByAdminAsync()
+        {
+            return await _userService.GetFeedbacksManagementByAdminAsync();
         }
     }
 }
