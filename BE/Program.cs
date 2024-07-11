@@ -17,18 +17,18 @@ using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
+
+// Configure CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       policy =>
                       {
                           policy.WithOrigins("http://localhost:5173")
-      .WithHeaders("Content-Type", "Authorization") // Add other headers as needed
-      .AllowAnyMethod();
-
+                                .AllowAnyMethod()
+                                .AllowAnyHeader();
                       });
 });
-
 // Add services to the container.
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -169,7 +169,7 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>(); builder.S
 builder.Services.AddScoped<IRoleRepository, RoleRepository>(); builder.Services.AddScoped<IPermissonRepository, PermissonRepository>(); builder.Services.AddScoped<IFollowRepository, FollowRepository>();
 builder.Services.AddScoped<IUserCertificationRepository, UserCertificationRepository>(); builder.Services.AddScoped<ISaveCourseRepository, SaveCourseRepository>();
 builder.Services.AddScoped<ICategoryCourseRepository, CategoryCourseRepository>(); builder.Services.AddScoped<IEnrollCourseRepository, EnrollCourseRepository>();
-builder.Services.AddScoped<IResourcesRepository, ResourceRepository>();
+builder.Services.AddScoped<IResourcesRepository, ResourceRepository>(); builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 
 
 
@@ -183,24 +183,24 @@ builder.Services.AddScoped<IAnswerService, AnswerService>();
 builder.Services.AddScoped<IRoleService, RoleService>(); builder.Services.AddScoped<IPermissonService, PermissonService>(); builder.Services.AddScoped<IFollowService, FollowService>();
 builder.Services.AddScoped<IUserCertificationService, UserCertificationService>(); builder.Services.AddScoped<ISaveCourseService, SaveCourseService>();
 builder.Services.AddScoped<ICategoryCourseService, CategoryCourseService>(); builder.Services.AddScoped<IEnrollCourseService, EnrollCourseService>();
-builder.Services.AddScoped<IResourceService, ResourceService>();
+builder.Services.AddScoped<IResourceService, ResourceService>(); builder.Services.AddScoped<IPaymentService, PaymentService>();
 
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.UseCors(MyAllowSpecificOrigins);
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseCors(MyAllowSpecificOrigins);
 
 app.UseHttpsRedirection();
-
 app.UseRequestResponseLoggingMiddleware();
-// app.UseAuthenticationMiddleware();
 app.UseExceptionHandleMiddleware();
+//app.UseAuthenticationMiddleware();
 
 app.UseAuthentication();
 app.UseAuthorization();

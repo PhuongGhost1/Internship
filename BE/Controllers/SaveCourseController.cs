@@ -1,3 +1,4 @@
+using BE.Attributes;
 using BE.Dto.SaveCourse;
 using BE.Models;
 using BE.Services.Interfaces;
@@ -17,24 +18,28 @@ namespace BE.Controllers
 
 
         //---------------------CRUD--------------------------//
+        [CustomAuthorize("Student", "Instructor")]
         [HttpGet]
         [Route("view-all-saveCourses")]
         public async Task<List<SaveCourse>> ViewAllSaveCourses(){
             return await _saveCourseService.ViewAllSaveCourses();
         }
 
+        [CustomAuthorize("Student", "Instructor")]
         [HttpPost]
         [Route("create-saveCourse")]
         public async Task<SaveCourse?> CreateSaveCourse([FromForm] CreateSaveCourseDto createSaveCourseDto){
             return await _saveCourseService.CreateSaveCourse (createSaveCourseDto);
         }
 
+        [CustomAuthorize("Student", "Instructor")]
         [HttpPost]
         [Route("update-saveCourse")]
         public async Task<SaveCourse?> UpdateSaveCourse([FromForm] string saveCourseId, [FromForm] UpdateSaveCourseDto updateSaveCourseDto){
             return await _saveCourseService.UpdateSaveCourse(saveCourseId, updateSaveCourseDto);
         }
 
+        [CustomAuthorize("Student", "Instructor")]
         [HttpPost]
         [Route("delete-saveCourse")]
         public async Task<bool> DeleteSaveCourse([FromForm] string saveCourseId){

@@ -95,6 +95,21 @@ namespace BE.Services.Implementations
             }
         }
 
+        public async Task<double?> GetPercentageChangeForInstructorAccountsLastMonthAsync()
+        {
+            return await _userRepo.GetPercentageChangeForInstructorAccountsLastMonth();
+        }
+
+        public async Task<double?> GetPercentageChangeForStudentAccountsLastMonthAsync()
+        {
+            return await _userRepo.GetPercentageChangeForStudentAccountsLastMonth();
+        }
+
+        public async Task<int?> CountAccountsByRoleForMonthAsync(string roleName, DateTime month)
+        {
+            return await _userRepo.CountAccountsByRoleForMonth(roleName, month);
+        }
+
         public async Task<User> GetUserByEmail(string email)
         {
             var user = await _userRepo.GetUserByEmail(email);
@@ -226,6 +241,33 @@ namespace BE.Services.Implementations
             {
                 throw new Exception(e.Message);
             }
+        }
+
+        public async Task<List<UserInfoManageByAdminDto>> GetUserRoleAsync(string roleName)
+        {
+            var result = await _userRepo.GetInstructors(roleName);
+
+            if(result == null || result.Count == 0) return new List<UserInfoManageByAdminDto>();
+
+            return result;
+        }
+
+        public async Task<bool> UpdateUserStatusAsync(string userId)
+        {
+            var user = await _userRepo.GetUserById(userId);
+
+            if(user == null) throw new Exception("Unable to find user!");
+
+            return await _userRepo.UpdateUserStatus(userId);
+        }
+
+        public async Task<List<FeedbackRequestDto>> GetFeedbacksManagementByAdminAsync()
+        {
+            var feedback = await _userRepo.GetFeedbacksManagementByAdmin();
+
+            if(feedback == null || feedback.Count == 0) return new List<FeedbackRequestDto>();
+
+            return feedback;
         }
     }
 }

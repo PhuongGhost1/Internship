@@ -12,6 +12,8 @@ using BE.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using static BE.Utils.Utils;
+using System.Globalization;
+using BE.Dto.ImageD;
 
 namespace BE.Repository.Implementations
 {
@@ -459,7 +461,135 @@ namespace BE.Repository.Implementations
                                         .Include(course => course.Chapters)
                                             .ThenInclude(quiz => quiz.Quizzes)
                                                 .ThenInclude(question => question.Questions)
-                                        .FirstOrDefaultAsync(course => course.Name.ToLower().Contains(courseName.ToLower()));
+                                        .FirstOrDefaultAsync(course => course.Name.ToLower() == courseName.ToLower());
+        }
+
+        public async Task<List<Course>> GetMostPurchasedCourses()
+        {
+            var mostPurchasedCourses = await _context.PaymentCourses
+                                                    .Join(_context.CartCourses, 
+                                                            paymentCourse => paymentCourse.CartcourseId, 
+                                                            cartCourse => cartCourse.Id, 
+                                                            (paymentCourse, cartCourse) => new { paymentCourse, cartCourse })
+                                                    .Join(_context.Courses, 
+                                                            combined => combined.cartCourse.CourseId, 
+                                                            course => course.Id, 
+                                                            (combined, course) => course)
+                                                    .GroupBy(c => c.Id)
+                                                    .OrderByDescending(g => g.Count())
+                                                    .Select(g => new 
+                                                    { 
+                                                        Course = g.First(), 
+                                                        PurchaseCount = g.Count() 
+                                                    })
+                                                    .ToListAsync();
+
+            return mostPurchasedCourses.Select(c => c.Course).ToList();
+        }
+
+        public async Task<List<MonthlyAnalyticsDto>> GetMonthlyExpenseAndRevenue()
+        {
+            var monthlyData = new List<MonthlyAnalyticsDto>();
+
+            for (int month = 1; month <= 12; month++)
+            {
+                var startDate = new DateTime(DateTime.UtcNow.Year, month, 1);
+                var endDate = startDate.AddMonths(1).AddTicks(-1);
+
+                var expense = await _context.Payments
+                                        .Where(p => p.CreateDate >= startDate && p.CreateDate <= endDate)
+                                        .SumAsync(p => p.Total);
+
+                var revenue = await _context.EnrollCourses
+                                            .Where(e => e.Date >= startDate && e.Date <= endDate)
+                                            .Join(_context.Courses,
+                                                enroll => enroll.CourseId,
+                                                course => course.Id,
+                                                (enroll, course) => course.Price)
+                                            .SumAsync();
+
+                monthlyData.Add(new MonthlyAnalyticsDto
+                {
+                    Month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month),
+                    Expense = expense,
+                    Revenue = revenue
+                });
+            }
+
+            return monthlyData;
+        }
+
+        public async Task<List<CourseManagementForAdminDto>> GetCourseManagementByAdmin()
+        {
+            var courses = await _context.Courses
+                                .Where(c => c.Status == 0 || c.Status == 1)
+                                .Select(c => new CourseManagementForAdminDto{
+                                    Id = c.Id,
+                                    Name = c.Name,
+                                    Username = c.User != null ? c.User.Username : null,
+                                    Phone = c.User != null ? c.User.Phone : null,
+                                    Email = c.User != null ? c.User.Email : null,
+                                    Status = c.Status,
+                                    CreateAt = c.CreateAt,
+                                    UpdateAt = c.UpdateAt,
+                                    WhatLearn = c.WhatLearn,
+                                    Images = c.Images
+                                                .OrderByDescending(i => i.CreatedAt)
+                                                .Select(i => new ImageForAdminDto{
+                                                    Id = i.Id,
+                                                    Url = i.Url,
+                                                    Type = i.Type,
+                                                    LastUpdated = i.CreatedAt 
+                                                })
+                                                .Take(1)
+                                                .ToList()
+                                }).ToListAsync();
+
+            return courses;
+        }
+
+        public async Task<List<CourseManagementForAdminDto>> GetCourseManagementForWaitingByAdmin()
+        {
+            var courses = await _context.Courses
+                                .Where(c => c.Status == 2)
+                                .Select(c => new CourseManagementForAdminDto{
+                                    Id = c.Id,
+                                    Name = c.Name,
+                                    Username = c.User != null ? c.User.Username : null,
+                                    Phone = c.User != null ? c.User.Phone : null,
+                                    Email = c.User != null ? c.User.Email : null,
+                                    Status = c.Status,
+                                    CreateAt = c.CreateAt,
+                                    UpdateAt = c.UpdateAt,
+                                    WhatLearn = c.WhatLearn,
+                                    Images = c.Images
+                                                .OrderByDescending(i => i.CreatedAt)
+                                                .Select(i => new ImageForAdminDto{
+                                                    Id = i.Id,
+                                                    Url = i.Url,
+                                                    Type = i.Type,
+                                                    LastUpdated = i.CreatedAt 
+                                                })
+                                                .Take(1)
+                                                .ToList()
+                                }).ToListAsync();
+
+            return courses;
+        }
+
+        public async Task<bool> UpdateCourseByAdmin(string courseId, int status)
+        {
+            var course = await _context.Courses.FindAsync(courseId);
+
+            if(course == null) return false;
+
+            course.Status = status;
+
+            _context.Courses.Update(course);
+
+            await _context.SaveChangesAsync();
+
+            return true;
         }
     }
 }

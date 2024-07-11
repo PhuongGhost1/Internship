@@ -1,3 +1,4 @@
+using BE.Attributes;
 using BE.Dto.UserCertification;
 using BE.Models;
 using BE.Services.Interfaces;
@@ -17,12 +18,14 @@ namespace BE.Controllers
 
 
         //---------------------CRUD--------------------------//
+        [CustomAuthorize("Student", "Instructor")]
         [HttpGet]
         [Route("view-all-userCertifications")]
         public async Task<List<UserCertification>> ViewAllUserCertifications(){
             return await _userCertificationService.ViewAllUserCertifications();
         }
 
+        [CustomAuthorize("Instructor")]
         [HttpPost]
         [Route("create-userCertification")]
         public async Task<UserCertification?> CreateUserCertification([FromForm] CreateUserCertificationDto createUserCertificationDto){
