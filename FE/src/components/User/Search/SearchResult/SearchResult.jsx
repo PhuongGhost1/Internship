@@ -106,7 +106,6 @@ export default function SearchResult({ query }) {
             ratingCount: 1789,
             timeLearing: "8 hours 45 minutes"
         },
-
         {
             imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
             name: "Discovering Ethical AI",
@@ -122,7 +121,50 @@ export default function SearchResult({ query }) {
             ratingCount: 1789,
             timeLearing: "8 hours 45 minutes"
         },
+        {
+            imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
+            name: "Discovering Ethical AI",
+            ratingAVG: 4.5,
+            ratingCount: 1789,
+            timeLearing: "8 hours 45 minutes"
+        },
 
+        {
+            imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
+            name: "Discovering Ethical AI",
+            ratingAVG: 4.5,
+            ratingCount: 1789,
+            timeLearing: "8 hours 45 minutes"
+        },
+        {
+            imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
+            name: "Discovering Ethical AI",
+            ratingAVG: 4.5,
+            ratingCount: 1789,
+            timeLearing: "8 hours 45 minutes"
+        },
+
+        {
+            imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
+            name: "Discovering Ethical AI",
+            ratingAVG: 4.5,
+            ratingCount: 1789,
+            timeLearing: "8 hours 45 minutes"
+        },
+        {
+            imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
+            name: "Discovering Ethical AI",
+            ratingAVG: 4.5,
+            ratingCount: 1789,
+            timeLearing: "8 hours 45 minutes"
+        },
+        {
+            imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
+            name: "Discovering Ethical AI",
+            ratingAVG: 4.5,
+            ratingCount: 1789,
+            timeLearing: "8 hours 45 minutes"
+        },
         {
             imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
             name: "Discovering Ethical AI",

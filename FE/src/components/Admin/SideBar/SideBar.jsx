@@ -55,7 +55,7 @@ export default function SideBar({ type }) {
                          </span>
                     </li>
                     <li className={`menu-item ${activeItem === "manage" ? "active" : ""}`} onClick={dropdownManagemnet}>
-                         <MdOutlineManageAccounts className="Manage" /> &nbsp;Managemnt
+                         <MdOutlineManageAccounts className="Manage" /> &nbsp;Management
                     </li>
                     <div className={`dropdown ${activeItem === "manage" ? "active" : ""}`}>
                          <div className={`menu-item ${activeItem === "instructor" ? "active" : ""}`}>

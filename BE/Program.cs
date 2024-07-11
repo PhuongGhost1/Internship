@@ -1,17 +1,13 @@
 using BE.Middlewares;
 using BE.Models;
-using BE.Repository;
 using BE.Repository.Implementations;
 using BE.Repository.Interface;
-using BE.Services;
 using BE.Services.Implementations;
 using BE.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.Facebook;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OAuth;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -19,12 +15,20 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
-
-
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 
+// Configure CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("http://localhost:5173")
+                                .AllowAnyMethod()
+                                .AllowAnyHeader();
+                      });
+});
 // Add services to the container.
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -104,23 +108,23 @@ builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo { Title = "Demo API", Version = "v1" });
 
-    options.SwaggerDoc("Email", new OpenApiInfo { Title = "Email APIs", Version = "v1" });
-    options.SwaggerDoc("User", new OpenApiInfo { Title = "User APIs", Version = "v1" });
-    options.SwaggerDoc("Course", new OpenApiInfo { Title = "Course APIs", Version = "v1" });
-    options.SwaggerDoc("Chapter", new OpenApiInfo { Title = "Chapter APIs", Version = "v1" });
-    options.SwaggerDoc("Category", new OpenApiInfo { Title = "Category APIs", Version = "v1" });
+    // options.SwaggerDoc("Email", new OpenApiInfo { Title = "Email APIs", Version = "v1" });
+    // options.SwaggerDoc("User", new OpenApiInfo { Title = "User APIs", Version = "v1" });
+    // options.SwaggerDoc("Course", new OpenApiInfo { Title = "Course APIs", Version = "v1" });
+    // options.SwaggerDoc("Chapter", new OpenApiInfo { Title = "Chapter APIs", Version = "v1" });
+    // options.SwaggerDoc("Category", new OpenApiInfo { Title = "Category APIs", Version = "v1" });
 
-    options.DocInclusionPredicate((docName, apiDesc) =>
-    {
-        if (apiDesc.TryGetMethodInfo(out var methodInfo))
-        {
-            var groupName = methodInfo.DeclaringType.GetCustomAttributes(true)
-                               .OfType<ApiExplorerSettingsAttribute>()
-                               .FirstOrDefault()?.GroupName;
-            return groupName == docName;
-        }
-        return false;
-    });
+    // options.DocInclusionPredicate((docName, apiDesc) =>
+    // {
+    //     if (apiDesc.TryGetMethodInfo(out var methodInfo))
+    //     {
+    //         var groupName = methodInfo.DeclaringType.GetCustomAttributes(true)
+    //                            .OfType<ApiExplorerSettingsAttribute>()
+    //                            .FirstOrDefault()?.GroupName;
+    //         return groupName == docName;
+    //     }
+    //     return false;
+    // });
 
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -147,34 +151,46 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll", builder =>
-    {
-        builder.AllowAnyOrigin()
-               .AllowAnyMethod()
-               .AllowAnyHeader();
-    });
-});
 
 builder.Services.AddOptions();
 var emailSetting = builder.Configuration.GetSection("MailSettings");
 builder.Services.Configure<MailSettings>(emailSetting);
 
-builder.Services.AddControllers();
+builder.Services.AddControllersWithViews();
+
+builder.Services.AddHttpContextAccessor();
 
 //Repositories
-builder.Services.AddScoped<IUserRepository, UserRepository>(); builder.Services.AddScoped<ITokenRepository, TokenRepository>(); builder.Services.AddScoped<IQuizRepository, QuizRepository>();
-builder.Services.AddScoped<ILectureRepository, LectureRepository>(); builder.Services.AddScoped<IImageRepository, ImageRepository>(); builder.Services.AddScoped<IEmailRepository, EmailRepository>();
-builder.Services.AddScoped<ICourseRepository, CourseRepository>(); builder.Services.AddScoped<IChapterRepository, ChapterRepository>(); builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>(); builder.Services.AddScoped<ITokenRepository, TokenRepository>(); builder.Services.AddScoped<IRoleUserRepository, RoleUserRepository>();
+builder.Services.AddScoped<IQuizRepository, QuizRepository>(); builder.Services.AddScoped<IQuestionRepository, QuestionRepository>(); builder.Services.AddScoped<ILectureRepository, LectureRepository>();
+builder.Services.AddScoped<IImageRepository, ImageRepository>(); builder.Services.AddScoped<IEmailRepository, EmailRepository>(); builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+builder.Services.AddScoped<ICommentRepository, CommentRepository>(); builder.Services.AddScoped<IChapterRepository, ChapterRepository>(); builder.Services.AddScoped<ICertificationRepository, CertificationRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>(); builder.Services.AddScoped<IAnswerRepository, AnswerRepository>();
+builder.Services.AddScoped<IRoleRepository, RoleRepository>(); builder.Services.AddScoped<IPermissonRepository, PermissonRepository>(); builder.Services.AddScoped<IFollowRepository, FollowRepository>();
+builder.Services.AddScoped<IUserCertificationRepository, UserCertificationRepository>(); builder.Services.AddScoped<ISaveCourseRepository, SaveCourseRepository>();
+builder.Services.AddScoped<ICategoryCourseRepository, CategoryCourseRepository>(); builder.Services.AddScoped<IEnrollCourseRepository, EnrollCourseRepository>();
+builder.Services.AddScoped<IResourcesRepository, ResourceRepository>(); builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+
+
+
 
 //Services
-builder.Services.AddScoped<IUserService, UserService>(); builder.Services.AddScoped<IEmailService, EmailService>(); builder.Services.AddScoped<ICourseService, CourseService>();
-builder.Services.AddScoped<IChapterService, ChapterService>(); builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IUserService, UserService>(); builder.Services.AddScoped<IRoleUserService, RoleUserService>(); builder.Services.AddScoped<IResourceService, ResourceService>();
+builder.Services.AddScoped<IQuizService, QuizService>(); builder.Services.AddScoped<IQuestionService, QuestionService>(); builder.Services.AddScoped<ILectureService, LectureService>();
+builder.Services.AddScoped<IEmailService, EmailService>(); builder.Services.AddScoped<ICourseService, CourseService>(); builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<IChapterService, ChapterService>(); builder.Services.AddScoped<ICertificationService, CertificationService>(); builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IAnswerService, AnswerService>();
+builder.Services.AddScoped<IRoleService, RoleService>(); builder.Services.AddScoped<IPermissonService, PermissonService>(); builder.Services.AddScoped<IFollowService, FollowService>();
+builder.Services.AddScoped<IUserCertificationService, UserCertificationService>(); builder.Services.AddScoped<ISaveCourseService, SaveCourseService>();
+builder.Services.AddScoped<ICategoryCourseService, CategoryCourseService>(); builder.Services.AddScoped<IEnrollCourseService, EnrollCourseService>();
+builder.Services.AddScoped<IResourceService, ResourceService>(); builder.Services.AddScoped<IPaymentService, PaymentService>();
+
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.UseCors(MyAllowSpecificOrigins);
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -182,20 +198,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseRequestResponseLoggingMiddleware();
+app.UseExceptionHandleMiddleware();
+//app.UseAuthenticationMiddleware();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseCors("AllowAll");
-
 app.MapControllers();
-
-// app.Use(async (context,next) => {
-//     await context.Response.WriteAsync("Hello from middleware 1");
-//     await next.Invoke();
-//     await context.Response.WriteAsync("Return from middleware 1");
-// });
-
-// app.UseMiddleware<SimpleMiddleware>();
 
 app.Run();

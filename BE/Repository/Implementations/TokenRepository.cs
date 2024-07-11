@@ -52,7 +52,7 @@ namespace BE.Repository.Implementations
             var tokenDescriptor = new SecurityTokenDescriptor() {
                 Subject = new ClaimsIdentity(claims),
                 SigningCredentials = creds,
-                Expires = DateTime.Now.AddDays(7),
+                Expires = DateTime.Now.AddDays(1),
                 Issuer = _config["Issuer"],
                 Audience = _config["Audience"]
             };

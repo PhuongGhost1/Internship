@@ -1,0 +1,403 @@
+#Cart {
+    margin-bottom: 50px;
+}
+
+#Cart .container {
+    display: flex;
+    margin-top: 35px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-right: 20px;
+    margin-bottom: 30px;
+}
+
+#Cart .container1 {
+    flex: 7;
+}
+
+#Cart .container1 .css-0 {
+    margin-left: 10px;
+    margin-top: 10px;   
+    /* padding: 10px; */
+}
+
+#Cart .container2 {
+    flex: 3;
+    padding: 40px;
+}
+
+/* #Cart .container1 {
+    background-color: red;
+} */
+
+#Cart .display-cart {
+    display: flex;
+    flex-direction: column;
+}
+
+#Cart .display-cart .text-container {
+    margin-top: 30px;
+}
+
+#Cart .display-cart .text-container h2 {
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 28px;
+}
+
+
+#Cart .container .container1-row {
+    display: flex;
+    flex-direction: row;
+    height: 110px;
+    margin-bottom: 10px;
+}
+
+/* #Cart .container .container1-row svg {
+    margin-top: 25px;
+
+} */
+
+/* #Cart .container .container1-row1{
+    flex: 0.7;
+} */
+
+#Cart .container .container1-row2{
+    flex: 9.3;
+}
+
+
+#Cart .container .column {
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+    margin-bottom: 20px;
+    padding: 10px;
+    /* background-color: #fff; */
+}
+
+#Cart .column .cover-img-course {
+    flex: 3;
+}
+
+#Cart .column .course-container {
+    flex: 15;
+}
+
+#Cart .column .total-container {
+    /* flex: 0.1; */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#Cart .column .total-container .button-delete-container {
+    align-self: flex-end;
+}
+
+#Cart .container .column .cover-img-course img {
+    width: auto;
+    height: 70px;
+}
+
+#Cart .course-container div {
+    margin-bottom: 10px;
+}
+
+#Cart .course-container .course-title h2 {
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    text-decoration: underline;
+    font-size: 15px;
+}
+
+#Cart .course-container .course-of-instructor h2  {
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 100;
+    font-style: normal;
+    font-size: 12px;
+}
+
+#Cart .column .total-container h3 {
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    text-decoration: underline;
+    font-size: 12px;
+    color: crimson;
+}
+
+#Cart .column .total-container h2 {
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    text-decoration: underline;
+    font-size: 17px;
+    color: crimson;
+}
+
+#Cart .column .total-container-fix {
+    display: flex;
+    gap: 10px;
+}
+
+#Cart .column .total-container .icon-bt {
+    cursor: pointer;
+}
+
+#Cart .container .container1-row2 .boxchek-container {
+    padding: 10px;
+}
+
+/************************************* Course *******************************************/
+
+#Cart .container2 .container-total {
+    display: flex;
+    flex-direction: column;
+}
+
+#Cart .container2 .container-total {
+    /* margin: 10px 50px;     */
+}
+
+
+#Cart .container-total .column1 , #Cart .container-total .column2 , #Cart .container-total .column3 {
+    margin-bottom: 5px;
+}
+
+
+#Cart .container-total .column1 h2 {
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 24px;
+}
+
+#Cart .container-total .column2 {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+#Cart .container-total .column2 h3 {
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    text-decoration: underline;
+    font-size: 18px;
+    color: crimson;
+}
+
+#Cart .container-total .column2 h2 {
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    text-decoration: underline;
+    font-size: 25px;
+    color: crimson;
+}
+
+.pay-bt {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: 35px;
+    box-shadow: #00419e 0px 0px 0px 1px;
+    border-radius: 2%;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    padding: 0 10px;
+    cursor: pointer;
+    background-color: #2e5ca0;
+}
+
+.pay-bt .text h2 {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    color: white;
+    letter-spacing: 0.16px;
+    line-height: 24px;
+    font-size: 20px;
+    margin: 0 10px;
+}
+
+.pay-bt .icon {
+    align-items: center;
+    color: white;
+    margin-left: 10px;
+}
+
+
+/**************************************** Right *******************************************************************/
+
+#Cart .display-cart .text2-container h2 {
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+/*********************************************** Result Bottom ****************************************************/
+
+#Cart .results {
+    display: flex;
+    /* flex-wrap: wrap; */
+    /* justify-content: center; */
+    overflow-x: auto;
+  }
+  
+  #Cart .result {
+    width: 380px;
+    background-color: white;
+    box-shadow: 0 0 1px #949494;
+    border-radius: 30px;
+    padding: 15px;
+    margin-bottom: 10px;
+    margin-right: 15px;
+    margin-top: 10px;
+  }
+  
+  #Cart .result .img-container {
+    position: relative;
+  }
+  
+  #Cart .result .background {
+    width: 100%;
+    height: 180px;
+    border-radius: 15px;
+    object-fit: cover;
+    object-position: center;
+  }
+  
+  #Cart .owner {
+    position: absolute;
+    bottom: 20px;
+    left: 15px;
+    display: flex;
+    align-items: center;
+  }
+  
+  #Cart .owner img {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  
+  #Cart .owner span {
+    color: white;
+    font-weight: 700;
+    font-size: 13px;
+  }
+  
+  #Cart .save-course-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    right: 15px;
+    bottom: 20px;
+  }
+  
+  #Cart .save-course-btn svg {
+    font-size: 16px;
+  }
+  
+  #Cart .result .title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 15px 0;
+  }
+  
+  #Cart .result .info {
+    display: flex;
+    width: 100%;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eeeeee;
+  }
+  
+  #Cart .result .info .tag {
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+  }
+  
+  #Cart .result .info .tag svg {
+    font-size: 17px;
+    margin-right: 6px;
+  }
+  
+  #Cart .result .info .tag span {
+    font-size: 14px;
+    font-weight: 600;
+  }
+  
+  #Cart .result .rating-countS {
+    padding: 15px 0;
+    display: flex;
+    border-bottom: 1px solid #eeeeee;
+  }
+  
+  #Cart .result .rating-countS .card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f7f7f7;
+    border-radius: 9999px;
+    padding: 7px;
+    flex-direction: row;
+    margin-right: 20px;
+  }
+  
+  #Cart .result .rating-countS .card svg {
+    font-size: 16px;
+    margin-right: 5px;
+  }
+  
+  #Cart .result .rating-countS .card span {
+    font-weight: 600;
+  }
+  
+  #Cart .result .rating-countS .card .card-hint {
+    color: #a9a9a9;
+    margin-left: 5px;
+  }
+  
+  #Cart .result .price-add {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+  }
+  
+  #Cart .result .price-add .price {
+    font-size: 22px;
+    font-weight: 600;
+  }
+  
+  #Cart .result .price-add .btn-contain {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+  }
+  

@@ -13,7 +13,7 @@ const certifications = [
         fields: ["Leadership and Management", "Strategy and Operations", "Critical Thinking", "Human Learning"],
         duration: "8 month program",
         completionDate: "Completed November 2023",
-        certificateLink: "#",
+        certificateLink: "/student/certification",
         imageSrc: CSLogo,
     },
     {
@@ -22,7 +22,7 @@ const certifications = [
         fields: ["React", "JavaScript", "Front-end Development"],
         duration: "6 month program",
         completionDate: "Completed May 2024",
-        certificateLink: "#",
+        certificateLink: "/student/certification",
         imageSrc: CSLogo,
     },
     {
@@ -31,7 +31,7 @@ const certifications = [
         fields: ["Java Programming", "Full-Stack Web Development", "Programming Principles", "Leadership and Management"],
         duration: "3 month program",
         completionDate: "Completed January 2024",
-        certificateLink: "#",
+        certificateLink: "/student/certification",
         imageSrc: CSLogo,
     },
     {
@@ -40,7 +40,7 @@ const certifications = [
         fields: ["Java Programming", "Full-Stack Web Development", "Programming Principles", "Leadership and Management"],
         duration: "3 month program",
         completionDate: "Completed January 2024",
-        certificateLink: "#",
+        certificateLink: "/student/certification",
         imageSrc: CSLogo,
     },
     {
@@ -49,7 +49,7 @@ const certifications = [
         fields: ["Java Programming", "Full-Stack Web Development", "Programming Principles", "Leadership and Management"],
         duration: "3 month program",
         completionDate: "Completed January 2024",
-        certificateLink: "#",
+        certificateLink: "/student/certification",
         imageSrc: CSLogo,
     },
     {
@@ -58,7 +58,7 @@ const certifications = [
         fields: ["Java Programming", "Full-Stack Web Development", "Programming Principles", "Leadership and Management"],
         duration: "3 month program",
         completionDate: "Completed January 2024",
-        certificateLink: "#",
+        certificateLink: "/student/certification",
         imageSrc: CSLogo,
     },
     {
@@ -67,7 +67,7 @@ const certifications = [
         fields: ["Java Programming", "Full-Stack Web Development", "Programming Principles", "Leadership and Management"],
         duration: "3 month program",
         completionDate: "Completed January 2024",
-        certificateLink: "#",
+        certificateLink: "/student/certification",
         imageSrc: CSLogo,
     },
     {
@@ -76,7 +76,7 @@ const certifications = [
         fields: ["Java Programming", "Full-Stack Web Development", "Programming Principles", "Leadership and Management"],
         duration: "3 month program",
         completionDate: "Completed January 2024",
-        certificateLink: "#",
+        certificateLink: "/student/certification",
         imageSrc: CSLogo,
     },
 

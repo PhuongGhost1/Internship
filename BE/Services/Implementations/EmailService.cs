@@ -18,11 +18,11 @@ namespace BE.Services.Implementations
             _userRepo = userRepo;
         }
 
-        public async Task<EmailSendResultDto> SendEmail(string email, string subject, string htmlBody)
+        public async Task<EmailSendResultDto> SendEmail(EmailDto emailDto)
         {
-            if(await _userRepo.CheckEmailExist(email)) throw new Exception("User is exist!");
+            if(await _userRepo.CheckEmailExist(emailDto.To)) throw new Exception("User is exist!");
 
-            return await _emailRepo.SendEmail(email, subject, htmlBody);
+            return await _emailRepo.SendEmail(emailDto.To, emailDto.Subject, emailDto.Body);
         }
     }
 }

@@ -1,7 +1,7 @@
 #course-slidebar {
     border-right: 1px solid #e5e7e8;
     height: calc(-60px + 100vh);
-    padding: 16px 16px 16px 50px;
+    padding: 16px 16px 16px 30px;
     width: 380px;
     transition: all 0.5s ease;
     overflow: hidden;
@@ -49,7 +49,7 @@
 }
 
 #course-slidebar .menu p {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     color: var(--light-orange);
 }
