@@ -8,7 +8,7 @@ import CourseDetailPage from "./pages/UserPage/CourseDetailPage/CourseDetailPage
 import LoginPage from "./pages/AuthPage/LoginPage/LoginPage";
 import RegisterPage from "./pages/AuthPage/RegisterPage/RegisterPage";
 import StudentProfilePage from "./pages/StudentPage/ProfilePage/StudentProfilePage";
-// import CourseLearning from './pages/StudentPage/CourseLearning/CourseLearning';
+import CourseLearning from "./pages/StudentPage/CourseLearning/CourseLearning";
 import InstructorProfilePage from "./pages/InstructorPage/ProfilePage/InstructorProfilePage";
 import PaymentPage from "./pages/StudentPage/Payment/PaymentPage";
 import SearchPage from "./pages/UserPage/SearchPage/SearchPage";
@@ -42,8 +42,11 @@ function App() {
           <Route path="search" element={<SearchPage />} />
         </Route>
         <Route path="/courses">
-          {/* <Route path=':courseName' element={<CourseDetailPage />} />
-                         <Route path='learning/:courseType/:itemName' element={<CourseLearning />} /> */}
+          <Route path=":courseName" element={<CourseDetailPage />} />
+          <Route
+            path="learning/:courseType/:itemName"
+            element={<CourseLearning />}
+          />
           <Route path="create/:courseName" element={<CreateCoursePage />} />
         </Route>
         <Route path="/student">
