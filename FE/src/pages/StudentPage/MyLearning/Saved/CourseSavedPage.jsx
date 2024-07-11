@@ -13,6 +13,7 @@ export default function CourseSavedPage() {
             <Header />
             <NavBar type='saved' />
             <Saved />
+            
             <Footer />
         </div>
     )
