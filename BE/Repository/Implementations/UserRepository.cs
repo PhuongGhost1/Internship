@@ -7,6 +7,7 @@ using BE.Dto.Payment.PaymentCourse;
 using BE.Dto.Role;
 using BE.Dto.RoleUser;
 using BE.Dto.User;
+using BE.Dto.User.AdminManagement;
 using BE.Models;
 using BE.Repository.Interface;
 using Microsoft.AspNetCore.Identity;
@@ -354,6 +355,222 @@ namespace BE.Repository.Implementations
                                         }).ToListAsync();
 
             return feedback;
+        }
+
+        public async Task<List<ReportManagementByAdminDto>> GetReportManagementByAdmin()
+        {
+            var reports = await _context.Reports
+            .Include(r => r.Course)
+            .ThenInclude(c => c.Images)
+            .Include(r => r.Comment)
+            .ThenInclude(cm => cm.User)
+            .Include(r => r.ReportedUser)
+            .Include(r => r.Reporter)
+            .Select(r => new ReportManagementByAdminDto
+            {
+                Id = r.Id,
+                Courses = r.Course != null ? new CourseForAdminDto
+                {
+                    Id = r.Course.Id,
+                    Name = r.Course.Name,
+                    Rating = r.Course.Rating,
+                    Price = r.Course.Price,
+                    Description = r.Course.Description,
+                    CreatedAt = r.Course.CreateAt,
+                    UpdatedAt = r.Course.UpdateAt,
+                    IsVisible = r.Course.IsVisible,
+                    Images = r.Course.Images
+                                .OrderByDescending(i => i.CreatedAt)
+                                .Select(i => new ImageForAdminDto
+                    {
+                        Id = i.Id,
+                        Url = i.Url,
+                        Type = i.Type,
+                        LastUpdated = i.CreatedAt
+                    }).Take(1).ToList(),
+                    User = r.Course.User != null ? new UserInfoManageByAdminDto
+                    {
+                        Id = r.Course.User.Id,
+                        Email = r.Course.User.Email,
+                        Name = r.Course.User.Username,
+                        IsVisible = r.Course.User.IsVisible,
+                        Images = r.Course.Images
+                                        .OrderByDescending(i => i.CreatedAt)
+                                        .Select(i => new ImageForAdminDto
+                        {
+                            Id = i.Id,
+                            Url = i.Url,
+                            Type = i.Type,
+                            LastUpdated = i.CreatedAt
+                        }).Take(1).ToList(),
+                        Phone = r.Course.User.Phone,
+                        CreateAt = r.Course.CreateAt,
+                        Description = r.Course.User.Description
+                    } : null 
+                } : null,
+                Comments = r.Comment != null ? new CommentManagementByAdminDto
+                {
+                    Id = r.Comment.Id,
+                    Courses = r.Comment.Course != null ? new CourseForAdminDto
+                    {
+                        Id = r.Comment.Course.Id,
+                        Name = r.Comment.Course.Name,
+                        Rating = r.Comment.Course.Rating,
+                        Price = r.Comment.Course.Price,
+                        Description = r.Comment.Course.Description,
+                        IsVisible = r.Comment.Course.IsVisible,
+                        CreatedAt = r.Comment.Course.CreateAt,
+                        UpdatedAt = r.Comment.Course.UpdateAt,
+                        Images = r.Comment.Course.Images
+                                        .OrderByDescending(i => i.CreatedAt)
+                                        .Select(i => new ImageForAdminDto
+                        {
+                            Id = i.Id,
+                            Url = i.Url,
+                            Type = i.Type,
+                            LastUpdated = i.CreatedAt
+                        }).Take(1).ToList()
+                    } : null,
+                    Users = r.Comment.User != null ? new UserInfoManageByAdminDto
+                    {
+                        Id = r.Comment.User.Id,
+                        Email = r.Comment.User.Email,
+                        Name = r.Comment.User.Username,
+                        IsVisible = r.Comment.User.IsVisible,
+                        Images = r.Comment.User.Images
+                                        .OrderByDescending(i => i.CreatedAt)
+                                        .Select(i => new ImageForAdminDto
+                        {
+                            Id = i.Id,
+                            Url = i.Url,
+                            Type = i.Type,
+                            LastUpdated = i.CreatedAt
+                        }).Take(1).ToList(),
+                        Phone = r.Comment.User.Phone,
+                        CreateAt = r.Comment.User.CreateAt,
+                        Description = r.Comment.User.Description
+                    } : null,
+                    Rating = r.Comment.Rating,
+                    Comment1 = r.Comment.Comment1,
+                    CreatedAt = r.Comment.CreatedAt,
+                    IsVisible = r.Comment.IsVisible
+                } : null,
+                ReportedUser = r.ReportedUser != null ? new UserInfoManageByAdminDto
+                {
+                    Id = r.ReportedUser.Id,
+                    Email = r.ReportedUser.Email,
+                    Name = r.ReportedUser.Username,
+                    IsVisible = r.ReportedUser.IsVisible,
+                    Images = r.ReportedUser.Images
+                                    .OrderByDescending(i => i.CreatedAt)
+                                    .Select(i => new ImageForAdminDto
+                    {
+                        Id = i.Id,
+                        Url = i.Url,
+                        Type = i.Type,
+                        LastUpdated = i.CreatedAt
+                    }).Take(1).ToList(),
+                    Phone = r.ReportedUser.Phone,
+                    CreateAt = r.ReportedUser.CreateAt,
+                    Description = r.ReportedUser.Description,
+                    RoleUsers = r.ReportedUser.RoleUsers.Select(ru => new RoleUserDto
+                    {
+                        Roles = new List<RoleDto>
+                        {
+                            new RoleDto { Name = ru.Role.Name }
+                        }
+                    }).ToList(),
+                } : null,
+                Reporter = r.Reporter != null ? new UserInfoManageByAdminDto
+                {
+                    Id = r.Reporter.Id,
+                    Email = r.Reporter.Email,
+                    Name = r.Reporter.Username,
+                    IsVisible = r.Reporter.IsVisible,
+                    Images = r.Reporter.Images
+                                    .OrderByDescending(i => i.CreatedAt)
+                                    .Select(i => new ImageForAdminDto
+                    {
+                        Id = i.Id,
+                        Url = i.Url,
+                        Type = i.Type,
+                        LastUpdated = i.CreatedAt
+                    }).Take(1).ToList(),
+                    Phone = r.Reporter.Phone,
+                    CreateAt = r.Reporter.CreateAt,
+                    Description = r.Reporter.Description
+                } : null,
+                Title = r.Title,
+                Message = r.Message,
+                Status = r.Status
+            })
+            .ToListAsync();
+
+            return reports;
+        }
+
+        public async Task<bool> UpdateUserCommentReportStatus(string userId, string reportId, string commentId, string courseId)
+        {
+            using var transaction = await _context.Database.BeginTransactionAsync();
+
+            try
+            {
+                var user = string.IsNullOrEmpty(userId) ? null : await _context.Users.FindAsync(userId);
+                var report = await _context.Reports.FindAsync(reportId);
+                var course = await _context.Courses.FindAsync(courseId);
+                var comment = string.IsNullOrEmpty(commentId) ? null : await _context.Comments.FindAsync(commentId);
+
+                if (report == null || course == null)
+                {
+                    transaction.Rollback();
+                    return false;
+                }
+
+                var reportedUser = await _context.Users.FindAsync(userId);
+                if (reportedUser == null)
+                {
+                    transaction.Rollback();
+                    return false;
+                }
+
+                if (user != null)
+                {
+                    reportedUser.IsVisible = !user.IsVisible;
+                    _context.Users.Update(reportedUser);
+                }
+
+                report.Status = 1; 
+                _context.Reports.Update(report);
+
+                if (user == null || comment == null)
+                {
+                    course.IsVisible = !course.IsVisible;
+                    _context.Courses.Update(course);
+                }
+
+                if (comment != null)
+                {
+                    comment.IsVisible = !comment.IsVisible; 
+                    _context.Comments.Update(comment);
+                }
+
+                await _context.SaveChangesAsync();
+                transaction.Commit();
+
+                return true;
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Console.WriteLine($"Concurrency error: {ex.Message}");
+                transaction.Rollback();
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating status: {ex.Message}");
+                transaction.Rollback();
+                return false;
+            }
         }
     }
 }

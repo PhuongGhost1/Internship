@@ -1,5 +1,6 @@
 using BE.Attributes;
 using BE.Dto.User;
+using BE.Dto.User.AdminManagement;
 using BE.Dto.UserLogin;
 using BE.Models;
 using BE.Services.Interfaces;
@@ -138,6 +139,18 @@ namespace BE.Controllers
         public async Task<List<FeedbackRequestDto>> GetFeedbacksManagementByAdminAsync()
         {
             return await _userService.GetFeedbacksManagementByAdminAsync();
+        }
+
+        [HttpGet, Route("get-reports")]
+        public async Task<List<ReportManagementByAdminDto>> GetReportManagementByAdminDtosAsync()
+        {
+            return await _userService.GetReportManagementByAdminAsync();
+        }
+
+        [HttpPut, Route("update-report-management-status")]
+        public async Task<bool> UpdateUserCommentReportStatusAsync([FromForm] string userId, [FromForm] string reportId, [FromForm] string commentId, [FromForm] string courseId)
+        {
+            return await _userService.UpdateUserCommentReportStatusAsync(userId, reportId, commentId, courseId);
         }
     }
 }
