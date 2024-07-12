@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BE.Dto.ImageD;
+using BE.Dto.User;
 using BE.Models;
 
 namespace BE.Dto.Course
@@ -13,6 +14,11 @@ namespace BE.Dto.Course
         public string? Name { get; set; }
         public float? Rating { get; set; }
         public float? Price { get; set; }
+        public string? Description {get; set;}
+        public bool? IsVisible {get; set;}
         public List<ImageForAdminDto> Images { get; set; } = new List<ImageForAdminDto>();
+        public UserInfoManageByAdminDto? User {get; set;}
+        public DateTime? CreatedAt {get; set;}
+        public DateTime? UpdatedAt {get; set;}
     }
 }

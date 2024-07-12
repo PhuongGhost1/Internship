@@ -108,11 +108,39 @@
   border-radius: 5px;
 }
 
-#Report .status-fixed {
+#Report .status-checked {
   border: none;
   background-color: #c53631;
   color: white;
   border-radius: 5px;
+}
+
+#Report .popup-info {
+  position: relative;
+}
+
+#Report .popup-invisible-opened {
+  position: absolute;
+  padding: 12px 10px;
+  border: 1px solid #ccc;
+  background-color: rgb(6, 145, 6);
+  color: white;
+  border-radius: 5px;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+}
+
+#Report .popup-invisible-blocked {
+  position: absolute;
+  padding: 12px 10px;
+  border: 1px solid #ccc;
+  background-color: #c53631;
+  color: white;
+  border-radius: 5px;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
 }
 
 #Report .button-view {
@@ -267,4 +295,62 @@
 
 #Report .popup .popup-container .details .nav-bar {
   font-size: 16px;
+}
+
+#Report .popup-course {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  overflow-y: auto;
+  max-height: 400px;
+}
+
+#Report .course-card {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  position: relative;
+}
+
+#Report .course-logo {
+  width: 60px;
+  height: 60px;
+  margin-right: 20px;
+  border-radius: 5px;
+  object-fit: cover;
+  object-position: center;
+}
+
+#Report .course-details {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#Report .course-details h3 {
+  margin: 10px 0 0 0;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+#Report .popup-course .course-card .course-icon {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+#Report .popup-course .course-card .course-icon .course-icon-item {
+  display: flex;
+  margin-right: 20px;
+  align-items: center;
+}
+
+#Report .popup-course .course-card .course-icon .course-icon-item p {
+  margin-left: 6px;
+  font-size: 14px;
+  color: #4b4b4b;
 }

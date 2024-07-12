@@ -276,6 +276,46 @@ const ApiService = {
       throw error;
     }
   },
+  getReportsManagementByAdmin: async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:5144/api/v1/web/user/get-reports"
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching get reports info:", error);
+      throw error;
+    }
+  },
+  updateReportManagementByAdmin: async (
+    userId,
+    reportId,
+    commentId,
+    courseId
+  ) => {
+    try {
+      const formData = new FormData();
+      formData.append("userId", userId);
+      formData.append("reportId", reportId);
+      formData.append("commentId", commentId);
+      formData.append("courseId", courseId);
+
+      const response = await axios.put(
+        "http://localhost:5144/api/v1/web/user/update-report-management-status",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      console.error("Error updating report status:", error);
+      throw error;
+    }
+  },
 };
 
 export default ApiService;

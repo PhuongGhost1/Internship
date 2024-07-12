@@ -1,4 +1,5 @@
 using BE.Dto.User;
+using BE.Dto.User.AdminManagement;
 using BE.Models;
 
 namespace BE.Repository.Interface
@@ -21,5 +22,7 @@ namespace BE.Repository.Interface
         Task<List<UserInfoManageByAdminDto>> GetInstructors(string roleName);
         Task<bool> UpdateUserStatus(string userId);
         Task<List<FeedbackRequestDto>> GetFeedbacksManagementByAdmin();
+        Task<List<ReportManagementByAdminDto>> GetReportManagementByAdmin();
+        Task<bool> UpdateUserCommentReportStatus(string userId, string reportId, string commentId, string courseId);
     }
 }
