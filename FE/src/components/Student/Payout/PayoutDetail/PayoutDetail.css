@@ -1,0 +1,319 @@
+#payout-container {
+  display: flex;
+  /* justify-content: center; */
+}
+
+#payout-container .container1 {
+  flex: 3;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  background-color: #f5f5f5;
+}
+
+#payout-container .container1 .display-container1 {
+  /* padding: 80px 60px; */
+  padding: 20px;
+  background-color: white;
+  display: flex;
+  /* border-radius: 20px; */
+  flex-direction: column;
+  /* align-items: start; */
+  /* background-color: #74b95b; */
+  border-radius: 15px;
+  margin-left: 30px;
+  border: 1px solid #72727252;
+}
+
+#payout-container .container1 .display-container1 .container-title {
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 25px;
+  margin-bottom: 10px;
+}
+
+#payout-container .container1 .add-new-card {
+  padding: 0px;
+  /* margin-left: 10px;
+  width: 850px; */
+}
+
+#payout-container .container1 .form-contain {
+  display: flex;
+}
+
+#payout-container .container1 .form-contain .information-card {
+  /* margin-right: 10px; */
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  width: 500px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+#payout-container .container1 .form-contain .card-visa {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  /* width: 30px; */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  margin-left: 40px;
+  height: auto;
+}
+
+#payout-container .container1 .form-title {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 15px;
+  color: #1f1f1f;
+}
+
+#payout-container .container1 .payoutOptions {
+  display: flex;
+  /* justify-content: space-around; */
+  margin-bottom: 15px;
+}
+
+#payout-container .container1 .payoutOptions label {
+  width: 200px;
+  height: 60px;
+  border-radius: 10px;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #33333381;
+}
+
+#payout-container .container1 .payoutOptions label svg {
+  margin-right: 10px;
+  font-size: 15px;
+}
+
+#payout-container .container1 .payoutOptions input[type="radio"] {
+  display: none;
+}
+
+#payout-container .container1 .form-group label {
+  margin-bottom: 20px;
+}
+
+#payout-container .container1 .form-group.holderName {
+  margin-bottom: 40px;
+}
+
+#payout-container .container1 .form-group.addWallet {
+  margin-top: 40px;
+}
+
+#payout-container
+  .container1
+  .payoutOptions
+  input[type="radio"]:checked
+  + label {
+  border: 2px solid #74b95b;
+  color: #1f1f1f;
+  margin-right: 20px;
+}
+
+#payout-container
+  .container1
+  .payoutOptions
+  input[type="radio"]:checked
+  + label
+  svg {
+  color: #74b95b;
+}
+
+#payout-container .container1 .form-fields {
+  min-height: 200px;
+  /* Maintain height to keep layout */
+}
+
+#payout-container .container1 .form-group {
+  margin-bottom: 15px;
+}
+
+#payout-container .container1 .form-row {
+  display: flex;
+  gap: 15px;
+}
+
+#payout-container .container1 .form-row .form-group {
+  flex: 1;
+}
+
+#payout-container .container1 label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #666;
+}
+
+#payout-container .container1 input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+#payout-container .container1 input[type="text"]::placeholder {
+  color: #aaa;
+}
+
+#payout-container .container1 .checkbox {
+  display: flex;
+  align-items: center;
+}
+
+#payout-container .container1 .checkbox input {
+  margin-right: 10px;
+}
+
+#payout-container .container1 .checkbox label {
+  margin-bottom: 0;
+  color: #333;
+}
+
+#payout-container .container1 .submit-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+#payout-container .container1 .submit-button:hover {
+  background-color: #0056b3;
+}
+
+#payout-container .container1 .button-contain {
+  display: flex;
+  margin-top: 50px;
+}
+
+#payout-container .container1 .button-contain .button {
+  width: 200px;
+  height: 50px;
+  background-color: #015ffa;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin: 0 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#payout-container .container1 .button-contain .cancel {
+  background-color: rgba(0, 0, 0, 0);
+  color: #727272;
+  border-radius: 10px;
+  border: 1px solid #727272;
+}
+
+#payout-container .container1 .rccs {
+  box-shadow: 1px 1px 2px 1px rgb(124, 124, 124);
+  border-radius: 15px;
+}
+
+#payout-container .container1 .order-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+#payout-container .container1 .order-details .order-details-column {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+#payout-container
+  .container1
+  .order-details
+  .order-details-column
+  .order-details-row1 {
+  text-align: left;
+}
+
+#payout-container
+  .container1
+  .order-details
+  .order-details-column
+  .order-details-row2 {
+  text-align: right;
+}
+
+/* ********************************** Right ************************************************ */
+
+#payout-container .container2 {
+  flex: 7;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  background-color: #f5f5f5;
+}
+
+#payout-container .container2 .display-container2 {
+  padding: 80px 60px;
+  padding: 20px;
+  background-color: white;
+  display: flex;
+  /* border-radius: 20px; */
+  flex-direction: column;
+  /* align-items: start; */
+  /* background-color: #74b95b; */
+  border-radius: 15px;
+  margin-left: 30px;
+  margin-right: 30px;
+  border: 1px solid #72727252;
+}
+
+#payout-container .container2 .display-container2 .container-title {
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 25px;
+  margin-bottom: 10px;
+}
+
+#payout-container .container2 .order-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 10px;
+  overflow-y: auto;
+}
+
+#payout-container .container2 .order-details .order-details-column {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+#payout-container
+  .container2
+  .order-details
+  .order-details-column
+  .order-details-row1 {
+  text-align: left;
+}
+
+#payout-container
+  .container2
+  .order-details
+  .order-details-column
+  .order-details-row2 {
+  text-align: right;
+}

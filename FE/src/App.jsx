@@ -24,6 +24,7 @@ import RequestsPage from "./pages/Admin/RequestsPage/RequestsPage";
 import SettingPage from "./pages/Admin/SettingPage/SettingPage";
 import CertificationPage from "./pages/StudentPage/CertificationPage/CertificationPage";
 import CartPage from "./pages/StudentPage/CartPage/CartPage";
+import PayoutPage from "./pages/StudentPage/Payout/PayoutPage";
 import ReportPage from "./pages/Admin/ReportPage/ReportPage";
 import FeedBackAdminPage from "./pages/Admin/FeedBackAdminPage/FeedBackAdminPage";
 import CategoryPage from "./pages/Admin/CategoryPage/CategoryPage";
@@ -51,6 +52,7 @@ function App() {
         </Route>
         <Route path="/student">
           <Route path="cart" element={<CartPage />} />
+          <Route path="payout" element={<PayoutPage />} />
           <Route path="certification" element={<CertificationPage />} />
           <Route path="profile" element={<StudentProfilePage />} />
           <Route path="my-learning">
