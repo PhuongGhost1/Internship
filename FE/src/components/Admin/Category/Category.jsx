@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Category.css";
 import {
   Table,
@@ -12,48 +12,37 @@ import {
 } from "react-bootstrap";
 import { FaSearch } from "react-icons/fa";
 import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
+import ApiService from "../../../api/ApiService";
 
-const data = [
-  { id: 1, name: "Technology", status: "Active" },
-  { id: 2, name: "Finance", status: "Inactive" },
-  { id: 3, name: "Healthcare", status: "Active" },
-  { id: 4, name: "Education", status: "Active" },
-  { id: 5, name: "Retail", status: "Active" },
-  { id: 6, name: "Transportation", status: "Inactive" },
-  { id: 7, name: "Manufacturing", status: "Inactive" },
-  { id: 8, name: "Real Estate", status: "Active" },
-  { id: 9, name: "Consulting", status: "Active" },
-  { id: 10, name: "Legal", status: "Inactive" },
-  { id: 11, name: "Energy", status: "Active" },
-  { id: 12, name: "Agriculture", status: "Inactive" },
-  { id: 13, name: "Construction", status: "Active" },
-  { id: 14, name: "Hospitality", status: "Active" },
-  { id: 15, name: "Entertainment", status: "Active" },
-  { id: 16, name: "Media", status: "Active" },
-  { id: 17, name: "Telecommunications", status: "Active" },
-  { id: 18, name: "Non-profit", status: "Active" },
-  { id: 19, name: "Government", status: "Active" },
-  { id: 20, name: "Insurance", status: "Active" },
-  { id: 21, name: "Aerospace", status: "Active" },
-  { id: 22, name: "Defense", status: "Active" },
-  { id: 23, name: "Pharmaceutical", status: "Active" },
-  { id: 24, name: "Biotechnology", status: "Active" },
-  { id: 25, name: "Advertising", status: "Active" },
-  { id: 26, name: "Human Resources", status: "Inactive" },
-  { id: 27, name: "Marketing", status: "Active" },
-];
+const getIsInvisibleString = (isVisible) => {
+  return isVisible ? "Active" : "Inactive";
+};
 
 const DataTable = () => {
   const pageSize = 8;
   const [currentPage, setCurrentPage] = useState(1);
-  const [courses, setCourses] = useState(data);
+  const [courses, setCourses] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [newCategory, setNewCategory] = useState({
     name: "",
-    status: "Active",
+    isVisible: "Active",
   });
+
+  useEffect(() => {
+    const fetchCategoryData = async () => {
+      try {
+        const categoryData =
+          await ApiService.getAllCategoriesManagementByAdmin();
+        setCourses(categoryData);
+      } catch (error) {
+        console.log("Error fetching categories data: ", error);
+      }
+    };
+
+    fetchCategoryData();
+  }, []);
 
   const handleClick = (event, page) => {
     event.preventDefault();
@@ -68,19 +57,40 @@ const DataTable = () => {
     setDropdownOpen((prev) => (prev === id ? null : id));
   };
 
-  const handleStatusChange = (id, status) => {
-    setCourses((prevCourses) =>
-      prevCourses.map((course) =>
-        course.id === id ? { ...course, status } : course
-      )
-    );
-    setDropdownOpen(null);
+  const handleStatusChange = async (id, status) => {
+    try {
+      const updateStatus =
+        await ApiService.updateStatusCategoriesManagementByAdmin(id);
+      if (updateStatus) {
+        setCourses((prevCourses) =>
+          prevCourses.map((course) =>
+            course.id === id
+              ? { ...course, isVisible: status === "Active" }
+              : course
+          )
+        );
+        setDropdownOpen(null);
+      } else {
+        console.log("Update status failed or no update needed.");
+      }
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
   };
 
-  const handleCreateCategory = () => {
-    setCourses([...courses, { ...newCategory, id: courses.length + 1 }]);
-    setShowModal(false);
-    setNewCategory({ name: "", status: "Active" });
+  const handleCreateCategory = async () => {
+    try {
+      const newCategoryData =
+        await ApiService.createNewCategoryManagementByAdmin(
+          newCategory.name,
+          newCategory.isVisible
+        );
+      setCourses([...courses, newCategoryData]);
+      setShowModal(false);
+      setNewCategory({ name: "", isVisible: true });
+    } catch (error) {
+      console.error("Error creating category:", error);
+    }
   };
 
   const indexOfLastCourse = currentPage * pageSize;
@@ -134,9 +144,11 @@ const DataTable = () => {
                     >
                       <DropdownToggle
                         caret
-                        className={`status-toggle status-${course.status.toLowerCase()}`}
+                        className={`status-toggle status-${getIsInvisibleString(
+                          course.isVisible
+                        ).toLowerCase()}`}
                       >
-                        {course.status}
+                        {getIsInvisibleString(course.isVisible)}
                       </DropdownToggle>
                       <DropdownMenu className="menu">
                         <DropdownItem
@@ -215,9 +227,12 @@ const DataTable = () => {
                 <Form.Control
                   className="control"
                   as="select"
-                  value={newCategory.status}
+                  value={newCategory.isVisible ? "Active" : "Inactive"}
                   onChange={(e) =>
-                    setNewCategory({ ...newCategory, status: e.target.value })
+                    setNewCategory({
+                      ...newCategory,
+                      isVisible: e.target.value === "Active" ? true : false,
+                    })
                   }
                 >
                   <option>Active</option>

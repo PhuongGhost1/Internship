@@ -58,6 +58,15 @@ namespace BE.Services.Implementations
             if(updateCategory == null) throw new Exception("Unable to update category!");
 
             return await _cateRepo.UpdateCategory(updateCategory);
-        }   
+        }
+
+        public async Task<bool> UpdateStatusOfCategoryAsync(string cateId)
+        {
+            var cate = await _cateRepo.GetCategoryById(cateId);
+
+            if(cate == null) throw new Exception("Unable to find category");
+
+            return await _cateRepo.UpdateStatusOfCategory(cateId);
+        }
     }
 }
