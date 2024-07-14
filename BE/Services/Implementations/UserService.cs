@@ -280,7 +280,7 @@ namespace BE.Services.Implementations
             return reports;
         }
 
-        public async Task<bool> UpdateUserCommentReportStatusAsync(string userId, string reportId, string commentId, string courseId)
+        public async Task<bool> UpdateUserCommentReportStatusAsync(string? userId, string reportId, string? commentId, string? courseId)
         {
             return await _userRepo.UpdateUserCommentReportStatus(userId, reportId, commentId, courseId);
         }

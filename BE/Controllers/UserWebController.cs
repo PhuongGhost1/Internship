@@ -148,7 +148,7 @@ namespace BE.Controllers
         }
 
         [HttpPut, Route("update-report-management-status")]
-        public async Task<bool> UpdateUserCommentReportStatusAsync([FromForm] string userId, [FromForm] string reportId, [FromForm] string commentId, [FromForm] string courseId)
+        public async Task<bool> UpdateUserCommentReportStatusAsync([FromForm] string reportId, [FromForm] string? courseId = null, [FromForm] string? userId = null, [FromForm] string? commentId = null)
         {
             return await _userService.UpdateUserCommentReportStatusAsync(userId, reportId, commentId, courseId);
         }
