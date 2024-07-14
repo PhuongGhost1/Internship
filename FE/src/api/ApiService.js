@@ -383,6 +383,17 @@ const ApiService = {
     } catch (error) {
 
     }
+  },
+  fetchImage: async (
+    imgUrl
+  ) => {
+    try {
+      const response = await fetch(imgUrl)
+      const blob = await response.blob();
+      return URL.createObjectURL(blob);
+    } catch (error) {
+
+    }
   }
 };
 
