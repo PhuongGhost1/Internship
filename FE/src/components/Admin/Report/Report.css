@@ -121,13 +121,13 @@
 
 #Report .popup-invisible-opened {
   position: absolute;
-  padding: 12px 10px;
+  padding: 7px 10px;
   border: 1px solid #ccc;
   background-color: rgb(6, 145, 6);
   color: white;
   border-radius: 5px;
-  top: 10px;
-  right: 10px;
+  top: -30px;
+  left: 75px;
   z-index: 2;
 }
 

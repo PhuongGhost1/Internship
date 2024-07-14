@@ -24,6 +24,6 @@ namespace BE.Services.Interfaces
         Task<bool> UpdateUserStatusAsync(string userId);
         Task<List<FeedbackRequestDto>> GetFeedbacksManagementByAdminAsync();
         Task<List<ReportManagementByAdminDto>> GetReportManagementByAdminAsync();
-        Task<bool> UpdateUserCommentReportStatusAsync(string userId, string reportId, string commentId, string courseId);
+        Task<bool> UpdateUserCommentReportStatusAsync(string? userId, string reportId, string? commentId, string? courseId);
     }
 }

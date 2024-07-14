@@ -23,6 +23,6 @@ namespace BE.Repository.Interface
         Task<bool> UpdateUserStatus(string userId);
         Task<List<FeedbackRequestDto>> GetFeedbacksManagementByAdmin();
         Task<List<ReportManagementByAdminDto>> GetReportManagementByAdmin();
-        Task<bool> UpdateUserCommentReportStatus(string userId, string reportId, string commentId, string courseId);
+        Task<bool> UpdateUserCommentReportStatus(string? userId, string reportId, string? commentId, string? courseId);
     }
 }

@@ -509,16 +509,14 @@ namespace BE.Repository.Implementations
             return reports;
         }
 
-        public async Task<bool> UpdateUserCommentReportStatus(string userId, string reportId, string commentId, string courseId)
+        public async Task<bool> UpdateUserCommentReportStatus(string? userId, string reportId, string? commentId, string? courseId)
         {
             using var transaction = await _context.Database.BeginTransactionAsync();
 
             try
             {
-                var user = string.IsNullOrEmpty(userId) ? null : await _context.Users.FindAsync(userId);
                 var report = await _context.Reports.FindAsync(reportId);
                 var course = await _context.Courses.FindAsync(courseId);
-                var comment = string.IsNullOrEmpty(commentId) ? null : await _context.Comments.FindAsync(commentId);
 
                 if (report == null || course == null)
                 {
@@ -526,33 +524,31 @@ namespace BE.Repository.Implementations
                     return false;
                 }
 
-                var reportedUser = await _context.Users.FindAsync(userId);
-                if (reportedUser == null)
+                if (!string.IsNullOrEmpty(userId))
                 {
-                    transaction.Rollback();
-                    return false;
+                    var user = await _context.Users.FindAsync(userId);
+                    if (user != null)
+                    {
+                        user.IsVisible = !user.IsVisible;
+                        _context.Users.Update(user);
+                    }
                 }
 
-                if (user != null)
+                if (!string.IsNullOrEmpty(commentId))
                 {
-                    reportedUser.IsVisible = !user.IsVisible;
-                    _context.Users.Update(reportedUser);
+                    var comment = await _context.Comments.FindAsync(commentId);
+                    if (comment != null)
+                    {
+                        comment.IsVisible = !comment.IsVisible;
+                        _context.Comments.Update(comment);
+                    }
                 }
 
-                report.Status = 1; 
+                report.Status = 1;
                 _context.Reports.Update(report);
 
-                if (user == null || comment == null)
-                {
-                    course.IsVisible = !course.IsVisible;
-                    _context.Courses.Update(course);
-                }
-
-                if (comment != null)
-                {
-                    comment.IsVisible = !comment.IsVisible; 
-                    _context.Comments.Update(comment);
-                }
+                course.IsVisible = !course.IsVisible;
+                _context.Courses.Update(course);
 
                 await _context.SaveChangesAsync();
                 transaction.Commit();
@@ -572,5 +568,6 @@ namespace BE.Repository.Implementations
                 return false;
             }
         }
+
     }
 }

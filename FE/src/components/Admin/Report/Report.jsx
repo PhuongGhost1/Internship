@@ -62,22 +62,23 @@ export default function Report() {
       );
 
       if (updatedStatus) {
-        console.log("Reported user isVisible:", report.reportedUser.isVisible);
         setReportData((prevReports) =>
           prevReports.map((r) =>
             r.id === reportId
               ? {
                   ...r,
-                  status: r.status === 1,
-                  comments: r.comments ? null : r.comments,
+                  status: 1,
+                  comments: commentId ? null : r.comments,
                   courses: {
                     ...r.courses,
-                    status: r.status,
+                    isVisible: !r.courses.isVisible,
                   },
-                  reportedUser: {
-                    ...r.reportedUser,
-                    isVisible: r.isVisible,
-                  },
+                  reportedUser: r.reportedUser
+                    ? {
+                        ...r.reportedUser,
+                        isVisible: !r.reportedUser.isVisible,
+                      }
+                    : r.reportedUser,
                 }
               : r
           )
@@ -310,6 +311,13 @@ export default function Report() {
               ) : (
                 <>
                   <div className="popup-info">
+                    <div
+                      className={`popup-invisible-${getIsInvisibleString(
+                        currentReport.courses.isVisible
+                      ).toLowerCase()}`}
+                    >
+                      {getIsInvisibleString(currentReport.courses.isVisible)}
+                    </div>
                     <div className="popup-info-image">
                       <img
                         src={
