@@ -26,6 +26,7 @@ namespace BE.Repository.Interface
                 Task<List<CourseManagementForAdminDto>> GetCourseManagementByAdmin();
                 Task<List<CourseManagementForAdminDto>> GetCourseManagementForWaitingByAdmin();
                 Task<bool> UpdateCourseByAdmin(string courseId, int status);
+                Task<List<Course>> GetAllCourseAvailable();
 
                 //---------------------CRUD--------------------------//
                 Task<Course?> CreateCourse(Course course);
@@ -34,5 +35,7 @@ namespace BE.Repository.Interface
                 Task<Course?> FindCourseByCourseName(string courseName);
                 Task<string> CreateChapter(CreateChapterData data);
                 Task<string> CreateQuiz(CreateQuizData data);
+                Task<TimeSpan?> TimeLearningCourse(string courseId);
+                Task<string?> GetImageCourse(string courseId, string type);
         }
 }

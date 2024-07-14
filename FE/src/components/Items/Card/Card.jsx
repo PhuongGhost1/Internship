@@ -3,6 +3,7 @@ import './Card.css';
 
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
+import { formatTime } from "../../../utils/Validation";
 
 export default function Card({ data }) {
     return (
@@ -17,7 +18,7 @@ export default function Card({ data }) {
                         </Stack>
                         <span className="total-rating">&#40;{data.ratingCount}&#41;</span>
                     </div>
-                    <p className="course-time">{data.timeLearing}</p>
+                    <p className="course-time">{formatTime(data.timeLearning)}</p>
                 </div>
             </div>
         </div>

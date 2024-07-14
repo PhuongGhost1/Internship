@@ -316,6 +316,74 @@ const ApiService = {
       throw error;
     }
   },
+  getCourseContent: async (
+    courseId
+  ) => {
+    try {
+      const formData = new FormData();
+      formData.append("courseId", courseId);
+
+      const response = await axios.post(
+        'http://localhost:5144/api/v1/web/course/content',
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      console.error("Error get course content:", error);
+      throw error;
+    }
+  },
+  getCourseRandom: async (
+    count
+  ) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5144/api/v1/web/course/random/${count}`
+      )
+
+      return response.data
+    } catch (error) {
+      console.error("Error getCourseRandom:", error)
+      throw error;
+    }
+  },
+  checkLogin: async (
+    username, password
+  ) => {
+    try {
+      const formdata = new FormData();
+      formdata.append('Username', username);
+      formdata.append('Password', password);
+      const response = await axios.post(
+        'http://localhost:5144/api/v1/web/user/user-login',
+        formdata,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      )
+      return response.data
+    } catch (error) {
+      console.error("Error checkLogin: ", error)
+      throw error;
+    }
+  },
+  login: async (
+    token
+  ) => {
+    try {
+
+    } catch (error) {
+
+    }
+  }
 };
 
 export default ApiService;

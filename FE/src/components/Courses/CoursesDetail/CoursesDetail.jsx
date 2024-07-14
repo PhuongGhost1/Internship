@@ -9,10 +9,11 @@ export default function CoursesDetail({ courseData }) {
         <div id="courses-detail">
             <p className="courses-title">{courseData?.name}</p>
             <div className="courses-categories">
-                <a href="" className="category">Python</a>
-                <a href="" className="category">Data Science</a>
-                <a href="" className="category">Data Analysis</a>
-                <a href="" className="category">Microsoft Excel</a>
+                {courseData?.categoryCourses.map((categoryCourse, index) => {
+                    return (
+                        <a href="" className="category">{categoryCourse.category.name}</a>
+                    )
+                })}
             </div>
             <div className="rating-author">
                 <Box
@@ -20,10 +21,10 @@ export default function CoursesDetail({ courseData }) {
                         '& > legend': { mt: 2 },
                     }}
                 >
-                    <Rating name="read-only" value={4} readOnly />
+                    <Rating name="read-only" value={courseData?.rating} readOnly />
                 </Box>
                 <span className="by">By</span>
-                <a href="" className="author">Nguyễn Mạnh Duy</a>
+                <a href="" className="author">{courseData?.user.username}</a>
             </div>
             <p className="introduction">{courseData?.description}</p>
             <div className="enroll-btn">Enroll</div>

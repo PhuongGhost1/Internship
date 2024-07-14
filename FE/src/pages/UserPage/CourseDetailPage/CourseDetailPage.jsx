@@ -25,6 +25,7 @@ export default function CourseDetailPage() {
     const recommendRef = useRef(null);
     const reviewRef = useRef(null);
     const { courseName } = useParams();
+    const [cardData, setCardData] = useState([])
 
     const scrollToSection = (sectionRef) => {
         const yOffset = -60;
@@ -40,9 +41,10 @@ export default function CourseDetailPage() {
 
     const fetchData = async () => {
         try {
-            const data = await api.getCourseByName(courseName);
-            setCourseData(data)
-            console.log(data)
+            const data1 = await api.getCourseByName(courseName);
+            setCourseData(data1)
+            const data2 = await api.getCourseRandom(6);
+            setCardData(data2)
         } catch (error) {
             console.error("Error fetching course:", error);
         }
@@ -105,10 +107,6 @@ export default function CourseDetailPage() {
         };
     }, []);
 
-    useEffect(() => {
-        console.log(isIn)
-    }, [isIn])
-
     return (
         <div id="course-detail-page">
             <Header />
@@ -123,7 +121,8 @@ export default function CourseDetailPage() {
                             onRecommendClick={() => { scrollToSection(recommendRef) }}
                             onReviewClick={() => { scrollToSection(reviewRef) }}
                             isIn={isIn}
-                            isOpenHeader={isOpenHeader} />
+                            isOpenHeader={isOpenHeader}
+                            courseData={courseData} />
                         <div ref={aboutRef}>
                         </div>
                         <CoursesAbout courseData={courseData} />
@@ -137,12 +136,12 @@ export default function CourseDetailPage() {
                 <CoursesOutcomes />
                 <div ref={contentsRef}>
                 </div>
-                <CoursesLearningMap />
+                <CoursesLearningMap courseData={courseData} />
                 <div ref={recommendRef}>
                 </div>
                 <p className="recommend-title">Recommended</p>
                 <div className="slider-card-recommend">
-                    <SliderCards />
+                    <SliderCards datas={cardData} />
                 </div>
                 <div ref={reviewRef}>
                 </div>

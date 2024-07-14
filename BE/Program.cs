@@ -24,9 +24,9 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       policy =>
                       {
-                          policy.WithOrigins("http://localhost:5173")
-                                .AllowAnyMethod()
-                                .AllowAnyHeader();
+                          policy.WithOrigins("http://127.0.0.1:5173", "http://localhost:5173")
+                              .AllowAnyMethod()
+                              .AllowAnyHeader();
                       });
 });
 // Add services to the container.
@@ -47,7 +47,8 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
 });
 
 builder.Services.AddDbContext<CourseOnlContext>(options =>
-    options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection")))
+    options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))),
+    ServiceLifetime.Transient
 );
 
 builder.Services.AddAuthentication(options =>
