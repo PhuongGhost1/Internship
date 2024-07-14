@@ -23,9 +23,14 @@ namespace BE.Controllers
             return await _cateService.GetAllCategories();
         }
 
+        [HttpPut, Route("update-status-category")]
+        public async Task<bool> UpdateStatusOfCategoryAsync([FromForm] string cateId)
+        {
+            return await _cateService.UpdateStatusOfCategoryAsync(cateId);
+        }
 
         //---------------------CRUD--------------------------//
-        [CustomAuthorize("Admin")]
+        //[CustomAuthorize("Admin")]
         [HttpPost]
         [Route("create-category")]
         public async Task<Category?> CreateCategory([FromForm] CreateCategoryDto createCategoryDto){

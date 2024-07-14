@@ -268,6 +268,7 @@ public partial class CourseOnlContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .HasColumnName("name");
+            entity.Property(e => e.IsVisible).HasColumnName("is_visible");
         });
 
         modelBuilder.Entity<CategoryCourse>(entity =>
