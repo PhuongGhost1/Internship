@@ -204,6 +204,18 @@ export default function PayoutDetail() {
                                     />
                                     <form onSubmit={handleWalletSubmit}>
                                         <div className="form-group addWallet">
+                                            <div className="input-money">
+                                                <label htmlFor="walletAmount" className="form-title">
+                                                    Add Money to Wallet :
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    name="walletAmount"
+                                                    value={walletAmount}
+                                                    onChange={(e) => setWalletAmount(e.target.value)}
+                                                    placeholder="Enter amount"
+                                                />
+                                            </div>
                                             <label
                                                 htmlFor="walletAmount"
                                                 className="form-title"

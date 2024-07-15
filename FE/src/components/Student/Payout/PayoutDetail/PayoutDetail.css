@@ -146,6 +146,10 @@
   flex: 1;
 }
 
+#payout-container .container1 .input-money {
+  margin-bottom: 20px;
+}
+
 #payout-container .container1 label {
   display: block;
   margin-bottom: 5px;
