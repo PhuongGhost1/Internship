@@ -24,5 +24,6 @@ namespace BE.Repository.Interface
         Task<List<FeedbackRequestDto>> GetFeedbacksManagementByAdmin();
         Task<List<ReportManagementByAdminDto>> GetReportManagementByAdmin();
         Task<bool> UpdateUserCommentReportStatus(string userId, string reportId, string commentId, string courseId);
+        Task<bool> UpdateUserProfile(UserProfileDto user);
     }
 }

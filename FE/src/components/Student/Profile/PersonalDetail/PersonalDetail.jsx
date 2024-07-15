@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import './PersonalDetail.css'
 
 import Pic1 from '../../../../assets/Collection-Avatar/1.png'
@@ -16,12 +16,30 @@ import { LuPenSquare } from "react-icons/lu";
 import { GoLink } from "react-icons/go";
 import { TbPhotoCirclePlus } from "react-icons/tb";
 import { LuPlus } from "react-icons/lu";
+import { AuthContext } from "../../../../pages/Context/AuthContext";
 
 export default function PersonalDetail() {
     const [isOpenVisible, setIsOpenVisible] = useState(false);
     const [isOpenEdit, setIsOpenEdit] = useState(false);
     const [isOpenAddInfo, setIsOpenAddInfo] = useState(false);
     const [photo, setPhoto] = useState(null);
+    const { user } = useContext(AuthContext)
+
+    const [name, setName] = useState('');
+    const [userName, setUserName] = useState('');
+    const [dob, setDob] = useState(null);
+    const [description, setDescription] = useState('');
+    const [gender, setGender] = useState('')
+
+    useEffect(() => {
+        if (user) {
+            setName(user.name)
+            setUserName(user.username)
+            setDob(user.dob)
+            setDescription(user.description)
+            setGender(user.gender)
+        }
+    }, [user])
 
     useEffect(() => {
         if (isOpenVisible, isOpenEdit, isOpenAddInfo) {
@@ -234,7 +252,10 @@ export default function PersonalDetail() {
                                     </div>
 
                                     <div className="input-container">
-                                        <input className="boxfistandlastname" type="fistandlastname" name="" id="" />
+                                        <input className="boxfistandlastname" type="text" name="" id=""
+                                            value={name}
+                                            onChange={(e) => { setName(e.target.value) }}
+                                        />
                                     </div>
 
                                     <div className="popup2-row-title" title="Your user name">
@@ -242,7 +263,10 @@ export default function PersonalDetail() {
                                     </div>
 
                                     <div className="input-container">
-                                        <input type="username" maxLength={'15'} minLength={'5'} name="" id="" />
+                                        <input type="text" maxLength={'15'} minLength={'5'} name="" id=""
+                                            value={userName}
+                                            onChange={(e) => { setUserName(e.target.value) }}
+                                        />
                                     </div>
 
                                     <div className="popup2-row-title" title="Date of your birth">
@@ -250,7 +274,12 @@ export default function PersonalDetail() {
                                     </div>
 
                                     <div className="input-container">
-                                        <input type="date" name="" id="" style={{ width: '28%' }} />
+                                        <input
+                                            type="date"
+                                            style={{ width: '28%' }}
+                                            value={dob}
+                                            onChange={(e) => setDob(e.target.value)} // Update state on change
+                                        />
                                     </div>
 
                                     <div className="popup2-row-title" title="Bio">
@@ -264,6 +293,8 @@ export default function PersonalDetail() {
                                             id="introduce"
                                             placeholder="Introduce yourself..."
                                             style={{ minHeight: '150px', resize: 'vertical' }}
+                                            value={description}
+                                            onChange={(e) => setDescription(e.target.value)}
                                         ></textarea>
                                     </div>
 
@@ -280,7 +311,11 @@ export default function PersonalDetail() {
                                     </div>
 
                                     <div className="input-container">
-                                        <select className="gender-select" id="gender" name="gender">
+                                        <select className="gender-select" id="gender" name="gender"
+                                            value={gender}
+                                            onChange={(e) => setGender(e.target.value)}
+                                        >
+                                            <option value="">Select Gender</option>
                                             <option value="woman">Woman</option>
                                             <option value="man">Man</option>
                                             <option value="non-binary">Non Binary</option>

@@ -4,6 +4,7 @@ using System.Security.Cryptography;
 using System.Text;
 using BE.Models;
 using BE.Repository.Interface;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 namespace BE.Repository.Implementations
@@ -12,9 +13,12 @@ namespace BE.Repository.Implementations
     {
         private readonly IConfiguration _config;
         private readonly SymmetricSecurityKey _key;
-        public TokenRepository(IConfiguration config)
+        private readonly CourseOnlContext _context;
+        public TokenRepository(IConfiguration config, CourseOnlContext context)
         {
+
             _config = config;
+            _context = context;
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:SigningKey"]));
         }
 
@@ -26,7 +30,7 @@ namespace BE.Repository.Implementations
             }
 
             char[] chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".ToCharArray();
-            byte[] data = new byte[size]; 
+            byte[] data = new byte[size];
             RandomNumberGenerator.Fill(data);
 
             var result = new StringBuilder(size);
@@ -42,14 +46,13 @@ namespace BE.Repository.Implementations
         public string CreateToken(User user)
         {
             var claims = new List<Claim> {
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim(JwtRegisteredClaimNames.Name, user.Username),
-                new Claim(JwtRegisteredClaimNames.Name, user.Password)
+                new Claim("id", user.Id)
             };
 
             var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
 
-            var tokenDescriptor = new SecurityTokenDescriptor() {
+            var tokenDescriptor = new SecurityTokenDescriptor()
+            {
                 Subject = new ClaimsIdentity(claims),
                 SigningCredentials = creds,
                 Expires = DateTime.Now.AddDays(1),
@@ -62,6 +65,24 @@ namespace BE.Repository.Implementations
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(token);
+        }
+        public async Task<User?> DecodeUserToken(string token)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var jwtToken = tokenHandler.ReadJwtToken(token);
+            var claims = jwtToken.Claims;
+
+            User? u = null;
+
+            foreach (var claim in claims)
+            {
+                if (claim.Type == "id")
+                {
+                    u = await _context.Users.FirstOrDefaultAsync(u => u.Id == claim.Value);
+                }
+            }
+
+            return u;
         }
     }
 }

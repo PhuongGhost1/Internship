@@ -162,6 +162,11 @@ namespace BE.Services.Implementations
             };
         }
 
+        public async Task<User?> GetUserByToken(string token)
+        {
+            return await _tokenRepo.DecodeUserToken(token);
+        }
+
         public async Task<ReturnLoginDto> LoginWithFacebook()
         {
             var properties = new AuthenticationProperties
@@ -286,6 +291,11 @@ namespace BE.Services.Implementations
         public async Task<bool> UpdateUserCommentReportStatusAsync(string userId, string reportId, string commentId, string courseId)
         {
             return await _userRepo.UpdateUserCommentReportStatus(userId, reportId, commentId, courseId);
+        }
+
+        public async Task<bool> UpdateUserProfile(UserProfileDto user)
+        {
+            return await _userRepo.UpdateUserProfile(user);
         }
     }
 }

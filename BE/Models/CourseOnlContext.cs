@@ -40,6 +40,8 @@ public partial class CourseOnlContext : DbContext
 
     public virtual DbSet<DepositWithdrawal> DepositWithdrawals { get; set; }
 
+    public virtual DbSet<EfmigrationsHistory> EfmigrationsHistories { get; set; }
+
     public virtual DbSet<EnrollCourse> EnrollCourses { get; set; }
 
     public virtual DbSet<Feedback> Feedbacks { get; set; }
@@ -180,7 +182,7 @@ public partial class CourseOnlContext : DbContext
                 .HasColumnName("question_id");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.Text)
-                .HasMaxLength(300)
+                .HasMaxLength(500)
                 .HasColumnName("text");
 
             entity.HasOne(d => d.Question).WithMany(p => p.Answers)
@@ -265,6 +267,7 @@ public partial class CourseOnlContext : DbContext
             entity.Property(e => e.Id)
                 .HasMaxLength(40)
                 .HasColumnName("id");
+            entity.Property(e => e.IsVisible).HasColumnName("is_visible");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .HasColumnName("name");
@@ -316,6 +319,9 @@ public partial class CourseOnlContext : DbContext
             entity.Property(e => e.CourseId)
                 .HasMaxLength(40)
                 .HasColumnName("course_id");
+            entity.Property(e => e.CreateAt)
+                .HasColumnType("datetime")
+                .HasColumnName("create_at");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .HasColumnName("name");
@@ -347,7 +353,7 @@ public partial class CourseOnlContext : DbContext
                 .HasColumnName("description");
             entity.Property(e => e.Index).HasColumnName("index");
             entity.Property(e => e.Name)
-                .HasMaxLength(50)
+                .HasMaxLength(200)
                 .HasColumnName("name");
             entity.Property(e => e.Status).HasColumnName("status");
 
@@ -408,11 +414,11 @@ public partial class CourseOnlContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("create_at");
             entity.Property(e => e.Description)
-                .HasMaxLength(500)
+                .HasMaxLength(2000)
                 .HasColumnName("description");
             entity.Property(e => e.IsVisible).HasColumnName("is_visible");
             entity.Property(e => e.Name)
-                .HasMaxLength(50)
+                .HasMaxLength(200)
                 .HasColumnName("name");
             entity.Property(e => e.Price).HasColumnName("price");
             entity.Property(e => e.Rating).HasColumnName("rating");
@@ -424,7 +430,7 @@ public partial class CourseOnlContext : DbContext
                 .HasMaxLength(40)
                 .HasColumnName("user_id");
             entity.Property(e => e.WhatLearn)
-                .HasMaxLength(1000)
+                .HasMaxLength(2000)
                 .HasColumnName("what_learn");
 
             entity.HasOne(d => d.User).WithMany(p => p.Courses)
@@ -460,6 +466,16 @@ public partial class CourseOnlContext : DbContext
             entity.HasOne(d => d.User).WithMany(p => p.DepositWithdrawals)
                 .HasForeignKey(d => d.UserId)
                 .HasConstraintName("DepositWithdrawal_ibfk_1");
+        });
+
+        modelBuilder.Entity<EfmigrationsHistory>(entity =>
+        {
+            entity.HasKey(e => e.MigrationId).HasName("PRIMARY");
+
+            entity.ToTable("__EFMigrationsHistory");
+
+            entity.Property(e => e.MigrationId).HasMaxLength(150);
+            entity.Property(e => e.ProductVersion).HasMaxLength(32);
         });
 
         modelBuilder.Entity<EnrollCourse>(entity =>
@@ -628,7 +644,7 @@ public partial class CourseOnlContext : DbContext
                 .HasColumnName("creat_at");
             entity.Property(e => e.Index).HasColumnName("index");
             entity.Property(e => e.Name)
-                .HasMaxLength(50)
+                .HasMaxLength(200)
                 .HasColumnName("name");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.TimeVideo)
@@ -883,7 +899,7 @@ public partial class CourseOnlContext : DbContext
                 .HasColumnName("quiz_id");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.Text)
-                .HasMaxLength(300)
+                .HasMaxLength(500)
                 .HasColumnName("text");
             entity.Property(e => e.Type).HasColumnName("type");
 
@@ -911,7 +927,7 @@ public partial class CourseOnlContext : DbContext
                 .HasColumnName("create_at");
             entity.Property(e => e.Index).HasColumnName("index");
             entity.Property(e => e.Name)
-                .HasMaxLength(50)
+                .HasMaxLength(200)
                 .HasColumnName("name");
             entity.Property(e => e.NumberQuestions).HasColumnName("number_questions");
             entity.Property(e => e.PassPercent).HasColumnName("pass_percent");
@@ -1164,10 +1180,19 @@ public partial class CourseOnlContext : DbContext
             entity.Property(e => e.Description)
                 .HasMaxLength(300)
                 .HasColumnName("description");
+            entity.Property(e => e.Dob)
+                .HasColumnType("datetime")
+                .HasColumnName("DOB");
             entity.Property(e => e.Email)
                 .HasMaxLength(50)
                 .HasColumnName("email");
+            entity.Property(e => e.Gender)
+                .HasMaxLength(50)
+                .HasColumnName("gender");
             entity.Property(e => e.IsVisible).HasColumnName("is_visible");
+            entity.Property(e => e.Name)
+                .HasMaxLength(50)
+                .HasColumnName("name");
             entity.Property(e => e.Password)
                 .HasMaxLength(50)
                 .HasColumnName("password");

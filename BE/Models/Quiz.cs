@@ -1,4 +1,7 @@
-﻿namespace BE.Models;
+﻿using System;
+using System.Collections.Generic;
+
+namespace BE.Models;
 
 public partial class Quiz
 {
