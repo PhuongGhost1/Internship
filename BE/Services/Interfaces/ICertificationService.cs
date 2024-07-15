@@ -1,14 +1,16 @@
 using BE.Dto.Certification;
+using BE.Dto.UserCertification;
 using BE.Models;
 
 namespace BE.Services.Interfaces
 {
-    public interface ICertificationService
-    {
-        
+     public interface ICertificationService
+     {
 
-        //---------------------CRUD--------------------------//
-        Task<List<Certification>> ViewAllCertifications();
-        Task<Certification?> CreateCertification(CreateCertificatonDto createCertificatonDto);
-    }
+
+          //---------------------CRUD--------------------------//
+          Task<List<Certification>> ViewAllCertifications();
+          Task<Certification?> CreateCertification(CreateCertificatonDto createCertificatonDto);
+          Task<List<UserCertificationDto>> GetCredentialsByUserAsync(string UserId);
+     }
 }

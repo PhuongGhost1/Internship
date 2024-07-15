@@ -372,6 +372,21 @@ const ApiService = {
       throw error;
     }
   },
+  getCredentials: async (UserId) => {
+    try {
+      const response = await axios.get(
+        "http://localhost:5144/api/v1/web/certification/credentials",
+        {
+          params: { UserId },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching credentials list:", error);
+      throw error;
+    }
+  },
 };
 
 export default ApiService;
