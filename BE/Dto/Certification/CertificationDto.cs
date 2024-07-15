@@ -1,12 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using BE.Dto.Course;
 
 namespace BE.Dto.Certification
 {
-    public class CertificationDto
-    {
-        public string? CourseId {get; set;}
-    }
+     public class CertificationDto
+     {
+          public string? Id { get; set; }
+          public CourseForAdminDto? Course { get; set; }
+          public string? Name { get; set; }
+          public DateTime? CreateAt { get; set; }
+     }
 }
