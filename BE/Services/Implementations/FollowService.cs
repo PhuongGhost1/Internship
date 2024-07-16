@@ -15,6 +15,10 @@ namespace BE.Services.Implementations
             _followRepo = followRepo;
             _userRepo = userRepo;
         }
+        public async Task<List<FollowingDto>> GetFollowing(string userId)
+        {
+            return await _followRepo.GetFollowing(userId);
+        }
 
 
         //---------------------CRUD--------------------------//

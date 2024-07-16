@@ -387,22 +387,29 @@ const ApiService = {
       throw error;
     }
   },
+
+  getFollowing: async (UserId) =>{
+    try{
+        const formData = new FormData();
+        formData.append("userId", UserId);
+
+        const response = await axios.post(
+            "http://localhost:5144/api/v1/web/follow/view-following",formData,
+            {
+                headers: {
+                  "Content-Type": "application/x-www-form-urlencoded",
+                },
+              }
+        );
+        return response.data;
+    } catch (error) {
+      console.error("Error fetching following list:", error);
+      throw error;
+    }
+  },
 };
-// getFollowing: async (UserId) =>{
-//     try{
-//         const response = await axios.get(
-//             //gan api do
-//             {
-//                 params:{ UserId},
-//             }
-//         );
-//         return response.data;
-//     } catch (error) {
-//       console.error("Error fetching following list:", error);
-//       throw error;
-//     }
-//   },
-// };
+
+
 
 
 export default ApiService;
