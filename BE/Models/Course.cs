@@ -27,6 +27,8 @@ public partial class Course
 
     public string? WhatLearn { get; set; }
 
+    public string? Level { get; set; }
+
     public virtual ICollection<Affiliate> Affiliates { get; set; } = new List<Affiliate>();
 
     public virtual ICollection<CartCourse> CartCourses { get; set; } = new List<CartCourse>();
