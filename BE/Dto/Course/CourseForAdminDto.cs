@@ -19,6 +19,7 @@ namespace BE.Dto.Course
           public float? Price { get; set; }
           public string? Description {get; set;}
         public bool? IsVisible {get; set;}
+        public int? Processings {get; set;}
         public List<ImageForAdminDto> Images { get; set; } = new List<ImageForAdminDto>();
           public List<CategoryCourseDto> CateCoruse = new List<CategoryCourseDto>();
           public List<ChapterItemDto> Chapters = new List<ChapterItemDto>();
