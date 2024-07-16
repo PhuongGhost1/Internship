@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import './CertificationProfile.css';
-import CSLogo from '../../../../assets/CS_logo.png';
+// import CSLogo from '../../../../assets/CS_logo.png';
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";

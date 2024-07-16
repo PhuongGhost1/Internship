@@ -1,164 +1,156 @@
 #InProgress {
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 930px;
-    margin: 0 auto;
-    margin-top: 70px;
-    margin-bottom: 84px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 930px;
+  margin: 0 auto;
+  margin-top: 70px;
+  margin-bottom: 84px;
 }
 
 #InProgress #search-bar {
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: center;
-}
-
-#InProgress #search-bar {
-    display: flex;
-    align-items: start;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 #InProgress #search-bar input {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 #InProgress .courses-title {
-    display: flex;
+  display: flex;
 }
 
 #InProgress .course-header {
-    display: flex;
+  display: flex;
 }
 
 #InProgress .course-header .course-image {
-    flex: 2;
-    padding: 0 10px;
-    margin-left: 0;
-    box-sizing: border-box;
+  flex: 2;
+  /* padding: 0 10px; */
+  box-sizing: border-box;
 }
 
 #InProgress .course-header .course-image img {
-    width: 100%;
-    margin-left: -10px;
+  border-radius: 8px;
+  width: 150px;
+  height: 90px;
 }
 
 #InProgress .course-header .course-details {
-    flex: 10;
+  flex: 10;
+  padding-left: 10px;
 }
 
 #InProgress .info-icon {
-    width: 20px;
-    height: 20px;
-    border-radius: 10px;
-    margin-left: 6px;
-    color: #0366d6;
-    margin-top: 5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  margin-left: 6px;
+  color: #0366d6;
+  margin-top: 5px;
 }
 
 #InProgress .education-title {
-    margin-bottom: 20px;
-    margin-left: 0%;
+  margin-bottom: 20px;
 }
 
 #InProgress #courses .course-item {
-    background: #fff;
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.1), 0 4px 15px rgba(0, 0, 0, 0.15); */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 #InProgress #courses .course-item:hover {
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.15), 0 8px 25px rgba(0, 0, 0, 0.2);
-    transform: translateY(-3px);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.15), 0 8px 25px rgba(0, 0, 0, 0.2);
+  transform: translateY(-3px);
 }
 
 #InProgress #courses .course-item h3 {
-    margin: 0;
-    font-size: 18px;
+  margin: 0;
+  font-size: 18px;
 }
 
 #InProgress #courses .course-item p {
-    margin: 5px 0;
+  margin: 5px 0;
 }
 
 #InProgress #courses .fields {
-    margin: 10px 0;
+  margin: 10px 0;
 }
 
 #InProgress #courses .field-tag {
-    background-color: #e1ecf4;
-    color: #0366d6;
-    padding: 5px 10px;
-    border-radius: 20px;
-    margin-right: 5px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    display: inline-block;
+  background-color: #e1ecf4;
+  color: #0366d6;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin-right: 5px;
+  margin-top: 5px;
+  display: inline-block;
 }
 
 #InProgress #courses .view-certificate {
-    display: inline-block;
-    margin-top: 50px;
-    color: #0366d6;
-    text-decoration: none;
-    border: 1px solid #0366d6;
-    padding: 5px 10px;
-    border-radius: 5px;
+  color: #0366d6;
+  text-decoration: none;
+  border: 1px solid #0366d6;
+  padding: 5px 10px;
+  border-radius: 5px;
+  display: inline-block;
+  margin-top: 50px;
 }
 
 #InProgress #courses .view-certificate:hover {
-    background-color: #0366d6;
-    color: #fff;
+  background-color: #0366d6;
+  color: #fff;
 }
 
 #InProgress .show-all {
-    display: flex;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #0366d6;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #0366d6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 #InProgress .show-all:hover {
-    background-color: #005f8c;
+  background-color: #005f8c;
 }
 
 #InProgress .arrow {
-    margin-right: 5px;
+  margin-right: 5px;
 }
 
 #InProgress .show-more {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 #InProgress #courses .courses-container {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 #InProgress .progress-bar {
-    height: 10px;
-    background-color: #f0f0f0;
-    border-radius: 5px;
-    margin-top: 10px;
-    overflow: hidden;
-    width: 100%;
+  height: 10px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  margin-top: 10px;
+  overflow: hidden;
 }
-  
+
 #InProgress .progress {
-    height: 100%;
-    background-color: #0366d6;
-    transition: width 0.3s ease-in-out;
+  height: 100%;
+  background-color: #0366d6;
+  transition: width 0.3s ease-in-out;
 }

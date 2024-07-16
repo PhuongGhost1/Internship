@@ -1,181 +1,168 @@
 #Completed {
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 930px;
-    margin: 0 auto;
-    margin-top: 70px;
-    margin-bottom: 84px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 930px;
+  margin: 0 auto;
+  margin-top: 70px;
+  margin-bottom: 84px;
 }
 
 #Completed #search-bar {
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: center;
-}
-
-#Completed #search-bar {
-    display: flex;
-    align-items: start;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 #Completed #search-bar input {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 #Completed .courses-title {
-    display: flex;
-}
-
-#Completed .course-header {
-    display: flex;
-}
-
-#Completed .course-header .course-image {
-    flex: 2;
-    padding: 0 10px;
-    margin-left: 0;
-    box-sizing: border-box;
-}
-
-#Completed .course-header .course-image img {
-    width: 100%;
-    margin-left: -10px;
-}
-
-#Completed .course-header .course-details {
-    flex: 10;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 #Completed .info-icon {
-    width: 20px;
-    height: 20px;
-    border-radius: 10px;
-    margin-left: 6px;
-    color: #0366d6;
-    margin-top: 5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  margin-left: 6px;
+  color: #0366d6;
+  margin-top: 5px;
 }
 
 #Completed .education-title {
-    margin-bottom: 20px;
-    margin-left: 0%;
+  margin: 0;
 }
 
 #Completed #courses .course-item {
-    background: #fff;
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.1), 0 4px 15px rgba(0, 0, 0, 0.15); */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 #Completed #courses .course-item:hover {
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.15), 0 8px 25px rgba(0, 0, 0, 0.2);
-    transform: translateY(-3px);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.15), 0 8px 25px rgba(0, 0, 0, 0.2);
+  transform: translateY(-3px);
 }
 
-#Completed #courses .course-item h3 {
-    margin: 0;
-    font-size: 18px;
+#Completed .course-header {
+  display: flex;
+  /* align-items: center; */
 }
 
-#Completed #courses .course-item p {
-    margin: 5px 0;
+#Completed .course-image {
+  flex: 2;
+  /* padding: 0 10px; */
+  box-sizing: border-box;
 }
 
-#Completed #courses .fields {
-    margin: 10px 0;
+#Completed .course-image img {
+  border-radius: 8px;
+  width: 150px;
+  height: 90px;
 }
 
-#Completed #courses .field-tag {
-    background-color: #e1ecf4;
-    color: #0366d6;
-    padding: 5px 10px;
-    border-radius: 20px;
-    margin-right: 5px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    display: inline-block;
+#Completed .course-details {
+  flex: 10;
+  padding-left: 10px;
 }
 
-#Completed #courses .bt-view-ceritifcated {
-    display: flex;
-    flex-direction: column;
+#Completed .course-details h3 {
+  margin: 0;
+  font-size: 18px;
 }
 
-#Completed #courses .view-review {
-    display: inline-block;
-    margin-top: 10px;
-    color: #0366d6;
-    text-decoration: none;
-    border: 1px solid #0366d6;
-    padding: 5px 10px;
-    border-radius: 5px;
-    text-align: center;
-
+#Completed .course-details p {
+  margin: 5px 0;
 }
 
-
-#Completed #courses .view-certificate {
-    display: inline-block;
-    /* margin-top: 50px; */
-    color: #0366d6;
-    text-decoration: none;
-    border: 1px solid #0366d6;
-    padding: 5px 10px;
-    border-radius: 5px;
+#Completed .fields {
+  margin: 10px 0;
 }
 
-#Completed #courses .view-certificate:hover , #Completed #courses .view-review:hover {
-    background-color: #0366d6;
-    color: #fff;
+#Completed .field-tag {
+  background-color: #e1ecf4;
+  color: #0366d6;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin-right: 5px;
+  margin-top: 5px;
+  display: inline-block;
+}
+
+#Completed .bt-view-ceritifcated {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+#Completed .view-review,
+#Completed .view-certificate {
+  color: #0366d6;
+  text-decoration: none;
+  border: 1px solid #0366d6;
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-align: center;
+  transition: background-color 0.3s, color 0.3s;
+  margin-top: 5px;
+}
+
+#Completed .view-review:hover,
+#Completed .view-certificate:hover {
+  background-color: #0366d6;
+  color: #fff;
 }
 
 #Completed .show-all {
-    display: flex;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #0366d6;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #0366d6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 #Completed .show-all:hover {
-    background-color: #005f8c;
+  background-color: #005f8c;
 }
 
 #Completed .arrow {
-    margin-right: 5px;
+  margin-right: 5px;
 }
 
 #Completed .show-more {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 #Completed #courses .courses-container {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 #Completed .progress-bar {
-    height: 10px;
-    background-color: #f0f0f0;
-    border-radius: 5px;
-    margin-top: 10px;
-    overflow: hidden;
-  }
-  
-#Completed  .progress {
-    height: 100%;
-    background-color: #0366d6;
-    transition: width 0.3s ease-in-out;
-  }
+  height: 10px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+#Completed .progress {
+  height: 100%;
+  background-color: #0366d6;
+  transition: width 0.3s ease-in-out;
+}
