@@ -17,19 +17,16 @@ namespace BE.Repository.Implementations
         {
             var listFollow = await _context.Follows
                 .Where(f => f.FollowerId == followUserId)
-                .Select(f => f.FollowedId)
                 .ToListAsync();
 
-            var users = await _context.Users
-                .Where(u => listFollow.Contains(u.Id))
-                .ToListAsync();
+
 
             var resultList = new List<FollowingDto>();
 
 
             foreach (var v in listFollow)
             {
-                var user = await _context.Users.FirstOrDefaultAsync(us => us.Id == v);
+                var user = await _context.Users.FirstOrDefaultAsync(us => us.Id == v.FollowedId);
 
                 var countFollower = await _context.Follows
                     .Where(f => f.FollowedId == user.Id)
@@ -48,7 +45,7 @@ namespace BE.Repository.Implementations
 
                 var following = new FollowingDto
                 {
-                    FolloweId = v,
+                    FollowId = v.Id,
                     UserId = user.Id,
                     Name = user.Username,
                     ListImage = ListUrls,
