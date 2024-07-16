@@ -1,36 +1,44 @@
 #Followed {
      padding: 20px;
-     max-width: 1200px; /* Giới hạn chiều rộng của container */
-     margin: auto; /* Căn giữa container */
-     border: 2px solid #ddd; /* Thêm viền ngoài */
-     border-radius: 15px; /* Bo tròn góc viền */
-     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm shadow để tạo chiều sâu */
-     background-color: #f9f9f9; /* Màu nền nhẹ */
+     max-width: 1200px;
+     /* Giới hạn chiều rộng của container */
+     margin: auto;
+     /* Căn giữa container */
+     border: 2px solid #ddd;
+     /* Thêm viền ngoài */
+     border-radius: 15px;
+     /* Bo tròn góc viền */
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+     /* Thêm shadow để tạo chiều sâu */
+     background-color: #f9f9f9;
+     /* Màu nền nhẹ */
      margin-top: 70px;
      margin-bottom: 84px;
- }
- 
- #search-bar {
+}
+
+#search-bar {
      margin-bottom: 20px;
      display: flex;
      justify-content: center;
- }
- 
- #search-bar input {
+}
+
+#search-bar input {
      width: 80%;
      padding: 10px;
      font-size: 16px;
      border: 1px solid #ccc;
      border-radius: 5px;
- }
- 
- #tutors-grid {
+}
+
+#tutors-grid {
      display: grid;
-     grid-template-columns: repeat(5, 1fr); /* 5 cột */
-     gap: 20px; /* Khoảng cách giữa các thẻ */
- }
- 
- #tutors-grid .tutor-card {
+     grid-template-columns: repeat(5, 1fr);
+     /* 5 cột */
+     gap: 20px;
+     /* Khoảng cách giữa các thẻ */
+}
+
+#tutors-grid .tutor-card {
      background: white;
      border: 1px solid #ddd;
      border-radius: 10px;
@@ -38,67 +46,67 @@
      padding: 20px;
      text-align: center;
      transition: transform 0.2s, box-shadow 0.2s;
- }
- 
- #tutors-grid .tutor-card:hover {
+}
+
+#tutors-grid .tutor-card:hover {
      transform: translateY(-10px);
      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
- }
- 
- #tutors-grid .tutor-card .avatar {
+}
+
+#tutors-grid .tutor-card .avatar {
      margin: 0 auto 10px;
- }
- 
- #tutors-grid .tutor-card .avatar img {
+}
+
+#tutors-grid .tutor-card .avatar img {
      background-color: #eee;
      border-radius: 50%;
      height: 80px;
      width: 80px;
      border: 2px solid #ddd;
- }
- 
- #tutors-grid .tutor-card h3 {
+}
+
+#tutors-grid .tutor-card h3 {
      margin: 10px 0;
      font-size: 18px;
      font-weight: bold;
- }
- 
- #tutors-grid .tutor-card p {
+}
+
+#tutors-grid .tutor-card p {
      margin: 5px 0;
      font-size: 14px;
      color: #555;
- }
- 
- #tutors-grid .tutor-card .social-links {
+}
+
+#tutors-grid .tutor-card .social-links {
      margin: 10px 0;
- }
- 
- #tutors-grid .tutor-card .social-links a {
+}
+
+#tutors-grid .tutor-card .social-links a {
      margin: 0 5px;
      display: inline-block;
      width: 24px;
      height: 24px;
      background-size: cover;
- }
- 
- #tutors-grid .tutor-card .icon-facebook::before {
+}
+
+#tutors-grid .tutor-card .icon-facebook::before {
      content: url('path/to/facebook-icon.png');
- }
- 
- #tutors-grid .tutor-card .icon-twitter::before {
+}
+
+#tutors-grid .tutor-card .icon-twitter::before {
      content: url('path/to/twitter-icon.png');
- }
- 
- #tutors-grid .tutor-card .icon-linkedin::before {
+}
+
+#tutors-grid .tutor-card .icon-linkedin::before {
      content: url('path/to/linkedin-icon.png');
- }
- 
- #tutors-grid .tutor-card .icon-youtube::before {
+}
+
+#tutors-grid .tutor-card .icon-youtube::before {
      content: url('path/to/youtube-icon.png');
- }
- 
- /* Style for Unfollow button */
- #tutors-grid .tutor-card button {
+}
+
+/* Style for Unfollow button */
+#tutors-grid .tutor-card button {
      margin-top: 10px;
      padding: 8px 12px;
      border: none;
@@ -107,20 +115,20 @@
      color: white;
      cursor: pointer;
      transition: background-color 0.3s;
- }
- 
- #tutors-grid .tutor-card button:hover {
+}
+
+#tutors-grid .tutor-card button:hover {
      background-color: #d32f2f;
- }
- 
- .pagination {
+}
+
+.pagination {
      display: flex;
      justify-content: center;
      align-items: center;
      margin-top: 20px;
- }
- 
- .pagination button {
+}
+
+.pagination button {
      margin: 0 5px;
      padding: 10px 15px;
      border: 1px solid #ddd;
@@ -128,23 +136,22 @@
      background-color: #fff;
      cursor: pointer;
      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
- }
- 
- .pagination button:hover {
+}
+
+.pagination button:hover {
      background-color: #007bff;
      color: #fff;
      border-color: #007bff;
- }
- 
- .pagination button:disabled {
+}
+
+.pagination button:disabled {
      background-color: #e0e0e0;
      cursor: not-allowed;
      color: #777;
- }
- 
- .pagination .active {
+}
+
+.pagination .active {
      background-color: #007bff;
      color: #fff;
      border-color: #007bff;
- }
- 
+}

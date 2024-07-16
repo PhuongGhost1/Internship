@@ -23,11 +23,11 @@ const tutorsData = [
 ];
 
 const Followed = () => {
-     const [currentPage, setCurrentPage] = useState(1);
+     // const [currentPage, setCurrentPage] = useState(1);
      const [searchTerm, setSearchTerm] = useState("");
-     const [tutors, setTutors] = useState(tutorsData);
+     // const [tutors, setTutors] = useState(tutorsData);
      const [data, setData] = useState(null);
-     const tutorsPerPage = 15;
+     // const tutorsPerPage = 15;
 
      useEffect(() => {
           fetchFollowing("user_8c0c22c265")
@@ -41,29 +41,29 @@ const Followed = () => {
           console.log(data)
      }, [data])
      // Logic for filtering tutors based on search term
-     const filteredTutors = tutors.filter(tutor =>
-          tutor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          tutor.students.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          tutor.courses.toLowerCase().includes(searchTerm.toLowerCase())
-     );
+     // const filteredTutors = tutors.filter(tutor =>
+     //      tutor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+     //      tutor.students.toLowerCase().includes(searchTerm.toLowerCase()) ||
+     //      tutor.courses.toLowerCase().includes(searchTerm.toLowerCase())
+     // );
 
-     // Logic for displaying current tutors
-     const indexOfLastTutor = currentPage * tutorsPerPage;
-     const indexOfFirstTutor = indexOfLastTutor - tutorsPerPage;
-     const currentTutors = filteredTutors.slice(indexOfFirstTutor, indexOfLastTutor);
+     // // Logic for displaying current tutors
+     // const indexOfLastTutor = currentPage * tutorsPerPage;
+     // const indexOfFirstTutor = indexOfLastTutor - tutorsPerPage;
+     // const currentTutors = filteredTutors.slice(indexOfFirstTutor, indexOfLastTutor);
 
-     // Logic for handling page numbers
-     const pageNumbers = [];
-     for (let i = 1; i <= Math.ceil(filteredTutors.length / tutorsPerPage); i++) {
-          pageNumbers.push(i);
-     }
+     // // Logic for handling page numbers
+     // const pageNumbers = [];
+     // for (let i = 1; i <= Math.ceil(filteredTutors.length / tutorsPerPage); i++) {
+     //      pageNumbers.push(i);
+     // }
 
-     // Handle Unfollow button click
-     const handleUnfollow = (name) => {
-          if (window.confirm(`Are you sure you want to unfollow ${name}?`)) {
-               setTutors(tutors.filter(tutor => tutor.name !== name));
-          }
-     };
+     // // Handle Unfollow button click
+     // const handleUnfollow = (name) => {
+     //      if (window.confirm(`Are you sure you want to unfollow ${name}?`)) {
+     //           setTutors(tutors.filter(tutor => tutor.name !== name));
+     //      }
+     // };
 
      return (
           <div id="Followed">
@@ -77,7 +77,7 @@ const Followed = () => {
                     />
                </div>
 
-               <div id="tutors-grid">
+               {/* <div id="tutors-grid">
                     {data?.map((tutor, index) => (
                          <div className="tutor-card" key={index}>
                               <div className="avatar">
@@ -115,7 +115,7 @@ const Followed = () => {
                               Next
                          </button>
                     </div>
-               )}
+               )} */}
           </div>
      );
 };
