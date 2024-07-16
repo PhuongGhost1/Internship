@@ -1,5 +1,6 @@
 using System.Net;
 using BE.Dto.User;
+using BE.Dto.User.AdminManagement;
 using BE.Dto.UserLogin;
 using BE.Models;
 using BE.Repository.Interface;
@@ -268,6 +269,20 @@ namespace BE.Services.Implementations
             if(feedback == null || feedback.Count == 0) return new List<FeedbackRequestDto>();
 
             return feedback;
+        }
+
+        public async Task<List<ReportManagementByAdminDto>> GetReportManagementByAdminAsync()
+        {
+            var reports = await _userRepo.GetReportManagementByAdmin();
+
+            if(reports == null || reports.Count == 0) return new List<ReportManagementByAdminDto>();
+
+            return reports;
+        }
+
+        public async Task<bool> UpdateUserCommentReportStatusAsync(string? userId, string reportId, string? commentId, string? courseId)
+        {
+            return await _userRepo.UpdateUserCommentReportStatus(userId, reportId, commentId, courseId);
         }
     }
 }

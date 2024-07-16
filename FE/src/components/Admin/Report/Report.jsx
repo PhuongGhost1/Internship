@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Report.css";
 import { Pagination, PaginationItem, PaginationLink, Table } from "reactstrap";
 import {
@@ -11,85 +11,84 @@ import {
 import { RxCross2 } from "react-icons/rx";
 import { GoDotFill } from "react-icons/go";
 import { SiGmail } from "react-icons/si";
-import IntructorIMG from "../../../assets/IntructorIMG.png";
-import IntructorIMG2 from "../../../assets/IntructorIMG2.png";
-import IntructorIMG3 from "../../../assets/IntructorIMG3.png";
+import IntructorIMG from "../../../assets/Collection-Avatar/1.png";
 import Error from "../../../assets/error.png";
-
-const initialError = [
-  {
-    id: 1,
-    email: "bapcon@example.com",
-    name: "Bap",
-    course: "Python",
-    title: "Course error cannot load video",
-    status: "New",
-    img: IntructorIMG,
-    phone: "0353747221",
-    calender: "Joined May 2020",
-    age: "22",
-    role: "Student",
-    country: "USA",
-    attended: "Attended 7 days ago",
-    chapter: "1",
-    description: "The video cannot load",
-    image: Error,
-  },
-  {
-    id: 2,
-    email: "jerome@example.com",
-    name: "Jerome Reichert",
-    course: "C#",
-    title: "Course error cannot load video",
-    status: "New",
-    img: IntructorIMG3,
-    phone: "0353747222",
-    calender: "Joined June 2020",
-    age: "24",
-    role: "Student",
-    country: "Canada",
-    attended: "Attended 5 days ago",
-    chapter: "3",
-    description: "The video cannot load",
-    image: Error,
-  },
-  {
-    id: 3,
-    email: "oscar@example.com",
-    name: "Oscar Witting",
-    course: "NodeJS",
-    title: "Course error cannot load video",
-    status: "New",
-    img: IntructorIMG2,
-    phone: "0353747223",
-    calender: "Joined July 2020",
-    age: "26",
-    role: "Student",
-    country: "UK",
-    attended: "Attended 3 days ago",
-    chapter: "2",
-    description: "The video cannot load",
-    image: Error,
-  },
-];
+import ApiService from "../../../api/ApiService";
+import { FaUsers } from "react-icons/fa";
+import { FaRegStarHalfStroke } from "react-icons/fa6";
 
 const pageSize = 12;
 
+const getStatusString = (status) => {
+  return status === 0 ? "New" : "Checked";
+};
+
+const getIsInvisibleString = (invisible) => {
+  return invisible ? "Opened" : "Blocked";
+};
+
 export default function Report() {
-  const [students, setStudents] = useState(initialError);
+  const [reportData, setReportData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [isVisiblePopUp, setIsVisiblePopUp] = useState(false);
-  const [currentNum, setCurrentNum] = useState(0);
+  const [currentReport, setCurrentReport] = useState(null);
 
-  const handleStatusChange = (id) => {
-    setStudents((prevStudents) =>
-      prevStudents.map((student) =>
-        student.id === id
-          ? { ...student, status: student.status === "New" ? "Fixed" : "New" }
-          : student
-      )
-    );
+  useEffect(() => {
+    const fetchApiReportsData = async () => {
+      try {
+        const reportsData = await ApiService.getReportsManagementByAdmin();
+        setReportData(reportsData);
+      } catch (error) {
+        console.log("Error fetching reports data: ", error);
+      }
+    };
+
+    fetchApiReportsData();
+  }, []);
+
+  const handleStatusChange = async (report) => {
+    try {
+      const userId = report.reportedUser ? report.reportedUser.id : null;
+      const reportId = report.id;
+      const commentId = report.comments ? report.comments.id : null;
+      const courseId = report.courses.id;
+
+      const updatedStatus = await ApiService.updateReportManagementByAdmin(
+        userId,
+        reportId,
+        commentId,
+        courseId
+      );
+
+      if (updatedStatus) {
+        setReportData((prevReports) =>
+          prevReports.map((r) =>
+            r.id === reportId
+              ? {
+                  ...r,
+                  status: 1,
+                  comments: commentId ? null : r.comments,
+                  courses: {
+                    ...r.courses,
+                    isVisible: !r.courses.isVisible,
+                  },
+                  reportedUser: r.reportedUser
+                    ? {
+                        ...r.reportedUser,
+                        isVisible: !r.reportedUser.isVisible,
+                      }
+                    : r.reportedUser,
+                }
+              : r
+          )
+        );
+      } else {
+        console.log("Update status failed or no update needed.");
+      }
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
   };
 
   const handleClick = (event, page) => {
@@ -101,29 +100,31 @@ export default function Report() {
     setSearchTerm(event.target.value);
   };
 
-  const filteredStudents = students.filter(
-    (student) =>
-      student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      student.email.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredReports = reportData.filter(
+    (report) =>
+      report.courses.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      report.reporter.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const indexOfLastStudent = currentPage * pageSize;
-  const indexOfFirstStudent = indexOfLastStudent - pageSize;
-  const currentStudents = filteredStudents.slice(
-    indexOfFirstStudent,
-    indexOfLastStudent
+  const indexOfLastReport = currentPage * pageSize;
+  const indexOfFirstReport = indexOfLastReport - pageSize;
+  const currentReports = filteredReports.slice(
+    indexOfFirstReport,
+    indexOfLastReport
   );
-  const totalPages = Math.ceil(filteredStudents.length / pageSize);
+  const totalPages = Math.ceil(filteredReports.length / pageSize);
 
-  const handleOpenPopUpClick = (num) => {
+  const handleOpenPopUpClick = (report) => {
     setIsVisiblePopUp(true);
-    setCurrentNum(num);
-    setTimeout(() => {
-      let progress = document.querySelector(".popup");
-      if (progress) {
+    setCurrentReport({ ...report });
+    try {
+      setTimeout(() => {
+        let progress = document.querySelector(".popup");
         progress.classList.add("open");
-      }
-    }, 200);
+      }, 200);
+    } catch (error) {
+      <h2>Error Search</h2>;
+    }
   };
 
   const handleCrossClick = () => {
@@ -176,7 +177,7 @@ export default function Report() {
         <thead>
           <tr>
             <th>No</th>
-            <th>Email</th>
+            <th>Reporter</th>
             <th>Course</th>
             <th>Title</th>
             <th>Status</th>
@@ -184,92 +185,200 @@ export default function Report() {
           </tr>
         </thead>
         <tbody>
-          {currentStudents.map((student, index) => (
-            <tr key={student.id}>
+          {currentReports.map((report, index) => (
+            <tr key={report.id}>
               <td className="no" scope="row">
-                {indexOfFirstStudent + index + 1}
+                {indexOfFirstReport + index + 1}
               </td>
-              <td className="email">{student.email}</td>
-              <td className="course">{student.course}</td>
-              <td className="title">{student.title}</td>
+              <td className="email">{report.reporter.email}</td>
+              <td className="course">{report.courses.name}</td>
+              <td className="title">{report.title}</td>
               <td className="status">
                 <button
-                  className={`status-toggle status-${student.status.toLowerCase()}`}
-                  onClick={() => handleStatusChange(student.id)}
+                  className={`status-toggle status-${getStatusString(
+                    report.status
+                  ).toLowerCase()}`}
+                  onClick={() => handleStatusChange(report)}
                 >
-                  {student.status}
+                  {getStatusString(report.status)}
                 </button>
               </td>
               <td className="action">
                 <span className="button-view">
-                  <FaInfoCircle onClick={() => handleOpenPopUpClick(index)} />
+                  <FaInfoCircle onClick={() => handleOpenPopUpClick(report)} />
                 </span>
               </td>
             </tr>
           ))}
         </tbody>
       </Table>
-      {isVisiblePopUp && (
+      {isVisiblePopUp && currentReport && (
         <div>
           <div className="popup">
             <div className="cross">
               <RxCross2 onClick={handleCrossClick} />
             </div>
             <div className="popup-container">
-              <div className="popup-info">
-                <div className="popup-info-image">
-                  <img
-                    src={initialError[currentNum].img}
-                    alt={initialError[currentNum].name}
-                  />
-                </div>
-                <div className="popup-info-title">
-                  <h2>{initialError[currentNum].name}</h2>
-                  <div className="popup-info-title2">
-                    <p>Age {initialError[currentNum].age}</p> <GoDotFill />
-                    <p>{initialError[currentNum].role}</p> <GoDotFill />
-                    <p>{initialError[currentNum].country}</p>
+              {currentReport.comments ? (
+                <>
+                  <div className="popup-info">
+                    <div
+                      className={`popup-invisible-${getIsInvisibleString(
+                        currentReport.reportedUser.isVisible
+                      ).toLowerCase()}`}
+                    >
+                      {getIsInvisibleString(
+                        currentReport.reportedUser.isVisible
+                      )}
+                    </div>
+
+                    <div className="popup-info-image">
+                      <img
+                        src={
+                          currentReport.reportedUser.images
+                            ? currentReport.reportedUser.images[0]?.url
+                            : IntructorIMG
+                        }
+                        alt={currentReport.reportedUser.name}
+                      />
+                    </div>
+                    <div className="popup-info-title">
+                      <h2>{currentReport.reportedUser.name}</h2>
+                      <div className="popup-info-title2">
+                        <p>Age 21</p> <GoDotFill />
+                        <p>
+                          {
+                            currentReport.reportedUser.roleUsers[0].roles[0]
+                              .name
+                          }
+                        </p>{" "}
+                        <GoDotFill />
+                        <p>Viet Nam</p>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div className="popup-status">
-                <div className="popup-statuss">
-                  <FaCalendarDay />
-                  <p>{initialError[currentNum].calender}</p>
-                </div>
-                <div className="popup-statuss">
-                  <FaUserCheck />
-                  <p>{initialError[currentNum].attended}</p>
-                </div>
-              </div>
-              <div className="popup-contact">
-                <div className="popup-card">
-                  <SiGmail />
-                  <p>{initialError[currentNum].email}</p>
-                </div>
-                <div className="popup-card">
-                  <FaPhoneAlt />
-                  <p>{initialError[currentNum].phone}</p>
-                </div>
-              </div>
-              <div className="details">
-                <h3>Detail</h3>
-                <div className="nav-bar">
-                  <p>
-                    <strong>Subject: </strong>
-                    {initialError[currentNum].course}
-                  </p>
-                  <p>
-                    <strong>Chapter: </strong>
-                    {initialError[currentNum].chapter}
-                  </p>
-                  <p>
-                    <strong>Description: </strong>
-                    {initialError[currentNum].description}
-                  </p>
-                  <img src={initialError[currentNum].image} />
-                </div>
-              </div>
+                  <div className="popup-status">
+                    <div className="popup-statuss">
+                      <FaCalendarDay />
+                      <p>{currentReport.reportedUser.createAt}</p>
+                    </div>
+                    <div className="popup-statuss">
+                      <FaUserCheck />
+                      <p>{currentReport.reportedUser.createAt}</p>
+                    </div>
+                  </div>
+                  <div className="popup-contact">
+                    <div className="popup-card">
+                      <SiGmail />
+                      <p>{currentReport.reportedUser.email}</p>
+                    </div>
+                    <div className="popup-card">
+                      <FaPhoneAlt />
+                      <p>{currentReport.reportedUser.phone}</p>
+                    </div>
+                  </div>
+                  <div className="details">
+                    <div className="nav-bar">
+                      <div className="popup-course">
+                        <div className="course-card">
+                          <img
+                            src={currentReport.comments.courses.images[0]?.url}
+                            alt={`${currentReport.comments.courses.name} logo`}
+                            className="course-logo"
+                          />
+                          <div className="course-details">
+                            <h3>{currentReport.comments.courses.name}</h3>
+                            <div className="course-icon">
+                              <div className="course-icon-item">
+                                <FaRegStarHalfStroke />
+                                <p>{currentReport.comments.courses.rating}</p>
+                              </div>
+                              <div className="course-icon-item">
+                                <FaUsers />
+                                <p>{currentReport.comments.courses.price}</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <p>
+                        <strong>Description: </strong>
+                        {currentReport.comments.comment1}
+                      </p>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="popup-info">
+                    <div
+                      className={`popup-invisible-${getIsInvisibleString(
+                        currentReport.courses.isVisible
+                      ).toLowerCase()}`}
+                    >
+                      {getIsInvisibleString(currentReport.courses.isVisible)}
+                    </div>
+                    <div className="popup-info-image">
+                      <img
+                        src={
+                          currentReport.courses.images
+                            ? currentReport.courses.images[0]?.url
+                            : IntructorIMG
+                        }
+                        alt={currentReport.courses.name}
+                      />
+                    </div>
+                    <div className="popup-info-title">
+                      <h2>{currentReport.courses.name}</h2>
+                      <div className="popup-info-title2">
+                        <p>Rating: {currentReport.courses.rating}</p>{" "}
+                        <GoDotFill />
+                        <p>Price: {currentReport.courses.price}</p>
+                        <GoDotFill />
+                        <p>Author: {currentReport.courses.user.name}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="popup-status">
+                    <div className="popup-statuss">
+                      <FaCalendarDay />
+                      <p>{currentReport.courses.createdAt}</p>
+                    </div>
+                    <div className="popup-statuss">
+                      <FaUserCheck />
+                      <p>
+                        {currentReport.courses.updatedAt !== null
+                          ? currentReport.courses.updatedAt
+                          : "Chua co thong tin"}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="popup-contact">
+                    <div className="popup-card">
+                      <SiGmail />
+                      <p>{currentReport.courses.user.email}</p>
+                    </div>
+                    <div className="popup-card">
+                      <FaPhoneAlt />
+                      <p>{currentReport.courses.user.phone}</p>
+                    </div>
+                  </div>
+                  <div className="details">
+                    <h3>Detail</h3>
+                    <div className="nav-bar">
+                      <p>
+                        <strong>Subject: </strong>
+                        {currentReport.title}
+                      </p>
+                      <p>
+                        <strong>Description: </strong>
+                        {currentReport.message}
+                      </p>
+                      <img src={Error} alt="Error" />
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           </div>
           <div className="blur-popup"></div>

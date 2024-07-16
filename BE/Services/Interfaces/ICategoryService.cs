@@ -10,7 +10,7 @@ namespace BE.Services.Interfaces
     public interface ICategoryService
     {
         Task<List<Category>> GetAllCategories();
-
+        Task<bool> UpdateStatusOfCategoryAsync(string cateId);
 
         //---------------------CRUD--------------------------//
         Task<Category?> CreateCategory(CreateCategoryDto createCategoryDto);

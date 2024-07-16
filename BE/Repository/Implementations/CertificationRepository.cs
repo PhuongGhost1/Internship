@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using BE.Dto.Category;
 using BE.Dto.CategoryCourse;
 using BE.Dto.Certification;
+using BE.Dto.Chapter;
+using BE.Dto.Comment;
 using BE.Dto.Course;
 using BE.Dto.ImageD;
 using BE.Dto.User;
@@ -65,6 +67,13 @@ namespace BE.Repository.Implementations
                                                                  })
                                                                  .Take(1)
                                                                  .ToList(),
+                                                                 Comments = uc.User.Comments.Select(comment => new CommentDto{
+                                                                      CommentId = comment.Id,
+                                                                      CourseId = comment.CourseId,
+                                                                      UserId = comment.UserId,
+                                                                      Rating = comment.Rating
+                                                                 })
+                                                                 .ToList()
                                                             } : null,
                                                             Certification = uc.Certification != null ? new CertificationDto
                                                             {
@@ -99,7 +108,35 @@ namespace BE.Repository.Implementations
                                                                                                     Name = cateCourse.Category.Name
                                                                                                } : null
                                                                                           })
-                                                                                          .ToList()
+                                                                                          .ToList(),
+                                                                      Chapters = uc.Certification.Course.Chapters
+                                                                                          .OrderBy(chap => chap.Index)
+                                                                                          .Select(chap => new ChapterItemDto{
+                                                                                               ChapterId = chap.Id,
+                                                                                               Name = chap.Name,
+                                                                                               Index = chap.Index
+                                                                                          })
+                                                                                          .ToList(),
+                                                                      User = uc.Certification.Course.User != null ? new UserInfoManageByAdminDto
+                                                                      {
+                                                                           Id = uc.Certification.Course.User.Id,
+                                                                           Name = uc.Certification.Course.User.Username,
+                                                                           Email = uc.Certification.Course.User.Email,
+                                                                           Description = uc.Certification.Course.User.Description,
+                                                                           Phone = uc.Certification.Course.User.Phone,
+                                                                           CreateAt = uc.Certification.Course.User.CreateAt,
+                                                                           Images = uc.Certification.Course.User.Images
+                                                                                     .OrderByDescending(i => i.CreatedAt)
+                                                                                     .Select(i => new ImageForAdminDto
+                                                                                     {
+                                                                                          Id = i.Id,
+                                                                                          Url = i.Url,
+                                                                                          Type = i.Type,
+                                                                                          LastUpdated = i.CreatedAt
+                                                                                     })
+                                                                                     .Take(1)
+                                                                                     .ToList()
+                                                                      } : null
                                                                  } : null
                                                             } : null
                                                        }).ToListAsync();

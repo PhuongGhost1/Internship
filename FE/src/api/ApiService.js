@@ -276,18 +276,117 @@ const ApiService = {
       throw error;
     }
   },
-  getCredentials: async (UserId) => {
-        try {
-            const response = await axios.get("http://localhost:5144/api/v1/web/certification/credentials", {
-                params: { UserId }
-            });
+  getReportsManagementByAdmin: async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:5144/api/v1/web/user/get-reports"
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching get reports info:", error);
+      throw error;
+    }
+  },
+  updateReportManagementByAdmin: async (
+    userId,
+    reportId,
+    commentId,
+    courseId
+  ) => {
+    try {
+      const formData = new FormData();
+      formData.append("userId", userId);
+      formData.append("reportId", reportId);
+      formData.append("commentId", commentId);
+      formData.append("courseId", courseId);
 
-            return response.data;
-        } catch (error) {
-            console.error("Error fetching credentials list:", error);
-            throw error;
+      const response = await axios.put(
+        "http://localhost:5144/api/v1/web/user/update-report-management-status",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
         }
-    },
+      );
+
+      return response.data;
+    } catch (error) {
+      console.error("Error updating report status:", error);
+      throw error;
+    }
+  },
+  getAllCategoriesManagementByAdmin: async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:5144/api/v1/web/category/categories-list"
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching get all categories info:", error);
+      throw error;
+    }
+  },
+  updateStatusCategoriesManagementByAdmin: async (cateId) => {
+    try {
+      const formData = new FormData();
+      formData.append("cateId", cateId);
+
+      const response = await axios.put(
+        "http://localhost:5144/api/v1/web/category/update-status-category",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      console.error("Error updating category status:", error);
+      throw error;
+    }
+  },
+  createNewCategoryManagementByAdmin: async (cateName, isVisible) => {
+    try {
+      const formData = new FormData();
+      formData.append("Name", cateName);
+      formData.append("IsVisible", isVisible);
+
+      console.log([...formData.entries()]);
+
+      const response = await axios.post(
+        "http://localhost:5144/api/v1/web/category/create-category",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      console.error("Error creating new category:", error);
+      throw error;
+    }
+  },
+  getCredentials: async (UserId) => {
+    try {
+      const response = await axios.get(
+        "http://localhost:5144/api/v1/web/certification/credentials",
+        {
+          params: { UserId },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching credentials list:", error);
+      throw error;
+    }
+  },
 };
 
 export default ApiService;

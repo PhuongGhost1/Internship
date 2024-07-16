@@ -70,5 +70,20 @@ namespace BE.Repository.Implementations
         {
             return await _context.Categories.FirstOrDefaultAsync(cate => cate.Id == cateId);
         }
+
+        public async Task<bool> UpdateStatusOfCategory(string cateId)
+        {
+            var cate = await _context.Categories.FindAsync(cateId);
+
+            if(cate == null) return false;
+
+            cate.IsVisible = !cate.IsVisible;
+
+            _context.Categories.Update(cate);
+
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
     }
 }

@@ -453,16 +453,16 @@ namespace BE.Repository.Implementations
                     courseName = courseName.Replace("-", " ");
                }
 
-               return await _context.Courses.Include(course => course.CategoryCourses)
-                                               .ThenInclude(cateCourse => cateCourse.Category)
-                                                   .ThenInclude(cate => cate.CategoryCourses)
-                                           .Include(course => course.Chapters)
-                                               .ThenInclude(chapter => chapter.Lectures)
-                                           .Include(course => course.Chapters)
-                                               .ThenInclude(quiz => quiz.Quizzes)
-                                                   .ThenInclude(question => question.Questions)
-                                           .FirstOrDefaultAsync(course => course.Name.ToLower() == courseName.ToLower());
-          }
+            return await _context.Courses.Include(course => course.CategoryCourses)
+                                            .ThenInclude(cateCourse => cateCourse.Category)
+                                                .ThenInclude(cate => cate.CategoryCourses)
+                                        .Include(course => course.Chapters)
+                                            .ThenInclude(chapter => chapter.Lectures)
+                                        .Include(course => course.Chapters)
+                                            .ThenInclude(quiz => quiz.Quizzes)
+                                                .ThenInclude(question => question.Questions)
+                                        .FirstOrDefaultAsync(course => course.Name.ToLower() == courseName.ToLower());
+        }
 
           public async Task<List<Course>> GetMostPurchasedCourses()
           {
