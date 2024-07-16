@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import './Followed.css';
 import add from '../../../../../assets/add_profile.png';
 
-const tutors = [
+const tutorsData = [
   { name: "John Doe", title: "Wordpress & Plugin Tutor", students: "100K Students", courses: "15 Courses", social: ["facebook", "twitter", "linkedin", "youtube"], avatar: add },
   { name: "Kerstin Cable", title: "Language Learning Coach, Writer, Online Tutor", students: "14K Students", courses: "11 Courses", social: ["facebook", "twitter", "linkedin", "youtube"], avatar: add },
   // Add other tutors here with their respective avatars...
@@ -26,12 +26,12 @@ const tutors = [
 const Followed = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
+  const [tutors, setTutors] = useState(tutorsData);
   const tutorsPerPage = 15;
 
   // Logic for filtering tutors based on search term
   const filteredTutors = tutors.filter(tutor =>
     tutor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    tutor.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     tutor.students.toLowerCase().includes(searchTerm.toLowerCase()) ||
     tutor.courses.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -46,6 +46,13 @@ const Followed = () => {
   for (let i = 1; i <= Math.ceil(filteredTutors.length / tutorsPerPage); i++) {
     pageNumbers.push(i);
   }
+
+  // Handle Unfollow button click
+  const handleUnfollow = (name) => {
+    if (window.confirm(`Are you sure you want to unfollow ${name}?`)) {
+      setTutors(tutors.filter(tutor => tutor.name !== name));
+    }
+  };
 
   return (
     <div id="Followed">
@@ -66,7 +73,6 @@ const Followed = () => {
               <img src={tutor.avatar} alt={`${tutor.name}'s avatar`} />
             </div>
             <h3>{tutor.name}</h3>
-            <p>{tutor.title}</p>
             <div className="social-links">
               {tutor.social.map((platform, idx) => (
                 <a key={idx} href={`#${platform}`} className={`icon-${platform}`}></a>
@@ -74,6 +80,7 @@ const Followed = () => {
             </div>
             <p>{tutor.students}</p>
             <p>{tutor.courses}</p>
+            <button onClick={() => handleUnfollow(tutor.name)}>Unfollow</button>
           </div>
         ))}
       </div>
@@ -97,7 +104,6 @@ const Followed = () => {
             Next
           </button>
         </div>
-
       )}
     </div>
   );

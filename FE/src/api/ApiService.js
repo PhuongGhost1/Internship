@@ -388,5 +388,21 @@ const ApiService = {
     }
   },
 };
+// getFollowing: async (UserId) =>{
+//     try{
+//         const response = await axios.get(
+//             //gan api do
+//             {
+//                 params:{ UserId},
+//             }
+//         );
+//         return response.data;
+//     } catch (error) {
+//       console.error("Error fetching following list:", error);
+//       throw error;
+//     }
+//   },
+// };
+
 
 export default ApiService;

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BE.Dto.Comment;
 using BE.Dto.Course;
+using BE.Dto.Follow;
 using BE.Dto.ImageD;
 using BE.Dto.Notification;
 using BE.Dto.Payment;
