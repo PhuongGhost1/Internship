@@ -150,13 +150,21 @@ namespace BE.Services.Implementations
 
             if (user == null)
             {
-                throw new Exception("Incorrect username or password");
+                return new UserLoginToken
+                {
+                    Token = null
+                };
             }
 
             return new UserLoginToken
             {
                 Token = _tokenRepo.CreateToken(user)
             };
+        }
+
+        public async Task<User?> GetUserByToken(string token)
+        {
+            return await _tokenRepo.DecodeUserToken(token);
         }
 
         public async Task<ReturnLoginDto> LoginWithFacebook()
@@ -283,6 +291,16 @@ namespace BE.Services.Implementations
         public async Task<bool> UpdateUserCommentReportStatusAsync(string? userId, string reportId, string? commentId, string? courseId)
         {
             return await _userRepo.UpdateUserCommentReportStatus(userId, reportId, commentId, courseId);
+        }
+
+        public async Task<bool> UpdateUserProfile(UserProfileDto user)
+        {
+            return await _userRepo.UpdateUserProfile(user);
+        }
+
+        public async Task<User> GetUSerById(string id)
+        {
+            return await _userRepo.GetUserById(id);
         }
     }
 }

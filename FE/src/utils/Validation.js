@@ -15,3 +15,17 @@ export const dateEngformat = (dateinput) => {
     // Return the formatted date string
     return `${monthName} ${parseInt(day)}, ${year}`;
 };
+
+export const formatTime = (timeString) => {
+    const [hours, minutes, seconds] = timeString.split(':').map(Number);
+
+    let formattedTime = '';
+    if (hours > 0) {
+        formattedTime += `${hours} hours `;
+    }
+    if (minutes > 0 || hours > 0) {
+        formattedTime += `${minutes} minutes`;
+    }
+
+    return formattedTime.trim();
+}

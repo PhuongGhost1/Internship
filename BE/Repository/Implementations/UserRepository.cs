@@ -11,7 +11,9 @@ using BE.Dto.User.AdminManagement;
 using BE.Models;
 using BE.Repository.Interface;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using static BE.Utils.Utils;
 
 namespace BE.Repository.Implementations
@@ -550,7 +552,7 @@ namespace BE.Repository.Implementations
                     }
                 }
 
-                report.Status = 1;
+                report.Status = 1; 
                 _context.Reports.Update(report);
 
                 course.IsVisible = !course.IsVisible;
@@ -590,6 +592,58 @@ namespace BE.Repository.Implementations
 
 
             return users;
+        }
+        public async Task<bool> UpdateUserProfile(UserProfileDto user)
+        {
+            try
+            {
+                var userUpdate = await _context.Users
+                                        .Include(i => i.Images)
+                                        .FirstOrDefaultAsync(u => u.Id == user.UserId);
+                if (userUpdate != null)
+                {
+                    userUpdate.Name = user.Name;
+                    userUpdate.Username = user.Username;
+                    userUpdate.Dob = user.DOB;
+                    userUpdate.Description = user.Description;
+                    userUpdate.Gender = user.Gender;
+                    if (userUpdate.Images.IsNullOrEmpty())
+                    {
+                        userUpdate.Images.Add(
+                            new Image
+                            {
+                                Id = GenerateIdModel("image"),
+                                UserId = user.UserId,
+                                CreatedAt = GetTimeNow(),
+                                Type = "Avatar",
+                                Url = await UploadImgUserToFirebase(user.Image, user.UserId, "Avatar")
+                            }
+                        );
+                    }
+                    else
+                    {
+                        foreach (var image in userUpdate.Images)
+                        {
+                            image.Url = await UploadImgUserToFirebase(user.Image, user.UserId, "Avatar");
+                            image.CreatedAt = GetTimeNow();
+                        }
+                    }
+
+                    _context.Users.Update(userUpdate);
+                    await _context.SaveChangesAsync();
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error update user profile: {e.Message}");
+                return false;
+            }
         }
     }
 }
