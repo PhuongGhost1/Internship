@@ -26,19 +26,25 @@ namespace BE.Repository.Implementations
                _context = context;
           }
 
+        public async Task<List<Certification>> GetUserCertifications(string userId)
+        {
+            throw new NotImplementedException();
+        }
 
-          //---------------------CRUD--------------------------//
-          public async Task<Certification?> CreateCertification(Certification certification)
-          {
-               await _context.Certifications.AddAsync(certification);
-               await _context.SaveChangesAsync();
-               return certification;
-          }
 
-          public async Task<List<Certification>> GetAllCertifications()
-          {
-               return await _context.Certifications.ToListAsync();
-          }
+
+        //---------------------CRUD--------------------------//
+        public async Task<Certification?> CreateCertification(Certification certification)
+        {
+            await _context.Certifications.AddAsync(certification);
+            await _context.SaveChangesAsync();
+            return certification;
+        }
+
+        public async Task<List<Certification>> GetAllCertifications()
+        {
+            return await _context.Certifications.ToListAsync();
+        }
 
           private async Task<int> NumberOfQuizInChapterByCourseId(string courseId)
           {

@@ -6,17 +6,21 @@ namespace BE.Mappers
 {
     public static class FollowMappers
     {
-        public static Follow ToCreateFollow(this CreateFollowDto createFollowDto){
-            return new Follow{
-                Id = GenerateIdModel("enrollcourse"),
+        public static Follow ToCreateFollow(this CreateFollowDto createFollowDto)
+        {
+            return new Follow
+            {
+                Id = GenerateIdModel("follow"),
                 FollowedId = createFollowDto.FollowedId,
                 FollowerId = createFollowDto.FollowerId,
                 Time = GetTimeNow()
             };
         }
 
-        public static Follow ToUpdateFollow(this UpdateFollowDto updateFollowDto){
-            return new Follow{
+        public static Follow ToUpdateFollow(this UpdateFollowDto updateFollowDto)
+        {
+            return new Follow
+            {
                 FollowedId = updateFollowDto.FollowedId,
                 FollowerId = updateFollowDto.FollowerId,
                 Time = GetTimeNow()

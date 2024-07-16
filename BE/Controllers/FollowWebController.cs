@@ -8,7 +8,7 @@ namespace BE.Controllers
 {
     [ApiController]
     [Route("api/v1/web/follow")]
-    public class FollowWebController 
+    public class FollowWebController
     {
         private readonly IFollowService _followService;
         public FollowWebController(IFollowService followService)
@@ -16,33 +16,44 @@ namespace BE.Controllers
             _followService = followService;
         }
 
+        [HttpPost]
+        [Route("view-following")]
+        public async Task<List<FollowingDto>> ViewFollowing([FromForm] string userId)
+        {
+            return await _followService.GetFollowing(userId);
+        }
+
 
         //---------------------CRUD--------------------------//
         [CustomAuthorize("Student", "Instructor")]
         [HttpGet]
         [Route("view-all-follows")]
-        public async Task<List<Follow>> ViewAllFollows(){
+        public async Task<List<Follow>> ViewAllFollows()
+        {
             return await _followService.ViewAllFollows();
         }
 
         [CustomAuthorize("Student", "Instructor")]
         [HttpPost]
         [Route("create-follow")]
-        public async Task<Follow?> CreateFollow([FromForm] CreateFollowDto createFollowDto){
-            return await _followService.CreateFollow (createFollowDto);
+        public async Task<Follow?> CreateFollow([FromForm] CreateFollowDto createFollowDto)
+        {
+            return await _followService.CreateFollow(createFollowDto);
         }
 
         [CustomAuthorize("Student", "Instructor")]
         [HttpPost]
         [Route("update-follow")]
-        public async Task<Follow?> UpdateFollow([FromForm] string followId, [FromForm] UpdateFollowDto updateFollowDto){
+        public async Task<Follow?> UpdateFollow([FromForm] string followId, [FromForm] UpdateFollowDto updateFollowDto)
+        {
             return await _followService.UpdateFollow(followId, updateFollowDto);
         }
 
         [CustomAuthorize("Student", "Instructor")]
         [HttpPost]
         [Route("delete-follow")]
-        public async Task<bool> DeleteFollow([FromForm] string followId){
+        public async Task<bool> DeleteFollow([FromForm] string followId)
+        {
             return await _followService.DeleteFollow(followId);
         }
     }

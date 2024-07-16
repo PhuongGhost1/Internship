@@ -22,6 +22,7 @@ namespace BE.Controllers
             _courseService = courseService;
         }
 
+
         [HttpGet]
         [Route("all-courses")]
         public async Task<List<Course>> GetAllCourses([FromQuery] SearchQueryObject searchQueryObject)
@@ -75,6 +76,15 @@ namespace BE.Controllers
         {
             return await _courseService.GetAllCoursesByCategoryName(cateName);
         }
+
+        [HttpPost]
+        [Route("find-my-course-with-status")]
+
+        public async Task<List<Course>> FindMyCoursesByStatus([FromForm] string userId, [FromForm] int status)
+        {
+            return await _courseService.GetCourseWithStatus(userId, status);
+        }
+
 
 
         //---------------------CRUD--------------------------//

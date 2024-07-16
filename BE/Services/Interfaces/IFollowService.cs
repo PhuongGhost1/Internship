@@ -5,7 +5,8 @@ namespace BE.Services.Interfaces
 {
     public interface IFollowService
     {
-        
+        Task<List<FollowingDto>> GetFollowing(string userId);
+
 
         //---------------------CRUD--------------------------//
         Task<List<Follow>> ViewAllFollows();

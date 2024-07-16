@@ -56,19 +56,22 @@ namespace BE.Controllers
 
         [HttpPost]
         [Route("user-login")]
-        public async Task<UserLoginToken> Login([FromForm] UserLoginDto userLoginDto){
+        public async Task<UserLoginToken> Login([FromForm] UserLoginDto userLoginDto)
+        {
             return await _userService.Login(userLoginDto);
         }
 
         [HttpPost]
         [Route("user-register")]
-        public async Task<UserLoginToken> Register([FromForm] RegisterDto registerDto){
+        public async Task<UserLoginToken> Register([FromForm] RegisterDto registerDto)
+        {
             return await _userService.Register(registerDto);
         }
 
         [HttpPut]
         [Route("forgot-password")]
-        public async Task<UserLoginToken> Forgot([FromForm] string email, [FromForm] ForgotDto forgotDto){
+        public async Task<UserLoginToken> Forgot([FromForm] string email, [FromForm] ForgotDto forgotDto)
+        {
             return await _userService.Forgot(email, forgotDto);
         }
 
@@ -89,68 +92,5 @@ namespace BE.Controllers
             return await _userService.GetUserStatisticsAsync();
         }
 
-        //[CustomAuthorize("Admin")]
-        [HttpGet("count-total-student-monthly")]
-        public async Task<int?> CountAccountsByStudentRoleForMonthAsync()
-        {
-            return await _userService.CountAccountsByRoleForMonthAsync("Student", new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, 1));
-        }
-
-        //[CustomAuthorize("Admin")]
-        [HttpGet("count-total-instructor-monthly")]
-        public async Task<int?> CountAccountsByInstructorForMonthAsync()
-        {
-            return await _userService.CountAccountsByRoleForMonthAsync("Instructor", new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, 1));
-        }
-
-        //[CustomAuthorize("Admin")]
-        [HttpGet("get-instructor-percentage-changes-monthly")]
-        public async Task<double?> GetPercentageChangeForInstructorAccountsLastMonthAsync()
-        {
-            return await _userService.GetPercentageChangeForInstructorAccountsLastMonthAsync();
-        }
-
-        //[CustomAuthorize("Admin")]
-        [HttpGet("get-student-percentage-changes-monthly")]
-        public async Task<double?> GetPercentageChangeForStudentAccountsLastMonthAsync()
-        {
-            return await _userService.GetPercentageChangeForStudentAccountsLastMonthAsync();
-        }
-
-        [HttpPut, Route("update-user-status")]
-        public async Task<bool> UpdateUserStatusAsync([FromForm] string userId)
-        {
-            return await _userService.UpdateUserStatusAsync(userId);
-        }
-
-        [HttpGet, Route("get-instructors")]
-        public async Task<List<UserInfoManageByAdminDto>> GetInstructorsAsync()
-        {
-            return await _userService.GetUserRoleAsync("Instructor");
-        }
-
-        [HttpGet, Route("get-students")]
-        public async Task<List<UserInfoManageByAdminDto>> GetStudentAsync()
-        {
-            return await _userService.GetUserRoleAsync("Student");
-        }
-
-        [HttpGet, Route("get-request-feedbacks")]
-        public async Task<List<FeedbackRequestDto>> GetFeedbacksManagementByAdminAsync()
-        {
-            return await _userService.GetFeedbacksManagementByAdminAsync();
-        }
-
-        [HttpGet, Route("get-reports")]
-        public async Task<List<ReportManagementByAdminDto>> GetReportManagementByAdminDtosAsync()
-        {
-            return await _userService.GetReportManagementByAdminAsync();
-        }
-
-        [HttpPut, Route("update-report-management-status")]
-        public async Task<bool> UpdateUserCommentReportStatusAsync([FromForm] string reportId, [FromForm] string? courseId = null, [FromForm] string? userId = null, [FromForm] string? commentId = null)
-        {
-            return await _userService.UpdateUserCommentReportStatusAsync(userId, reportId, commentId, courseId);
-        }
     }
 }

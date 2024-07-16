@@ -23,6 +23,12 @@ public partial class User
 
     public bool? IsVisible { get; set; }
 
+    public string? Name { get; set; }
+
+    public DateTime? Dob { get; set; }
+
+    public string? Gender { get; set; }
+
     public virtual ICollection<AffiliatePayment> AffiliatePayments { get; set; } = new List<AffiliatePayment>();
 
     public virtual ICollection<Affiliate> Affiliates { get; set; } = new List<Affiliate>();

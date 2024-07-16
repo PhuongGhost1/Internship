@@ -16,14 +16,19 @@ namespace BE.Services.Implementations
             _userRepo = userRepo;
         }
 
+        public async Task<List<FollowingDto>> GetFollowing(string userId)
+        {
+            return await _followRepo.GetFollowing(userId);
+        }
+
 
         //---------------------CRUD--------------------------//
-        public async Task<Follow?> CreateFollow( CreateFollowDto createFollowDto)
+        public async Task<Follow?> CreateFollow(CreateFollowDto createFollowDto)
         {
 
             var createFollow = createFollowDto.ToCreateFollow();
 
-            if(createFollow == null) throw new Exception("Unable to create role-user!");
+            if (createFollow == null) throw new Exception("Unable to create follow!");
 
             return await _followRepo.CreateFollow(createFollow);
         }
@@ -32,7 +37,7 @@ namespace BE.Services.Implementations
         {
             var follow = await _followRepo.GetFollowById(followId);
 
-            if(follow == null) throw new Exception("Unable to find role-user!");
+            if (follow == null) throw new Exception("Unable to find follow!");
 
             return await _followRepo.DeleteFollow(followId);
         }
@@ -41,11 +46,11 @@ namespace BE.Services.Implementations
         {
             var follow = await _followRepo.GetFollowById(followId);
 
-            if(follow == null) throw new Exception("Unable to find role-user!");
+            if (follow == null) throw new Exception("Unable to find follow!");
 
             var updateFollow = updateFollowDto.ToUpdateFollow();
 
-            if(updateFollow == null) throw new Exception("Unable to update role-user!");
+            if (updateFollow == null) throw new Exception("Unable to update follow!");
 
             return await _followRepo.UpdateFollow(updateFollow);
         }
