@@ -286,15 +286,3 @@ namespace BE.Services.Implementations
         }
     }
 }
-
-public Task<List<User>> GetAllInstructor()
-{
-    var users = _userRepo.GetAllInstructor();
-    if (users == null)
-    {
-        throw new Exception("Not found Instructor");
-    }
-    return users;
-}
-    }
-}

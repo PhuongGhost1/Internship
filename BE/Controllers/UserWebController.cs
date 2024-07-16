@@ -92,11 +92,5 @@ namespace BE.Controllers
             return await _userService.GetUserStatisticsAsync();
         }
 
-        [HttpGet]
-        [Route("view-all-Instructor")]
-        public async Task<List<User>> ViewAllFollows()
-        {
-            return await _userService.GetAllInstructor();
-        }
     }
 }
