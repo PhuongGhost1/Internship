@@ -1,4 +1,5 @@
 using BE.Dto.User;
+using BE.Dto.User.AdminManagement;
 using BE.Dto.UserLogin;
 using BE.Models;
 
@@ -22,5 +23,7 @@ namespace BE.Services.Interfaces
         Task<List<UserInfoManageByAdminDto>> GetUserRoleAsync(string roleName);
         Task<bool> UpdateUserStatusAsync(string userId);
         Task<List<FeedbackRequestDto>> GetFeedbacksManagementByAdminAsync();
+        Task<List<ReportManagementByAdminDto>> GetReportManagementByAdminAsync();
+        Task<bool> UpdateUserCommentReportStatusAsync(string? userId, string reportId, string? commentId, string? courseId);
     }
 }

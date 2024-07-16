@@ -19,7 +19,8 @@ namespace BE.Mappers
         public static Category ToCreateCategory(this CreateCategoryDto createCategoryDto){
             return new Category{
                 Id = GenerateIdModel("category"),
-                Name = createCategoryDto.Name
+                Name = createCategoryDto.Name,
+                IsVisible = createCategoryDto.IsVisible
             };
         }
 
