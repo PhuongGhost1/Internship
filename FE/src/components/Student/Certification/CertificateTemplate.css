@@ -41,6 +41,7 @@
 }
 
 #certificate-template .pm-certificate-container {
+  flex: 5;
   position: relative;
   width: 800px;
   height: 600px;

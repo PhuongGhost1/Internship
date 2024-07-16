@@ -295,7 +295,7 @@ export default function Cart() {
                                         </div>
                                         <div className="total-container">
                                             <div className="total-container-fix">
-                                                <h3>đ</h3>
+                                                <h3>$</h3>
                                                 <h2>{itemPrices[item].toLocaleString()}</h2>
                                             </div>
                                             <div className="button-delete-container">
@@ -316,7 +316,7 @@ export default function Cart() {
                             </div>
 
                             <div className="column2">
-                                <h3>đ</h3>
+                                <h3>$</h3>
                                 <h2>{total.toLocaleString()}</h2>
                             </div>
 

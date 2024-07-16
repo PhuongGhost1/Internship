@@ -80,7 +80,7 @@ export default function Certification() {
 
   const chapterGroups = chunkArray(
     certificationData.certification.course.chapters,
-    2
+    3
   );
 
   return (
@@ -137,10 +137,10 @@ export default function Certification() {
               <div className="container-column2">
                 <div className="icon-course">
                   <img
-                    src={certificationData.user.images[0].url}
+                    src={certificationData.certification.course.images[0].url}
                     alt="Avatar"
                     className="avatar"
-                    style={{ width: "100px", height: "100px" }}
+                    style={{ width: "100px", height: "60px" }}
                   />
                 </div>
 
@@ -218,12 +218,12 @@ export default function Certification() {
                 </div>
               </div>
 
-              <div className="certification-bt-dowwnload">
+              <div onClick={handlePrint} className="certification-bt-dowwnload">
                 <div className="icon">
                   <BsDownload size={15} />
                 </div>
                 <div className="text">
-                  <h2 onClick={handlePrint}>Download Certificate</h2>
+                  <h2>Download Certificate</h2>
                 </div>
               </div>
             </div>
