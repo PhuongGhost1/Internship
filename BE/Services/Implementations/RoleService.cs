@@ -11,6 +11,8 @@ namespace BE.Services.Implementations
         private readonly IRoleRepository _roleRepo;
         private readonly IUserRepository _userRepo;
         private readonly IRoleUserRepository _userRoleRepo;
+
+
         public RoleService(IRoleRepository roleRepo, IUserRepository userRepo, IRoleUserRepository userRoleRepo)
         {
             _roleRepo = roleRepo;
@@ -22,18 +24,21 @@ namespace BE.Services.Implementations
         {
             var user = await _userRepo.GetUserById(userId);
 
-            if(user == null) throw new Exception("Unable to find user!");
+            if (user == null) throw new Exception("Unable to find user!");
 
             return await _userRoleRepo.GetUserRole(userId);
         }
-        
+
+
+
+
         //---------------------CRUD--------------------------//
-        public async Task<Role?> CreateRole( CreateRoleDto createRoleDto)
+        public async Task<Role?> CreateRole(CreateRoleDto createRoleDto)
         {
 
             var createRole = createRoleDto.ToCreateRole();
 
-            if(createRole == null) throw new Exception("Unable to create role-user!");
+            if (createRole == null) throw new Exception("Unable to create role!");
 
             return await _roleRepo.CreateRole(createRole);
         }
@@ -42,7 +47,7 @@ namespace BE.Services.Implementations
         {
             var role = await _roleRepo.GetRoleById(roleId);
 
-            if(role == null) throw new Exception("Unable to find role-user!");
+            if (role == null) throw new Exception("Unable to find role!");
 
             return await _roleRepo.DeleteRole(roleId);
         }
@@ -51,11 +56,11 @@ namespace BE.Services.Implementations
         {
             var role = await _roleRepo.GetRoleById(roleId);
 
-            if(role == null) throw new Exception("Unable to find role-user!");
+            if (role == null) throw new Exception("Unable to find role!");
 
             var updateRole = updateRoleDto.ToUpdateRole();
 
-            if(updateRole == null) throw new Exception("Unable to update role-user!");
+            if (updateRole == null) throw new Exception("Unable to update role!");
 
             return await _roleRepo.UpdateRole(updateRole);
         }
