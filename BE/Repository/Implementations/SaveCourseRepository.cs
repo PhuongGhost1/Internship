@@ -26,7 +26,7 @@ namespace BE.Repository.Implementations
         {
             var saveCourse = await _context.SaveCourses.FindAsync(saveCourseId);
 
-            if(saveCourse == null) return false;
+            if (saveCourse == null) return false;
 
             _context.SaveCourses.Update(saveCourse);
             await _context.SaveChangesAsync();
@@ -48,6 +48,14 @@ namespace BE.Repository.Implementations
             _context.SaveCourses.Update(saveCourse);
             await _context.SaveChangesAsync();
             return saveCourse;
+        }
+        public async Task<List<Course>> GetListSaveCourse(string userId)
+        {
+            var SaveCourseIds = await _context.SaveCourses.Where(sv => sv.UserId == userId)
+                                .Select(sv => sv.CourseId).ToListAsync();
+            var savedCourses = await _context.Courses.Where(c => SaveCourseIds.Contains(c.Id) && c.Status == 1)
+                                .ToListAsync();
+            return savedCourses;
         }
     }
 }

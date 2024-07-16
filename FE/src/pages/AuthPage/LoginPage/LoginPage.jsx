@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import './LoginPage.css';
 import Header from "../../../components/Items/Header/Header";
 
@@ -10,13 +10,26 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { TiSocialFacebook } from "react-icons/ti";
 import { FaGoogle } from "react-icons/fa";
-
+import { AuthContext } from "../../Context/AuthContext";
+import Cookies from 'js-cookie';
 
 
 export default function LoginPage() {
+    const { checkLogin } = useContext(AuthContext)
+    const [emai, setEmail] = useState('')
+    const [password, setPassword] = useState('')
     useEffect(() => {
         document.body.classList.add('no-scroll');
     }, [])
+    const hanldeLogInBtn = async () => {
+        const response = await checkLogin(emai, password)
+        if (response.token) {
+            Cookies.set('token', response.token, { expires: 1, sameSite: 'None', secure: true });
+            window.location.href = '/'
+        } else {
+
+        }
+    }
     return (
         <div id="log-in">
             <Header />
@@ -28,13 +41,13 @@ export default function LoginPage() {
                         <div className="logo-container">
                             <FaUser />
                         </div>
-                        <input type="text" placeholder="Username or Email address" />
+                        <input type="text" value={emai} placeholder="Username or Email address" onChange={(e) => { setEmail(e.target.value) }} />
                     </div>
                     <div className="password bar">
                         <div className="logo-container">
                             <RiLockPasswordFill />
                         </div>
-                        <input type="password" placeholder="Password" />
+                        <input type="password" value={password} placeholder="Password" onChange={(e) => { setPassword(e.target.value) }} />
                     </div>
                     <div className="action-btn">
                         <FormGroup>
@@ -44,7 +57,7 @@ export default function LoginPage() {
                             <span>Forgot password?</span>
                         </div>
                     </div>
-                    <div className="login-btn">
+                    <div className="login-btn" onClick={hanldeLogInBtn}>
                         Log In
                     </div>
                     <div className="or-title">

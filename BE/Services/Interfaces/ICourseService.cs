@@ -25,6 +25,7 @@ namespace BE.Services.Interfaces
                 Task<List<CourseManagementForAdminDto>> GetCourseManagementByAdminAsync();
                 Task<List<CourseManagementForAdminDto>> GetCourseManagementForWaitingByAdminAsync();
                 Task<bool> UpdateCourseByAdminAysnc(string courseId, int status);
+                Task<List<CardCourseDto>> GetRandomCourse(int count);
 
                 //---------------------CRUD--------------------------//
                 Task<Course?> CreateCourse(CreateCourseDto createCourseDto);
@@ -33,5 +34,6 @@ namespace BE.Services.Interfaces
                 Task<Course?> GetCourseByCourseName(string courseName);
                 Task<string> CreateChapter(CreateChapterData data);
                 Task<string> CreateQuiz(CreateQuizData data);
+                Task<List<CardCourseDto>> SearchCourse(string query, int page, int items);
         }
 }
