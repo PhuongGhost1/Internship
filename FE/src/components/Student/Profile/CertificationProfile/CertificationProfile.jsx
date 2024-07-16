@@ -35,6 +35,7 @@ export default function CertificationProfile() {
           }
 
      };
+
      return (
           <div id="certification-profile">
                <div className="credentials-title">
@@ -57,7 +58,10 @@ export default function CertificationProfile() {
                                                        <span key={i} className="field-tag" id={`field-tag-${index}-${i}`}>{field}</span>
                                                   ))}
                                              </div> */}
-                                             <p id={`duration-${index}`}>{cert.datePass} • {cert.datePass}</p>
+                                             <p id={`duration-${index}`} title="Total time and date of receiving the certificate">
+                                                  {cert.certification.course.estimatedLearningTime} Minutes • {new Date(cert.datePass).toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' }).replace(/\//g, '-')}
+                                             </p>
+
                                              <a href={`/student/certification/${cert.user.id}`} className="view-certificate" id={`view-certificate-${index}`}>View certificate</a>
                                         </div>
                                    </div>

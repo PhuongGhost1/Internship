@@ -68,6 +68,33 @@ namespace BE.Repository.Implementations
           return totalLectureInChapter;
           }
 
+          private async Task<int?> CalculateTotalVideoTimeByCourseId(string courseId)
+          {
+               var totalVideoTimeMinutes = await
+                                             (from chap in _context.Chapters
+                                             join c in _context.Courses on chap.CourseId equals c.Id
+                                             join l in _context.Lectures on chap.Id equals l.ChapterId
+                                             where c.Id == courseId
+                                             select l.TimeVideo)
+                                             .ToListAsync();
+
+               int sumTotalMinutes = totalVideoTimeMinutes.Sum(timeOnly => ToMinutes(timeOnly));
+
+               return sumTotalMinutes;
+          }
+
+          private int ToMinutes(TimeSpan? timeOnly)
+          {
+               if (timeOnly.HasValue)
+               {
+                    return timeOnly.Value.Hours * 60 + timeOnly.Value.Minutes;
+               }
+               else
+               {
+                    return 0;
+               }
+          }
+
           public async Task<List<UserCertificationDto>> GetCredentialsByUser(string UserId)
           {
           var userCertifications = await _context.UserCertifications
@@ -105,6 +132,7 @@ namespace BE.Repository.Implementations
                          Rating = uc.Certification.Course.Rating,
                          Price = uc.Certification.Course.Price,
                          Processings = await NumberOfLectureInChapterByCourseId(uc.Certification.Course.Id) +await NumberOfQuizInChapterByCourseId(uc.Certification.Course.Id),
+                         EstimatedLearningTime = await CalculateTotalVideoTimeByCourseId(uc.Certification.Course.Id) + await NumberOfQuizInChapterByCourseId(uc.Certification.Course.Id) * 30,
                          Images = uc.Certification.Course.Images
                                    .OrderByDescending(i => i.CreatedAt)
                                    .Select(i => new ImageForAdminDto
@@ -117,15 +145,17 @@ namespace BE.Repository.Implementations
                                    .Take(1)
                                    .ToList(),
                          CateCoruse = uc.Certification.Course.CategoryCourses
+                                             .Where(cateCourse => cateCourse.Category.IsVisible == true)
                                              .Select(cateCourse => new CategoryCourseDto
                                              {
                                                   Id = cateCourse.Id,
-                                                  Category = cateCourse.Category != null ? new CategoryDto
+                                                  Category = new CategoryDto
                                                   {
                                                        Names = new List<string?> { cateCourse.Category.Name },
                                                        cateId = cateCourse.Category.Id,
-                                                       Name = cateCourse.Category.Name
-                                                  } : null
+                                                       Name = cateCourse.Category.Name,
+                                                       IsVisible = cateCourse.Category.IsVisible
+                                                  }
                                              })
                                              .ToList(),
                          Chapters = uc.Certification.Course.Chapters
