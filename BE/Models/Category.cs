@@ -9,5 +9,7 @@ public partial class Category
 
     public string? Name { get; set; }
 
+    public bool? IsVisible {get; set;}
+
     public virtual ICollection<CategoryCourse> CategoryCourses { get; set; } = new List<CategoryCourse>();
 }

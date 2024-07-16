@@ -8,5 +8,6 @@ namespace BE.Dto.Category
     public class CreateCategoryDto
     {
         public string? Name { get; set; }
+        public bool? IsVisible {get; set;}
     }
 }
