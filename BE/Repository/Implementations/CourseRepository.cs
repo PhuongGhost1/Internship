@@ -660,5 +660,40 @@ namespace BE.Repository.Implementations
             await _context.SaveChangesAsync();
             return true;
         }
+
+        public async Task<Cart?> GetCart(string userId)
+        {
+            return await _context.Carts.Where(c => c.UserId == userId).FirstOrDefaultAsync();
+        }
+
+        public async Task CreateCart(string userId)
+        {
+            _context.Carts.Add(new Cart
+            {
+                Id = GenerateIdModel("cart"),
+                UserId = userId,
+                DateCreated = GetTimeNow(),
+                Total = 0,
+                Status = 1
+            });
+            await _context.SaveChangesAsync();
+        }
+        public async Task AddCourseToCart(Cart? cart, string courseId)
+        {
+            Course? course = await _context.Courses.Where(c => c.Id == courseId).FirstOrDefaultAsync();
+            _context.CartCourses.Add(new CartCourse
+            {
+                Id = GenerateIdModel("cartcourse"),
+                Cart = cart,
+                CourseId = courseId,
+                CreatedAt = GetTimeNow(),
+                Total = course.Price,
+                Status = 1,
+            });
+
+            cart.Total += course.Price;
+            _context.Carts.Update(cart);
+            await _context.SaveChangesAsync();
+        }
     }
 }

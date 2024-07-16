@@ -13,6 +13,7 @@ using BE.Mappers;
 using BE.Helpers;
 using BE.Dto.Course.Chapter;
 using BE.Dto.Payment.CartCourse;
+using BE.Dto.Message;
 
 namespace BE.Services.Implementations
 {
@@ -275,6 +276,34 @@ namespace BE.Services.Implementations
         public async Task<bool> CreateCourse(CreateCourseDto course)
         {
             return await _courseRepo.CreateCourse(CourseMappers.ToCreateCourseDto(course));
+        }
+        public async Task<MessageDto> AddCourseToCart(CourseUserDto courseUser)
+        {
+            try
+            {
+                var cart = await _courseRepo.GetCart(courseUser.userId);
+                if (cart == null)
+                {
+                    await _courseRepo.CreateCart(courseUser.userId);
+                    cart = await _courseRepo.GetCart(courseUser.userId);
+                }
+
+                await _courseRepo.AddCourseToCart(cart, courseUser.courseId);
+
+                return new MessageDto
+                {
+                    Message = "Add Course to cart Success",
+                    Status = 1
+                };
+            }
+            catch (Exception)
+            {
+                return new MessageDto
+                {
+                    Message = "Error add Course to cart",
+                    Status = 0
+                };
+            }
         }
     }
 }

@@ -6,6 +6,7 @@ using BE.Dto.Course;
 using BE.Helpers;
 using BE.Dto.Course.Chapter;
 using BE.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BE.Repository.Interface
 {
@@ -39,5 +40,8 @@ namespace BE.Repository.Interface
                 Task<List<Course>> SearchingCourse(string query);
                 Task<int> CountLectureCourse(string courseId);
                 Task<bool> CreateCourse(Course course);
+                Task<Cart?> GetCart(string userId);
+                Task CreateCart(string userId);
+                Task AddCourseToCart(Cart? cart, string courseId);
         }
 }

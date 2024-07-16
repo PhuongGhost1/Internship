@@ -6,6 +6,7 @@ using BE.Dto.Course;
 using BE.Helpers;
 using BE.Dto.Course.Chapter;
 using BE.Models;
+using BE.Dto.Message;
 
 namespace BE.Services.Interfaces
 {
@@ -35,5 +36,6 @@ namespace BE.Services.Interfaces
                 Task<string> CreateQuiz(CreateQuizData data);
                 Task<List<CardCourseDto>> SearchCourse(string query, int page, int items);
                 Task<bool> CreateCourse(CreateCourseDto course);
+                Task<MessageDto> AddCourseToCart(CourseUserDto courseUser);
         }
 }

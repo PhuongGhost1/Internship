@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using static BE.Utils.Utils;
 using BE.Attributes;
+using BE.Dto.Message;
 
 namespace BE.Controllers
 {
@@ -198,6 +199,18 @@ namespace BE.Controllers
         public async Task<bool> SearchCourse([FromForm] CreateCourseDto course)
         {
             return await _courseService.CreateCourse(course);
+        }
+
+        [HttpPost, Route("add-cart")]
+
+        public async Task<MessageDto> AddCourseToCart([FromForm] CourseUserDto courseUser)
+        {
+            return await _courseService.AddCourseToCart(courseUser);
+        }
+
+        public async Task<> ViewCart([FromForm] string userId)
+        {
+
         }
     }
 }
