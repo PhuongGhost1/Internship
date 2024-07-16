@@ -27,5 +27,6 @@ namespace BE.Services.Interfaces
         Task<bool> UpdateUserCommentReportStatusAsync(string userId, string reportId, string commentId, string courseId);
         Task<User> GetUserByToken(string token);
         Task<bool> UpdateUserProfile(UserProfileDto user);
+        Task<User> GetUSerById(string id);
     }
 }

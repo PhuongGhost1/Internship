@@ -297,5 +297,10 @@ namespace BE.Services.Implementations
         {
             return await _userRepo.UpdateUserProfile(user);
         }
+
+        public async Task<User> GetUSerById(string id)
+        {
+            return await _userRepo.GetUserById(id);
+        }
     }
 }
