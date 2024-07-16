@@ -11,7 +11,9 @@ using BE.Dto.User.AdminManagement;
 using BE.Models;
 using BE.Repository.Interface;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using static BE.Utils.Utils;
 
 namespace BE.Repository.Implementations
@@ -154,7 +156,7 @@ namespace BE.Repository.Implementations
             if (currentMonthCount == null || previousMonthCount == null) return 0;
 
             var percentageChange = ((currentMonthCount.Value - previousMonthCount.Value) / (double)previousMonthCount.Value) * 100;
-            
+
             var formattedPercentageChange = Math.Round(percentageChange, 2);
 
             return formattedPercentageChange;
@@ -268,7 +270,8 @@ namespace BE.Repository.Implementations
                     {
                         PaymentCourses = p.PaymentCourses.Select(pc => new PaymentCourseDto
                         {
-                            CartCourseDto = pc.Cartcourse != null ? new CartCourseDto {
+                            CartCourseDto = pc.Cartcourse != null ? new CartCourseDto
+                            {
                                 CourseForAdminDto = pc.Cartcourse.Course != null ? new CourseForAdminDto
                                 {
                                     Id = pc.Cartcourse.Course.Id,
@@ -286,7 +289,7 @@ namespace BE.Repository.Implementations
                                                 })
                                                 .Take(1)
                                                 .ToList()
-                                    } : null
+                                } : null
                             } : null
                         }).ToList(),
                         Total = p.Total
@@ -301,14 +304,17 @@ namespace BE.Repository.Implementations
         {
             var user = await _context.Users.FindAsync(userId);
 
-            if(user == null) return false;
+            if (user == null) return false;
 
-            if(user.IsVisible == true){
+            if (user.IsVisible == true)
+            {
                 user.IsVisible = false;
-            }else{
+            }
+            else
+            {
                 user.IsVisible = true;
             }
-            
+
             _context.Users.Update(user);
 
             await _context.SaveChangesAsync();
@@ -319,12 +325,14 @@ namespace BE.Repository.Implementations
         public async Task<List<FeedbackRequestDto>> GetFeedbacksManagementByAdmin()
         {
             var feedback = await _context.Feedbacks
-                                        .Select(f => new FeedbackRequestDto{
+                                        .Select(f => new FeedbackRequestDto
+                                        {
                                             Id = f.Id,
                                             Title = f.Title,
                                             Description = f.Description,
                                             IsRead = f.IsRead,
-                                            UserRequest = new UserRequestManagementByAdminDto{
+                                            UserRequest = new UserRequestManagementByAdminDto
+                                            {
                                                 Id = f.User.Id,
                                                 Username = f.User.Username,
                                                 Email = f.User.Email,
@@ -345,13 +353,13 @@ namespace BE.Repository.Implementations
                                                             .Take(1)
                                                             .ToList(),
                                                 RoleUserReqs = f.User.RoleUsers.Select(ru => new RoleUserRequestDto
-                                                                {
-                                                                    Id = ru.Id,
-                                                                    RoleId = ru.RoleId,
-                                                                    UserId = ru.UserId,
-                                                                    Status = ru.Status
-                                                                }).ToList(),
-                                            }      
+                                                {
+                                                    Id = ru.Id,
+                                                    RoleId = ru.RoleId,
+                                                    UserId = ru.UserId,
+                                                    Status = ru.Status
+                                                }).ToList(),
+                                            }
                                         }).ToListAsync();
 
             return feedback;
@@ -382,12 +390,12 @@ namespace BE.Repository.Implementations
                     Images = r.Course.Images
                                 .OrderByDescending(i => i.CreatedAt)
                                 .Select(i => new ImageForAdminDto
-                    {
-                        Id = i.Id,
-                        Url = i.Url,
-                        Type = i.Type,
-                        LastUpdated = i.CreatedAt
-                    }).Take(1).ToList(),
+                                {
+                                    Id = i.Id,
+                                    Url = i.Url,
+                                    Type = i.Type,
+                                    LastUpdated = i.CreatedAt
+                                }).Take(1).ToList(),
                     User = r.Course.User != null ? new UserInfoManageByAdminDto
                     {
                         Id = r.Course.User.Id,
@@ -397,16 +405,16 @@ namespace BE.Repository.Implementations
                         Images = r.Course.Images
                                         .OrderByDescending(i => i.CreatedAt)
                                         .Select(i => new ImageForAdminDto
-                        {
-                            Id = i.Id,
-                            Url = i.Url,
-                            Type = i.Type,
-                            LastUpdated = i.CreatedAt
-                        }).Take(1).ToList(),
+                                        {
+                                            Id = i.Id,
+                                            Url = i.Url,
+                                            Type = i.Type,
+                                            LastUpdated = i.CreatedAt
+                                        }).Take(1).ToList(),
                         Phone = r.Course.User.Phone,
                         CreateAt = r.Course.CreateAt,
                         Description = r.Course.User.Description
-                    } : null 
+                    } : null
                 } : null,
                 Comments = r.Comment != null ? new CommentManagementByAdminDto
                 {
@@ -424,12 +432,12 @@ namespace BE.Repository.Implementations
                         Images = r.Comment.Course.Images
                                         .OrderByDescending(i => i.CreatedAt)
                                         .Select(i => new ImageForAdminDto
-                        {
-                            Id = i.Id,
-                            Url = i.Url,
-                            Type = i.Type,
-                            LastUpdated = i.CreatedAt
-                        }).Take(1).ToList()
+                                        {
+                                            Id = i.Id,
+                                            Url = i.Url,
+                                            Type = i.Type,
+                                            LastUpdated = i.CreatedAt
+                                        }).Take(1).ToList()
                     } : null,
                     Users = r.Comment.User != null ? new UserInfoManageByAdminDto
                     {
@@ -440,12 +448,12 @@ namespace BE.Repository.Implementations
                         Images = r.Comment.User.Images
                                         .OrderByDescending(i => i.CreatedAt)
                                         .Select(i => new ImageForAdminDto
-                        {
-                            Id = i.Id,
-                            Url = i.Url,
-                            Type = i.Type,
-                            LastUpdated = i.CreatedAt
-                        }).Take(1).ToList(),
+                                        {
+                                            Id = i.Id,
+                                            Url = i.Url,
+                                            Type = i.Type,
+                                            LastUpdated = i.CreatedAt
+                                        }).Take(1).ToList(),
                         Phone = r.Comment.User.Phone,
                         CreateAt = r.Comment.User.CreateAt,
                         Description = r.Comment.User.Description
@@ -464,12 +472,12 @@ namespace BE.Repository.Implementations
                     Images = r.ReportedUser.Images
                                     .OrderByDescending(i => i.CreatedAt)
                                     .Select(i => new ImageForAdminDto
-                    {
-                        Id = i.Id,
-                        Url = i.Url,
-                        Type = i.Type,
-                        LastUpdated = i.CreatedAt
-                    }).Take(1).ToList(),
+                                    {
+                                        Id = i.Id,
+                                        Url = i.Url,
+                                        Type = i.Type,
+                                        LastUpdated = i.CreatedAt
+                                    }).Take(1).ToList(),
                     Phone = r.ReportedUser.Phone,
                     CreateAt = r.ReportedUser.CreateAt,
                     Description = r.ReportedUser.Description,
@@ -490,12 +498,12 @@ namespace BE.Repository.Implementations
                     Images = r.Reporter.Images
                                     .OrderByDescending(i => i.CreatedAt)
                                     .Select(i => new ImageForAdminDto
-                    {
-                        Id = i.Id,
-                        Url = i.Url,
-                        Type = i.Type,
-                        LastUpdated = i.CreatedAt
-                    }).Take(1).ToList(),
+                                    {
+                                        Id = i.Id,
+                                        Url = i.Url,
+                                        Type = i.Type,
+                                        LastUpdated = i.CreatedAt
+                                    }).Take(1).ToList(),
                     Phone = r.Reporter.Phone,
                     CreateAt = r.Reporter.CreateAt,
                     Description = r.Reporter.Description
@@ -547,8 +555,17 @@ namespace BE.Repository.Implementations
                 report.Status = 1;
                 _context.Reports.Update(report);
 
-                course.IsVisible = !course.IsVisible;
-                _context.Courses.Update(course);
+                if (user == null || comment == null)
+                {
+                    course.IsVisible = !course.IsVisible;
+                    _context.Courses.Update(course);
+                }
+
+                if (comment != null)
+                {
+                    comment.IsVisible = !comment.IsVisible;
+                    _context.Comments.Update(comment);
+                }
 
                 await _context.SaveChangesAsync();
                 transaction.Commit();
@@ -568,6 +585,57 @@ namespace BE.Repository.Implementations
                 return false;
             }
         }
+        public async Task<bool> UpdateUserProfile(UserProfileDto user)
+        {
+            try
+            {
+                var userUpdate = await _context.Users
+                                        .Include(i => i.Images)
+                                        .FirstOrDefaultAsync(u => u.Id == user.UserId);
+                if (userUpdate != null)
+                {
+                    userUpdate.Name = user.Name;
+                    userUpdate.Username = user.Username;
+                    userUpdate.Dob = user.DOB;
+                    userUpdate.Description = user.Description;
+                    userUpdate.Gender = user.Gender;
+                    if (userUpdate.Images.IsNullOrEmpty())
+                    {
+                        userUpdate.Images.Add(
+                            new Image
+                            {
+                                Id = GenerateIdModel("image"),
+                                UserId = user.UserId,
+                                CreatedAt = GetTimeNow(),
+                                Type = "Avatar",
+                                Url = await UploadImgUserToFirebase(user.Image, user.UserId, "Avatar")
+                            }
+                        );
+                    }
+                    else
+                    {
+                        foreach (var image in userUpdate.Images)
+                        {
+                            image.Url = await UploadImgUserToFirebase(user.Image, user.UserId, "Avatar");
+                            image.CreatedAt = GetTimeNow();
+                        }
+                    }
 
+                    _context.Users.Update(userUpdate);
+                    await _context.SaveChangesAsync();
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error update user profile: {e.Message}");
+                return false;
+            }
+        }
     }
 }

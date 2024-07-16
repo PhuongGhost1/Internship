@@ -56,19 +56,29 @@ namespace BE.Controllers
 
         [HttpPost]
         [Route("user-login")]
-        public async Task<UserLoginToken> Login([FromForm] UserLoginDto userLoginDto){
+        public async Task<UserLoginToken> Login([FromForm] UserLoginDto userLoginDto)
+        {
             return await _userService.Login(userLoginDto);
         }
 
         [HttpPost]
+        [Route("get-user-token")]
+        public async Task<User?> GetUserByToken([FromForm] string token)
+        {
+            return await _userService.GetUserByToken(token);
+        }
+
+        [HttpPost]
         [Route("user-register")]
-        public async Task<UserLoginToken> Register([FromForm] RegisterDto registerDto){
+        public async Task<UserLoginToken> Register([FromForm] RegisterDto registerDto)
+        {
             return await _userService.Register(registerDto);
         }
 
         [HttpPut]
         [Route("forgot-password")]
-        public async Task<UserLoginToken> Forgot([FromForm] string email, [FromForm] ForgotDto forgotDto){
+        public async Task<UserLoginToken> Forgot([FromForm] string email, [FromForm] ForgotDto forgotDto)
+        {
             return await _userService.Forgot(email, forgotDto);
         }
 
@@ -151,6 +161,12 @@ namespace BE.Controllers
         public async Task<bool> UpdateUserCommentReportStatusAsync([FromForm] string reportId, [FromForm] string? courseId = null, [FromForm] string? userId = null, [FromForm] string? commentId = null)
         {
             return await _userService.UpdateUserCommentReportStatusAsync(userId, reportId, commentId, courseId);
+        }
+
+        [HttpPost, Route("update-profile")]
+        public async Task<bool> UpdateUserProfile([FromForm] UserProfileDto user)
+        {
+            return await _userService.UpdateUserProfile(user);
         }
     }
 }

@@ -43,7 +43,7 @@ namespace BE.Controllers
             return await _courseService.GetInformationOfCourse(courseId);
         }
 
-        [CustomAuthorize("Student", "Instructor")]
+        // [CustomAuthorize("Student", "Instructor")]
         [HttpPost]
         [Route("content")]
         public async Task<CourseDto?> GetLecturesAndQuizzesByCourseId([FromForm] string courseId)
@@ -53,7 +53,6 @@ namespace BE.Controllers
 
         [CustomAuthorize("Instructor")]
         [HttpPost("upload-img")]
-
         public async Task<IActionResult> UploadImgCourse([FromForm] int courseId, [FromForm] IFormFile image)
         {
             var medialink = await _courseService.UploadImgCourse(courseId, image);
@@ -124,7 +123,7 @@ namespace BE.Controllers
             return await _courseService.GetRecentRandomCourses(numberOfSize);
         }
 
-        [CustomAuthorize("Instructor")]
+        // [CustomAuthorize("Instructor")]
         [HttpPost("createChapter")]
         public async Task<string> CreateChapter([FromForm] CreateChapterData data)
         {
@@ -146,11 +145,11 @@ namespace BE.Controllers
             return await UploadVideoToFirebase(video, "Python", 1, 1);
         }
 
-        [CustomAuthorize("Instructor")]
+        // [CustomAuthorize("Instructor")]
         [HttpGet("generate")]
         public async Task<string> GenerateId()
         {
-            return GenerateIdModel("category");
+            return GenerateIdModel("certification");
         }
 
         [CustomAuthorize("Instructor")]
@@ -188,6 +187,18 @@ namespace BE.Controllers
         public async Task<bool> UpdateCourseByAdmin([FromForm] string courseId, [FromForm] int status)
         {
             return await _courseService.UpdateCourseByAdminAysnc(courseId, status);
+        }
+
+        [HttpGet, Route("random/{count:int}")]
+        public async Task<List<CardCourseDto>> RandomCourse(int count)
+        {
+            return await _courseService.GetRandomCourse(count);
+        }
+
+        [HttpPost, Route("search")]
+        public async Task<List<CardCourseDto>> SearchCourse([FromForm] string query, [FromQuery] int page, [FromQuery] int items)
+        {
+            return await _courseService.SearchCourse(query, page, items);
         }
     }
 }

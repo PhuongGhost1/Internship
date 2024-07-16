@@ -10,5 +10,6 @@ namespace BE.Repository.Interface
     {
         public string CreateToken(User user);
         public string CreateRandomNumber(int length);
+        Task<User?> DecodeUserToken(string token);
     }
 }

@@ -26,7 +26,7 @@ namespace BE.Repository.Implementations
         {
             var categoryCourse = await _context.CategoryCourses.FindAsync(categoryCourseId);
 
-            if(categoryCourse == null) return false;
+            if (categoryCourse == null) return false;
 
             _context.CategoryCourses.Remove(categoryCourse);
             await _context.SaveChangesAsync();
@@ -48,6 +48,18 @@ namespace BE.Repository.Implementations
             _context.CategoryCourses.Update(categoryCourse);
             await _context.SaveChangesAsync();
             return categoryCourse;
+        }
+
+        public async Task<List<Category>> GetAllCategoryOfCouse(string courseId)
+        {
+            var CategoryCourse = await _context.CategoryCourses
+                                .Where(cc => cc.CourseId == courseId)
+                                .Select(cc => cc.CategoryId)
+                                .ToListAsync();
+            var Categories = await _context.Categories
+                            .Where(c => CategoryCourse.Contains(c.Id))
+                            .ToListAsync();
+            return Categories;
         }
     }
 }

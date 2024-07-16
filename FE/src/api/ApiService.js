@@ -316,48 +316,15 @@ const ApiService = {
       throw error;
     }
   },
-  getAllCategoriesManagementByAdmin: async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:5144/api/v1/web/category/categories-list"
-      );
-      return response.data;
-    } catch (error) {
-      console.error("Error fetching get all categories info:", error);
-      throw error;
-    }
-  },
-  updateStatusCategoriesManagementByAdmin: async (cateId) => {
+  getCourseContent: async (
+    courseId
+  ) => {
     try {
       const formData = new FormData();
-      formData.append("cateId", cateId);
-
-      const response = await axios.put(
-        "http://localhost:5144/api/v1/web/category/update-status-category",
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      );
-
-      return response.data;
-    } catch (error) {
-      console.error("Error updating category status:", error);
-      throw error;
-    }
-  },
-  createNewCategoryManagementByAdmin: async (cateName, isVisible) => {
-    try {
-      const formData = new FormData();
-      formData.append("Name", cateName);
-      formData.append("IsVisible", isVisible);
-
-      console.log([...formData.entries()]);
+      formData.append("courseId", courseId);
 
       const response = await axios.post(
-        "http://localhost:5144/api/v1/web/category/create-category",
+        'http://localhost:5144/api/v1/web/course/content',
         formData,
         {
           headers: {
@@ -368,25 +335,111 @@ const ApiService = {
 
       return response.data;
     } catch (error) {
-      console.error("Error creating new category:", error);
+      console.error("Error get course content:", error);
       throw error;
     }
   },
-  getCredentials: async (UserId) => {
+  getCourseRandom: async (
+    count
+  ) => {
     try {
       const response = await axios.get(
-        "http://localhost:5144/api/v1/web/certification/credentials",
-        {
-          params: { UserId },
-        }
-      );
+        `http://localhost:5144/api/v1/web/course/random/${count}`
+      )
 
-      return response.data;
+      return response.data
     } catch (error) {
-      console.error("Error fetching credentials list:", error);
+      console.error("Error getCourseRandom:", error)
       throw error;
     }
   },
+  checkLogin: async (
+    username, password
+  ) => {
+    try {
+      const formdata = new FormData();
+      formdata.append('Username', username);
+      formdata.append('Password', password);
+      const response = await axios.post(
+        'http://localhost:5144/api/v1/web/user/user-login',
+        formdata,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      )
+      return response.data
+    } catch (error) {
+      console.error("Error checkLogin: ", error)
+      throw error;
+    }
+  },
+  login: async (
+    token
+  ) => {
+    try {
+      const formData = new FormData()
+      formData.append('token', token);
+
+      const response = await axios.post(
+        'http://localhost:5144/api/v1/web/user/get-user-token',
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      )
+
+      return response.data
+    } catch (error) {
+
+    }
+  },
+  fetchImage: async (
+    imgUrl
+  ) => {
+    try {
+      const response = await fetch(imgUrl)
+      const blob = await response.blob();
+      return URL.createObjectURL(blob);
+    } catch (error) {
+
+    }
+  },
+  updateUpdate: async (
+    userId,
+    image,
+    name,
+    username,
+    dob,
+    description,
+    gender
+  ) => {
+    try {
+      const formdata = new FormData();
+      formdata.append('UserId', userId);
+      formdata.append('Image', image);
+      formdata.append('Name', name);
+      formdata.append('Username', username);
+      formdata.append('DOB', dob);
+      formdata.append('Description', description);
+      formdata.append('Gender', gender)
+      const response = await axios.post(
+        'http://localhost:5144/api/v1/web/user/update-profile',
+        formdata,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      )
+      return response.data
+    } catch (error) {
+
+    }
+  }
 };
 
 export default ApiService;
