@@ -16,7 +16,7 @@ namespace BE.Services.Interfaces
                 Task<CourseDto> GetInformationOfCourse(string courseId);
                 Task<CourseDto?> GetLecturesAndQuizzesByCourseId(string courseId);
                 Task<string> UploadImgCourse(int courseId, IFormFile image);
-                Task<string> CreateCourse(CreateCoursData data);
+                Task<string> CreateCourseData(CreateCoursData data);
                 Task<List<Course>> GetAllCoursesByCategoryName(string cateName);
                 Task<Course?> SearchCourseByUserId(string userId);
                 Task<List<Course>> GetRecentRandomCourses(int numberOfCourses);
@@ -28,12 +28,12 @@ namespace BE.Services.Interfaces
                 Task<List<CardCourseDto>> GetRandomCourse(int count);
 
                 //---------------------CRUD--------------------------//
-                Task<Course?> CreateCourse(CreateCourseDto createCourseDto);
                 Task<Course?> UpdateCourse(UpdateCourseDto updateCourseDto);
                 Task<bool> DeleteCourse(string courseId);
                 Task<Course?> GetCourseByCourseName(string courseName);
                 Task<string> CreateChapter(CreateChapterData data);
                 Task<string> CreateQuiz(CreateQuizData data);
                 Task<List<CardCourseDto>> SearchCourse(string query, int page, int items);
+                Task<bool> CreateCourse(CreateCourseDto course);
         }
 }

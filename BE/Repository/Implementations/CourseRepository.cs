@@ -134,7 +134,7 @@ namespace BE.Repository.Implementations
         }
 
 
-        public async Task<string> CreateCourse(CreateCoursData data)
+        public async Task<string> CreateCourseData(CreateCoursData data)
         {
             try
             {
@@ -429,12 +429,6 @@ namespace BE.Repository.Implementations
         }
 
         //---------------------CRUD--------------------------//
-        public async Task<Course?> CreateCourse(Course course)
-        {
-            await _context.Courses.AddAsync(course);
-            await _context.SaveChangesAsync();
-            return course;
-        }
 
         public async Task<Course?> UpdateCourse(Course course)
         {
@@ -658,6 +652,13 @@ namespace BE.Repository.Implementations
                                 .Where(l => l.Chapter.CourseId == courseId)
                                 .CountAsync();
             return lectureCount;
+        }
+
+        public async Task<bool> CreateCourse(Course course)
+        {
+            _context.Courses.Add(course);
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

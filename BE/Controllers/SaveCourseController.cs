@@ -43,18 +43,16 @@ namespace BE.Controllers
             return await _saveCourseService.UpdateSaveCourse(saveCourseId, updateSaveCourseDto);
         }
 
-        [CustomAuthorize("Student", "Instructor")]
-        [HttpPost]
-        [Route("delete-saveCourse")]
-        public async Task<bool> DeleteSaveCourse([FromForm] string saveCourseId)
-        {
-            return await _saveCourseService.DeleteSaveCourse(saveCourseId);
-        }
-
-        [HttpGet, Route("get-save-course")]
+        [HttpPost, Route("get-save-course")]
         public async Task<List<SaveCourseCard>> GetListSaveCourseByUserId([FromForm] string userId)
         {
             return await _saveCourseService.GetListSaveCourse(userId);
+        }
+
+        [HttpPost, Route("unsave-course")]
+        public async Task<bool> DeleteSaveCourseBySaveCourseId([FromForm] string saveCourseId)
+        {
+            return await _saveCourseService.DeleteSaveCourse(saveCourseId);
         }
     }
 }

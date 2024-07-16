@@ -95,9 +95,9 @@ namespace BE.Services.Implementations
             return "hi";
         }
 
-        public async Task<string> CreateCourse(CreateCoursData data)
+        public async Task<string> CreateCourseData(CreateCoursData data)
         {
-            return await _courseRepo.CreateCourse(data);
+            return await _courseRepo.CreateCourseData(data);
         }
 
         public async Task<List<Course>> GetAllCoursesByCategoryName(string cateName)
@@ -134,18 +134,6 @@ namespace BE.Services.Implementations
         }
 
         //---------------------CRUD--------------------------//
-        public async Task<Course?> CreateCourse(CreateCourseDto createCourseDto)
-        {
-            var user = await _userRepo.GetUserById(createCourseDto.UserId);
-
-            if (user == null) throw new Exception("Unable to find user!");
-
-            var createCourse = createCourseDto.ToCreateCourseDto(createCourseDto.UserId);
-
-            if (createCourse == null) throw new Exception("Unable to create course!");
-
-            return await _courseRepo.CreateCourse(createCourse);
-        }
 
         public async Task<Course?> UpdateCourse(UpdateCourseDto updateCourseDto)
         {
@@ -283,6 +271,10 @@ namespace BE.Services.Implementations
             }
 
             return searchCourses;
+        }
+        public async Task<bool> CreateCourse(CreateCourseDto course)
+        {
+            return await _courseRepo.CreateCourse(CourseMappers.ToCreateCourseDto(course));
         }
     }
 }

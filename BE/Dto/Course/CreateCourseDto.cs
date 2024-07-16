@@ -7,10 +7,7 @@ namespace BE.Dto.Course
 {
     public class CreateCourseDto
     {
-        public string? UserId {get; set;}
+        public string? UserId { get; set; }
         public string? Name { get; set; }
-        public string? Description { get; set; }
-        public float? Price { get; set; }
-        public string? WhatLearn { get; set; }
     }
 }

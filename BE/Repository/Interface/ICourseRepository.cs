@@ -17,7 +17,7 @@ namespace BE.Repository.Interface
                 Task<float?> RetriveRatingAverage(string courseId);
                 Task<int?> RetriveRatingNumber(string courseId);
                 Task<CourseDto?> GetLecturesAndQuizzesByCourseId(string courseId);
-                Task<string> CreateCourse(CreateCoursData data);
+                Task<string> CreateCourseData(CreateCoursData data);
                 Task<List<Course>> FindCourseByCategoryName(string categoryName);
                 Task<Course?> SearchCourseByUserId(string userId);
                 Task<List<Course>> GetRecentRandomCourses(int numberOfCourses);
@@ -29,7 +29,6 @@ namespace BE.Repository.Interface
                 Task<List<Course>> GetAllCourseAvailable();
 
                 //---------------------CRUD--------------------------//
-                Task<Course?> CreateCourse(Course course);
                 Task<Course?> UpdateCourse(Course course);
                 Task<bool> DeleteCourse(string courseId);
                 Task<Course?> FindCourseByCourseName(string courseName);
@@ -39,5 +38,6 @@ namespace BE.Repository.Interface
                 Task<string?> GetImageCourse(string courseId, string type);
                 Task<List<Course>> SearchingCourse(string query);
                 Task<int> CountLectureCourse(string courseId);
+                Task<bool> CreateCourse(Course course);
         }
 }

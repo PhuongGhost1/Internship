@@ -2,6 +2,7 @@ namespace BE.Dto.Course
 {
     public class SaveCourseCard
     {
+        public string? Id { get; set; }
         public string? Name { get; set; }
         public int? CountLecture { get; set; }
         public string? Level { get; set; }

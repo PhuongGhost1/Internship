@@ -59,13 +59,13 @@ namespace BE.Controllers
             return Ok(new { Medialink = medialink });
         }
 
-        [CustomAuthorize("Instructor")]
-        [HttpPost("create")]
+        // [CustomAuthorize("Instructor")]
+        // [HttpPost("create")]
 
-        public async Task<string> CreateCourse([FromForm] CreateCoursData data)
-        {
-            return await _courseService.CreateCourse(data);
-        }
+        // public async Task<string> CreateCourse([FromForm] CreateCoursData data)
+        // {
+        //     return await _courseService.CreateCourse(data);
+        // }
 
 
         [HttpPost]
@@ -77,13 +77,6 @@ namespace BE.Controllers
 
 
         //---------------------CRUD--------------------------//
-        [CustomAuthorize("Instructor")]
-        [HttpPost]
-        [Route("create-course")]
-        public async Task<Course?> CreateCourse([FromForm] CreateCourseDto createCourseDto)
-        {
-            return await _courseService.CreateCourse(createCourseDto);
-        }
 
         [CustomAuthorize("Instructor")]
         [HttpPost]
@@ -199,6 +192,12 @@ namespace BE.Controllers
         public async Task<List<CardCourseDto>> SearchCourse([FromForm] string query, [FromQuery] int page, [FromQuery] int items)
         {
             return await _courseService.SearchCourse(query, page, items);
+        }
+
+        [HttpPost, Route("create")]
+        public async Task<bool> SearchCourse([FromForm] CreateCourseDto course)
+        {
+            return await _courseService.CreateCourse(course);
         }
     }
 }
