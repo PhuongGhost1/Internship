@@ -1,0 +1,175 @@
+#FeedBackAdmin {
+  padding: 20px 7% 20px 20px;
+  font-size: 16px;
+}
+
+#FeedBackAdmin .feedback-list th {
+  padding: 12px 10px;
+  background-color: #eeeeee;
+  text-align: center;
+  font-size: 18px;
+}
+
+#FeedBackAdmin .feedback-list td {
+  vertical-align: middle;
+  text-align: center;
+  font-size: 16px;
+  padding: 10px;
+}
+
+#FeedBackAdmin .feedback-list td:nth-child(4) {
+  text-align: left;
+  padding-left: 150px;
+}
+
+#FeedBackAdmin .no {
+  width: 5%;
+  font-weight: bold;
+  text-align: center;
+}
+
+#FeedBackAdmin .email {
+  width: 25%;
+}
+
+#FeedBackAdmin .name {
+  width: 25%;
+}
+
+#FeedBackAdmin .status {
+  width: 15%;
+}
+
+#FeedBackAdmin .action {
+  width: 10%;
+}
+
+#FeedBackAdmin .ManageFeedback-top {
+  display: flex;
+  justify-content: space-between;
+}
+
+#FeedBackAdmin .management-feedback-pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+#FeedBackAdmin .ManageFeedback-top .search-bar {
+  display: flex;
+  position: relative;
+  justify-content: flex-end;
+  margin: 10px 0;
+}
+
+#FeedBackAdmin .search-bar input {
+  width: 300px;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  font-size: 12px;
+  padding-left: 10px;
+}
+
+#FeedBackAdmin .search-bar svg {
+  color: rgb(207, 206, 206);
+  margin-top: 10px;
+  margin-right: 10px;
+  font-size: 20px;
+  position: absolute;
+}
+
+#FeedBackAdmin .feedback-list {
+  margin-bottom: 20px;
+}
+
+#FeedBackAdmin .status-active {
+  border: none;
+  background-color: rgb(6, 145, 6);
+  color: white;
+  border-radius: 5px;
+}
+
+#FeedBackAdmin .status-block {
+  border: none;
+  background-color: #c53631;
+  color: white;
+  border-radius: 5px;
+}
+
+#FeedBackAdmin .button-view {
+  color: grey;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+#FeedBackAdmin .button-view:hover {
+  cursor: pointer;
+  color: #000000;
+}
+
+/* Activity */
+#FeedBackAdmin .activity-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  overflow-y: auto;
+  max-height: 400px;
+}
+
+#FeedBackAdmin .activity-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #e6e6e6;
+  margin-right: 10px;
+}
+
+#FeedBackAdmin .activity-icon svg {
+  width: 21px;
+  height: 21px;
+}
+
+#FeedBackAdmin .activity-item {
+  display: flex;
+  align-items: center;
+}
+
+#FeedBackAdmin .activity-item p {
+  margin-left: 20px;
+}
+
+#FeedBackAdmin .activity-item p:first-child {
+  font-size: 14px;
+}
+
+#FeedBackAdmin .activity-item p:last-child {
+  font-weight: bold;
+  color: #000;
+  font-size: 16px;
+}
+
+#FeedBackAdmin .activity-item.payment .activity-icon {
+  background-color: #e6e6e6;
+}
+
+#FeedBackAdmin .activity-item.gmaill .activity-icon {
+  background-color: #e6e6e6;
+}
+
+#FeedBackAdmin .activity-item.checked .activity-icon {
+  background-color: #e6e6e6;
+}
+
+#FeedBackAdmin .activity-container {
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+#FeedBackAdmin .activity-container:last-child {
+  border-bottom: none;
+}

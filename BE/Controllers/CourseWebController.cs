@@ -6,6 +6,7 @@ using BE.Services.Interfaces;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using static BE.Utils.Utils;
+using BE.Attributes;
 
 namespace BE.Controllers
 {
@@ -42,6 +43,7 @@ namespace BE.Controllers
             return await _courseService.GetInformationOfCourse(courseId);
         }
 
+        [CustomAuthorize("Student", "Instructor")]
         [HttpPost]
         [Route("content")]
         public async Task<CourseDto?> GetLecturesAndQuizzesByCourseId([FromForm] string courseId)
@@ -49,6 +51,7 @@ namespace BE.Controllers
             return await _courseService.GetLecturesAndQuizzesByCourseId(courseId);
         }
 
+        [CustomAuthorize("Instructor")]
         [HttpPost("upload-img")]
 
         public async Task<IActionResult> UploadImgCourse([FromForm] int courseId, [FromForm] IFormFile image)
@@ -57,6 +60,7 @@ namespace BE.Controllers
             return Ok(new { Medialink = medialink });
         }
 
+        [CustomAuthorize("Instructor")]
         [HttpPost("create")]
 
         public async Task<string> CreateCourse([FromForm] CreateCoursData data)
@@ -74,6 +78,7 @@ namespace BE.Controllers
 
 
         //---------------------CRUD--------------------------//
+        [CustomAuthorize("Instructor")]
         [HttpPost]
         [Route("create-course")]
         public async Task<Course?> CreateCourse([FromForm] CreateCourseDto createCourseDto)
@@ -81,6 +86,7 @@ namespace BE.Controllers
             return await _courseService.CreateCourse(createCourseDto);
         }
 
+        [CustomAuthorize("Instructor")]
         [HttpPost]
         [Route("update-course")]
         public async Task<Course?> UpdateCourse([FromForm] UpdateCourseDto updateCourseDto)
@@ -88,6 +94,7 @@ namespace BE.Controllers
             return await _courseService.UpdateCourse(updateCourseDto);
         }
 
+        [CustomAuthorize("Instructor")]
         [HttpPost]
         [Route("delete-course")]
         public async Task<bool> DeleteCourse([FromForm] string courseId)
@@ -109,6 +116,7 @@ namespace BE.Controllers
             return await _courseService.SearchCourseByUserId(userId);
         }
 
+        [CustomAuthorize("Student", "Instructor")]
         [HttpPost]
         [Route("new-release-course")]
         public async Task<List<Course>> GetRecentRandomCourses([FromForm] int numberOfSize)
@@ -116,33 +124,70 @@ namespace BE.Controllers
             return await _courseService.GetRecentRandomCourses(numberOfSize);
         }
 
+        [CustomAuthorize("Instructor")]
         [HttpPost("createChapter")]
         public async Task<string> CreateChapter([FromForm] CreateChapterData data)
         {
             return await _courseService.CreateChapter(data);
         }
 
+        [CustomAuthorize("Instructor")]
         [HttpPost("createQuiz")]
         public async Task<string> CreateQuiz([FromForm] CreateQuizData data)
         {
             return await _courseService.CreateQuiz(data);
         }
 
+        [CustomAuthorize("Instructor")]
         [HttpPost("UploadVideo")]
 
         public async Task<string> UploadVideoLecture([FromForm] IFormFile video)
         {
             return await UploadVideoToFirebase(video, "Python", 1, 1);
         }
+
+        [CustomAuthorize("Instructor")]
         [HttpGet("generate")]
         public async Task<string> GenerateId()
         {
             return GenerateIdModel("category");
         }
+
+        [CustomAuthorize("Instructor")]
         [HttpPost("test")]
         public async Task<string> HashTest([FromForm] string courseName)
         {
             return GenerateHashCode(courseName);
+        }
+
+        [HttpGet, Route("most-purchased-courses")]
+        public async Task<List<Course>> GetMostPurchasedCourses()
+        {
+            return await _courseService.GetMostPurchasedCoursesAsync();
+        }
+
+        [HttpGet, Route("monthly-expense-revenue")]
+        public async Task<List<MonthlyAnalyticsDto>> GetMonthlyExpenseAndRevenue()
+        {
+            return await _courseService.GetMonthlyExpenseAndRevenueAsync();
+        }
+
+        [HttpGet, Route("manage-courses")]
+        public async Task<List<CourseManagementForAdminDto>> TakeCourseManagementByAdmin()
+        {
+            return await _courseService.GetCourseManagementByAdminAsync();
+        }
+
+        [HttpGet, Route("manage-waiting-courses")]
+        public async Task<List<CourseManagementForAdminDto>> TakeCourseManagementForWaitingByAdmin()
+        {
+            return await _courseService.GetCourseManagementForWaitingByAdminAsync();
+        }
+
+        [HttpPut, Route("update-course-management")]
+        public async Task<bool> UpdateCourseByAdmin([FromForm] string courseId, [FromForm] int status)
+        {
+            return await _courseService.UpdateCourseByAdminAysnc(courseId, status);
         }
     }
 }

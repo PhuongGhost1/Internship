@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using BE.Attributes;
 using BE.Models;
 using BE.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +18,8 @@ namespace BE.Controllers
             _permissonService = permissonService;
         }
 
+
+        [CustomAuthorize("Super Admin")]
         [HttpGet]
         
         public async Task<ActionResult<IEnumerable<Permisson>>> GetAllPermissons()
@@ -25,6 +28,7 @@ namespace BE.Controllers
             return Ok(permissons);
         }
 
+        [CustomAuthorize("Super Admin")]
         [HttpGet("{id}")]
         public async Task<ActionResult<Permisson>> GetPermissonById(string id)
         {
@@ -32,6 +36,7 @@ namespace BE.Controllers
             return Ok(permisson);
         }
 
+        [CustomAuthorize("Super Admin")]
         [HttpPost]
         public async Task<ActionResult> AddPermisson(Permisson permisson)
         {
@@ -39,6 +44,7 @@ namespace BE.Controllers
             return CreatedAtAction(nameof(GetPermissonById), new { id = permisson.Id }, permisson);
         }
 
+        [CustomAuthorize("Super Admin")]
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdatePermisson(string id, Permisson permisson)
         {
@@ -46,6 +52,7 @@ namespace BE.Controllers
             return NoContent();
         }
 
+        [CustomAuthorize("Super Admin")]
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeletePermisson(string id)
         {

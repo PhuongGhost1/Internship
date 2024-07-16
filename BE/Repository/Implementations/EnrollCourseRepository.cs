@@ -32,27 +32,26 @@ namespace BE.Repository.Implementations
             {
                 var imageBackground = await _context.Images.FirstOrDefaultAsync(img => img.CourseId == ec.Id);
 
-                var chapters = await _context.Chapters
+                var chapterIds = await _context.Chapters
                                       .Where(ch => ch.CourseId == ec.Id)
+                                      .Select(c => c.Id)
                                       .ToListAsync();
 
-                var chapterIds = chapters.Select(ch => ch.Id).ToList();
 
-                var lectures = await _context.Lectures
+                var lectureIds = await _context.Lectures
                              .Where(l => chapterIds.Contains(l.ChapterId))
+                             .Select(l => l.Id)
                              .ToListAsync();
 
-                var lectureIds = lectures.Select(l => l.Id).ToList();
 
-                var quizzes = await _context.Quizzes
+                var quizzeIds = await _context.Quizzes
                                     .Where(q => chapterIds.Contains(q.ChapterId))
+                                    .Select(l => l.Id)
                                     .ToListAsync();
 
-                var quizIds = quizzes.Select(q => q.Id).ToList();
+                var combinedIds = lectureIds.Concat(quizzeIds).ToList();
 
-                var combinedIds = lectureIds.Concat(quizIds).ToList();
-
-                int countQuizzLecture = lectures.Count + quizzes.Count;
+                int countQuizzLecture = lectureIds.Count + quizzeIds.Count;
 
                 int countProcessing = await _context.Processings
                                             .Where(p => p.UserId == userId &&

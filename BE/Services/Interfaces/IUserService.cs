@@ -1,22 +1,31 @@
 using BE.Dto.User;
+using BE.Dto.User.AdminManagement;
 using BE.Dto.UserLogin;
 using BE.Models;
 
 namespace BE.Services.Interfaces
 {
-    public interface IUserService
-    {
-        Task<User> GetUserByEmail(string email);
-        Task<ReturnLoginDto> LoginWithFacebook();
-        Task<ReturnResponseDto> FacebookResponse();
-        Task<ReturnLoginDto> LoginWithGoogle();
-        Task<ReturnResponseDto> GoogleResponse();
-        Task<UserLoginToken> Login(UserLoginDto userLoginDto);
-        Task<UserLoginToken> Register(RegisterDto registerDto);
-        Task<UserLoginToken> Forgot(string email, ForgotDto forgotDto);
-        Task<bool> CreateUserData(string username, string email, string password, string description, string phone, string role);
-        Task<(int a, int c)> GetUserStatisticsAsync();
-        Task<List<User>> GetAllInstructor();
+        public interface IUserService
+        {
+                Task<User> GetUserByEmail(string email);
+                Task<ReturnLoginDto> LoginWithFacebook();
+                Task<ReturnResponseDto> FacebookResponse();
+                Task<ReturnLoginDto> LoginWithGoogle();
+                Task<ReturnResponseDto> GoogleResponse();
+                Task<UserLoginToken> Login(UserLoginDto userLoginDto);
+                Task<UserLoginToken> Register(RegisterDto registerDto);
+                Task<UserLoginToken> Forgot(string email, ForgotDto forgotDto);
+                Task<bool> CreateUserData(string username, string email, string password, string description, string phone, string role);
+                Task<(int a, int c)> GetUserStatisticsAsync();
+                Task<double?> GetPercentageChangeForStudentAccountsLastMonthAsync();
+                Task<double?> GetPercentageChangeForInstructorAccountsLastMonthAsync();
+                Task<int?> CountAccountsByRoleForMonthAsync(string roleName, DateTime month);
+                Task<List<UserInfoManageByAdminDto>> GetUserRoleAsync(string roleName);
+                Task<bool> UpdateUserStatusAsync(string userId);
+                Task<List<FeedbackRequestDto>> GetFeedbacksManagementByAdminAsync();
+                Task<List<ReportManagementByAdminDto>> GetReportManagementByAdminAsync();
+                Task<bool> UpdateUserCommentReportStatusAsync(string? userId, string reportId, string? commentId, string? courseId);
+                Task<List<User>> GetAllInstructor();
 
-    }
+        }
 }

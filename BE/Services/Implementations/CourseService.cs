@@ -182,5 +182,56 @@ namespace BE.Services.Implementations
         {
             return await _courseRepo.CreateQuiz(data);
         }
+
+        public async Task<List<Course>> GetMostPurchasedCoursesAsync()
+        {
+            var courses = await _courseRepo.GetMostPurchasedCourses();
+
+            if (courses == null || courses.Count == 0)
+            {
+                return new List<Course>();
+            }
+
+            return courses;
+        }
+
+        public async Task<List<MonthlyAnalyticsDto>> GetMonthlyExpenseAndRevenueAsync()
+        {
+            var chart = await _courseRepo.GetMonthlyExpenseAndRevenue();
+            
+            if (chart == null || chart.Count == 0)
+            {
+                return new List<MonthlyAnalyticsDto>();
+            }
+
+            return chart;
+        }
+
+        public async Task<List<CourseManagementForAdminDto>> GetCourseManagementByAdminAsync()
+        {
+            var courses = await _courseRepo.GetCourseManagementByAdmin();
+
+            if(courses == null || courses.Count == 0) return new List<CourseManagementForAdminDto>();
+
+            return courses;
+        }
+
+        public async Task<List<CourseManagementForAdminDto>> GetCourseManagementForWaitingByAdminAsync()
+        {
+            var courses = await _courseRepo.GetCourseManagementForWaitingByAdmin();
+
+            if(courses == null || courses.Count == 0) return new List<CourseManagementForAdminDto>();
+
+            return courses;
+        }
+
+        public async Task<bool> UpdateCourseByAdminAysnc(string courseId, int status)
+        {
+            var course = await _courseRepo.RetriveCourseInformationById(courseId);
+
+            if(course == null) throw new Exception("Unable to find course!");
+
+            return await _courseRepo.UpdateCourseByAdmin(courseId, status);
+        }
     }
 }

@@ -1,0 +1,49 @@
+#create-course-page .nav-bar {
+    height: 60px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 0 40px;
+    display: flex;
+    box-shadow: rgba(11, 11, 11, 0.06) 0px 2px 4px -1px, rgba(11, 11, 11, 0.1) 0px 4px 6px -1px;
+}
+
+#create-course-page .nav-bar .nav {
+    padding: 0 25px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+    position: relative;
+    cursor: pointer;
+}
+
+#create-course-page .nav-bar .nav.active {
+    color: var(--light-orange);
+}
+
+#create-course-page .nav-bar .nav.active::before {
+    position: absolute;
+    height: 5px;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    content: '';
+    background-color: var(--light-orange);
+}
+
+
+#create-course-page .content-curriculum {
+    display: flex;
+}
+
+#create-course-page .content-curriculum .sidebar-container {
+    flex: 2;
+}
+
+#create-course-page .content-curriculum .items-container {
+    flex: 8;
+}
