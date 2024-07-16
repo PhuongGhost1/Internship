@@ -18,7 +18,6 @@ namespace BE.Mappers
                 IsVisible = true,
                 Rating = 0,
             };
-            z` 
         }
 
         public static Course ToUpdateCourseDto(this UpdateCourseDto updateCourseDto)
