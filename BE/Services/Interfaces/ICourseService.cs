@@ -34,6 +34,6 @@ namespace BE.Services.Interfaces
                 Task<Course?> GetCourseByCourseName(string courseName);
                 Task<string> CreateChapter(CreateChapterData data);
                 Task<string> CreateQuiz(CreateQuizData data);
-
+                Task<List<CardCourseDto>> SearchCourse(string query, int page, int items);
         }
 }

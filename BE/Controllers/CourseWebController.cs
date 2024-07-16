@@ -190,11 +190,15 @@ namespace BE.Controllers
         }
 
         [HttpGet, Route("random/{count:int}")]
-
         public async Task<List<CardCourseDto>> RandomCourse(int count)
         {
-            Console.WriteLine(count);
             return await _courseService.GetRandomCourse(count);
+        }
+
+        [HttpPost, Route("search")]
+        public async Task<List<CardCourseDto>> SearchCourse([FromForm] string query, [FromQuery] int page, [FromQuery] int items)
+        {
+            return await _courseService.SearchCourse(query, page, items);
         }
     }
 }

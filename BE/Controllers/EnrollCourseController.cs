@@ -8,7 +8,7 @@ namespace BE.Controllers
 {
     [ApiController]
     [Route("api/v1/web/role-user")]
-    public class EnrollCourseWebController 
+    public class EnrollCourseWebController
     {
         private readonly IEnrollCourseService _enrollCourseService;
         public EnrollCourseWebController(IEnrollCourseService enrollCourseService)
@@ -21,28 +21,32 @@ namespace BE.Controllers
         [CustomAuthorize("Student", "Instructor")]
         [HttpGet]
         [Route("view-all-enrollCourses")]
-        public async Task<List<EnrollCourse>> ViewAllEnrollCourses(){
+        public async Task<List<EnrollCourse>> ViewAllEnrollCourses()
+        {
             return await _enrollCourseService.ViewAllEnrollCourses();
         }
 
         [CustomAuthorize("Student", "Instructor")]
         [HttpPost]
         [Route("create-enrollCourse")]
-        public async Task<EnrollCourse?> CreateEnrollCourse([FromForm] CreateEnrollCourseDto createEnrollCourseDto){
-            return await _enrollCourseService.CreateEnrollCourse (createEnrollCourseDto);
+        public async Task<EnrollCourse?> CreateEnrollCourse([FromForm] CreateEnrollCourseDto createEnrollCourseDto)
+        {
+            return await _enrollCourseService.CreateEnrollCourse(createEnrollCourseDto);
         }
 
         [CustomAuthorize("Student", "Instructor")]
         [HttpPost]
         [Route("update-enrollCourse")]
-        public async Task<EnrollCourse?> UpdateEnrollCourse([FromForm] string enrollCourseId, [FromForm] UpdateEnrollCourseDto updateEnrollCourseDto){
+        public async Task<EnrollCourse?> UpdateEnrollCourse([FromForm] string enrollCourseId, [FromForm] UpdateEnrollCourseDto updateEnrollCourseDto)
+        {
             return await _enrollCourseService.UpdateEnrollCourse(enrollCourseId, updateEnrollCourseDto);
         }
 
         [CustomAuthorize("Student", "Instructor")]
         [HttpPost]
         [Route("delete-enrollCourse")]
-        public async Task<bool> DeleteEnrollCourse([FromForm] string enrollCourseId){
+        public async Task<bool> DeleteEnrollCourse([FromForm] string enrollCourseId)
+        {
             return await _enrollCourseService.DeleteEnrollCourse(enrollCourseId);
         }
     }

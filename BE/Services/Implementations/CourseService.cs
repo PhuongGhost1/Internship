@@ -259,5 +259,30 @@ namespace BE.Services.Implementations
 
             return randomCoursesDto;
         }
+
+        public async Task<List<CardCourseDto>> SearchCourse(string query, int page, int items)
+        {
+            var courses = await _courseRepo.SearchingCourse(query);
+            var coursesPagination = courses.Skip((page - 1) * items).Take(items).ToList();
+            var searchCourses = new List<CardCourseDto>();
+
+            foreach (var course in coursesPagination)
+            {
+                var ratingCount = await _courseRepo.RetriveRatingNumber(course.Id);
+                var timeLearning = await _courseRepo.TimeLearningCourse(course.Id);
+                var imgUrl = await _courseRepo.GetImageCourse(course.Id, "Background");
+
+                searchCourses.Add(new CardCourseDto
+                {
+                    name = course.Name,
+                    ratingAvg = course.Rating,
+                    ratingCount = ratingCount,
+                    timeLearning = timeLearning,
+                    imgUrl = imgUrl
+                });
+            }
+
+            return searchCourses;
+        }
     }
 }

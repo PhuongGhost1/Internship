@@ -417,6 +417,9 @@ public partial class CourseOnlContext : DbContext
                 .HasMaxLength(2000)
                 .HasColumnName("description");
             entity.Property(e => e.IsVisible).HasColumnName("is_visible");
+            entity.Property(e => e.Level)
+                .HasMaxLength(20)
+                .HasColumnName("level");
             entity.Property(e => e.Name)
                 .HasMaxLength(200)
                 .HasColumnName("name");

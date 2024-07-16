@@ -14,6 +14,8 @@ using Newtonsoft.Json;
 using static BE.Utils.Utils;
 using System.Globalization;
 using BE.Dto.ImageD;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Cryptography.X509Certificates;
 
 namespace BE.Repository.Implementations
 {
@@ -634,6 +636,28 @@ namespace BE.Repository.Implementations
                 }
             }
             return imgUrl;
+        }
+        public async Task<List<Course>> SearchingCourse(string query)
+        {
+            var courses = await GetAllCourseAvailable();
+
+            if (!string.IsNullOrEmpty(query))
+            {
+                string lowerQuery = query.ToLower();
+                courses = courses.Where(c => c.Name.ToLower().Contains(lowerQuery))
+                                 .OrderByDescending(c => c.Name.ToLower().StartsWith(lowerQuery))
+                                 .ThenBy(c => c.Name.ToLower())
+                                 .ToList();
+            }
+            return courses;
+        }
+
+        public async Task<int> CountLectureCourse(string courseId)
+        {
+            var lectureCount = await _context.Lectures
+                                .Where(l => l.Chapter.CourseId == courseId)
+                                .CountAsync();
+            return lectureCount;
         }
     }
 }

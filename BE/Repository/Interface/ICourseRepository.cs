@@ -37,5 +37,7 @@ namespace BE.Repository.Interface
                 Task<string> CreateQuiz(CreateQuizData data);
                 Task<TimeSpan?> TimeLearningCourse(string courseId);
                 Task<string?> GetImageCourse(string courseId, string type);
+                Task<List<Course>> SearchingCourse(string query);
+                Task<int> CountLectureCourse(string courseId);
         }
 }
