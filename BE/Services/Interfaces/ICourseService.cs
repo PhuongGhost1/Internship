@@ -25,6 +25,7 @@ namespace BE.Services.Interfaces
                 Task<List<CourseManagementForAdminDto>> GetCourseManagementByAdminAsync();
                 Task<List<CourseManagementForAdminDto>> GetCourseManagementForWaitingByAdminAsync();
                 Task<bool> UpdateCourseByAdminAysnc(string courseId, int status);
+                Task<List<Course>> GetCourseWithStatus(string userId, int status);
 
                 //---------------------CRUD--------------------------//
                 Task<Course?> CreateCourse(CreateCourseDto createCourseDto);

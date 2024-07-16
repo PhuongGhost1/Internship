@@ -21,6 +21,7 @@ namespace BE.Controllers
 
         [CustomAuthorize("Super Admin")]
         [HttpGet]
+        
         public async Task<ActionResult<IEnumerable<Permisson>>> GetAllPermissons()
         {
             var permissons = await _permissonService.GetAllPermissonsAsync();

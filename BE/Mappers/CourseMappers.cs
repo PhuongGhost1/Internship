@@ -6,9 +6,11 @@ namespace BE.Mappers
 {
     public static class CourseMappers
     {
-        public static Course ToCreateCourseDto(this CreateCourseDto createCourseDto, string userId){
-            return new Course{
-                Id = GenerateIdModel("user"),
+        public static Course ToCreateCourseDto(this CreateCourseDto createCourseDto, string userId)
+        {
+            return new Course
+            {
+                Id = GenerateIdModel("course"),
                 CreateAt = GetTimeNow(),
                 UserId = userId,
                 Name = createCourseDto.Name,
@@ -18,8 +20,10 @@ namespace BE.Mappers
             };
         }
 
-        public static Course ToUpdateCourseDto(this UpdateCourseDto updateCourseDto){
-            return new Course{
+        public static Course ToUpdateCourseDto(this UpdateCourseDto updateCourseDto)
+        {
+            return new Course
+            {
                 UpdateAt = GetTimeNow(),
                 Name = updateCourseDto.Name,
                 Description = updateCourseDto.Description,

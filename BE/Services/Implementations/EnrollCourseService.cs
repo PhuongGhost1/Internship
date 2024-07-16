@@ -1,3 +1,4 @@
+using BE.Dto.Course;
 using BE.Dto.EnrollCourse;
 using BE.Mappers;
 using BE.Models;
@@ -16,14 +17,21 @@ namespace BE.Services.Implementations
             _userRepo = userRepo;
         }
 
+        public async Task<List<CourseProcessingDto>> ViewCourseProcessing(string userID)
+        {
+            var processingCourse = await _enrollCourseRepo.GetEnrollCourseByUserId(userID);
+            if (processingCourse == null) throw new Exception("Nothing!");
+            return await _enrollCourseRepo.GetEnrollCourseByUserId(userID);
+        }
+
 
         //---------------------CRUD--------------------------//
-        public async Task<EnrollCourse?> CreateEnrollCourse( CreateEnrollCourseDto createEnrollCourseDto)
+        public async Task<EnrollCourse?> CreateEnrollCourse(CreateEnrollCourseDto createEnrollCourseDto)
         {
 
             var createEnrollCourse = createEnrollCourseDto.ToCreateEnrollCourse();
 
-            if(createEnrollCourse == null) throw new Exception("Unable to create role-user!");
+            if (createEnrollCourse == null) throw new Exception("Unable to create enroll-course!");
 
             return await _enrollCourseRepo.CreateEnrollCourse(createEnrollCourse);
         }
@@ -32,7 +40,7 @@ namespace BE.Services.Implementations
         {
             var enrollCourse = await _enrollCourseRepo.GetEnrollCourseById(enrollCourseId);
 
-            if(enrollCourse == null) throw new Exception("Unable to find role-user!");
+            if (enrollCourse == null) throw new Exception("Unable to find enroll-course!");
 
             return await _enrollCourseRepo.DeleteEnrollCourse(enrollCourseId);
         }
@@ -41,11 +49,11 @@ namespace BE.Services.Implementations
         {
             var enrollCourse = await _enrollCourseRepo.GetEnrollCourseById(enrollCourseId);
 
-            if(enrollCourse == null) throw new Exception("Unable to find role-user!");
+            if (enrollCourse == null) throw new Exception("Unable to find enroll-course!");
 
             var updateEnrollCourse = updateEnrollCourseDto.ToUpdateEnrollCourse();
 
-            if(updateEnrollCourse == null) throw new Exception("Unable to update role-user!");
+            if (updateEnrollCourse == null) throw new Exception("Unable to update enroll-course!");
 
             return await _enrollCourseRepo.UpdateEnrollCourse(updateEnrollCourse);
         }
@@ -54,5 +62,7 @@ namespace BE.Services.Implementations
         {
             return await _enrollCourseRepo.GetAllEnrollCourses();
         }
+
+
     }
 }

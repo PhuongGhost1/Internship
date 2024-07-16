@@ -131,6 +131,12 @@ namespace BE.Services.Implementations
             return await _courseRepo.GetRecentRandomCourses(6);
         }
 
+        public async Task<List<Course>> GetCourseWithStatus(string userId, int status)
+        {
+            return await _courseRepo.GetCourseWithStatus(userId, status);
+        }
+
+
         //---------------------CRUD--------------------------//
         public async Task<Course?> CreateCourse(CreateCourseDto createCourseDto)
         {
@@ -198,7 +204,7 @@ namespace BE.Services.Implementations
         public async Task<List<MonthlyAnalyticsDto>> GetMonthlyExpenseAndRevenueAsync()
         {
             var chart = await _courseRepo.GetMonthlyExpenseAndRevenue();
-            
+
             if (chart == null || chart.Count == 0)
             {
                 return new List<MonthlyAnalyticsDto>();
@@ -211,7 +217,7 @@ namespace BE.Services.Implementations
         {
             var courses = await _courseRepo.GetCourseManagementByAdmin();
 
-            if(courses == null || courses.Count == 0) return new List<CourseManagementForAdminDto>();
+            if (courses == null || courses.Count == 0) return new List<CourseManagementForAdminDto>();
 
             return courses;
         }
@@ -220,7 +226,7 @@ namespace BE.Services.Implementations
         {
             var courses = await _courseRepo.GetCourseManagementForWaitingByAdmin();
 
-            if(courses == null || courses.Count == 0) return new List<CourseManagementForAdminDto>();
+            if (courses == null || courses.Count == 0) return new List<CourseManagementForAdminDto>();
 
             return courses;
         }
@@ -229,9 +235,10 @@ namespace BE.Services.Implementations
         {
             var course = await _courseRepo.RetriveCourseInformationById(courseId);
 
-            if(course == null) throw new Exception("Unable to find course!");
+            if (course == null) throw new Exception("Unable to find course!");
 
             return await _courseRepo.UpdateCourseByAdmin(courseId, status);
         }
+
     }
 }

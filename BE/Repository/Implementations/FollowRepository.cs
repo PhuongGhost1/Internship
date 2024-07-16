@@ -101,7 +101,7 @@ namespace BE.Repository.Implementations
         {
             var follow = await _context.Follows.FindAsync(followId);
 
-            if(follow == null) return false;
+            if (follow == null) return false;
 
             _context.Follows.Remove(follow);
             await _context.SaveChangesAsync();

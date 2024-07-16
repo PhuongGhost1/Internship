@@ -35,10 +35,10 @@ builder.Services.AddCors(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpContextAccessor();
-FirebaseApp.Create(new AppOptions
+/*FirebaseApp.Create(new AppOptions
 {
     Credential = GoogleCredential.FromFile("config/firebase.json")
-});
+});*/
 
 
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
