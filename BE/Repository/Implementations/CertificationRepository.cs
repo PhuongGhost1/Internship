@@ -16,6 +16,12 @@ namespace BE.Repository.Implementations
             _context = context;
         }
 
+        public async Task<List<Certification>> GetUserCertifications(string userId)
+        {
+            throw new NotImplementedException();
+        }
+
+
 
         //---------------------CRUD--------------------------//
         public async Task<Certification?> CreateCertification(Certification certification)
@@ -29,5 +35,7 @@ namespace BE.Repository.Implementations
         {
             return await _context.Certifications.ToListAsync();
         }
+
+
     }
 }

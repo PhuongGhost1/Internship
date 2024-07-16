@@ -5,6 +5,7 @@ namespace BE.Repository.Interface
 {
     public interface ICertificationRepository
     {
+        Task<List<Certification>> GetUserCertifications(string userId);
 
 
         //---------------------CRUD--------------------------//

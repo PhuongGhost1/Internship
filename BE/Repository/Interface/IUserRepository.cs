@@ -15,5 +15,7 @@ namespace BE.Repository.Interface
         Task<bool> CreateUserData(string username, string email, string password, string description, string phone, string role);
         Task<User?> GetUserById(string userId);
         Task<(int a, int c)> GetUserStatisticsAsync();
+        Task<List<User?>> GetAllInstructor();
+
     }
 }

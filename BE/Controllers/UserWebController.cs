@@ -54,19 +54,22 @@ namespace BE.Controllers
 
         [HttpPost]
         [Route("user-login")]
-        public async Task<UserLoginToken> Login([FromForm] UserLoginDto userLoginDto){
+        public async Task<UserLoginToken> Login([FromForm] UserLoginDto userLoginDto)
+        {
             return await _userService.Login(userLoginDto);
         }
 
         [HttpPost]
         [Route("user-register")]
-        public async Task<UserLoginToken> Register([FromForm] RegisterDto registerDto){
+        public async Task<UserLoginToken> Register([FromForm] RegisterDto registerDto)
+        {
             return await _userService.Register(registerDto);
         }
 
         [HttpPut]
         [Route("forgot-password")]
-        public async Task<UserLoginToken> Forgot([FromForm] string email, [FromForm] ForgotDto forgotDto){
+        public async Task<UserLoginToken> Forgot([FromForm] string email, [FromForm] ForgotDto forgotDto)
+        {
             return await _userService.Forgot(email, forgotDto);
         }
 
@@ -84,6 +87,13 @@ namespace BE.Controllers
         public async Task<(int a, int c)> GetUserStatistic()
         {
             return await _userService.GetUserStatisticsAsync();
+        }
+
+        [HttpGet]
+        [Route("view-all-Instructor")]
+        public async Task<List<User>> ViewAllFollows()
+        {
+            return await _userService.GetAllInstructor();
         }
     }
 }

@@ -227,5 +227,15 @@ namespace BE.Services.Implementations
                 throw new Exception(e.Message);
             }
         }
+
+        public Task<List<User>> GetAllInstructor()
+        {
+            var users = _userRepo.GetAllInstructor();
+            if (users == null)
+            {
+                throw new Exception("Not found Instructor");
+            }
+            return users;
+        }
     }
 }

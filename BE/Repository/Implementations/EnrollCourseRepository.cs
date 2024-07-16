@@ -16,9 +16,14 @@ namespace BE.Repository.Implementations
 
         public async Task<List<CourseProcessingDto>> GetEnrollCourseByUserId(string userId)
         {
+            var listCourseIds = await _context.EnrollCourses
+                                  .Where(ec => ec.UserId == userId)
+                                  .Select(ec => ec.CourseId)
+                                  .ToListAsync();
+
             var listEnrollCourse = await _context.Courses
-                                                  .Where(ec => ec.UserId == userId)
-                                                  .ToListAsync();
+                                     .Where(c => listCourseIds.Contains(c.Id))
+                                     .ToListAsync();
 
 
             var resultList = new List<CourseProcessingDto>();

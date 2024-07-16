@@ -130,5 +130,21 @@ namespace BE.Repository.Implementations
 
             return (a, c);
         }
+
+        public async Task<List<User>> GetAllInstructor()
+        {
+            var listUserId = await _context.RoleUsers
+            .Where(r => r.RoleId == "role_f62abbfa5b" && r.Status == 1)
+            .Select(r => r.UserId)
+            .Distinct()
+            .ToListAsync();
+
+            var users = await _context.Users
+            .Where(u => listUserId.Contains(u.Id))
+            .ToListAsync();
+
+
+            return users;
+        }
     }
 }

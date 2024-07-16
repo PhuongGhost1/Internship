@@ -1,3 +1,5 @@
+using System.Security.Policy;
+using BE.Dto.Follow;
 using BE.Models;
 using BE.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +12,54 @@ namespace BE.Repository.Implementations
         public FollowRepository(CourseOnlContext context)
         {
             _context = context;
+        }
+        public async Task<List<FollowingDto>> GetFollowing(string followUserId)
+        {
+            var listFollow = await _context.Follows
+                .Where(f => f.FollowerId == followUserId)
+                .Select(f => f.FollowedId)
+                .ToListAsync();
+
+            var users = await _context.Users
+                .Where(u => listFollow.Contains(u.Id))
+                .ToListAsync();
+
+            var resultList = new List<FollowingDto>();
+
+
+            foreach (var v in listFollow)
+            {
+                var user = await _context.Users.FirstOrDefaultAsync(us => us.Id == v);
+
+                var countFollower = await _context.Follows
+                    .Where(f => f.FollowedId == user.Id)
+                    .CountAsync();
+
+
+                var countCourses = await _context.Courses
+                    .Where(f => f.UserId == user.Id)
+                    .CountAsync();
+
+                List<Image> images = await _context.Images
+                    .Where(image => image.UserId == user.Id)
+                    .ToListAsync();
+
+                var ListUrls = images.Select(i => i.Url).ToList();
+
+                var following = new FollowingDto
+                {
+                    FolloweId = v,
+                    UserId = user.Id,
+                    Name = user.Username,
+                    ListImage = ListUrls,
+                    Follower = countFollower,
+                    Course = countCourses
+                };
+                resultList.Add(following);
+            }
+
+
+            return resultList;
         }
 
 
@@ -26,7 +76,7 @@ namespace BE.Repository.Implementations
         {
             var follow = await _context.Follows.FindAsync(followId);
 
-            if(follow == null) return false;
+            if (follow == null) return false;
 
             _context.Follows.Remove(follow);
             await _context.SaveChangesAsync();
