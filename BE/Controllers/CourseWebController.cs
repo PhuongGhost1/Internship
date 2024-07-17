@@ -202,12 +202,12 @@ namespace BE.Controllers
         }
 
         [HttpPost, Route("add-cart")]
-
         public async Task<MessageDto> AddCourseToCart([FromForm] CourseUserDto courseUser)
         {
             return await _courseService.AddCourseToCart(courseUser);
         }
 
+        [HttpPost, Route("view-cart")]
         public async Task<List<CartCourseCardDto>> ViewCart([FromForm] string userId)
         {
             return await _courseService.GetListCartCourseByUser(userId);

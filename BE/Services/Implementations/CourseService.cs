@@ -307,20 +307,22 @@ namespace BE.Services.Implementations
         }
         public async Task<List<CartCourseCardDto>> GetListCartCourseByUser(string userId)
         {
+            var ListCartCourseReturn = new List<CartCourseCardDto>();
             Cart? cart = await _courseRepo.GetCart(userId);
             if (cart != null)
             {
                 List<CartCourse> cartCourses = await _courseRepo.GetListCartCourse(cart);
                 foreach (CartCourse cartCourse in cartCourses)
                 {
-
+                    string? imgUrl = await _courseRepo.GetImageCourse(cartCourse.Course.Id, "Background");
+                    ListCartCourseReturn.Add(new CartCourseCardDto
+                    {
+                        cartCourse = cartCourse,
+                        imgUrl = imgUrl
+                    });
                 }
-                return null;
             }
-            else
-            {
-                return null;
-            }
+            return ListCartCourseReturn;
         }
     }
 }
