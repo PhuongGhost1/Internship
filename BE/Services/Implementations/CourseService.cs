@@ -191,13 +191,13 @@ namespace BE.Services.Implementations
             return await _courseRepo.CreateQuiz(data);
         }
 
-        public async Task<List<Course>> GetMostPurchasedCoursesAsync()
+        public async Task<List<NewReleaseCourseForHomepageDto>> GetMostPurchasedCoursesAsync()
         {
             var courses = await _courseRepo.GetMostPurchasedCourses();
 
             if (courses == null || courses.Count == 0)
             {
-                return new List<Course>();
+                return new List<NewReleaseCourseForHomepageDto>();
             }
 
             return courses;
@@ -289,6 +289,24 @@ namespace BE.Services.Implementations
             }
 
             return searchCourses;
+        }
+
+        public async Task<List<NewReleaseCourseForHomepageDto>> NewReleaseCoursesAsync()
+        {
+            var newReleaseCourses = await _courseRepo.NewReleaseCourses();
+
+            if(newReleaseCourses == null || newReleaseCourses.Count == 0) return new List<NewReleaseCourseForHomepageDto>();
+
+            return newReleaseCourses;
+        }
+
+        public async Task<List<NewReleaseCourseForHomepageDto>> NewReleaseCoursesByNameAsync(int size)
+        {
+            var newReleaseCourses = await _courseRepo.NewReleaseCoursesByNam(size);
+
+            if(newReleaseCourses == null || newReleaseCourses.Count == 0) return new List<NewReleaseCourseForHomepageDto>();
+
+            return newReleaseCourses;
         }
     }
 }

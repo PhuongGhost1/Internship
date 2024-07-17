@@ -170,7 +170,7 @@ namespace BE.Controllers
         }
 
         [HttpGet, Route("most-purchased-courses")]
-        public async Task<List<Course>> GetMostPurchasedCourses()
+        public async Task<List<NewReleaseCourseForHomepageDto>> GetMostPurchasedCourses()
         {
             return await _courseService.GetMostPurchasedCoursesAsync();
         }
@@ -209,6 +209,18 @@ namespace BE.Controllers
         public async Task<List<CardCourseDto>> SearchCourse([FromForm] string query, [FromQuery] int page, [FromQuery] int items)
         {
             return await _courseService.SearchCourse(query, page, items);
+        }
+
+        [HttpGet, Route("new-release-courses")]
+        public async Task<List<NewReleaseCourseForHomepageDto>> GetNewReleaseCoursesAsync()
+        {
+            return await _courseService.NewReleaseCoursesAsync();
+        }
+
+        [HttpGet, Route("new-release-courses-by-name/{count:int}")]
+        public async Task<List<NewReleaseCourseForHomepageDto>> GetNewReleaseCoursesAsyncByName(int count)
+        {
+            return await _courseService.NewReleaseCoursesByNameAsync(count);
         }
     }
 }

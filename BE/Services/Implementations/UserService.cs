@@ -1,6 +1,7 @@
 using System.Net;
 using BE.Dto.User;
 using BE.Dto.User.AdminManagement;
+using BE.Dto.User.Instructor;
 using BE.Dto.UserLogin;
 using BE.Models;
 using BE.Repository.Interface;
@@ -301,6 +302,24 @@ namespace BE.Services.Implementations
         public async Task<User> GetUSerById(string id)
         {
             return await _userRepo.GetUserById(id);
+        }
+
+        public async Task<InstructorProfileDto> GetInstructorProfileByInsIdAsync(string insId)
+        {
+            var user = await _userRepo.GetUserById(insId);
+
+            if(user == null) return new InstructorProfileDto();
+
+            return await _userRepo.GetInstructorProfileByInsId(insId);
+        }
+
+        public async Task<InstructorProfileDto> GetInstructorProfileWithWaitingCourseByInsId(string insId)
+        {
+            var user = await _userRepo.GetUserById(insId);
+
+            if(user == null) return new InstructorProfileDto();
+
+            return await _userRepo.GetInstructorProfileWithWaitingCourseByInsId(insId);
         }
     }
 }

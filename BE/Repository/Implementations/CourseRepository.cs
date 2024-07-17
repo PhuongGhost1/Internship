@@ -478,7 +478,7 @@ namespace BE.Repository.Implementations
                                         .FirstOrDefaultAsync(course => course.Name.ToLower() == courseName.ToLower());
         }
 
-        public async Task<List<Course>> GetMostPurchasedCourses()
+        public async Task<List<NewReleaseCourseForHomepageDto>> GetMostPurchasedCourses()
         {
             var mostPurchasedCourses = await _context.PaymentCourses
                                                     .Join(_context.CartCourses,
@@ -496,9 +496,46 @@ namespace BE.Repository.Implementations
                                                         Course = g.First(),
                                                         PurchaseCount = g.Count()
                                                     })
+                                                    .Take(8)
                                                     .ToListAsync();
 
-               return mostPurchasedCourses.Select(c => c.Course).ToList();
+               var mostPurchasedCoursesDto = new List<NewReleaseCourseForHomepageDto>();
+
+               foreach(var c in mostPurchasedCourses)
+               {
+                    var image = await _context.Images
+                         .Where(i => i.CourseId == c.Course.Id)
+                         .OrderByDescending(i => i.CreatedAt)
+                         .Select(i => new ImageForAdminDto
+                         {
+                              Id = i.Id,
+                              Url = i.Url,
+                              Type = i.Type,
+                              LastUpdated = i.CreatedAt
+                         })
+                         .FirstOrDefaultAsync();
+
+                    var ratingAvg = await GetRatingAverage(c.Course.Id) ?? 0;
+                    var ratingCount = await GetRatingNumber(c.Course.Id) ?? 0;
+                    var totalVideoTime = await CalculateTotalVideoTimeByCourseId(c.Course.Id) ?? 0;
+                    var quizCount = await NumberOfQuizInChapterByCourseId(c.Course.Id) ?? 0;
+
+                    var mostPurchased = new NewReleaseCourseForHomepageDto
+                    {
+                         Id = c.Course.Id,
+                         Name = c.Course.Name,
+                         Image = new List<ImageForAdminDto> { image },
+                         Level = c.Course.Level,
+                         Price = c.Course.Price,
+                         RatingAvg = ratingAvg,
+                         RatingCount = ratingCount,
+                         TimeLearning = totalVideoTime + quizCount * 30,
+                    };
+
+                    mostPurchasedCoursesDto.Add(mostPurchased);
+               }
+
+               return mostPurchasedCoursesDto;
           }
 
           public async Task<List<MonthlyAnalyticsDto>> GetMonthlyExpenseAndRevenue()
@@ -661,12 +698,181 @@ namespace BE.Repository.Implementations
             return courses;
         }
 
-        public async Task<int> CountLectureCourse(string courseId)
+          public async Task<int> CountLectureCourse(string courseId)
+          {
+               var lectureCount = await _context.Lectures
+                                   .Where(l => l.Chapter.CourseId == courseId)
+                                   .CountAsync();
+               return lectureCount;
+          }
+
+          public async Task<List<NewReleaseCourseForHomepageDto>> NewReleaseCourses()
+          {
+               var newReleaseCourses = await _context.Courses
+                    .OrderByDescending(c => c.CreateAt)
+                    .Take(8)
+                    .ToListAsync();
+
+               var newReleaseCoursesDto = new List<NewReleaseCourseForHomepageDto>();
+
+               foreach(var c in newReleaseCourses)
+               {
+                    var image = await _context.Images
+                         .Where(i => i.CourseId == c.Id)
+                         .OrderByDescending(i => i.CreatedAt)
+                         .Select(i => new ImageForAdminDto
+                         {
+                              Id = i.Id,
+                              Url = i.Url,
+                              Type = i.Type,
+                              LastUpdated = i.CreatedAt
+                         })
+                         .FirstOrDefaultAsync();
+
+                    var ratingAvg = await GetRatingAverage(c.Id) ?? 0;
+                    var ratingCount = await GetRatingNumber(c.Id) ?? 0;
+                    var totalVideoTime = await CalculateTotalVideoTimeByCourseId(c.Id) ?? 0;
+                    var quizCount = await NumberOfQuizInChapterByCourseId(c.Id) ?? 0;
+
+                    var newRelease = new NewReleaseCourseForHomepageDto
+                    {
+                         Id = c.Id,
+                         Name = c.Name,
+                         Image = new List<ImageForAdminDto> { image },
+                         Level = c.Level,
+                         Price = c.Price,
+                         RatingAvg = ratingAvg,
+                         RatingCount = ratingCount,
+                         TimeLearning = totalVideoTime + quizCount * 30,
+                    };
+
+                    newReleaseCoursesDto.Add(newRelease);
+               }
+
+               return newReleaseCoursesDto;
+          }
+
+          private async Task<float?> GetRatingAverage(string courseId)
+          {
+               using (var context = new CourseOnlContext())
+               {
+                    var ratingAvg = await (from c in context.Courses
+                                             join ec in context.EnrollCourses on c.Id equals ec.CourseId
+                                             join comment in context.Comments on c.Id equals comment.CourseId
+                                             where c.Id == courseId
+                                             select comment.Rating)
+                                        .AverageAsync();
+
+                    return (float?)ratingAvg;
+               }
+          }
+
+          private async Task<int?> GetRatingNumber(string courseId)
+          {
+               using (var context = new CourseOnlContext())
+               {
+                    var ratingNum = await (from c in context.Courses
+                                             join comment in context.Comments on c.Id equals comment.CourseId
+                                             where c.Id == courseId
+                                             select comment)
+                                        .CountAsync();
+
+                    return ratingNum;
+               }
+          }
+
+          private async Task<int?> NumberOfQuizInChapterByCourseId(string courseId)
+          {
+               using (var context = new CourseOnlContext())
+               {
+                    var quizCountByChapter = await (from chap in context.Chapters
+                                                       join c in context.Courses on chap.CourseId equals c.Id
+                                                       join q in context.Quizzes on chap.Id equals q.ChapterId into quizGroup
+                                                       where c.Id == courseId
+                                                       select new
+                                                       {
+                                                       ChapterId = chap.Id,
+                                                       QuizCount = quizGroup.Count()
+                                                       })
+                                                  .ToListAsync();
+
+                    return quizCountByChapter.Sum(x => x.QuizCount);
+               }
+          }
+
+          private async Task<int?> CalculateTotalVideoTimeByCourseId(string courseId)
+          {
+               using (var context = new CourseOnlContext())
+               {
+                    var totalVideoTimeMinutes = await (from chap in context.Chapters
+                                                       join c in context.Courses on chap.CourseId equals c.Id
+                                                       join l in context.Lectures on chap.Id equals l.ChapterId
+                                                       where c.Id == courseId
+                                                       select l.TimeVideo)
+                                                  .ToListAsync();
+
+                    int sumTotalMinutes = totalVideoTimeMinutes.Sum(timeOnly => ToMinutes(timeOnly));
+
+                    return sumTotalMinutes;
+               }
+          }
+
+          private int ToMinutes(TimeSpan? timeOnly)
+          {
+               if (timeOnly.HasValue)
+               {
+                    return timeOnly.Value.Hours * 60 + timeOnly.Value.Minutes;
+               }
+               else
+               {
+                    return 0;
+               }
+          }
+
+        public async Task<List<NewReleaseCourseForHomepageDto>> NewReleaseCoursesByNam(int size)
         {
-            var lectureCount = await _context.Lectures
-                                .Where(l => l.Chapter.CourseId == courseId)
-                                .CountAsync();
-            return lectureCount;
-        }
+            var newReleaseCourses = await _context.Courses
+                    .OrderByDescending(c => c.CreateAt)
+                    .Take(size)
+                    .ToListAsync();
+
+               var newReleaseCoursesDto = new List<NewReleaseCourseForHomepageDto>();
+
+               foreach(var c in newReleaseCourses)
+               {
+                    var image = await _context.Images
+                         .Where(i => i.CourseId == c.Id)
+                         .OrderByDescending(i => i.CreatedAt)
+                         .Select(i => new ImageForAdminDto
+                         {
+                              Id = i.Id,
+                              Url = i.Url,
+                              Type = i.Type,
+                              LastUpdated = i.CreatedAt
+                         })
+                         .FirstOrDefaultAsync();
+
+                    var ratingAvg = await GetRatingAverage(c.Id) ?? 0;
+                    var ratingCount = await GetRatingNumber(c.Id) ?? 0;
+                    var totalVideoTime = await CalculateTotalVideoTimeByCourseId(c.Id) ?? 0;
+                    var quizCount = await NumberOfQuizInChapterByCourseId(c.Id) ?? 0;
+
+                    var newRelease = new NewReleaseCourseForHomepageDto
+                    {
+                         Id = c.Id,
+                         Name = c.Name,
+                         Image = new List<ImageForAdminDto> { image },
+                         Level = c.Level,
+                         Price = c.Price,
+                         RatingAvg = ratingAvg,
+                         RatingCount = ratingCount,
+                         TimeLearning = totalVideoTime + quizCount * 30,
+                    };
+
+                    newReleaseCoursesDto.Add(newRelease);
+               }
+
+               return newReleaseCoursesDto;
+          }
     }
 }

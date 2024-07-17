@@ -18,6 +18,7 @@ namespace BE.Dto.Course
           public float? Rating { get; set; }
           public float? Price { get; set; }
           public string? Description {get; set;}
+          public int? Status {get; set;}
         public bool? IsVisible {get; set;}
         public int? Processings {get; set;}
         public int? EstimatedLearningTime {get; set;}

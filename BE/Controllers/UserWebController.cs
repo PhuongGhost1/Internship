@@ -1,6 +1,7 @@
 using BE.Attributes;
 using BE.Dto.User;
 using BE.Dto.User.AdminManagement;
+using BE.Dto.User.Instructor;
 using BE.Dto.UserLogin;
 using BE.Models;
 using BE.Services.Interfaces;
@@ -174,6 +175,18 @@ namespace BE.Controllers
         {
             Console.WriteLine(id);
             return null;
+        }
+
+        [HttpGet, Route("get-instructor-profile")]
+        public async Task<InstructorProfileDto> GetInstructorProfileByInsIdAsync([FromQuery] string insId)
+        {
+            return await _userService.GetInstructorProfileByInsIdAsync(insId);
+        }
+
+        [HttpGet, Route("get-instructor-profile-on-waiting-courses")]
+        public async Task<InstructorProfileDto> GetInstructorProfileForWaitingCoursesByInsIdAsync([FromQuery] string insId)
+        {
+            return await _userService.GetInstructorProfileWithWaitingCourseByInsId(insId);
         }
     }
 }

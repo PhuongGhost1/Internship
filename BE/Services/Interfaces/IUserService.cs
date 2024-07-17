@@ -1,5 +1,7 @@
+using BE.Dto.Course;
 using BE.Dto.User;
 using BE.Dto.User.AdminManagement;
+using BE.Dto.User.Instructor;
 using BE.Dto.UserLogin;
 using BE.Models;
 
@@ -28,5 +30,7 @@ namespace BE.Services.Interfaces
             Task<User> GetUserByToken(string token);
         Task<bool> UpdateUserProfile(UserProfileDto user);
         Task<User> GetUSerById(string id);
+        Task<InstructorProfileDto> GetInstructorProfileByInsIdAsync(string insId);
+        Task<InstructorProfileDto> GetInstructorProfileWithWaitingCourseByInsId(string insId);
     }
 }
