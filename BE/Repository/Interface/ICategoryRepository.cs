@@ -11,7 +11,7 @@ namespace BE.Repository.Interface
         Task<List<Category>> GetCategories();
         Task<List<Category>> GetCategoriesByCourseId(string courseId);
         Task<Category?> FindCategoryByName(string cateName);
-
+        Task<bool> UpdateStatusOfCategory(string cateId);
 
         //---------------------CRUD--------------------------//
         Task<Category?> GetCategoryById(string cateId);

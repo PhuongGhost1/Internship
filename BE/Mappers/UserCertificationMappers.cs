@@ -6,17 +6,21 @@ namespace BE.Mappers
 {
     public static class UserCertificationMappers
     {
-        public static UserCertification ToCreateUserCertification(this CreateUserCertificationDto createUserCertificationDto){
-            return new UserCertification{
-                Id = GenerateIdModel("savecourse"),
+        public static UserCertification ToCreateUserCertification(this CreateUserCertificationDto createUserCertificationDto)
+        {
+            return new UserCertification
+            {
+                Id = GenerateIdModel("usercertification"),
                 CertificationId = createUserCertificationDto.CertificationId,
                 UserId = createUserCertificationDto.UserId,
                 DatePass = GetTimeNow()
             };
         }
 
-        public static UserCertification ToUpdateUserCertification(this UpdateUserCertificationDto updateUserCertificationDto){
-            return new UserCertification{
+        public static UserCertification ToUpdateUserCertification(this UpdateUserCertificationDto updateUserCertificationDto)
+        {
+            return new UserCertification
+            {
                 CertificationId = updateUserCertificationDto.CertificationId,
                 UserId = updateUserCertificationDto.UserId,
                 DatePass = GetTimeNow()

@@ -1,10 +1,13 @@
 using BE.Models;
+using BE.Dto;
+using BE.Dto.Course;
 
 namespace BE.Repository.Interface
 {
     public interface IEnrollCourseRepository
     {
-        
+        Task<List<CourseProcessingDto>> GetEnrollCourseByUserId(string userID);
+
 
         //---------------------CRUD--------------------------//
         Task<EnrollCourse?> GetEnrollCourseById(string enrollCourseUserId);

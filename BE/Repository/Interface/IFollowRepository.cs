@@ -1,10 +1,12 @@
+using BE.Dto.Follow;
 using BE.Models;
 
 namespace BE.Repository.Interface
 {
     public interface IFollowRepository
     {
-        
+        Task<List<FollowingDto>> GetFollowing(string followUserId);
+
 
         //---------------------CRUD--------------------------//
         Task<Follow?> GetFollowById(string followUserId);

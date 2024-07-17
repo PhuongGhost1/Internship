@@ -1,34 +1,38 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\FPT\\OJT\\group1\\BE\\",
+  "WorkspaceRootPath": "D:\\OJT\\BE\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|d:\\fpt\\ojt\\group1\\be\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|d:\\ojt\\be\\services\\implementations\\cartservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|solutionrelative:services\\implementations\\cartservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|d:\\ojt\\be\\repository\\implementations\\cartrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|solutionrelative:repository\\implementations\\cartrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|d:\\ojt\\be\\mappers\\answermappers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|solutionrelative:mappers\\answermappers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|d:\\ojt\\be\\.gitattributes||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|solutionrelative:.gitattributes||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|d:\\ojt\\be\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|solutionrelative:.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|d:\\ojt\\be\\.gitkeep||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|solutionrelative:.gitkeep||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|d:\\ojt\\be\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|d:\\fpt\\ojt\\group1\\be\\controllers\\categorywebcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|solutionrelative:controllers\\categorywebcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|d:\\fpt\\ojt\\group1\\be\\controllers\\userwebcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|solutionrelative:controllers\\userwebcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|d:\\fpt\\ojt\\group1\\be\\controllers\\emailwebcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|solutionrelative:controllers\\emailwebcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|d:\\fpt\\ojt\\group1\\be\\controllers\\coursewebcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|solutionrelative:controllers\\coursewebcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|d:\\fpt\\ojt\\group1\\be\\controllers\\chapterwebcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|solutionrelative:controllers\\chapterwebcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|d:\\fpt\\ojt\\group1\\be\\repository\\interface\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|solutionrelative:repository\\interface\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|d:\\ojt\\be\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{F1A219CD-206C-49DA-A17F-7A73333BB70D}|BE.csproj|solutionrelative:appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,92 +42,114 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 2,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ChapterWebController.cs",
-              "DocumentMoniker": "D:\\FPT\\OJT\\group1\\BE\\Controllers\\ChapterWebController.cs",
-              "RelativeDocumentMoniker": "Controllers\\ChapterWebController.cs",
-              "ToolTip": "D:\\FPT\\OJT\\group1\\BE\\Controllers\\ChapterWebController.cs",
-              "RelativeToolTip": "Controllers\\ChapterWebController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-24T19:17:54.998Z"
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "CourseWebController.cs",
-              "DocumentMoniker": "D:\\FPT\\OJT\\group1\\BE\\Controllers\\CourseWebController.cs",
-              "RelativeDocumentMoniker": "Controllers\\CourseWebController.cs",
-              "ToolTip": "D:\\FPT\\OJT\\group1\\BE\\Controllers\\CourseWebController.cs",
-              "RelativeToolTip": "Controllers\\CourseWebController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAABBwCAAAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-24T19:17:52.201Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "EmailWebController.cs",
-              "DocumentMoniker": "D:\\FPT\\OJT\\group1\\BE\\Controllers\\EmailWebController.cs",
-              "RelativeDocumentMoniker": "Controllers\\EmailWebController.cs",
-              "ToolTip": "D:\\FPT\\OJT\\group1\\BE\\Controllers\\EmailWebController.cs",
-              "RelativeToolTip": "Controllers\\EmailWebController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB0AAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-24T19:17:48.913Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "UserWebController.cs",
-              "DocumentMoniker": "D:\\FPT\\OJT\\group1\\BE\\Controllers\\UserWebController.cs",
-              "RelativeDocumentMoniker": "Controllers\\UserWebController.cs",
-              "ToolTip": "D:\\FPT\\OJT\\group1\\BE\\Controllers\\UserWebController.cs",
-              "RelativeToolTip": "Controllers\\UserWebController.cs",
-              "ViewState": "AQIAADUAAAAAAAAAAIBJwEUAAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-24T19:17:47.483Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "CategoryWebController.cs",
-              "DocumentMoniker": "D:\\FPT\\OJT\\group1\\BE\\Controllers\\CategoryWebController.cs",
-              "RelativeDocumentMoniker": "Controllers\\CategoryWebController.cs",
-              "ToolTip": "D:\\FPT\\OJT\\group1\\BE\\Controllers\\CategoryWebController.cs",
-              "RelativeToolTip": "Controllers\\CategoryWebController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-24T19:16:33.169Z"
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\FPT\\OJT\\group1\\BE\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "D:\\FPT\\OJT\\group1\\BE\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AQIAABIAAAAAAAAAAAAAAIkAAAADAAAA",
+              "Title": "CartService.cs",
+              "DocumentMoniker": "D:\\OJT\\BE\\Services\\Implementations\\CartService.cs",
+              "RelativeDocumentMoniker": "Services\\Implementations\\CartService.cs",
+              "ToolTip": "D:\\OJT\\BE\\Services\\Implementations\\CartService.cs",
+              "RelativeToolTip": "Services\\Implementations\\CartService.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAwAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-24T19:12:34.819Z",
+              "WhenOpened": "2024-07-10T15:27:54.352Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "IUserRepository.cs",
-              "DocumentMoniker": "D:\\FPT\\OJT\\group1\\BE\\Repository\\Interface\\IUserRepository.cs",
-              "RelativeDocumentMoniker": "Repository\\Interface\\IUserRepository.cs",
-              "ToolTip": "D:\\FPT\\OJT\\group1\\BE\\Repository\\Interface\\IUserRepository.cs",
-              "RelativeToolTip": "Repository\\Interface\\IUserRepository.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAANAAAA",
+              "DocumentIndex": 1,
+              "Title": "CartRepository.cs",
+              "DocumentMoniker": "D:\\OJT\\BE\\Repository\\Implementations\\CartRepository.cs",
+              "RelativeDocumentMoniker": "Repository\\Implementations\\CartRepository.cs",
+              "ToolTip": "D:\\OJT\\BE\\Repository\\Implementations\\CartRepository.cs*",
+              "RelativeToolTip": "Repository\\Implementations\\CartRepository.cs*",
+              "ViewState": "AQIAAAcAAAAAAAAAAAAuwAcAAAAEAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-10T21:37:16.028Z"
+              "WhenOpened": "2024-07-10T15:27:48.386Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AnswerMappers.cs",
+              "DocumentMoniker": "D:\\OJT\\BE\\Mappers\\AnswerMappers.cs",
+              "RelativeDocumentMoniker": "Mappers\\AnswerMappers.cs",
+              "ToolTip": "D:\\OJT\\BE\\Mappers\\AnswerMappers.cs",
+              "RelativeToolTip": "Mappers\\AnswerMappers.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-10T11:27:12.024Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": ".gitattributes",
+              "DocumentMoniker": "D:\\OJT\\BE\\.gitattributes",
+              "RelativeDocumentMoniker": ".gitattributes",
+              "ToolTip": "D:\\OJT\\BE\\.gitattributes",
+              "RelativeToolTip": ".gitattributes",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-07-10T11:25:14.371Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": ".gitignore",
+              "DocumentMoniker": "D:\\OJT\\BE\\.gitignore",
+              "RelativeDocumentMoniker": ".gitignore",
+              "ToolTip": "D:\\OJT\\BE\\.gitignore",
+              "RelativeToolTip": ".gitignore",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-07-10T11:25:13.243Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": ".gitkeep",
+              "DocumentMoniker": "D:\\OJT\\BE\\.gitkeep",
+              "RelativeDocumentMoniker": ".gitkeep",
+              "ToolTip": "D:\\OJT\\BE\\.gitkeep",
+              "RelativeToolTip": ".gitkeep",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-07-10T11:25:11.908Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\OJT\\BE\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "D:\\OJT\\BE\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AQIAAGIAAAAAAAAAAAAYwMsAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-10T10:55:28.076Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "D:\\OJT\\BE\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "appsettings.Development.json",
+              "ToolTip": "D:\\OJT\\BE\\appsettings.Development.json",
+              "RelativeToolTip": "appsettings.Development.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-07-10T10:55:25.11Z"
             }
           ]
         }

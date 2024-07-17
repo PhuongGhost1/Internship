@@ -29,7 +29,6 @@
 }
 
 #AdminRequests li .actions {
-  display: flex;
   gap: 10px;
 }
 
@@ -283,4 +282,10 @@
 
 #AdminRequests .popup-payment .payment-history .payment-item span {
   color: var(--light-orange);
+}
+
+
+#AdminRequests .action-request .button-view-request {
+  font-size: 18px;
+  cursor: pointer;
 }

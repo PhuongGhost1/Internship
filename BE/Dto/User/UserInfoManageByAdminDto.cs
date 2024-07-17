@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BE.Dto.Comment;
 using BE.Dto.Course;
 using BE.Dto.ImageD;
 using BE.Dto.Notification;
@@ -25,5 +26,6 @@ namespace BE.Dto.User
         public List<NotificationDto> Notifications { get; set; } = new List<NotificationDto>();
         public List<CourseForAdminDto> Courses { get; set; } = new List<CourseForAdminDto>();
         public List<PaymentDto> Payments { get; set; } = new List<PaymentDto>();
+        public List<CommentDto> Comments { get; set; } = new List<CommentDto>();
     }
 }

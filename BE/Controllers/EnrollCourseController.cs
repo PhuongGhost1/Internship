@@ -3,17 +3,27 @@ using BE.Dto.EnrollCourse;
 using BE.Models;
 using BE.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using BE.Dto;
+using BE.Dto.Course;
 
 namespace BE.Controllers
 {
     [ApiController]
-    [Route("api/v1/web/role-user")]
+    [Route("api/v1/web/enroll-course")]
     public class EnrollCourseWebController
     {
         private readonly IEnrollCourseService _enrollCourseService;
         public EnrollCourseWebController(IEnrollCourseService enrollCourseService)
         {
             _enrollCourseService = enrollCourseService;
+        }
+
+        [HttpPost]
+        [Route("view-processing")]
+
+        public async Task<List<CourseProcessingDto>> ViewCourseProcessing([FromForm] String userId)
+        {
+            return await _enrollCourseService.ViewCourseProcessing(userId);
         }
 
 

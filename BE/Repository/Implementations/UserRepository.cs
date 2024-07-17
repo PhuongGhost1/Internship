@@ -8,6 +8,7 @@ using BE.Dto.Role;
 using BE.Dto.RoleUser;
 using BE.Dto.User;
 using BE.Dto.User.AdminManagement;
+using BE.Dto.User.Instructor;
 using BE.Models;
 using BE.Repository.Interface;
 using Microsoft.AspNetCore.Identity;
@@ -517,16 +518,14 @@ namespace BE.Repository.Implementations
             return reports;
         }
 
-        public async Task<bool> UpdateUserCommentReportStatus(string userId, string reportId, string commentId, string courseId)
+        public async Task<bool> UpdateUserCommentReportStatus(string? userId, string reportId, string? commentId, string? courseId)
         {
             using var transaction = await _context.Database.BeginTransactionAsync();
 
             try
             {
-                var user = string.IsNullOrEmpty(userId) ? null : await _context.Users.FindAsync(userId);
                 var report = await _context.Reports.FindAsync(reportId);
                 var course = await _context.Courses.FindAsync(courseId);
-                var comment = string.IsNullOrEmpty(commentId) ? null : await _context.Comments.FindAsync(commentId);
 
                 if (report == null || course == null)
                 {
@@ -534,33 +533,31 @@ namespace BE.Repository.Implementations
                     return false;
                 }
 
-                var reportedUser = await _context.Users.FindAsync(userId);
-                if (reportedUser == null)
+                if (!string.IsNullOrEmpty(userId))
                 {
-                    transaction.Rollback();
-                    return false;
+                    var user = await _context.Users.FindAsync(userId);
+                    if (user != null)
+                    {
+                        user.IsVisible = !user.IsVisible;
+                        _context.Users.Update(user);
+                    }
                 }
 
-                if (user != null)
+                if (!string.IsNullOrEmpty(commentId))
                 {
-                    reportedUser.IsVisible = !user.IsVisible;
-                    _context.Users.Update(reportedUser);
+                    var comment = await _context.Comments.FindAsync(commentId);
+                    if (comment != null)
+                    {
+                        comment.IsVisible = !comment.IsVisible;
+                        _context.Comments.Update(comment);
+                    }
                 }
 
-                report.Status = 1;
+                report.Status = 1; 
                 _context.Reports.Update(report);
 
-                if (user == null || comment == null)
-                {
-                    course.IsVisible = !course.IsVisible;
-                    _context.Courses.Update(course);
-                }
-
-                if (comment != null)
-                {
-                    comment.IsVisible = !comment.IsVisible;
-                    _context.Comments.Update(comment);
-                }
+                course.IsVisible = !course.IsVisible;
+                _context.Courses.Update(course);
 
                 await _context.SaveChangesAsync();
                 transaction.Commit();
@@ -579,6 +576,23 @@ namespace BE.Repository.Implementations
                 transaction.Rollback();
                 return false;
             }
+        }
+
+
+        public async Task<List<User>> GetAllInstructor()
+        {
+            var listUserId = await _context.RoleUsers
+            .Where(r => r.RoleId == "role_f62abbfa5b" && r.Status == 1)
+            .Select(r => r.UserId)
+            .Distinct()
+            .ToListAsync();
+
+            var users = await _context.Users
+            .Where(u => listUserId.Contains(u.Id))
+            .ToListAsync();
+
+
+            return users;
         }
         public async Task<bool> UpdateUserProfile(UserProfileDto user)
         {
@@ -631,6 +645,151 @@ namespace BE.Repository.Implementations
                 Console.WriteLine($"Error update user profile: {e.Message}");
                 return false;
             }
+        }
+
+        public async Task<InstructorProfileDto> GetInstructorProfileByInsId(string insId)
+        {
+            var instructorProfile = await _context.Users
+                                                    .Where(u => u.Id == insId)
+                                                    .Select(u => new InstructorProfileDto{
+                                                        Id = u.Id,
+                                                        Email = u.Email,
+                                                        Name = u.Username,
+                                                        IsVisible = u.IsVisible,
+                                                        Images = u.Images
+                                                                        .OrderByDescending(i => i.CreatedAt)
+                                                                        .Select(i => new ImageForAdminDto
+                                                                        {
+                                                                            Id = i.Id,
+                                                                            Url = i.Url,
+                                                                            Type = i.Type,
+                                                                            LastUpdated = i.CreatedAt
+                                                                        }).Take(1).ToList(),
+                                                        Phone = u.Phone,
+                                                        CreateAt = u.CreateAt,
+                                                        Description = u.Description,
+                                                        RoleUsers = u.RoleUsers
+                                                                        .Where(ru => ru.Role.Name == "Instructor")
+                                                                        .Select(ru => new RoleUserDto
+                                                        {
+                                                            Roles = new List<RoleDto>
+                                                            {
+                                                                new RoleDto { Name = ru.Role.Name }
+                                                            }
+                                                        }).ToList(),
+                                                        Courses = u.Courses
+                                                                        .Where(c => c.Status == 0)
+                                                                        .Select(c => new CourseForAdminDto
+                                                        {
+                                                            Id = c.Id,
+                                                            Name = c.Name,
+                                                            Rating = c.Rating,
+                                                            Price = c.Price,
+                                                            Images = c.Images
+                                                                        .OrderByDescending(i => i.CreatedAt)
+                                                                        .Select(i => new ImageForAdminDto
+                                                                        {
+                                                                            Id = i.Id,
+                                                                            Url = i.Url,
+                                                                            Type = i.Type,
+                                                                            LastUpdated = i.CreatedAt
+                                                                        })
+                                                                        .Take(1)
+                                                                        .ToList(),
+                                                            User = c.User != null ? new UserInfoManageByAdminDto{
+                                                                    Id = c.User.Id,
+                                                                    Email = c.User.Email,
+                                                                    Name = c.User.Username,
+                                                                    IsVisible = c.User.IsVisible,
+                                                                    Images = c.User.Images
+                                                                                    .OrderByDescending(i => i.CreatedAt)
+                                                                                    .Select(i => new ImageForAdminDto
+                                                                                    {
+                                                                                        Id = i.Id,
+                                                                                        Url = i.Url,
+                                                                                        Type = i.Type,
+                                                                                        LastUpdated = i.CreatedAt
+                                                                                    }).Take(1).ToList(),
+                                                                    Phone = c.User.Phone,
+                                                                    CreateAt = c.User.CreateAt,
+                                                                    Description = c.User.Description
+                                                            } : null
+                                                        }).ToList(),
+                                                    }).FirstOrDefaultAsync();
+            return instructorProfile;
+        }
+
+        public async Task<InstructorProfileDto> GetInstructorProfileWithWaitingCourseByInsId(string insId)
+        {
+            var instructorProfile = await _context.Users
+                                                    .Where(u => u.Id == insId)
+                                                    .Select(u => new InstructorProfileDto{
+                                                        Id = u.Id,
+                                                        Email = u.Email,
+                                                        Name = u.Username,
+                                                        IsVisible = u.IsVisible,
+                                                        Images = u.Images
+                                                                        .OrderByDescending(i => i.CreatedAt)
+                                                                        .Select(i => new ImageForAdminDto
+                                                                        {
+                                                                            Id = i.Id,
+                                                                            Url = i.Url,
+                                                                            Type = i.Type,
+                                                                            LastUpdated = i.CreatedAt
+                                                                        }).Take(1).ToList(),
+                                                        Phone = u.Phone,
+                                                        CreateAt = u.CreateAt,
+                                                        Description = u.Description,
+                                                        RoleUsers = u.RoleUsers
+                                                                    .Where(ru => ru.Role.Name == "Instructor")
+                                                                    .Select(ru => new RoleUserDto
+                                                        {
+                                                            Roles = new List<RoleDto>
+                                                            {
+                                                                new RoleDto { Name = ru.Role.Name }
+                                                            }
+                                                        }).ToList(),
+                                                        Courses = u.Courses
+                                                                    .Where(c => c.Status == 2)
+                                                                    .Select(c => new CourseForAdminDto
+                                                        {
+                                                            Id = c.Id,
+                                                            Name = c.Name,
+                                                            Rating = c.Rating,
+                                                            Price = c.Price,
+                                                            Status = c.Status,
+                                                            Images = c.Images
+                                                                        .OrderByDescending(i => i.CreatedAt)
+                                                                        .Select(i => new ImageForAdminDto
+                                                                        {
+                                                                            Id = i.Id,
+                                                                            Url = i.Url,
+                                                                            Type = i.Type,
+                                                                            LastUpdated = i.CreatedAt
+                                                                        })
+                                                                        .Take(1)
+                                                                        .ToList(),
+                                                            User = c.User != null ? new UserInfoManageByAdminDto{
+                                                                    Id = c.User.Id,
+                                                                    Email = c.User.Email,
+                                                                    Name = c.User.Username,
+                                                                    IsVisible = c.User.IsVisible,
+                                                                    Images = c.User.Images
+                                                                                    .OrderByDescending(i => i.CreatedAt)
+                                                                                    .Select(i => new ImageForAdminDto
+                                                                                    {
+                                                                                        Id = i.Id,
+                                                                                        Url = i.Url,
+                                                                                        Type = i.Type,
+                                                                                        LastUpdated = i.CreatedAt
+                                                                                    }).Take(1).ToList(),
+                                                                    Phone = c.User.Phone,
+                                                                    CreateAt = c.User.CreateAt,
+                                                                    Description = c.User.Description
+                                                            } : null
+                                                        }).ToList(),
+                                                    }).FirstOrDefaultAsync();
+            return instructorProfile;
         }
     }
 }

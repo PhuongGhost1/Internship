@@ -1,0 +1,49 @@
+﻿using BE.Models;
+using BE.Repository.Interface;
+using Google;
+using Microsoft.EntityFrameworkCore;
+
+namespace BE.Repository.Implementations
+{
+    public class CartRepository : ICartRepository
+    {
+        private readonly CourseOnlContext _context;
+
+        public CartRepository(CourseOnlContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<Cart> GetCartByIdAsync(string cartId)
+        {
+            return await _context.Carts.Include(c => c.CartCourses).FirstOrDefaultAsync(c => c.Id == cartId);
+        }
+
+        public async Task AddToCartAsync(CartCourse cartCourse)
+        {
+            await _context.CartCourses.AddAsync(cartCourse);
+        }
+
+        public async Task RemoveFromCartAsync(string cartId, string courseId)
+        {
+            var cartCourse = await _context.CartCourses
+                .FirstOrDefaultAsync(cc => cc.CartId == cartId && cc.CourseId == courseId);
+
+            if (cartCourse != null)
+            {
+                _context.CartCourses.Remove(cartCourse);
+            }
+        }
+
+        public async Task<Cart> GetCartByUserIdAsync(string userId)
+        {
+            return await _context.Carts.Include(c => c.CartCourses)
+                .FirstOrDefaultAsync(c => c.UserId == userId);
+        }
+
+        public async Task SaveAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
+    }
+}
