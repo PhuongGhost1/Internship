@@ -46,15 +46,14 @@
 
 #ManageInstructor .management-instructor-pagination {
   display: flex;
-  justify-content: center;
-  margin-top: 20px;
+  justify-content: flex-start;
 }
 
 #ManageInstructor .ManageInstructor-top .search-bar {
   display: flex;
   position: relative;
   justify-content: flex-end;
-  margin: 10px 0;
+  margin: 20px 0;
 }
 
 #ManageInstructor .search-bar input {
@@ -62,7 +61,8 @@
   border: 1px solid #ccc;
   border-radius: 20px;
   font-size: 12px;
-  padding-left: 10px;
+  padding: 10px 0 10px 10px;
+  height: fit-content;
 }
 
 #ManageInstructor .search-bar svg {
@@ -74,7 +74,7 @@
 }
 
 #ManageInstructor .instructor-list {
-  margin-bottom: 20px;
+  margin: 10px 0;
 }
 
 #ManageInstructor .status-false {
@@ -257,12 +257,7 @@
   cursor: pointer;
 }
 
-#ManageInstructor
-  .popup
-  .popup-container
-  .details
-  .nav-bar
-  .tag.active::before {
+#ManageInstructor .popup .popup-container .details .nav-bar .tag.active::before {
   position: absolute;
   width: 100%;
   height: 5px;

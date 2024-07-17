@@ -555,17 +555,8 @@ namespace BE.Repository.Implementations
                 report.Status = 1;
                 _context.Reports.Update(report);
 
-                if (user == null || comment == null)
-                {
-                    course.IsVisible = !course.IsVisible;
-                    _context.Courses.Update(course);
-                }
-
-                if (comment != null)
-                {
-                    comment.IsVisible = !comment.IsVisible;
-                    _context.Comments.Update(comment);
-                }
+                course.IsVisible = !course.IsVisible;
+                _context.Courses.Update(course);
 
                 await _context.SaveChangesAsync();
                 transaction.Commit();

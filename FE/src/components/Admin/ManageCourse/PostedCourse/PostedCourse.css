@@ -150,6 +150,7 @@
 
 #management-course .popup.open {
   width: 600px;
+  z-index: 4;
 }
 
 #management-course .blur-popup {
@@ -277,12 +278,7 @@
   cursor: pointer;
 }
 
-#management-course
-  .popup
-  .popup-container
-  .details
-  .nav-bar
-  .tag.active::before {
+#management-course .popup .popup-container .details .nav-bar .tag.active::before {
   position: absolute;
   width: 100%;
   height: 5px;
