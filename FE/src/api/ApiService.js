@@ -550,6 +550,17 @@ const ApiService = {
       throw error;
     }
   },
+  getTopRatedCourses: async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:5144/api/v1/web/course/top-rated-courses"
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching get top rated courses:", error);
+      throw error;
+    }
+  },
 };
 
 export default ApiService;

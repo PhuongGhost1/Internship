@@ -874,5 +874,51 @@ namespace BE.Repository.Implementations
 
                return newReleaseCoursesDto;
           }
+
+          public async Task<List<NewReleaseCourseForHomepageDto>> GetTopRatedCourses()
+          {
+               var topRatedCourses = await _context.Courses
+                    .OrderByDescending(c => c.Rating)
+                    .Take(6)
+                    .ToListAsync();
+
+               var topRatedCoursesDto = new List<NewReleaseCourseForHomepageDto>();
+
+               foreach (var c in topRatedCourses)
+               {
+                    var image = await _context.Images
+                         .Where(i => i.CourseId == c.Id)
+                         .OrderByDescending(i => i.CreatedAt)
+                         .Select(i => new ImageForAdminDto
+                         {
+                              Id = i.Id,
+                              Url = i.Url,
+                              Type = i.Type,
+                              LastUpdated = i.CreatedAt
+                         })
+                         .FirstOrDefaultAsync();
+
+                    var ratingAvg = c.Rating ?? 0;
+                    var ratingCount = await GetRatingNumber(c.Id) ?? 0;
+                    var totalVideoTime = await CalculateTotalVideoTimeByCourseId(c.Id) ?? 0;
+                    var quizCount = await NumberOfQuizInChapterByCourseId(c.Id) ?? 0;
+
+                    var topRated = new NewReleaseCourseForHomepageDto
+                    {
+                         Id = c.Id,
+                         Name = c.Name,
+                         Image = new List<ImageForAdminDto> { image },
+                         Level = c.Level,
+                         Price = c.Price,
+                         RatingAvg = ratingAvg,
+                         RatingCount = ratingCount,
+                         TimeLearning = totalVideoTime + quizCount * 30,
+                    };
+
+                    topRatedCoursesDto.Add(topRated);
+               }
+
+               return topRatedCoursesDto;
+          }
     }
 }

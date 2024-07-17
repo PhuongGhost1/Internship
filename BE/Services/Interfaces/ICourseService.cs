@@ -29,6 +29,7 @@ namespace BE.Services.Interfaces
                 Task<List<CardCourseDto>> GetRandomCourse(int count);
                 Task<List<NewReleaseCourseForHomepageDto>> NewReleaseCoursesAsync();
                 Task<List<NewReleaseCourseForHomepageDto>> NewReleaseCoursesByNameAsync(int size);
+                Task<List<NewReleaseCourseForHomepageDto>> GetTopRatedCoursesAsync();
 
                 //---------------------CRUD--------------------------//
                 Task<Course?> CreateCourse(CreateCourseDto createCourseDto);

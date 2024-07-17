@@ -30,6 +30,7 @@ namespace BE.Repository.Interface
                 Task<List<Course>> GetAllCourseAvailable();
                 Task<List<NewReleaseCourseForHomepageDto>> NewReleaseCourses();
                 Task<List<NewReleaseCourseForHomepageDto>> NewReleaseCoursesByNam(int size);
+                Task<List<NewReleaseCourseForHomepageDto>> GetTopRatedCourses();
 
                 //---------------------CRUD--------------------------//
                 Task<Course?> CreateCourse(Course course);

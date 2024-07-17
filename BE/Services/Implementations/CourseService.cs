@@ -308,5 +308,14 @@ namespace BE.Services.Implementations
 
             return newReleaseCourses;
         }
+
+        public async Task<List<NewReleaseCourseForHomepageDto>> GetTopRatedCoursesAsync()
+        {
+            var topRatedCourses = await _courseRepo.GetTopRatedCourses();
+
+            if(topRatedCourses == null || topRatedCourses.Count == 0) return new List<NewReleaseCourseForHomepageDto>();
+
+            return topRatedCourses;
+        }
     }
 }

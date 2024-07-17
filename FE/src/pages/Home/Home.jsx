@@ -22,6 +22,7 @@ import ApiService from "../../api/ApiService";
 export default function Home() {
   const [newReleaseCoursesData, setNewReleaseCoursesData] = useState(null);
   const [mostPopularCourses, setMostPopularCoursesData] = useState(null);
+  const [topRatedCourses, setTopRatedCourses] = useState(null);
 
   useEffect(() => {
     const fetchNewReleaseCourses = async () => {
@@ -45,6 +46,18 @@ export default function Home() {
       }
     };
     fetchMostPopularCourses();
+  }, []);
+
+  useEffect(() => {
+    const fetchTopRatedCourses = async () => {
+      try {
+        const data = await ApiService.getTopRatedCourses();
+        setTopRatedCourses(data);
+      } catch (error) {
+        console.log("Error fetching top rated courses: ", error);
+      }
+    };
+    fetchTopRatedCourses();
   }, []);
 
   return (
@@ -97,8 +110,8 @@ export default function Home() {
           <SliderCards datas={mostPopularCourses} />
         </div>
         <div className="free courses">
-          <p className="courses-title">Top Free Courses</p>
-          <SliderCards />
+          <p className="courses-title">Top Favorite Courses</p>
+          <SliderCards datas={topRatedCourses} />
         </div>
       </div>
       <Footer />

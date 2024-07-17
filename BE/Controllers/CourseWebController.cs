@@ -222,5 +222,11 @@ namespace BE.Controllers
         {
             return await _courseService.NewReleaseCoursesByNameAsync(count);
         }
+
+        [HttpGet, Route("top-rated-courses")]
+        public async Task<List<NewReleaseCourseForHomepageDto>> GetTopRatedCoursesAsync()
+        {
+            return await _courseService.GetTopRatedCoursesAsync();
+        }
     }
 }
