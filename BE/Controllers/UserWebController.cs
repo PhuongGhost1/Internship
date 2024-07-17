@@ -168,12 +168,5 @@ namespace BE.Controllers
         {
             return await _userService.UpdateUserProfile(user);
         }
-
-        [HttpPost, Route("get-user-by-id")]
-        public async Task<User> GetUserById([FromForm] string id)
-        {
-            Console.WriteLine(id);
-            return null;
-        }
     }
 }

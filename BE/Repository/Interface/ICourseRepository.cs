@@ -43,5 +43,6 @@ namespace BE.Repository.Interface
                 Task<Cart?> GetCart(string userId);
                 Task CreateCart(string userId);
                 Task AddCourseToCart(Cart? cart, string courseId);
+                Task<List<CartCourse>> GetListCartCourse(Cart cart);
         }
 }

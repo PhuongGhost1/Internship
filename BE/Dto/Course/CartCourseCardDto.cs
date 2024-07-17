@@ -1,8 +1,10 @@
+using BE.Models;
+
 namespace BE.Dto.Course
 {
     public class CartCourseCardDto
     {
-        public List<BE.Models.Course> courses { get; set; }
-        public string? imageUrl { get; set; }
+        public CartCourse? cartCourse;
+        public string? imgUrl;
     }
 }

@@ -695,5 +695,13 @@ namespace BE.Repository.Implementations
             _context.Carts.Update(cart);
             await _context.SaveChangesAsync();
         }
+        public async Task<List<CartCourse>> GetListCartCourse(Cart cart)
+        {
+            List<CartCourse> cartCourse = await _context.CartCourses
+                                        .Where(cc => cc.Cart == cart)
+                                        .Include(cc => cc.Course)
+                                        .ToListAsync();
+            return cartCourse;
+        }
     }
 }

@@ -37,5 +37,6 @@ namespace BE.Services.Interfaces
                 Task<List<CardCourseDto>> SearchCourse(string query, int page, int items);
                 Task<bool> CreateCourse(CreateCourseDto course);
                 Task<MessageDto> AddCourseToCart(CourseUserDto courseUser);
+                Task<List<CartCourseCardDto>> GetListCartCourseByUser(string userId);
         }
 }

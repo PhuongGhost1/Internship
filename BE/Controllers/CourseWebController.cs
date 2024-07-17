@@ -208,9 +208,9 @@ namespace BE.Controllers
             return await _courseService.AddCourseToCart(courseUser);
         }
 
-        public async Task<> ViewCart([FromForm] string userId)
+        public async Task<List<CartCourseCardDto>> ViewCart([FromForm] string userId)
         {
-
+            return await _courseService.GetListCartCourseByUser(userId);
         }
     }
 }
