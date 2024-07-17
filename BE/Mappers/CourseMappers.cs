@@ -24,16 +24,12 @@ namespace BE.Mappers
         {
             return new Course
             {
-        public static Course ToUpdateCourseDto(this UpdateCourseDto updateCourseDto)
-            {
-                return new Course
-                {
-                    UpdateAt = GetTimeNow(),
-                    Name = updateCourseDto.Name,
-                    Description = updateCourseDto.Description,
-                    Price = updateCourseDto.Price,
-                    WhatLearn = updateCourseDto.WhatLearn
-                };
-            }
+                UpdateAt = GetTimeNow(),
+                Name = updateCourseDto.Name,
+                Description = updateCourseDto.Description,
+                Price = updateCourseDto.Price,
+                WhatLearn = updateCourseDto.WhatLearn
+            };
         }
     }
+}

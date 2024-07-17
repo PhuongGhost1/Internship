@@ -8,6 +8,8 @@ import Stack from "@mui/material/Stack";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 
+import { CoverMinutesToHours } from "../../../utils/Validation";
+
 const Card = ({ data }) => {
   const [newReleaseCourses, setNewReleaseCourses] = useState(null);
 
@@ -40,9 +42,7 @@ const Card = ({ data }) => {
           alt="Course"
         />
         <div className="card-content">
-          <a href={`/courses/${data.name}`} className="card-link">
-            <p className="course-name">{data.name}</p>
-          </a>
+          <p className="course-name">{data.name}</p>
           <div className="rating-container">
             <Stack spacing={1}>
               <Rating
@@ -54,7 +54,7 @@ const Card = ({ data }) => {
             </Stack>
             <span className="total-rating">&#40;{data.ratingCount}&#41;</span>
           </div>
-          <p className="course-time">{data.timeLearning} Minutes</p>
+          <p className="course-time">{CoverMinutesToHours(data.timeLearning)}</p>
         </div>
       </div>
     </div>

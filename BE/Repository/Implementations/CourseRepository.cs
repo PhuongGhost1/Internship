@@ -704,7 +704,7 @@ namespace BE.Repository.Implementations
           {
                var newReleaseCourses = await _context.Courses
                     .OrderByDescending(c => c.CreateAt)
-                    .Take(8)
+                    .Take(20)
                     .ToListAsync();
 
                var newReleaseCoursesDto = new List<NewReleaseCourseForHomepageDto>();
