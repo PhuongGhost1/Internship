@@ -15,7 +15,7 @@ namespace BE.Controllers
           {
                _followService = followService;
           }
-          
+
           [HttpPost]
           [Route("view-following")]
           public async Task<List<FollowingDto>> ViewFollowing([FromForm] string userId)

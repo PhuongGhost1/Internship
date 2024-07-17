@@ -26,6 +26,7 @@ namespace BE.Repository.Interface
                 Task<List<CourseManagementForAdminDto>> GetCourseManagementByAdmin();
                 Task<List<CourseManagementForAdminDto>> GetCourseManagementForWaitingByAdmin();
                 Task<bool> UpdateCourseByAdmin(string courseId, int status);
+                Task<List<Course>> GetCourseWithStatus(string userId, int status);
 
                 //---------------------CRUD--------------------------//
                 Task<Course?> CreateCourse(Course course);

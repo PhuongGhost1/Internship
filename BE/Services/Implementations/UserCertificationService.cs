@@ -18,12 +18,12 @@ namespace BE.Services.Implementations
 
 
         //---------------------CRUD--------------------------//
-        public async Task<UserCertification?> CreateUserCertification( CreateUserCertificationDto createUserCertificationDto)
+        public async Task<UserCertification?> CreateUserCertification(CreateUserCertificationDto createUserCertificationDto)
         {
 
             var createUserCertification = createUserCertificationDto.ToCreateUserCertification();
 
-            if(createUserCertification == null) throw new Exception("Unable to create role-user!");
+            if (createUserCertification == null) throw new Exception("Unable to create user-certification!");
 
             return await _userCertificationRepo.CreateUserCertification(createUserCertification);
         }
@@ -32,7 +32,7 @@ namespace BE.Services.Implementations
         {
             var userCertification = await _userCertificationRepo.GetUserCertificationById(userCertificationId);
 
-            if(userCertification == null) throw new Exception("Unable to find role-user!");
+            if (userCertification == null) throw new Exception("Unable to find user-certification!");
 
             return await _userCertificationRepo.DeleteUserCertification(userCertificationId);
         }
@@ -41,11 +41,11 @@ namespace BE.Services.Implementations
         {
             var userCertification = await _userCertificationRepo.GetUserCertificationById(userCertificationId);
 
-            if(userCertification == null) throw new Exception("Unable to find role-user!");
+            if (userCertification == null) throw new Exception("Unable to find user-certification!");
 
             var updateUserCertification = updateUserCertificationDto.ToUpdateUserCertification();
 
-            if(updateUserCertification == null) throw new Exception("Unable to update role-user!");
+            if (updateUserCertification == null) throw new Exception("Unable to update user-certification!");
 
             return await _userCertificationRepo.UpdateUserCertification(updateUserCertification);
         }

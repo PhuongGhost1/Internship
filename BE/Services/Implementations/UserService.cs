@@ -248,7 +248,7 @@ namespace BE.Services.Implementations
         {
             var result = await _userRepo.GetInstructors(roleName);
 
-            if(result == null || result.Count == 0) return new List<UserInfoManageByAdminDto>();
+            if (result == null || result.Count == 0) return new List<UserInfoManageByAdminDto>();
 
             return result;
         }
@@ -257,7 +257,7 @@ namespace BE.Services.Implementations
         {
             var user = await _userRepo.GetUserById(userId);
 
-            if(user == null) throw new Exception("Unable to find user!");
+            if (user == null) throw new Exception("Unable to find user!");
 
             return await _userRepo.UpdateUserStatus(userId);
         }
@@ -266,7 +266,7 @@ namespace BE.Services.Implementations
         {
             var feedback = await _userRepo.GetFeedbacksManagementByAdmin();
 
-            if(feedback == null || feedback.Count == 0) return new List<FeedbackRequestDto>();
+            if (feedback == null || feedback.Count == 0) return new List<FeedbackRequestDto>();
 
             return feedback;
         }
@@ -275,7 +275,7 @@ namespace BE.Services.Implementations
         {
             var reports = await _userRepo.GetReportManagementByAdmin();
 
-            if(reports == null || reports.Count == 0) return new List<ReportManagementByAdminDto>();
+            if (reports == null || reports.Count == 0) return new List<ReportManagementByAdminDto>();
 
             return reports;
         }

@@ -1,3 +1,6 @@
+using System.Security.Policy;
+using BE.Dto.Follow;
+using BE.Dto.User;
 using BE.Models;
 using BE.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +14,78 @@ namespace BE.Repository.Implementations
           public FollowRepository(CourseOnlContext context)
           {
                _context = context;
+          }
+          public async Task<List<FollowingDto>> GetFollowing(string followUserId)
+          {
+               var listFollow = await _context.Follows
+                   .Where(f => f.FollowerId == followUserId)
+                   .ToListAsync();
+
+               var resultList = new List<FollowingDto>();
+
+
+               foreach (var v in listFollow)
+               {
+                    var user = await _context.Users.FirstOrDefaultAsync(us => us.Id == v.FollowedId);
+
+                    var followerIds = await _context.Follows
+                        .Where(f => f.FollowedId == user.Id)
+                        .Select(f => f.FollowerId)
+                        .ToListAsync();
+
+                    var followCount = followerIds.Count();
+
+                    var followers = await _context.Users
+                        .Where(u => followerIds.Contains(u.Id))
+                        .ToListAsync();
+
+                    var listFollower = new List<BasicInfoUser>();
+
+                    foreach (var fl in followers)
+                    {
+                         List<Image> FollowImage = await _context.Images
+                         .Where(image => image.UserId == fl.Id)
+                         .ToListAsync();
+
+                         var ListUrl = FollowImage.Select(i => i.Url).ToList();
+                         var follower = new BasicInfoUser
+                         {
+                              Id = fl.Id,
+                              Name = fl.Name,
+                              ListImage = ListUrl,
+                              DOB = fl.Dob,
+                              Gender = fl.Gender,
+                              Email = fl.Email
+                         };
+                         listFollower.Add(follower);
+                    }
+
+                    var countCourses = await _context.Courses
+                        .Where(f => f.UserId == user.Id)
+                        .CountAsync();
+
+                    List<Image> images = await _context.Images
+                        .Where(image => image.UserId == user.Id)
+                        .ToListAsync();
+
+
+                    var ListUrls = images.Select(i => i.Url).ToList();
+
+                    var following = new FollowingDto
+                    {
+                         FollowId = v.Id,
+                         UserId = user.Id,
+                         Name = user.Username,
+                         ListImage = ListUrls,
+                         ListFollower = listFollower,
+                         Follower = followCount,
+                         Course = countCourses
+                    };
+                    resultList.Add(following);
+               }
+
+
+               return resultList;
           }
 
           public async Task<List<FollowingDto>> GetFollowing(string followUserId)

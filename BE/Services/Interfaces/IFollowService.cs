@@ -7,6 +7,7 @@ namespace BE.Services.Interfaces
      {
           Task<List<FollowingDto>> GetFollowing(string userId);
 
+
           //---------------------CRUD--------------------------//
           Task<List<Follow>> ViewAllFollows();
           Task<Follow?> CreateFollow(CreateFollowDto createFollowDto);

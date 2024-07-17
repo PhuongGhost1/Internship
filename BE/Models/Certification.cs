@@ -11,7 +11,7 @@ public partial class Certification
 
     public string? Name { get; set; }
 
-    public DateTime? CreateAt {get; set;}
+    public DateTime? CreateAt { get; set; }
 
     public virtual Course? Course { get; set; }
 

@@ -18,12 +18,12 @@ namespace BE.Services.Implementations
 
 
         //---------------------CRUD--------------------------//
-        public async Task<SaveCourse?> CreateSaveCourse( CreateSaveCourseDto createSaveCourseDto)
+        public async Task<SaveCourse?> CreateSaveCourse(CreateSaveCourseDto createSaveCourseDto)
         {
 
             var createSaveCourse = createSaveCourseDto.ToCreateSaveCourse();
 
-            if(createSaveCourse == null) throw new Exception("Unable to create role-user!");
+            if (createSaveCourse == null) throw new Exception("Unable to create save-course!");
 
             return await _saveCourseRepo.CreateSaveCourse(createSaveCourse);
         }
@@ -32,7 +32,7 @@ namespace BE.Services.Implementations
         {
             var saveCourse = await _saveCourseRepo.GetSaveCourseById(saveCourseId);
 
-            if(saveCourse == null) throw new Exception("Unable to find role-user!");
+            if (saveCourse == null) throw new Exception("Unable to find save-course!");
 
             return await _saveCourseRepo.DeleteSaveCourse(saveCourseId);
         }
@@ -41,11 +41,11 @@ namespace BE.Services.Implementations
         {
             var saveCourse = await _saveCourseRepo.GetSaveCourseById(saveCourseId);
 
-            if(saveCourse == null) throw new Exception("Unable to find role-user!");
+            if (saveCourse == null) throw new Exception("Unable to find save-course!");
 
             var updateSaveCourse = updateSaveCourseDto.ToUpdateSaveCourse();
 
-            if(updateSaveCourse == null) throw new Exception("Unable to update role-user!");
+            if (updateSaveCourse == null) throw new Exception("Unable to update save-course!");
 
             return await _saveCourseRepo.UpdateSaveCourse(updateSaveCourse);
         }

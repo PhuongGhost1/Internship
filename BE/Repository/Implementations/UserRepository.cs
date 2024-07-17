@@ -154,7 +154,7 @@ namespace BE.Repository.Implementations
             if (currentMonthCount == null || previousMonthCount == null) return 0;
 
             var percentageChange = ((currentMonthCount.Value - previousMonthCount.Value) / (double)previousMonthCount.Value) * 100;
-            
+
             var formattedPercentageChange = Math.Round(percentageChange, 2);
 
             return formattedPercentageChange;
@@ -268,7 +268,8 @@ namespace BE.Repository.Implementations
                     {
                         PaymentCourses = p.PaymentCourses.Select(pc => new PaymentCourseDto
                         {
-                            CartCourseDto = pc.Cartcourse != null ? new CartCourseDto {
+                            CartCourseDto = pc.Cartcourse != null ? new CartCourseDto
+                            {
                                 CourseForAdminDto = pc.Cartcourse.Course != null ? new CourseForAdminDto
                                 {
                                     Id = pc.Cartcourse.Course.Id,
@@ -286,7 +287,7 @@ namespace BE.Repository.Implementations
                                                 })
                                                 .Take(1)
                                                 .ToList()
-                                    } : null
+                                } : null
                             } : null
                         }).ToList(),
                         Total = p.Total
@@ -301,14 +302,17 @@ namespace BE.Repository.Implementations
         {
             var user = await _context.Users.FindAsync(userId);
 
-            if(user == null) return false;
+            if (user == null) return false;
 
-            if(user.IsVisible == true){
+            if (user.IsVisible == true)
+            {
                 user.IsVisible = false;
-            }else{
+            }
+            else
+            {
                 user.IsVisible = true;
             }
-            
+
             _context.Users.Update(user);
 
             await _context.SaveChangesAsync();
@@ -319,12 +323,14 @@ namespace BE.Repository.Implementations
         public async Task<List<FeedbackRequestDto>> GetFeedbacksManagementByAdmin()
         {
             var feedback = await _context.Feedbacks
-                                        .Select(f => new FeedbackRequestDto{
+                                        .Select(f => new FeedbackRequestDto
+                                        {
                                             Id = f.Id,
                                             Title = f.Title,
                                             Description = f.Description,
                                             IsRead = f.IsRead,
-                                            UserRequest = new UserRequestManagementByAdminDto{
+                                            UserRequest = new UserRequestManagementByAdminDto
+                                            {
                                                 Id = f.User.Id,
                                                 Username = f.User.Username,
                                                 Email = f.User.Email,
@@ -345,13 +351,13 @@ namespace BE.Repository.Implementations
                                                             .Take(1)
                                                             .ToList(),
                                                 RoleUserReqs = f.User.RoleUsers.Select(ru => new RoleUserRequestDto
-                                                                {
-                                                                    Id = ru.Id,
-                                                                    RoleId = ru.RoleId,
-                                                                    UserId = ru.UserId,
-                                                                    Status = ru.Status
-                                                                }).ToList(),
-                                            }      
+                                                {
+                                                    Id = ru.Id,
+                                                    RoleId = ru.RoleId,
+                                                    UserId = ru.UserId,
+                                                    Status = ru.Status
+                                                }).ToList(),
+                                            }
                                         }).ToListAsync();
 
             return feedback;
@@ -382,12 +388,12 @@ namespace BE.Repository.Implementations
                     Images = r.Course.Images
                                 .OrderByDescending(i => i.CreatedAt)
                                 .Select(i => new ImageForAdminDto
-                    {
-                        Id = i.Id,
-                        Url = i.Url,
-                        Type = i.Type,
-                        LastUpdated = i.CreatedAt
-                    }).Take(1).ToList(),
+                                {
+                                    Id = i.Id,
+                                    Url = i.Url,
+                                    Type = i.Type,
+                                    LastUpdated = i.CreatedAt
+                                }).Take(1).ToList(),
                     User = r.Course.User != null ? new UserInfoManageByAdminDto
                     {
                         Id = r.Course.User.Id,
@@ -397,16 +403,16 @@ namespace BE.Repository.Implementations
                         Images = r.Course.Images
                                         .OrderByDescending(i => i.CreatedAt)
                                         .Select(i => new ImageForAdminDto
-                        {
-                            Id = i.Id,
-                            Url = i.Url,
-                            Type = i.Type,
-                            LastUpdated = i.CreatedAt
-                        }).Take(1).ToList(),
+                                        {
+                                            Id = i.Id,
+                                            Url = i.Url,
+                                            Type = i.Type,
+                                            LastUpdated = i.CreatedAt
+                                        }).Take(1).ToList(),
                         Phone = r.Course.User.Phone,
                         CreateAt = r.Course.CreateAt,
                         Description = r.Course.User.Description
-                    } : null 
+                    } : null
                 } : null,
                 Comments = r.Comment != null ? new CommentManagementByAdminDto
                 {
@@ -424,12 +430,12 @@ namespace BE.Repository.Implementations
                         Images = r.Comment.Course.Images
                                         .OrderByDescending(i => i.CreatedAt)
                                         .Select(i => new ImageForAdminDto
-                        {
-                            Id = i.Id,
-                            Url = i.Url,
-                            Type = i.Type,
-                            LastUpdated = i.CreatedAt
-                        }).Take(1).ToList()
+                                        {
+                                            Id = i.Id,
+                                            Url = i.Url,
+                                            Type = i.Type,
+                                            LastUpdated = i.CreatedAt
+                                        }).Take(1).ToList()
                     } : null,
                     Users = r.Comment.User != null ? new UserInfoManageByAdminDto
                     {
@@ -440,12 +446,12 @@ namespace BE.Repository.Implementations
                         Images = r.Comment.User.Images
                                         .OrderByDescending(i => i.CreatedAt)
                                         .Select(i => new ImageForAdminDto
-                        {
-                            Id = i.Id,
-                            Url = i.Url,
-                            Type = i.Type,
-                            LastUpdated = i.CreatedAt
-                        }).Take(1).ToList(),
+                                        {
+                                            Id = i.Id,
+                                            Url = i.Url,
+                                            Type = i.Type,
+                                            LastUpdated = i.CreatedAt
+                                        }).Take(1).ToList(),
                         Phone = r.Comment.User.Phone,
                         CreateAt = r.Comment.User.CreateAt,
                         Description = r.Comment.User.Description
@@ -464,12 +470,12 @@ namespace BE.Repository.Implementations
                     Images = r.ReportedUser.Images
                                     .OrderByDescending(i => i.CreatedAt)
                                     .Select(i => new ImageForAdminDto
-                    {
-                        Id = i.Id,
-                        Url = i.Url,
-                        Type = i.Type,
-                        LastUpdated = i.CreatedAt
-                    }).Take(1).ToList(),
+                                    {
+                                        Id = i.Id,
+                                        Url = i.Url,
+                                        Type = i.Type,
+                                        LastUpdated = i.CreatedAt
+                                    }).Take(1).ToList(),
                     Phone = r.ReportedUser.Phone,
                     CreateAt = r.ReportedUser.CreateAt,
                     Description = r.ReportedUser.Description,
@@ -490,12 +496,12 @@ namespace BE.Repository.Implementations
                     Images = r.Reporter.Images
                                     .OrderByDescending(i => i.CreatedAt)
                                     .Select(i => new ImageForAdminDto
-                    {
-                        Id = i.Id,
-                        Url = i.Url,
-                        Type = i.Type,
-                        LastUpdated = i.CreatedAt
-                    }).Take(1).ToList(),
+                                    {
+                                        Id = i.Id,
+                                        Url = i.Url,
+                                        Type = i.Type,
+                                        LastUpdated = i.CreatedAt
+                                    }).Take(1).ToList(),
                     Phone = r.Reporter.Phone,
                     CreateAt = r.Reporter.CreateAt,
                     Description = r.Reporter.Description
@@ -569,5 +575,21 @@ namespace BE.Repository.Implementations
             }
         }
 
+
+        public async Task<List<User>> GetAllInstructor()
+        {
+            var listUserId = await _context.RoleUsers
+            .Where(r => r.RoleId == "role_f62abbfa5b" && r.Status == 1)
+            .Select(r => r.UserId)
+            .Distinct()
+            .ToListAsync();
+
+            var users = await _context.Users
+            .Where(u => listUserId.Contains(u.Id))
+            .ToListAsync();
+
+
+            return users;
+        }
     }
 }

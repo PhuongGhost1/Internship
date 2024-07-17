@@ -1,3 +1,4 @@
+using BE.Dto.Follow;
 using BE.Models;
 
 namespace BE.Repository.Interface
