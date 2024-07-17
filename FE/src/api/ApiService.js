@@ -455,15 +455,19 @@ const ApiService = {
         }
       );
 
-      return response.data;
-    } catch (error) {}
+      return response.data
+    } catch (error) {
+      console.error("Error token: ", error)
+    }
   },
   fetchImage: async (imgUrl) => {
     try {
       const response = await fetch(imgUrl);
       const blob = await response.blob();
       return URL.createObjectURL(blob);
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error imgUrl: ", error)
+    }
   },
   updateUpdate: async (
     userId,
@@ -506,8 +510,7 @@ const ApiService = {
 
       return response.data;
     } catch (error) {
-      console.error("Error fetching get instructor profile:", error);
-      throw error;
+      console.error("Error update: ", error)
     }
   },
   getWaitingCourses: async (insId) => {
@@ -561,6 +564,24 @@ const ApiService = {
       throw error;
     }
   },
+  },
+  getSavedCourse: async (userId) => {
+    try {
+      const formData = new FormData();
+      formData.append('userId', userId);
+      const response = await axios.post(
+        'http://localhost:5144/api/v1/web/save-course/get-save-course', formData,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          }
+        }
+      )
+      return response.data
+    } catch (error) {
+      console.error(error)
+    }
+  }
 };
 
 export default ApiService;
