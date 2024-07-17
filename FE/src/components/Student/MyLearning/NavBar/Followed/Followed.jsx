@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import './Followed.css';
 import add from '../../../../../assets/add_profile.png';
 import ApiService from "../../../../../api/ApiService";
+import Background_user from '../../../../../assets/background-user1.jpg';
+import user_ava from '../../../../../assets/user-photo.avif'
 
 const tutorsData = [
      // { name: "John Doe", title: "Wordpress & Plugin Tutor", students: "100K Students", courses: "15 Courses", social: ["facebook", "twitter", "linkedin", "youtube"], avatar: add },
@@ -77,25 +79,29 @@ const Followed = () => {
                     />
                </div>
 
-               {/* <div id="tutors-grid">
+               <div id="tutors-grid">
                     {data?.map((tutor, index) => (
-                         <div className="tutor-card" key={index}>
-                              <div className="avatar">
-                                   <img src={tutor.listImage[0]} alt={`avatar`} />
+                         <div className="tutor-card">
+                              <div className="image-container">
+                                   <img src={Background_user} alt="" className="background" />
+                                   <div className="tutor-info">
+                                        <img src={user_ava} alt="" />
+                                        <div className="user-info">
+                                             <p className="tutor-name">{tutor.name}</p>
+                                             <p className="course-count">{tutor.course} course</p>
+                                        </div>
+                                   </div>
                               </div>
-                              <h3>{tutor.name}</h3>
-                              <div className="social-links">
-                                   {tutor.social?.map((platform, idx) => (
-                                        <a key={idx} href={`#${platform}`} className={`icon-${platform}`}></a>
-                                   ))}
+                              <div className="follower-info">
+
                               </div>
-                              <p>{tutor.follower} Follower</p>
-                              <p>{tutor.course} Courses</p>
-                              <button onClick={() => handleUnfollow(tutor.name)}>Unfollow</button>
+                              <div className="unfollow-btn">
+                                   UNFOLLOW
+                              </div>
                          </div>
                     ))}
                </div>
-
+               {/*
                {pageNumbers.length > 1 && ( // Only show pagination if there is more than 1 page
                     <div className="pagination">
                          <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>

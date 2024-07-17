@@ -399,7 +399,7 @@ const ApiService = {
                 headers: {
                   "Content-Type": "application/x-www-form-urlencoded",
                 },
-              }
+            }
         );
         return response.data;
     } catch (error) {
@@ -407,8 +407,6 @@ const ApiService = {
       throw error;
     }
   },
-
-  
 };
 
 

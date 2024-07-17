@@ -88,52 +88,6 @@ namespace BE.Repository.Implementations
                return resultList;
           }
 
-          public async Task<List<FollowingDto>> GetFollowing(string followUserId)
-          {
-               var listFollow = await _context.Follows
-                   .Where(f => f.FollowerId == followUserId)
-                   .ToListAsync();
-
-
-
-               var resultList = new List<FollowingDto>();
-
-
-               foreach (var v in listFollow)
-               {
-                    var user = await _context.Users.FirstOrDefaultAsync(us => us.Id == v.FollowedId);
-
-                    var countFollower = await _context.Follows
-                        .Where(f => f.FollowedId == user.Id)
-                        .CountAsync();
-
-
-                    var countCourses = await _context.Courses
-                        .Where(f => f.UserId == user.Id)
-                        .CountAsync();
-
-                    List<Image> images = await _context.Images
-                        .Where(image => image.UserId == user.Id)
-                        .ToListAsync();
-
-                    var ListUrls = images.Select(i => i.Url).ToList();
-
-                    var following = new FollowingDto
-                    {
-                         FollowId = v.Id,
-                         UserId = user.Id,
-                         Name = user.Username,
-                         ListImage = ListUrls,
-                         Follower = countFollower,
-                         Course = countCourses
-                    };
-                    resultList.Add(following);
-               }
-
-
-               return resultList;
-          }
-
 
           //---------------------CRUD--------------------------//
           public async Task<Follow?> CreateFollow(Follow follow)
