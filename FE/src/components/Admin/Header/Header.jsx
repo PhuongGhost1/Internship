@@ -10,8 +10,8 @@ export default function Header() {
       <div className="header-container">
         <div className="logo">
           <span className="icon">
-               <a href="http://localhost:5173/admin/dashboard">
-            <img src={Logo} alt="" />
+            <a href="http://localhost:5173/admin/dashboard">
+              <img src={Logo} alt="" />
             </a>
           </span>{" "}
           <span className="logo-text">CodeCourse</span>
@@ -26,7 +26,6 @@ export default function Header() {
           <div className="avatar-user">
             <RxAvatar className="avatar" />
             <div className="user-name">GUN</div>
-
           </div>
         </div>
       </div>

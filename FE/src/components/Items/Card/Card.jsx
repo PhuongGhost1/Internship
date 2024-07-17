@@ -1,71 +1,81 @@
 import React, { useEffect, useState } from "react";
-import './Card.css';
+import PropTypes from "prop-types";
+import "./Card.css";
 
-import Rating from '@mui/material/Rating';
-import Stack from '@mui/material/Stack';
-import { formatTime } from "../../../utils/Validation";
-import ApiService from "../../../api/ApiService";
+import Rating from "@mui/material/Rating";
+import Stack from "@mui/material/Stack";
 
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 
+const Card = ({ data }) => {
+  const [newReleaseCourses, setNewReleaseCourses] = useState(null);
 
-export default function Card({ data }) {
-    const [imgUrl, setImgUrl] = useState('');
-    const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    setNewReleaseCourses(data);
+  }, [data]);
 
-    useEffect(() => {
-        let isMounted = true;
-        const fetchImg = async () => {
-            try {
-                const response = await ApiService.fetchImage(data.imgUrl);
-                if (isMounted) {
-                    setImgUrl(response);
-                    setIsLoading(false);
-                }
-            } catch (error) {
-                console.error('Error fetching image:', error);
-            }
-        };
-        fetchImg();
+  if (!newReleaseCourses) {
+    <p>Loading...</p>;
+  }
 
-        // Cleanup to revoke the object URL and prevent memory leaks
-        return () => {
-            isMounted = false;
-            if (imgUrl) {
-                URL.revokeObjectURL(imgUrl);
-            }
-        };
-    }, [data.imgUrl]);
-
-    return (
-        <div id="card">
-            <div className="card-container">
-                {isLoading ? (
-                    <Box sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        width: '100%',
-                        height: '100%',
-                        position: 'absolute'
-                    }}>
-                        <CircularProgress />
-                    </Box>
-                ) : (
-                    <img src={imgUrl} className="background" alt="Course" />
-                )}
-                <div className="card-content">
-                    <p className="course-name">{data.name}</p>
-                    <div className="rating-container">
-                        <Stack spacing={1}>
-                            <Rating className="rating" value={data.ratingAVG} precision={0.5} readOnly />
-                        </Stack>
-                        <span className="total-rating">&#40;{data.ratingCount}&#41;</span>
-                    </div>
-                    <p className="course-time">{formatTime(data.timeLearning)}</p>
-                </div>
-            </div>
+  return (
+    <div id="card">
+      <div className="card-container">
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100%",
+            height: "100%",
+            position: "absolute",
+          }}
+        >
+          <CircularProgress />
+        </Box>
+        <img
+          src={data.image == null ? "" : data.image[0].url}
+          className="background"
+          alt="Course"
+        />
+        <div className="card-content">
+          <a href={`/courses/${data.name}`} className="card-link">
+            <p className="course-name">{data.name}</p>
+          </a>
+          <div className="rating-container">
+            <Stack spacing={1}>
+              <Rating
+                className="rating"
+                value={data.ratingAvg}
+                precision={0.5}
+                readOnly
+              />
+            </Stack>
+            <span className="total-rating">&#40;{data.ratingCount}&#41;</span>
+          </div>
+          <p className="course-time">{data.timeLearning} Minutes</p>
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
+
+Card.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    image: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        url: PropTypes.string.isRequired,
+        type: PropTypes.string.isRequired,
+        lastUpdated: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+    ratingAvg: PropTypes.number.isRequired,
+    ratingCount: PropTypes.number.isRequired,
+    timeLearning: PropTypes.number.isRequired,
+  }).isRequired,
+};
+
+export default Card;

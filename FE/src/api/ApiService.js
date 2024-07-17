@@ -495,6 +495,61 @@ const ApiService = {
       return response.data;
     } catch (error) {}
   },
+  getInstructorProfile: async (insId) => {
+    try {
+      const response = await axios.get(
+        "http://localhost:5144/api/v1/web/user/get-instructor-profile",
+        {
+          params: { insId },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching get instructor profile:", error);
+      throw error;
+    }
+  },
+  getWaitingCourses: async (insId) => {
+    try {
+      const response = await axios.get(
+        "http://localhost:5144/api/v1/web/user/get-instructor-profile-on-waiting-courses",
+        {
+          params: { insId },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      console.error(
+        "Error fetching get waiting courses on instructor profile:",
+        error
+      );
+      throw error;
+    }
+  },
+  getNewReleaseCourses: async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:5144/api/v1/web/course/new-release-courses"
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching get new release courses:", error);
+      throw error;
+    }
+  },
+  getNewReleaseCoursesWithName: async (count) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5144/api/v1/web/course/new-release-courses-by-name/${count}`
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching get new release courses by name:", error);
+      throw error;
+    }
+  },
 };
 
 export default ApiService;
