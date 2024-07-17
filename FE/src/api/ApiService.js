@@ -465,7 +465,7 @@ const ApiService = {
 
       return response.data
     } catch (error) {
-
+      console.error("Error token: ", error)
     }
   },
   fetchImage: async (
@@ -476,7 +476,7 @@ const ApiService = {
       const blob = await response.blob();
       return URL.createObjectURL(blob);
     } catch (error) {
-
+      console.error("Error imgUrl: ", error)
     }
   },
   updateUpdate: async (
@@ -508,7 +508,24 @@ const ApiService = {
       )
       return response.data
     } catch (error) {
-
+      console.error("Error update: ", error)
+    }
+  },
+  getSavedCourse: async (userId) => {
+    try {
+      const formData = new FormData();
+      formData.append('userId', userId);
+      const response = await axios.post(
+        'http://localhost:5144/api/v1/web/save-course/get-save-course', formData,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          }
+        }
+      )
+      return response.data
+    } catch (error) {
+      console.error(error)
     }
   }
 };

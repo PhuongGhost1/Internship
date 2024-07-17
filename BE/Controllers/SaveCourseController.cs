@@ -51,7 +51,7 @@ namespace BE.Controllers
             return await _saveCourseService.DeleteSaveCourse(saveCourseId);
         }
 
-        [HttpGet, Route("get-save-course")]
+        [HttpPost, Route("get-save-course")]
         public async Task<List<SaveCourseCard>> GetListSaveCourseByUserId([FromForm] string userId)
         {
             return await _saveCourseService.GetListSaveCourse(userId);

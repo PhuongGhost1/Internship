@@ -26,7 +26,7 @@
 
 #wishlist-course {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* 5 cột */
+  grid-template-columns: repeat(4, 1fr); /* 5 cột */
   gap: 20px; /* Khoảng cách giữa các thẻ */
 }
 
@@ -36,7 +36,6 @@
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  text-align: center;
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
@@ -51,9 +50,11 @@
 
 #wishlist-course .wishlist-item .logo img {
   background-color: #eee;
-  border-radius: 50%;
-  height: 80px;
-  width: 80px;
+  border-radius: 20px;
+  height: 150px;
+  width: 300px;
+  object-fit: cover;
+  object-position: center;
   border: 2px solid #ddd;
 }
 
@@ -152,3 +153,39 @@
   flex-direction: column;
   justify-content: space-between;
 }
+
+#wishlist-course .category{
+  display: flex;
+  align-items: center;
+}
+
+#wishlist-course .category span{
+  padding: 1px 10px;
+  margin-right: 5px;
+  font-size: 14px;
+  background-color: #e1ecf4;
+  color: #0366d6;
+  border: none;
+  border-radius: 10px;
+}
+
+#wishlist-course .info-course, .rating-action{
+  display: flex;
+  justify-content: space-between;
+}
+#wishlist-course .rating-action .rating{
+  display: flex;
+  justify-content: space-around;
+}
+
+
+#wishlist-course .rating-action{
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: solid 1.5px #dbcaca;
+}
+
+#wishlist-course svg{
+  font-size: 18px;
+}
+
