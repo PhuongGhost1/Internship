@@ -47,14 +47,13 @@
 #ManageStudent .management-student-pagination {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
 }
 
 #ManageStudent .ManageStudent-top .search-bar {
   display: flex;
   position: relative;
   justify-content: flex-end;
-  margin: 10px 0;
+  margin: 20px 0;
 }
 
 #ManageStudent .search-bar input {
@@ -62,7 +61,8 @@
   border: 1px solid #ccc;
   border-radius: 20px;
   font-size: 12px;
-  padding-left: 10px;
+  padding: 10px 0 10px 10px;
+  height: fit-content;
 }
 
 #ManageStudent .search-bar svg {
@@ -74,7 +74,7 @@
 }
 
 #ManageStudent .student-list {
-  margin-bottom: 20px;
+  margin: 10px 0;
 }
 
 #ManageStudent .status-false {
