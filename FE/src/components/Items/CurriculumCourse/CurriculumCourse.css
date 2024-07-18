@@ -6,10 +6,14 @@
 #curriculum-course .chapter-content {
     padding: 12px 16px;
     cursor: pointer;
-    display: flex;
 }
 
-#curriculum-course .chapter-content:hover {
+#curriculum-course .chapter-content .chapter-show {
+    display: flex;
+    width: 100%;
+}
+
+#curriculum-course .chapter-content .chapter-show:hover {
     background-color: #f3f8ff;
 }
 
@@ -48,13 +52,50 @@
     align-items: center;
 }
 
-#curriculum-course .chapter-content .more-btn svg {
+#curriculum-course .chapter-content .more-btn .arrow {
     font-size: 32px;
     margin-left: 10px;
     color: var(--light-orange);
+    transition: transform 0.5s ease;
+}
+
+#curriculum-course .chapter-content .more-btn .arrow.active {
+    transform: rotate(180deg);
 }
 
 #curriculum-course .chapter-content .more-btn span {
     font-size: 16px;
     color: var(--light-orange);
+}
+
+#curriculum-course .chapter-dropdown {
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+}
+
+#curriculum-course .chapter-dropdown.active {
+    max-height: 500px;
+}
+
+#curriculum-course .chapter-dropdown .item {
+    display: flex;
+    padding: 20px 0;
+    border-bottom: 1px solid #e5e7e8;
+    align-items: center;
+}
+
+#curriculum-course .chapter-dropdown .item.bottom {
+    border: none;
+    padding: 20px 0 0 0;
+}
+
+#curriculum-course .chapter-dropdown .item svg {
+    font-size: 22px;
+}
+
+#curriculum-course .chapter-dropdown .item .item-name {
+    margin-left: 10px;
+    font-size: 15px;
+    font-weight: 600;
 }

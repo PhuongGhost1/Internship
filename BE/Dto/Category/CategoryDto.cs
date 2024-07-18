@@ -10,5 +10,7 @@ namespace BE.Dto.Category
         public List<string?>? Names { get; set; }
         public string? cateId {get; set;}
         public string? Name {get; set;}
+        public bool? IsVisible {get; set;}
+
     }
 }

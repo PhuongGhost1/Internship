@@ -122,8 +122,8 @@ const AdminRequests = () => {
             <p>
               <strong>Status:</strong> Pending
             </p>
-            <div className="action">
-              <span className="button-view">
+            <div className="action-request">
+              <span className="button-view-request">
                 <FaInfoCircle
                   onClick={() => {
                     handleOpenPopUpClick(index);
@@ -164,13 +164,13 @@ const AdminRequests = () => {
                 <img
                   src={
                     requests[currentNum].userRequest.images != null &&
-                    requests[currentNum].userRequest.images.length > 0
+                      requests[currentNum].userRequest.images.length > 0
                       ? requests[currentNum].userRequest.images[0].url
                       : user_ava
                   }
                   alt={
                     requests[currentNum].userRequest.images != null &&
-                    requests[currentNum].userRequest.images.length > 0
+                      requests[currentNum].userRequest.images.length > 0
                       ? requests[currentNum].userRequest.images[0].url
                       : user_ava
                   }

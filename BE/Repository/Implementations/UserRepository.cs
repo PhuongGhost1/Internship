@@ -8,10 +8,13 @@ using BE.Dto.Role;
 using BE.Dto.RoleUser;
 using BE.Dto.User;
 using BE.Dto.User.AdminManagement;
+using BE.Dto.User.Instructor;
 using BE.Models;
 using BE.Repository.Interface;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using static BE.Utils.Utils;
 
 namespace BE.Repository.Implementations
@@ -550,7 +553,7 @@ namespace BE.Repository.Implementations
                     }
                 }
 
-                report.Status = 1;
+                report.Status = 1; 
                 _context.Reports.Update(report);
 
                 course.IsVisible = !course.IsVisible;
@@ -590,6 +593,203 @@ namespace BE.Repository.Implementations
 
 
             return users;
+        }
+        public async Task<bool> UpdateUserProfile(UserProfileDto user)
+        {
+            try
+            {
+                var userUpdate = await _context.Users
+                                        .Include(i => i.Images)
+                                        .FirstOrDefaultAsync(u => u.Id == user.UserId);
+                if (userUpdate != null)
+                {
+                    userUpdate.Name = user.Name;
+                    userUpdate.Username = user.Username;
+                    userUpdate.Dob = user.DOB;
+                    userUpdate.Description = user.Description;
+                    userUpdate.Gender = user.Gender;
+                    if (userUpdate.Images.IsNullOrEmpty())
+                    {
+                        userUpdate.Images.Add(
+                            new Image
+                            {
+                                Id = GenerateIdModel("image"),
+                                UserId = user.UserId,
+                                CreatedAt = GetTimeNow(),
+                                Type = "Avatar",
+                                Url = await UploadImgUserToFirebase(user.Image, user.UserId, "Avatar")
+                            }
+                        );
+                    }
+                    else
+                    {
+                        foreach (var image in userUpdate.Images)
+                        {
+                            image.Url = await UploadImgUserToFirebase(user.Image, user.UserId, "Avatar");
+                            image.CreatedAt = GetTimeNow();
+                        }
+                    }
+
+                    _context.Users.Update(userUpdate);
+                    await _context.SaveChangesAsync();
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error update user profile: {e.Message}");
+                return false;
+            }
+        }
+
+        public async Task<InstructorProfileDto> GetInstructorProfileByInsId(string insId)
+        {
+            var instructorProfile = await _context.Users
+                                                    .Where(u => u.Id == insId)
+                                                    .Select(u => new InstructorProfileDto{
+                                                        Id = u.Id,
+                                                        Email = u.Email,
+                                                        Name = u.Username,
+                                                        IsVisible = u.IsVisible,
+                                                        Images = u.Images
+                                                                        .OrderByDescending(i => i.CreatedAt)
+                                                                        .Select(i => new ImageForAdminDto
+                                                                        {
+                                                                            Id = i.Id,
+                                                                            Url = i.Url,
+                                                                            Type = i.Type,
+                                                                            LastUpdated = i.CreatedAt
+                                                                        }).Take(1).ToList(),
+                                                        Phone = u.Phone,
+                                                        CreateAt = u.CreateAt,
+                                                        Description = u.Description,
+                                                        RoleUsers = u.RoleUsers
+                                                                        .Where(ru => ru.Role.Name == "Instructor")
+                                                                        .Select(ru => new RoleUserDto
+                                                        {
+                                                            Roles = new List<RoleDto>
+                                                            {
+                                                                new RoleDto { Name = ru.Role.Name }
+                                                            }
+                                                        }).ToList(),
+                                                        Courses = u.Courses
+                                                                        .Where(c => c.Status == 0)
+                                                                        .Select(c => new CourseForAdminDto
+                                                        {
+                                                            Id = c.Id,
+                                                            Name = c.Name,
+                                                            Rating = c.Rating,
+                                                            Price = c.Price,
+                                                            Images = c.Images
+                                                                        .OrderByDescending(i => i.CreatedAt)
+                                                                        .Select(i => new ImageForAdminDto
+                                                                        {
+                                                                            Id = i.Id,
+                                                                            Url = i.Url,
+                                                                            Type = i.Type,
+                                                                            LastUpdated = i.CreatedAt
+                                                                        })
+                                                                        .Take(1)
+                                                                        .ToList(),
+                                                            User = c.User != null ? new UserInfoManageByAdminDto{
+                                                                    Id = c.User.Id,
+                                                                    Email = c.User.Email,
+                                                                    Name = c.User.Username,
+                                                                    IsVisible = c.User.IsVisible,
+                                                                    Images = c.User.Images
+                                                                                    .OrderByDescending(i => i.CreatedAt)
+                                                                                    .Select(i => new ImageForAdminDto
+                                                                                    {
+                                                                                        Id = i.Id,
+                                                                                        Url = i.Url,
+                                                                                        Type = i.Type,
+                                                                                        LastUpdated = i.CreatedAt
+                                                                                    }).Take(1).ToList(),
+                                                                    Phone = c.User.Phone,
+                                                                    CreateAt = c.User.CreateAt,
+                                                                    Description = c.User.Description
+                                                            } : null
+                                                        }).ToList(),
+                                                    }).FirstOrDefaultAsync();
+            return instructorProfile;
+        }
+
+        public async Task<InstructorProfileDto> GetInstructorProfileWithWaitingCourseByInsId(string insId)
+        {
+            var instructorProfile = await _context.Users
+                                                    .Where(u => u.Id == insId)
+                                                    .Select(u => new InstructorProfileDto{
+                                                        Id = u.Id,
+                                                        Email = u.Email,
+                                                        Name = u.Username,
+                                                        IsVisible = u.IsVisible,
+                                                        Images = u.Images
+                                                                        .OrderByDescending(i => i.CreatedAt)
+                                                                        .Select(i => new ImageForAdminDto
+                                                                        {
+                                                                            Id = i.Id,
+                                                                            Url = i.Url,
+                                                                            Type = i.Type,
+                                                                            LastUpdated = i.CreatedAt
+                                                                        }).Take(1).ToList(),
+                                                        Phone = u.Phone,
+                                                        CreateAt = u.CreateAt,
+                                                        Description = u.Description,
+                                                        RoleUsers = u.RoleUsers
+                                                                    .Where(ru => ru.Role.Name == "Instructor")
+                                                                    .Select(ru => new RoleUserDto
+                                                        {
+                                                            Roles = new List<RoleDto>
+                                                            {
+                                                                new RoleDto { Name = ru.Role.Name }
+                                                            }
+                                                        }).ToList(),
+                                                        Courses = u.Courses
+                                                                    .Where(c => c.Status == 2)
+                                                                    .Select(c => new CourseForAdminDto
+                                                        {
+                                                            Id = c.Id,
+                                                            Name = c.Name,
+                                                            Rating = c.Rating,
+                                                            Price = c.Price,
+                                                            Status = c.Status,
+                                                            Images = c.Images
+                                                                        .OrderByDescending(i => i.CreatedAt)
+                                                                        .Select(i => new ImageForAdminDto
+                                                                        {
+                                                                            Id = i.Id,
+                                                                            Url = i.Url,
+                                                                            Type = i.Type,
+                                                                            LastUpdated = i.CreatedAt
+                                                                        })
+                                                                        .Take(1)
+                                                                        .ToList(),
+                                                            User = c.User != null ? new UserInfoManageByAdminDto{
+                                                                    Id = c.User.Id,
+                                                                    Email = c.User.Email,
+                                                                    Name = c.User.Username,
+                                                                    IsVisible = c.User.IsVisible,
+                                                                    Images = c.User.Images
+                                                                                    .OrderByDescending(i => i.CreatedAt)
+                                                                                    .Select(i => new ImageForAdminDto
+                                                                                    {
+                                                                                        Id = i.Id,
+                                                                                        Url = i.Url,
+                                                                                        Type = i.Type,
+                                                                                        LastUpdated = i.CreatedAt
+                                                                                    }).Take(1).ToList(),
+                                                                    Phone = c.User.Phone,
+                                                                    CreateAt = c.User.CreateAt,
+                                                                    Description = c.User.Description
+                                                            } : null
+                                                        }).ToList(),
+                                                    }).FirstOrDefaultAsync();
+            return instructorProfile;
         }
     }
 }

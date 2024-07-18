@@ -230,7 +230,7 @@ const DataTable = ({ data }) => {
             </tbody>
           </Table>
         </div>
-        <Pagination>
+        <Pagination className="pagination-status">
           <PaginationItem disabled={currentPage <= 1}>
             <PaginationLink
               previous

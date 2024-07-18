@@ -72,43 +72,45 @@
 
 #management-course .table-info th {
   padding: 15px 10px;
+  background-color: #eeeeee;
+  text-align: center;
+  vertical-align: middle;
 }
 
 #management-course .table-info {
   margin-right: 50px;
 }
 
-#management-course .table-info .name,
-.image,
+#management-course .table-info .image,
 .status,
-.owner {
+.owner,
+.action {
   vertical-align: middle;
   padding: 15px 0px;
-  padding-left: 10px;
+  text-align: center;
 }
 
 #management-course .name {
-  width: 20%;
+  width: 40%;
+  text-align: left;
+  vertical-align: middle;
+  padding: 15px 0px;
 }
 
 #management-course .image {
-  width: 20%;
+  width: 14%;
 }
 
 #management-course .owner {
-  width: 20%;
+  width: 12%;
 }
 
 #management-course .status {
-  width: 15%;
-}
-
-#management-course .status-heading {
-  display: flex;
+  width: 12%;
 }
 
 #management-course .action {
-  width: 10%;
+  width: 12%;
 }
 
 #management-course .table-header h3 {
@@ -150,6 +152,7 @@
 
 #management-course .popup.open {
   width: 600px;
+  z-index: 4;
 }
 
 #management-course .blur-popup {
@@ -277,12 +280,7 @@
   cursor: pointer;
 }
 
-#management-course
-  .popup
-  .popup-container
-  .details
-  .nav-bar
-  .tag.active::before {
+#management-course .popup .popup-container .details .nav-bar .tag.active::before {
   position: absolute;
   width: 100%;
   height: 5px;
@@ -352,4 +350,11 @@
 
 #management-course .popup-payment .payment-history .payment-item span {
   color: var(--light-orange);
+}
+
+#management-course .pagination-left {
+
+  position: absolute;
+  bottom: 20px;
+  /* right: 100px; */
 }

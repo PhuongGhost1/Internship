@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import './CoursesDetailBar.css'
 
-export default function CoursesDetailBar({ onAboutClick, onOutcomesClick, onContentsClick, onRecommendClick, onReviewClick, isIn, isOpenHeader }) {
+export default function CoursesDetailBar({ onAboutClick, onOutcomesClick, onContentsClick, onRecommendClick, onReviewClick, isIn, isOpenHeader, courseData }) {
 
     useEffect(() => {
         try {
@@ -27,7 +27,7 @@ export default function CoursesDetailBar({ onAboutClick, onOutcomesClick, onCont
             <div className="tab" onClick={onReviewClick}>Reviews</div>
             <div className="header-courses-bar" style={isOpenHeader ? { height: '143px' } : { height: '0px' }}>
                 <div className="name-btn">
-                    <p>Python for Data Analysis</p>
+                    <p>{courseData?.name}</p>
                     <div className="btn-contain">
                         <div className="enroll-btn">Enroll</div>
                     </div>

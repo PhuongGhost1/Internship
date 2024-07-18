@@ -1,5 +1,6 @@
 using BE.Dto.User;
 using BE.Dto.User.AdminManagement;
+using BE.Dto.User.Instructor;
 using BE.Models;
 
 namespace BE.Repository.Interface
@@ -26,5 +27,8 @@ namespace BE.Repository.Interface
                 Task<bool> UpdateUserCommentReportStatus(string? userId, string reportId, string? commentId, string? courseId);
                 Task<List<User?>> GetAllInstructor();
 
-        }
+            Task<bool> UpdateUserProfile(UserProfileDto user);
+            Task<InstructorProfileDto> GetInstructorProfileByInsId(string insId);
+            Task<InstructorProfileDto> GetInstructorProfileWithWaitingCourseByInsId(string insId);
+    }
 }

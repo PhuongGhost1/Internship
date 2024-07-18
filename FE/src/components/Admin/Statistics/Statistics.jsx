@@ -26,13 +26,21 @@ export default function Statistics() {
         courseData.map((course, index) => (
           <div key={index} className="course-item">
             <div>
-              <h4>{course.title}</h4>
-              <p>{course.date}</p>
+              <h4>{course.name}</h4>
+              <p>
+                {new Date(course.createAt)
+                  .toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                  })
+                  .replace(/\//g, "-")}
+              </p>
             </div>
-            <div className={`course-status ${course.status.toLowerCase()}`}>
+            {/* <div className={`course-status ${course.status.toLowerCase()}`}>
               <p>{course.status}</p>
               <p>{course.id}</p>
-            </div>
+            </div> */}
           </div>
         ))
       )}

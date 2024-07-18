@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using BE.Mappers;
 using BE.Helpers;
 using BE.Dto.Course.Chapter;
+using BE.Dto.Payment.CartCourse;
 
 namespace BE.Services.Implementations
 {
@@ -23,6 +24,7 @@ namespace BE.Services.Implementations
         private readonly ILectureRepository _lectureRepo;
         private readonly ICategoryRepository _cateRepo;
         private readonly IUserRepository _userRepo;
+        private static readonly Random _random = new Random();
         public CourseService(ICourseRepository courseRepo, IImageRepository imageRepo, IQuizRepository quizRepo,
                             ILectureRepository lectureRepo, ICategoryRepository cateRepo, IUserRepository userRepo)
         {
@@ -189,13 +191,13 @@ namespace BE.Services.Implementations
             return await _courseRepo.CreateQuiz(data);
         }
 
-        public async Task<List<Course>> GetMostPurchasedCoursesAsync()
+        public async Task<List<NewReleaseCourseForHomepageDto>> GetMostPurchasedCoursesAsync()
         {
             var courses = await _courseRepo.GetMostPurchasedCourses();
 
             if (courses == null || courses.Count == 0)
             {
-                return new List<Course>();
+                return new List<NewReleaseCourseForHomepageDto>();
             }
 
             return courses;
@@ -240,5 +242,80 @@ namespace BE.Services.Implementations
             return await _courseRepo.UpdateCourseByAdmin(courseId, status);
         }
 
+        public async Task<List<CardCourseDto>> GetRandomCourse(int count)
+        {
+            var availableCourses = await _courseRepo.GetAllCourseAvailable();
+            var randomCourses = availableCourses.OrderBy(x => _random.Next()).Take(count).ToList();
+            var randomCoursesDto = new List<CardCourseDto>();
+
+            foreach (var course in randomCourses)
+            {
+                var ratingCount = await _courseRepo.RetriveRatingNumber(course.Id);
+                var timeLearning = await _courseRepo.TimeLearningCourse(course.Id);
+                var imgUrl = await _courseRepo.GetImageCourse(course.Id, "Background");
+                randomCoursesDto.Add(new CardCourseDto
+                {
+                    name = course.Name,
+                    ratingAvg = course.Rating,
+                    ratingCount = ratingCount,
+                    timeLearning = timeLearning,
+                    imgUrl = imgUrl
+                });
+            }
+
+            return randomCoursesDto;
+        }
+
+        public async Task<List<CardCourseDto>> SearchCourse(string query, int page, int items)
+        {
+            var courses = await _courseRepo.SearchingCourse(query);
+            var coursesPagination = courses.Skip((page - 1) * items).Take(items).ToList();
+            var searchCourses = new List<CardCourseDto>();
+
+            foreach (var course in coursesPagination)
+            {
+                var ratingCount = await _courseRepo.RetriveRatingNumber(course.Id);
+                var timeLearning = await _courseRepo.TimeLearningCourse(course.Id);
+                var imgUrl = await _courseRepo.GetImageCourse(course.Id, "Background");
+
+                searchCourses.Add(new CardCourseDto
+                {
+                    name = course.Name,
+                    ratingAvg = course.Rating,
+                    ratingCount = ratingCount,
+                    timeLearning = timeLearning,
+                    imgUrl = imgUrl
+                });
+            }
+
+            return searchCourses;
+        }
+
+        public async Task<List<NewReleaseCourseForHomepageDto>> NewReleaseCoursesAsync()
+        {
+            var newReleaseCourses = await _courseRepo.NewReleaseCourses();
+
+            if(newReleaseCourses == null || newReleaseCourses.Count == 0) return new List<NewReleaseCourseForHomepageDto>();
+
+            return newReleaseCourses;
+        }
+
+        public async Task<List<NewReleaseCourseForHomepageDto>> NewReleaseCoursesByNameAsync(int size)
+        {
+            var newReleaseCourses = await _courseRepo.NewReleaseCoursesByNam(size);
+
+            if(newReleaseCourses == null || newReleaseCourses.Count == 0) return new List<NewReleaseCourseForHomepageDto>();
+
+            return newReleaseCourses;
+        }
+
+        public async Task<List<NewReleaseCourseForHomepageDto>> GetTopRatedCoursesAsync()
+        {
+            var topRatedCourses = await _courseRepo.GetTopRatedCourses();
+
+            if(topRatedCourses == null || topRatedCourses.Count == 0) return new List<NewReleaseCourseForHomepageDto>();
+
+            return topRatedCourses;
+        }
     }
 }

@@ -4,7 +4,7 @@ namespace BE.Repository.Interface
 {
     public interface ISaveCourseRepository
     {
-        
+
 
         //---------------------CRUD--------------------------//
         Task<SaveCourse?> GetSaveCourseById(string saveCourseUserId);
@@ -12,5 +12,6 @@ namespace BE.Repository.Interface
         Task<SaveCourse?> CreateSaveCourse(SaveCourse saveCourseUser);
         Task<SaveCourse?> UpdateSaveCourse(SaveCourse saveCourseUser);
         Task<bool> DeleteSaveCourse(string saveCourseUserId);
+        Task<List<Course>> GetListSaveCourse(string userId);
     }
 }

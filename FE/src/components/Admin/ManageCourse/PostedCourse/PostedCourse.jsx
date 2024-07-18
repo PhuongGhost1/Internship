@@ -231,7 +231,7 @@ const DataTable = ({ data }) => {
             </tbody>
           </Table>
         </div>
-        <Pagination>
+        <Pagination className="pagination-left">
           <PaginationItem disabled={currentPage <= 1}>
             <PaginationLink
               previous
