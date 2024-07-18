@@ -24,6 +24,8 @@ namespace BE.Dto.User
           public DateTime? CreateAt { get; set; }
           public string? Description { get; set; }
           public int? CoursesCount { get; set; }
+          public int? FollowerCount {get; set;}
+          public int? FollowedCount {get; set;}
           public List<RoleUserDto> RoleUsers { get; set; } = new List<RoleUserDto>();
           public List<NotificationDto> Notifications { get; set; } = new List<NotificationDto>();
           public List<CourseForAdminDto> Courses { get; set; } = new List<CourseForAdminDto>();

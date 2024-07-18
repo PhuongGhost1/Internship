@@ -17,159 +17,116 @@ namespace BE.Repository.Implementations
           {
                _context = context;
           }
-          public async Task<FollowingDto> GetFollowing(string UserId)
+          
+         public async Task<FollowingDto> GetFollowing(string UserId)
           {
-               var followEntries = await _context.Follows
+          var followingDto = new FollowingDto();
+
+          var follows = await _context.Follows
                .Include(f => f.Follower)
-                    .ThenInclude(u => u.Images)
                .Include(f => f.Followed)
                     .ThenInclude(u => u.Images)
-               .Where(f => f.FollowedId == UserId || f.FollowerId == UserId)
+               .Include(f => f.Followed)
+                    .ThenInclude(u => u.Courses)
+                         .ThenInclude(c => c.Images)
+               .Include(f => f.Followed)
+                    .ThenInclude(u => u.FollowFolloweds)
+               .Include(f => f.Followed)
+                    .ThenInclude(u => u.FollowFollowers)
+               .Where(f => f.FollowerId == UserId)
                .ToListAsync();
 
-               if (followEntries == null || !followEntries.Any())
+          var followedDict = new Dictionary<string, UserInfoFollowingDto>();
+
+          foreach (var follow in follows)
+          {
+               var followedUser = follow.Followed;
+
+               if (followedUser != null && !followedDict.ContainsKey(followedUser.Id))
                {
-                    return null;
+                    var followedIds = await _context.Follows
+                         .Where(f => f.FollowerId == followedUser.Id)
+                         .Select(f => f.FollowedId)
+                         .Distinct()
+                         .ToListAsync();
+
+                    var userInfo = MapUserToUserInfoDto(followedUser, followedIds);
+                    followedDict[followedUser.Id] = userInfo;
                }
+          }
 
-               var followerList = followEntries
-                    .Where(f => f.FollowedId == UserId)
-                    .Select(f => new UserInfoManageByAdminDto
-                    {
-                         Id = f.Follower.Id,
-                         Email = f.Follower.Email,
-                         Name = f.Follower.Username,
-                         IsVisible = f.Follower.IsVisible,
-                         Images = f.Follower.Images
-                              .OrderByDescending(i => i.CreatedAt)
-                              .Select(i => new ImageForAdminDto
-                              {
-                                   Id = i.Id,
-                                   Url = i.Url,
-                                   Type = i.Type,
-                                   LastUpdated = i.CreatedAt
-                              })
-                              .Take(1)
-                              .ToList(),
-                         Phone = f.Follower.Phone,
-                         CreateAt = f.Follower.CreateAt,
-                         Description = f.Follower.Description,
-                         Courses = f.Follower.Courses
-                                        .Select(c => new CourseForAdminDto
-                                        {
-                                             Id = c.Id,
-                                             Name = c.Name,
-                                             Rating = c.Rating,
-                                             Price = c.Price,
-                                             Status = c.Status,
-                                             Images = c.Images
-                                                       .OrderByDescending(i => i.CreatedAt)
-                                                       .Select(i => new ImageForAdminDto
-                                                       {
-                                                            Id = i.Id,
-                                                            Url = i.Url,
-                                                            Type = i.Type,
-                                                            LastUpdated = i.CreatedAt
-                                                       })
-                                                       .Take(1)
-                                                       .ToList(),
-                                             User = c.User != null ? new UserInfoManageByAdminDto
-                                             {
-                                                  Id = c.User.Id,
-                                                  Email = c.User.Email,
-                                                  Name = c.User.Username,
-                                                  IsVisible = c.User.IsVisible,
-                                                  Images = c.User.Images
-                                                                 .OrderByDescending(i => i.CreatedAt)
-                                                                 .Select(i => new ImageForAdminDto
-                                                                 {
-                                                                      Id = i.Id,
-                                                                      Url = i.Url,
-                                                                      Type = i.Type,
-                                                                      LastUpdated = i.CreatedAt
-                                                                 }).Take(1).ToList(),
-                                                  Phone = c.User.Phone,
-                                                  CreateAt = c.User.CreateAt,
-                                                  Description = c.User.Description
-                                             } : null
-                                        }).ToList(),
-                         CoursesCount = f.Follower.Courses.Where(x => x.UserId == f.FollowerId).Count()
-                    })
-                    .Distinct()
-                    .ToList();
+          followingDto.FollowFolloweds = followedDict.Values.ToList();
+          followingDto.FollowingListOfUserId = UserId;
 
-               var followedList = followEntries
-                    .Where(f => f.FollowerId == UserId)
-                    .Select(f => new UserInfoManageByAdminDto
-                    {
-                         Id = f.Followed.Id,
-                         Email = f.Followed.Email,
-                         Name = f.Followed.Username,
-                         IsVisible = f.Followed.IsVisible,
-                         Images = f.Followed.Images
-                              .OrderByDescending(i => i.CreatedAt)
-                              .Select(i => new ImageForAdminDto
-                              {
-                                   Id = i.Id,
-                                   Url = i.Url,
-                                   Type = i.Type,
-                                   LastUpdated = i.CreatedAt
-                              })
-                              .Take(1)
-                              .ToList(),
-                         Phone = f.Followed.Phone,
-                         CreateAt = f.Followed.CreateAt,
-                         Description = f.Followed.Description,
-                         Courses = f.Followed.Courses
-                                        .Select(c => new CourseForAdminDto
-                                        {
-                                             Id = c.Id,
-                                             Name = c.Name,
-                                             Rating = c.Rating,
-                                             Price = c.Price,
-                                             Status = c.Status,
-                                             Images = c.Images
-                                                       .OrderByDescending(i => i.CreatedAt)
-                                                       .Select(i => new ImageForAdminDto
-                                                       {
-                                                            Id = i.Id,
-                                                            Url = i.Url,
-                                                            Type = i.Type,
-                                                            LastUpdated = i.CreatedAt
-                                                       })
-                                                       .Take(1)
-                                                       .ToList(),
-                                             User = c.User != null ? new UserInfoManageByAdminDto
-                                             {
-                                                  Id = c.User.Id,
-                                                  Email = c.User.Email,
-                                                  Name = c.User.Username,
-                                                  IsVisible = c.User.IsVisible,
-                                                  Images = c.User.Images
-                                                                 .OrderByDescending(i => i.CreatedAt)
-                                                                 .Select(i => new ImageForAdminDto
-                                                                 {
-                                                                      Id = i.Id,
-                                                                      Url = i.Url,
-                                                                      Type = i.Type,
-                                                                      LastUpdated = i.CreatedAt
-                                                                 }).Take(1).ToList(),
-                                                  Phone = c.User.Phone,
-                                                  CreateAt = c.User.CreateAt,
-                                                  Description = c.User.Description
-                                             } : null
-                                        }).ToList(),
-                         CoursesCount = f.Followed.Courses.Where(x => x.UserId == f.FollowedId).Count()
-                    })
-                    .Distinct()
-                    .ToList();
+          return followingDto;
+          }
 
-               return new FollowingDto
+          private UserInfoFollowingDto MapUserToUserInfoDto(User user, List<string> followedIds)
+          {
+               var userInfo = new UserInfoFollowingDto
                {
-                    FollowingListOfUserId = UserId,
-                    FollowFolloweds = followedList,
-                    FollowFollowers = followerList,
+                    Id = user.Id,
+                    Email = user.Email,
+                    Name = user.Username,
+                    CoursesCount = user.Courses.Count(),
+                    FollowerCount = user.FollowFollowers.Count(),
+                    FollowedCount = user.FollowFolloweds.Count(),
+                    Images = user.Images.Select(i => new ImageForAdminDto
+                    {
+                         Id = i.Id,
+                         Url = i.Url,
+                         Type = i.Type,
+                         LastUpdated = i.CreatedAt
+                    }).ToList(),
+                    Courses = user.Courses.Select(c => new CourseInfoFollowingDto
+                    {
+                         Id = c.Id,
+                         Name = c.Name,
+                         Rating = c.Rating,
+                         Price = c.Price,
+                    }).ToList(),
+                    FollowFolloweds = user.FollowFolloweds
+                                        .Select(ff => new UserInfoFollowingDto
+                                        {
+                                             Id = ff.Followed.Id,
+                                             Email = ff.Followed.Email,
+                                             Name = ff.Followed.Username,
+                                        }).ToList(),
+                    FollowFollowers = _context.Users 
+                                        .Where(u => followedIds.Contains(u.Id))
+                                        .Select(u => new UserInfoFollowingDto
+                                        {
+                                             Id = u.Id,
+                                             Email = u.Email,
+                                             Name = u.Username,
+                                             Images = u.Images.Select(i => new ImageForAdminDto
+                                             {
+                                                  Id = i.Id,
+                                                  Url = i.Url,
+                                                  Type = i.Type,
+                                                  LastUpdated = i.CreatedAt
+                                             }).ToList(),
+                                             CoursesCount = u.Courses.Count(), 
+                                             FollowerCount = u.FollowFollowers.Count(), 
+                                             FollowedCount = u.FollowFolloweds.Count(), 
+                                             Courses = u.Courses.Select(c => new CourseInfoFollowingDto
+                                             {
+                                                  Id = c.Id,
+                                                  Name = c.Name,
+                                                  Rating = c.Rating,
+                                                  Price = c.Price,
+                                             }).ToList(),
+                                             FollowFollowers = u.FollowFollowers 
+                                                  .Select(ff => new UserInfoFollowingDto
+                                                  {
+                                                       Id = ff.Follower.Id,
+                                                       Email = ff.Follower.Email,
+                                                       Name = ff.Follower.Username,
+                                                  }).ToList(),
+                                        }).ToList()
                };
+
+               return userInfo;
           }
 
           //---------------------CRUD--------------------------//

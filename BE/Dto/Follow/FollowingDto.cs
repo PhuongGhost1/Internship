@@ -9,6 +9,6 @@ namespace BE.Dto.Follow;
 public class FollowingDto
 {
      public string? FollowingListOfUserId { get; set; }
-     public List<UserInfoManageByAdminDto> FollowFolloweds { get; set; } = new List<UserInfoManageByAdminDto>();
-     public List<UserInfoManageByAdminDto> FollowFollowers { get; set; } = new List<UserInfoManageByAdminDto>();
+     public List<UserInfoFollowingDto> FollowFolloweds { get; set; } = new List<UserInfoFollowingDto>();
+     public List<UserInfoFollowingDto> FollowFollowers { get; set; } = new List<UserInfoFollowingDto>();
 }
