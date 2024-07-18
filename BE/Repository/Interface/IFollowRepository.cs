@@ -5,8 +5,7 @@ namespace BE.Repository.Interface
 {
      public interface IFollowRepository
      {
-          Task<List<FollowingDto>> GetFollowing(string followUserId);
-
+          Task<FollowingDto> GetFollowing(string UserId);
 
           //---------------------CRUD--------------------------//
           Task<Follow?> GetFollowById(string followUserId);

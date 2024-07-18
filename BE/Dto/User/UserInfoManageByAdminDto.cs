@@ -13,20 +13,23 @@ using BE.Models;
 
 namespace BE.Dto.User
 {
-    public class UserInfoManageByAdminDto
-    {
-        public string? Id {get; set;}
-        public string? Email { get; set; }
-        public string? Name { get; set; }
-        public bool? IsVisible { get; set; }
-        public List<ImageForAdminDto> Images { get; set; } = new List<ImageForAdminDto>();
-        public string? Phone { get; set; }
-        public DateTime? CreateAt { get; set; }
-        public string? Description { get; set; }
-        public List<RoleUserDto> RoleUsers { get; set; } = new List<RoleUserDto>();
-        public List<NotificationDto> Notifications { get; set; } = new List<NotificationDto>();
-        public List<CourseForAdminDto> Courses { get; set; } = new List<CourseForAdminDto>();
-        public List<PaymentDto> Payments { get; set; } = new List<PaymentDto>();
-        public List<CommentDto> Comments { get; set; } = new List<CommentDto>();
-    }
+     public class UserInfoManageByAdminDto
+     {
+          public string? Id { get; set; }
+          public string? Email { get; set; }
+          public string? Name { get; set; }
+          public bool? IsVisible { get; set; }
+          public List<ImageForAdminDto> Images { get; set; } = new List<ImageForAdminDto>();
+          public string? Phone { get; set; }
+          public DateTime? CreateAt { get; set; }
+          public string? Description { get; set; }
+          public int? CoursesCount { get; set; }
+          public List<RoleUserDto> RoleUsers { get; set; } = new List<RoleUserDto>();
+          public List<NotificationDto> Notifications { get; set; } = new List<NotificationDto>();
+          public List<CourseForAdminDto> Courses { get; set; } = new List<CourseForAdminDto>();
+          public List<PaymentDto> Payments { get; set; } = new List<PaymentDto>();
+          public List<CommentDto> Comments { get; set; } = new List<CommentDto>();
+          public List<UserInfoManageByAdminDto> FollowFolloweds { get; set; } = new List<UserInfoManageByAdminDto>();
+          public List<UserInfoManageByAdminDto> FollowFollowers { get; set; } = new List<UserInfoManageByAdminDto>();
+     }
 }

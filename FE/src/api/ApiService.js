@@ -586,7 +586,7 @@ const ApiService = {
   getFollowing: async (UserId) =>{
     try{
         const formData = new FormData();
-        formData.append("userId", UserId);
+        formData.append("UserId", UserId);
 
         const response = await axios.post(
             "http://localhost:5144/api/v1/web/follow/view-following",formData,

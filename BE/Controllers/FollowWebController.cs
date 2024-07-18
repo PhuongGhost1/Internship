@@ -18,9 +18,9 @@ namespace BE.Controllers
 
           [HttpPost]
           [Route("view-following")]
-          public async Task<List<FollowingDto>> ViewFollowing([FromForm] string userId)
+          public async Task<FollowingDto> ViewFollowing([FromForm] string UserId)
           {
-               return await _followService.GetFollowing(userId);
+               return await _followService.GetFollowing(UserId);
           }
 
 

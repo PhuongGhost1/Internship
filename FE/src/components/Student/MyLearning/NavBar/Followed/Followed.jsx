@@ -1,53 +1,32 @@
 import React, { useEffect, useState } from "react";
 import './Followed.css';
-import add from '../../../../../assets/add_profile.png';
 import ApiService from "../../../../../api/ApiService";
 import Background_user from '../../../../../assets/background-user1.jpg';
-import user_ava from '../../../../../assets/user-photo.avif'
-
-const tutorsData = [
-     // { name: "John Doe", title: "Wordpress & Plugin Tutor", students: "100K Students", courses: "15 Courses", social: ["facebook", "twitter", "linkedin", "youtube"], avatar: add },
-     // { name: "Kerstin Cable", title: "Language Learning Coach, Writer, Online Tutor", students: "14K Students", courses: "11 Courses", social: ["facebook", "twitter", "linkedin", "youtube"], avatar: add },
-     // { name: "Tutor 3", title: "Title 3", students: "14K Students", courses: "11 Courses", social: ["facebook", "twitter", "linkedin", "youtube"], avatar: add },
-     // { name: "Tutor 4", title: "Title 4", students: "14K Students", courses: "11 Courses", social: ["facebook", "twitter", "linkedin", "youtube"], avatar: add },
-     // { name: "Tutor 5", title: "Title 5", students: "14K Students", courses: "11 Courses", social: ["facebook", "twitter", "linkedin", "youtube"], avatar: add },
-     // { name: "Tutor 6", title: "Title 6", students: "14K Students", courses: "11 Courses", social: ["facebook", "twitter", "linkedin", "youtube"], avatar: add },
-     // { name: "Tutor 7", title: "Title 7", students: "14K Students", courses: "11 Courses", social: ["facebook", "twitter", "linkedin", "youtube"], avatar: add },
-     // { name: "Tutor 8", title: "Title 8", students: "14K Students", courses: "11 Courses", social: ["facebook", "twitter", "linkedin", "youtube"], avatar: add },
-     // { name: "Tutor 9", title: "Title 9", students: "14K Students", courses: "11 Courses", social: ["facebook", "twitter", "linkedin", "youtube"], avatar: add },
-     // { name: "Tutor 10", title: "Title 10", students: "14K Students", courses: "11 Courses", social: ["facebook", "twitter", "linkedin", "youtube"], avatar: add },
-     // { name: "Tutor 11", title: "Title 11", students: "14K Students", courses: "11 Courses", social: ["facebook", "twitter", "linkedin", "youtube"], avatar: add },
-     // { name: "Tutor 12", title: "Title 12", students: "14K Students", courses: "11 Courses", social: ["facebook", "twitter", "linkedin", "youtube"], avatar: add },
-     // { name: "Tutor 13", title: "Title 13", students: "14K Students", courses: "11 Courses", social: ["facebook", "twitter", "linkedin", "youtube"], avatar: add },
-     // { name: "Tutor 14", title: "Title 14", students: "14K Students", courses: "11 Courses", social: ["facebook", "twitter", "linkedin", "youtube"], avatar: add },
-     // { name: "Tutor 15", title: "Title 15", students: "14K Students", courses: "11 Courses", social: ["facebook", "twitter", "linkedin", "youtube"], avatar: add },
-     // { name: "Tutor 16", title: "Title 16", students: "14K Students", courses: "11 Courses", social: ["facebook", "twitter", "linkedin", "youtube"], avatar: add },
-];
 
 const Followed = () => {
      // const [currentPage, setCurrentPage] = useState(1);
-     const [searchTerm, setSearchTerm] = useState("");
      // const [tutors, setTutors] = useState(tutorsData);
-     const [data, setData] = useState(null);
      // const tutorsPerPage = 15;
 
+     const [searchTerm, setSearchTerm] = useState("");
+     const [data, setData] = useState([]);
+
      useEffect(() => {
-          fetchFollowing("user_8c0c22c265")
+          fetchFollowing("user_e5d1e4648e")
      }, [])
 
      const fetchFollowing = async (userId) => {
-          const response = await ApiService.getFollowing(userId);
-          setData(response)
+          try {
+               const response = await ApiService.getFollowing(userId);
+               setData(response ? [response] : []);
+          } catch (error) {
+               console.error("Error fetching data: ", error);
+          }
      }
-     useEffect(() => {
-          console.log(data)
-     }, [data])
-     // Logic for filtering tutors based on search term
-     // const filteredTutors = tutors.filter(tutor =>
-     //      tutor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-     //      tutor.students.toLowerCase().includes(searchTerm.toLowerCase()) ||
-     //      tutor.courses.toLowerCase().includes(searchTerm.toLowerCase())
-     // );
+
+     const filteredData = data.filter(tutor =>
+          tutor.followFolloweds[0].name.toLowerCase().includes(searchTerm.toLowerCase())
+     );
 
      // // Logic for displaying current tutors
      // const indexOfLastTutor = currentPage * tutorsPerPage;
@@ -69,7 +48,6 @@ const Followed = () => {
 
      return (
           <div id="Followed">
-
                <div id="search-bar">
                     <input
                          type="text"
@@ -80,25 +58,27 @@ const Followed = () => {
                </div>
 
                <div id="tutors-grid">
-                    {data?.map((tutor, index) => (
-                         <div className="tutor-card">
-                              <div className="image-container">
-                                   <img src={Background_user} alt="" className="background" />
-                                   <div className="tutor-info">
-                                        <img src={user_ava} alt="" />
-                                        <div className="user-info">
-                                             <p className="tutor-name">{tutor.name}</p>
-                                             <p className="course-count">{tutor.course} course</p>
+                    {filteredData.map((tutor) => (
+                         tutor.followFolloweds.map((followed) => (
+                              <div className="tutor-card" key={`${tutor.id}-${followed.id}`}>
+                                   <div className="image-container">
+                                        <img src={Background_user} alt="" className="background" />
+                                        <div className="tutor-info">
+                                             <img src={followed.images[0]?.url || ''} alt="" />
+                                             <div className="user-info">
+                                                  <p className="tutor-name">{followed.name}</p>
+                                                  <p className="course-count">{tutor.followedCount} course{tutor.followerCount !== 1 ? 's' : ''}</p>
+                                             </div>
                                         </div>
                                    </div>
+                                   <div className="follower-info">
+                                        {/* Additional follower info can be added here */}
+                                   </div>
+                                   <div className="unfollow-btn">
+                                        UNFOLLOW
+                                   </div>
                               </div>
-                              <div className="follower-info">
-
-                              </div>
-                              <div className="unfollow-btn">
-                                   UNFOLLOW
-                              </div>
-                         </div>
+                         ))
                     ))}
                </div>
                {/*
