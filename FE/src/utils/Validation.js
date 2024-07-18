@@ -48,3 +48,7 @@ export const CoverMinutesToHours = (minutes) => {
   const remainingMinutes = minutes % 60;
   return `${hours} hours ${remainingMinutes} minutes`;
 }
+
+export const nameNavigation = (courseName) => {
+  return courseName.toLowerCase().split(' ').join('-');
+};

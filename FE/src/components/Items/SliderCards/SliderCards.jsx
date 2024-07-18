@@ -62,7 +62,7 @@ export default function SliderCards({ datas }) {
         </div>
       )}
       <div id="slider-cards-container" ref={sliderRef}>
-        {datas ? datas?.map((data, index) => (
+        {!(datas == null || datas.length == 0) ? datas.map((data, index) => (
           <Card data={data} key={index} />
         )) : (
           <Stack direction="row" spacing={1} sx={{ display: 'flex' }}>

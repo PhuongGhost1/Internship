@@ -21,16 +21,15 @@ namespace BE.Services.Interfaces
                 Task<List<Course>> GetAllCoursesByCategoryName(string cateName);
                 Task<Course?> SearchCourseByUserId(string userId);
                 Task<List<Course>> GetRecentRandomCourses(int numberOfCourses);
-                Task<List<NewReleaseCourseForHomepageDto>> GetMostPurchasedCoursesAsync();
+                Task<List<NewReleaseCourseForHomepageDto>> GetMostPurchasedCoursesAsync(int count);
                 Task<List<MonthlyAnalyticsDto>> GetMonthlyExpenseAndRevenueAsync();
                 Task<List<CourseManagementForAdminDto>> GetCourseManagementByAdminAsync();
                 Task<List<CourseManagementForAdminDto>> GetCourseManagementForWaitingByAdminAsync();
                 Task<bool> UpdateCourseByAdminAysnc(string courseId, int status);
                 Task<List<Course>> GetCourseWithStatus(string userId, int status);
                 Task<List<CardCourseDto>> GetRandomCourse(int count);
-                Task<List<NewReleaseCourseForHomepageDto>> NewReleaseCoursesAsync();
-                Task<List<NewReleaseCourseForHomepageDto>> NewReleaseCoursesByNameAsync(int size);
-                Task<List<NewReleaseCourseForHomepageDto>> GetTopRatedCoursesAsync();
+                Task<List<NewReleaseCourseForHomepageDto>> NewReleaseCoursesAsync(int count);
+                Task<List<NewReleaseCourseForHomepageDto>> GetTopRatedCoursesAsync(int count);
 
                 //---------------------CRUD--------------------------//
                 Task<Course?> UpdateCourse(UpdateCourseDto updateCourseDto);

@@ -44,7 +44,7 @@ export default function CourseDetailPage() {
     try {
       const data1 = await api.getCourseByName(courseName);
       setCourseData(data1);
-      const data2 = await api.getNewReleaseCoursesWithName(6);
+      const data2 = await api.getNewReleaseCourses(6);
       setCardData(data2);
     } catch (error) {
       console.error("Error fetching course:", error);

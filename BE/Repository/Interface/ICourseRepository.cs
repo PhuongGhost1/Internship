@@ -22,16 +22,15 @@ namespace BE.Repository.Interface
                 Task<List<Course>> FindCourseByCategoryName(string categoryName);
                 Task<Course?> SearchCourseByUserId(string userId);
                 Task<List<Course>> GetRecentRandomCourses(int numberOfCourses);
-                Task<List<NewReleaseCourseForHomepageDto>> GetMostPurchasedCourses();
+                Task<List<NewReleaseCourseForHomepageDto>> GetMostPurchasedCourses(int count);
                 Task<List<MonthlyAnalyticsDto>> GetMonthlyExpenseAndRevenue();
                 Task<List<CourseManagementForAdminDto>> GetCourseManagementByAdmin();
                 Task<List<CourseManagementForAdminDto>> GetCourseManagementForWaitingByAdmin();
                 Task<bool> UpdateCourseByAdmin(string courseId, int status);
                 Task<List<Course>> GetCourseWithStatus(string userId, int status);
                 Task<List<Course>> GetAllCourseAvailable();
-                Task<List<NewReleaseCourseForHomepageDto>> NewReleaseCourses();
-                Task<List<NewReleaseCourseForHomepageDto>> NewReleaseCoursesByNam(int size);
-                Task<List<NewReleaseCourseForHomepageDto>> GetTopRatedCourses();
+                Task<List<NewReleaseCourseForHomepageDto>> NewReleaseCourses(int count);
+                Task<List<NewReleaseCourseForHomepageDto>> GetTopRatedCourses(int count);
 
                 //---------------------CRUD--------------------------//
                 Task<Course?> UpdateCourse(Course course);

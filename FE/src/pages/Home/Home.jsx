@@ -25,39 +25,39 @@ export default function Home() {
   const [topRatedCourses, setTopRatedCourses] = useState(null);
 
   useEffect(() => {
-    const fetchNewReleaseCourses = async () => {
+    const fetchNewReleaseCourses = async (count) => {
       try {
-        const data = await ApiService.getNewReleaseCourses();
+        const data = await ApiService.getNewReleaseCourses(count);
         setNewReleaseCoursesData(data);
       } catch (error) {
         console.log("Error fetching new release courses: ", error);
       }
     };
-    fetchNewReleaseCourses();
+    fetchNewReleaseCourses(14);
   }, []);
 
   useEffect(() => {
-    const fetchMostPopularCourses = async () => {
+    const fetchMostPopularCourses = async (count) => {
       try {
-        const data = await ApiService.getMostPurchasedCourses();
+        const data = await ApiService.getMostPurchasedCourses(count);
         setMostPopularCoursesData(data);
       } catch (error) {
         console.log("Error fetching new release courses: ", error);
       }
     };
-    fetchMostPopularCourses();
+    fetchMostPopularCourses(6);
   }, []);
 
   useEffect(() => {
-    const fetchTopRatedCourses = async () => {
+    const fetchTopRatedCourses = async (count) => {
       try {
-        const data = await ApiService.getTopRatedCourses();
+        const data = await ApiService.getTopRatedCourses(count);
         setTopRatedCourses(data);
       } catch (error) {
         console.log("Error fetching top rated courses: ", error);
       }
     };
-    fetchTopRatedCourses();
+    fetchTopRatedCourses(6);
   }, []);
 
   return (

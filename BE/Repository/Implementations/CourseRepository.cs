@@ -461,18 +461,13 @@ namespace BE.Repository.Implementations
 
           public async Task<Course?> FindCourseByCourseName(string courseName)
           {
-               if (courseName.Contains("-"))
-               {
-                    courseName = courseName.Replace("-", " ");
-               }
-
                return await _context.Courses.Include(course => course.CategoryCourses)
                                                .ThenInclude(cateCourse => cateCourse.Category)
                                            .Include(course => course.User)
-                                           .FirstOrDefaultAsync(course => course.Name.ToLower() == courseName.ToLower());
+                                           .FirstOrDefaultAsync(course => course.Name.Replace(" ", "-").ToLower() == courseName.ToLower());
           }
 
-          public async Task<List<NewReleaseCourseForHomepageDto>> GetMostPurchasedCourses()
+          public async Task<List<NewReleaseCourseForHomepageDto>> GetMostPurchasedCourses(int count)
           {
                var mostPurchasedCourses = await _context.PaymentCourses
                                                        .Join(_context.CartCourses,
@@ -490,7 +485,7 @@ namespace BE.Repository.Implementations
                                                             Course = g.First(),
                                                             PurchaseCount = g.Count()
                                                        })
-                                                       .Take(8)
+                                                       .Take(count)
                                                        .ToListAsync();
 
                var mostPurchasedCoursesDto = new List<NewReleaseCourseForHomepageDto>();
@@ -498,7 +493,7 @@ namespace BE.Repository.Implementations
                foreach (var c in mostPurchasedCourses)
                {
                     var image = await _context.Images
-                         .Where(i => i.CourseId == c.Course.Id)
+                         .Where(i => i.CourseId == c.Course.Id && i.Type == "Background")
                          .OrderByDescending(i => i.CreatedAt)
                          .Select(i => new ImageForAdminDto
                          {
@@ -700,11 +695,11 @@ namespace BE.Repository.Implementations
                return lectureCount;
           }
 
-          public async Task<List<NewReleaseCourseForHomepageDto>> NewReleaseCourses()
+          public async Task<List<NewReleaseCourseForHomepageDto>> NewReleaseCourses(int count)
           {
                var newReleaseCourses = await _context.Courses
                     .OrderByDescending(c => c.CreateAt)
-                    .Take(20)
+                    .Take(count)
                     .ToListAsync();
 
                var newReleaseCoursesDto = new List<NewReleaseCourseForHomepageDto>();
@@ -712,7 +707,7 @@ namespace BE.Repository.Implementations
                foreach (var c in newReleaseCourses)
                {
                     var image = await _context.Images
-                         .Where(i => i.CourseId == c.Id)
+                         .Where(i => i.CourseId == c.Id && i.Type == "Background")
                          .OrderByDescending(i => i.CreatedAt)
                          .Select(i => new ImageForAdminDto
                          {
@@ -823,57 +818,12 @@ namespace BE.Repository.Implementations
                }
           }
 
-          public async Task<List<NewReleaseCourseForHomepageDto>> NewReleaseCoursesByNam(int size)
-          {
-               var newReleaseCourses = await _context.Courses
-                       .OrderByDescending(c => c.CreateAt)
-                       .Take(size)
-                       .ToListAsync();
 
-               var newReleaseCoursesDto = new List<NewReleaseCourseForHomepageDto>();
-
-               foreach (var c in newReleaseCourses)
-               {
-                    var image = await _context.Images
-                         .Where(i => i.CourseId == c.Id)
-                         .OrderByDescending(i => i.CreatedAt)
-                         .Select(i => new ImageForAdminDto
-                         {
-                              Id = i.Id,
-                              Url = i.Url,
-                              Type = i.Type,
-                              LastUpdated = i.CreatedAt
-                         })
-                         .FirstOrDefaultAsync();
-
-                    var ratingAvg = await GetRatingAverage(c.Id) ?? 0;
-                    var ratingCount = await GetRatingNumber(c.Id) ?? 0;
-                    var totalVideoTime = await CalculateTotalVideoTimeByCourseId(c.Id) ?? 0;
-                    var quizCount = await NumberOfQuizInChapterByCourseId(c.Id) ?? 0;
-
-                    var newRelease = new NewReleaseCourseForHomepageDto
-                    {
-                         Id = c.Id,
-                         Name = c.Name,
-                         Image = new List<ImageForAdminDto> { image },
-                         Level = c.Level,
-                         Price = c.Price,
-                         RatingAvg = ratingAvg,
-                         RatingCount = ratingCount,
-                         TimeLearning = totalVideoTime + quizCount * 30,
-                    };
-
-                    newReleaseCoursesDto.Add(newRelease);
-               }
-
-               return newReleaseCoursesDto;
-          }
-
-          public async Task<List<NewReleaseCourseForHomepageDto>> GetTopRatedCourses()
+          public async Task<List<NewReleaseCourseForHomepageDto>> GetTopRatedCourses(int count)
           {
                var topRatedCourses = await _context.Courses
                     .OrderByDescending(c => c.Rating)
-                    .Take(6)
+                    .Take(count)
                     .ToListAsync();
 
                var topRatedCoursesDto = new List<NewReleaseCourseForHomepageDto>();
@@ -881,7 +831,7 @@ namespace BE.Repository.Implementations
                foreach (var c in topRatedCourses)
                {
                     var image = await _context.Images
-                         .Where(i => i.CourseId == c.Id)
+                         .Where(i => i.CourseId == c.Id && i.Type == "Background")
                          .OrderByDescending(i => i.CreatedAt)
                          .Select(i => new ImageForAdminDto
                          {

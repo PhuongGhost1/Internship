@@ -167,8 +167,10 @@ namespace BE.Services.Implementations
         public async Task<Course?> GetCourseByCourseName(string courseName)
         {
             if (courseName == null) throw new Exception("Unable to find chapter!");
+            var course = await _courseRepo.FindCourseByCourseName(courseName);
+            Console.WriteLine(course);
 
-            return await _courseRepo.FindCourseByCourseName(courseName);
+            return course;
         }
 
         public async Task<string> CreateChapter(CreateChapterData data)
@@ -180,9 +182,9 @@ namespace BE.Services.Implementations
             return await _courseRepo.CreateQuiz(data);
         }
 
-        public async Task<List<NewReleaseCourseForHomepageDto>> GetMostPurchasedCoursesAsync()
+        public async Task<List<NewReleaseCourseForHomepageDto>> GetMostPurchasedCoursesAsync(int count)
         {
-            var courses = await _courseRepo.GetMostPurchasedCourses();
+            var courses = await _courseRepo.GetMostPurchasedCourses(count);
 
             if (courses == null || courses.Count == 0)
             {
@@ -280,27 +282,19 @@ namespace BE.Services.Implementations
             return searchCourses;
         }
 
-        public async Task<List<NewReleaseCourseForHomepageDto>> NewReleaseCoursesAsync()
+        public async Task<List<NewReleaseCourseForHomepageDto>> NewReleaseCoursesAsync(int count)
         {
-            var newReleaseCourses = await _courseRepo.NewReleaseCourses();
+            var newReleaseCourses = await _courseRepo.NewReleaseCourses(count);
 
             if (newReleaseCourses == null || newReleaseCourses.Count == 0) return new List<NewReleaseCourseForHomepageDto>();
 
             return newReleaseCourses;
         }
 
-        public async Task<List<NewReleaseCourseForHomepageDto>> NewReleaseCoursesByNameAsync(int size)
+
+        public async Task<List<NewReleaseCourseForHomepageDto>> GetTopRatedCoursesAsync(int count)
         {
-            var newReleaseCourses = await _courseRepo.NewReleaseCoursesByNam(size);
-
-            if (newReleaseCourses == null || newReleaseCourses.Count == 0) return new List<NewReleaseCourseForHomepageDto>();
-
-            return newReleaseCourses;
-        }
-
-        public async Task<List<NewReleaseCourseForHomepageDto>> GetTopRatedCoursesAsync()
-        {
-            var topRatedCourses = await _courseRepo.GetTopRatedCourses();
+            var topRatedCourses = await _courseRepo.GetTopRatedCourses(count);
 
             if (topRatedCourses == null || topRatedCourses.Count == 0) return new List<NewReleaseCourseForHomepageDto>();
 

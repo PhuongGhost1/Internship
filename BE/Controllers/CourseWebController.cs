@@ -163,10 +163,10 @@ namespace BE.Controllers
             return GenerateHashCode(courseName);
         }
 
-        [HttpGet, Route("most-purchased-courses")]
-        public async Task<List<NewReleaseCourseForHomepageDto>> GetMostPurchasedCourses()
+        [HttpGet, Route("most-purchased-courses/{count:int}")]
+        public async Task<List<NewReleaseCourseForHomepageDto>> GetMostPurchasedCourses(int count)
         {
-            return await _courseService.GetMostPurchasedCoursesAsync();
+            return await _courseService.GetMostPurchasedCoursesAsync(count);
         }
 
         [HttpGet, Route("monthly-expense-revenue")]
@@ -205,22 +205,16 @@ namespace BE.Controllers
             return await _courseService.SearchCourse(query, page, items);
         }
 
-        [HttpGet, Route("new-release-courses")]
-        public async Task<List<NewReleaseCourseForHomepageDto>> GetNewReleaseCoursesAsync()
+        [HttpGet, Route("new-release-courses/{count:int}")]
+        public async Task<List<NewReleaseCourseForHomepageDto>> GetNewReleaseCoursesAsync(int count)
         {
-            return await _courseService.NewReleaseCoursesAsync();
+            return await _courseService.NewReleaseCoursesAsync(count);
         }
 
-        [HttpGet, Route("new-release-courses-by-name/{count:int}")]
-        public async Task<List<NewReleaseCourseForHomepageDto>> GetNewReleaseCoursesAsyncByName(int count)
+        [HttpGet, Route("top-rated-courses/{count:int}")]
+        public async Task<List<NewReleaseCourseForHomepageDto>> GetTopRatedCoursesAsync(int count)
         {
-            return await _courseService.NewReleaseCoursesByNameAsync(count);
-        }
-
-        [HttpGet, Route("top-rated-courses")]
-        public async Task<List<NewReleaseCourseForHomepageDto>> GetTopRatedCoursesAsync()
-        {
-            return await _courseService.GetTopRatedCoursesAsync();
+            return await _courseService.GetTopRatedCoursesAsync(count);
         }
 
         [HttpPost, Route("create")]

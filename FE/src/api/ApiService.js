@@ -18,10 +18,12 @@ const ApiService = {
       throw error;
     }
   },
-  getMostPurchasedCourses: async () => {
+  getMostPurchasedCourses: async (
+    count
+  ) => {
     try {
       const response = await axios.get(
-        "http://localhost:5144/api/v1/web/course/most-purchased-courses"
+        `http://localhost:5144/api/v1/web/course/most-purchased-courses/${count}`
       );
       return response.data;
     } catch (error) {
@@ -497,7 +499,7 @@ const ApiService = {
         }
       );
       return response.data;
-    } catch (error) {}
+    } catch (error) { }
   },
   getInstructorProfile: async (insId) => {
     try {
@@ -531,10 +533,12 @@ const ApiService = {
       throw error;
     }
   },
-  getNewReleaseCourses: async () => {
+  getNewReleaseCourses: async (
+    count
+  ) => {
     try {
       const response = await axios.get(
-        "http://localhost:5144/api/v1/web/course/new-release-courses"
+        `http://localhost:5144/api/v1/web/course/new-release-courses/${count}`
       );
       return response.data;
     } catch (error) {
@@ -542,21 +546,12 @@ const ApiService = {
       throw error;
     }
   },
-  getNewReleaseCoursesWithName: async (count) => {
+  getTopRatedCourses: async (
+    count
+  ) => {
     try {
       const response = await axios.get(
-        `http://localhost:5144/api/v1/web/course/new-release-courses-by-name/${count}`
-      );
-      return response.data;
-    } catch (error) {
-      console.error("Error fetching get new release courses by name:", error);
-      throw error;
-    }
-  },
-  getTopRatedCourses: async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:5144/api/v1/web/course/top-rated-courses"
+        `http://localhost:5144/api/v1/web/course/top-rated-courses/${count}`
       );
       return response.data;
     } catch (error) {
