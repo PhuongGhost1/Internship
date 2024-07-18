@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import './Statistics.css';
 import ApiService from "../../../api/ApiService";
 
 export default function Statistics() {
@@ -23,26 +24,31 @@ export default function Statistics() {
       {courseData.length === 0 ? (
         <div className="course-item">Chưa có thông tin nào hiện có.</div>
       ) : (
-        courseData.map((course, index) => (
-          <div key={index} className="course-item">
-            <div>
-              <h4>{course.name}</h4>
-              <p>
-                {new Date(course.createAt)
-                  .toLocaleDateString("en-GB", {
-                    day: "2-digit",
-                    month: "2-digit",
-                    year: "numeric",
-                  })
-                  .replace(/\//g, "-")}
-              </p>
-            </div>
-            {/* <div className={`course-status ${course.status.toLowerCase()}`}>
-              <p>{course.status}</p>
-              <p>{course.id}</p>
-            </div> */}
+        <div className="Ranking">
+          <div id="leaderboard">
+            <div className="ribbon"></div>
+            <table>
+              <tbody>
+                {courseData.map((course, index) => (
+                  <tr key={index}>
+                    <td className="number">{index + 1}</td>
+                    <td className="name">{course.name}</td>
+                    <td className="points">
+                      {course.points}
+                      {index === 0 && (
+                        <img
+                          className="gold-medal"
+                          src="https://github.com/malunaridev/Challenges-iCodeThis/blob/master/4-leaderboard/assets/gold-medal.png?raw=true"
+                          alt="gold medal"
+                        />
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
-        ))
+        </div>
       )}
     </div>
   );
