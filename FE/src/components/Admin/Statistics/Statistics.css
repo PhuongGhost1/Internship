@@ -1,72 +1,135 @@
 #Statistics {
-    background-color: #f4f6f9;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    margin-top: 20px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 25px;
 }
 
-#Statistics h2 {
-    color: #333;
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 20px;
-    text-align: center;
+#Statistics body {
+  height: 100%;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #fbfaff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-#Statistics .course-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 15px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    transition: transform 0.2s, box-shadow 0.2s;
+#Statistics h1 {
+  font-family: "Rubik", sans-serif;
+  font-size: 1.7rem;
+  color: #141a39;
+  text-transform: uppercase;
+  cursor: default;
 }
 
-#Statistics .course-item:hover {
-    transform: scale(1.02);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+#Statistics #leaderboard {
+  width: 100%;
+  position: relative;
+  background-color: #f9f9f9;
 }
 
-#Statistics .course-details {
-    flex: 1;
+#Statistics table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  color: #141a39;
+  cursor: default;
 }
 
-#Statistics .course-details h4 {
-    color: #222;
-    font-size: 20px;
-    margin: 0;
-    font-weight: 500;
+#Statistics tr {
+  transition: all 0.2s ease-in-out;
+  border-radius: 0.2rem;
 }
 
-#Statistics .course-details p {
-    color: #555;
-    font-size: 14px;
-    margin: 5px 0 0;
+#Statistics tr:not(:first-child):hover {
+  background-color: #fff;
+  transform: scale(1.1);
+  -webkit-box-shadow: 0px 5px 15px 8px #e4e7fb;
+  box-shadow: 0px 5px 15px 8px #e4e7fb;
 }
 
-#Statistics .course-status {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: center;
+#Statistics tr:nth-child(odd) {
+  background-color: #f9f9f9;
 }
 
-#Statistics .course-status p {
-    margin: 0;
-    font-size: 14px;
+#Statistics tr:nth-child(1) {
+  color: #fff;
 }
 
-#Statistics .course-status.ongoing {
-    color: #28a745;
+#Statistics td {
+  height: 5rem;
+  font-family: "Rubik", sans-serif;
+  font-size: 1.4rem;
+  padding: 1rem 2rem;
+  position: relative;
 }
 
-#Statistics .course-status.upcoming {
-    color: #ff9900;
+#Statistics .number {
+  width: 1rem;
+  font-size: 2.2rem;
+  font-weight: bold;
+  text-align: left;
 }
 
-#Statistics .course-status.completed {
-    color: #6c757d;
+#Statistics .name {
+  text-align: left;
+  font-size: 1.2rem;
+}
+
+#Statistics .points {
+  font-weight: bold;
+  font-size: 1.1rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+#Statistics .points:first-child {
+  width: 10rem;
+}
+
+#Statistics .gold-medal {
+  height: 3rem;
+  margin-left: 1.5rem;
+}
+
+#Statistics .Ranking {
+  width: 100%;
+  height: auto;
+}
+
+#Statistics #leaderboard .ribbon {
+  width: 44rem;
+  height: 5.5rem;
+  top: 0.1rem;
+  background-color: #5c5be5;
+  position: absolute;
+  left: -1rem;
+  box-shadow: 0px 15px 11px -6px #7a7a7d;
+}
+
+#Statistics .ribbon::before {
+  content: "";
+  height: 1.5rem;
+  width: 1.5rem;
+  bottom: -0.8rem;
+  left: 0.35rem;
+  transform: rotate(45deg);
+  background-color: #5c5be5;
+  position: absolute;
+  z-index: -1;
+}
+
+#Statistics .ribbon::after {
+  content: "";
+  height: 1.5rem;
+  width: 1.5rem;
+  bottom: -0.8rem;
+  right: 0.35rem;
+  transform: rotate(45deg);
+  background-color: #5c5be5;
+  position: absolute;
+  z-index: -1;
 }
