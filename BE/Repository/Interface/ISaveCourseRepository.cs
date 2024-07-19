@@ -13,6 +13,5 @@ namespace BE.Repository.Interface
         Task<SaveCourse?> UpdateSaveCourse(SaveCourse saveCourseUser);
         Task<bool> DeleteSaveCourse(string saveCourseUserId);
         Task<List<Course>> GetListSaveCourse(string userId);
-        Task<string> GetSaveCourseId(string userId, string courseId);
     }
 }

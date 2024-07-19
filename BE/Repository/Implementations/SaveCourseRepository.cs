@@ -61,12 +61,5 @@ namespace BE.Repository.Implementations
                                 .ToListAsync();
             return savedCourses;
         }
-
-        public async Task<string> GetSaveCourseId(string userId, string courseId)
-        {
-            var SaveCourse = await _context.SaveCourses
-                .Where(sv => sv.UserId == userId && sv.CourseId == courseId).FirstOrDefaultAsync();
-            return SaveCourse.Id;
-        }
     }
 }

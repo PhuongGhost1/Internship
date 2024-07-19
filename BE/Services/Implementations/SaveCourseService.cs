@@ -70,7 +70,6 @@ namespace BE.Services.Implementations
                 var categories = await _categoryCourseRepo.GetAllCategoryOfCouse(course.Id);
                 var countLecture = await _courseRepo.CountLectureCourse(course.Id);
                 var imgUrl = await _courseRepo.GetImageCourse(course.Id, "Background");
-                var IdSaveCourse = await _saveCourseRepo.GetSaveCourseId(userId, course.Id);
                 returnList.Add(new SaveCourseCard
                 {
                     SaveCourseId = saveCourseId,
