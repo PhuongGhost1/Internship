@@ -18,10 +18,10 @@ import { FaUserCheck } from "react-icons/fa6";
 import { SiGmail } from "react-icons/si";
 import { FaPhoneAlt } from "react-icons/fa";
 
-const DataTable = ({ data }) => {
+const DataTable = ({ data, onStatusUpdate }) => {
   const pageSize = 6;
   const [currentPage, setCurrentPage] = useState(1);
-  const [courses, setCourses] = useState(data);
+  const [courses, setCourses] = useState(data || []);
   const [dropdownOpen, setDropdownOpen] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [updateInProgress, setUpdateInProgress] = useState(false);
@@ -59,9 +59,11 @@ const DataTable = ({ data }) => {
             course.id === courseId ? { ...course, status: newStatus } : course
           )
         );
+        onStatusUpdate();
       } else {
         console.log("Update status failed or no update needed.");
       }
+      setCourses(data);
     } catch (error) {
       console.error("Error updating status:", error);
     } finally {
@@ -321,6 +323,7 @@ const DataTable = ({ data }) => {
 
 DataTable.propTypes = {
   data: PropTypes.array.isRequired,
+  onStatusUpdate: PropTypes.func.isRequired,
 };
 
 export default DataTable;

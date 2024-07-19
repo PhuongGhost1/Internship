@@ -27,7 +27,7 @@ namespace BE.Controllers
             return await _saveCourseService.ViewAllSaveCourses();
         }
 
-        [CustomAuthorize("Student", "Instructor")]
+        //[CustomAuthorize("Student", "Instructor")]
         [HttpPost]
         [Route("create-saveCourse")]
         public async Task<SaveCourse?> CreateSaveCourse([FromForm] CreateSaveCourseDto createSaveCourseDto)
@@ -43,7 +43,7 @@ namespace BE.Controllers
             return await _saveCourseService.UpdateSaveCourse(saveCourseId, updateSaveCourseDto);
         }
 
-        [CustomAuthorize("Student", "Instructor")]
+        //[CustomAuthorize("Student", "Instructor")]
         [HttpPost]
         [Route("delete-saveCourse")]
         public async Task<bool> DeleteSaveCourse([FromForm] string saveCourseId)

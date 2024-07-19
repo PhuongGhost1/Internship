@@ -65,12 +65,14 @@ namespace BE.Services.Implementations
             var returnList = new List<SaveCourseCard>();
             foreach (var course in courses)
             {
+                var saveCourseId = await _saveCourseRepo.GetSaveCourseId(userId, course.Id);
                 var ratingCount = await _courseRepo.RetriveRatingNumber(course.Id);
                 var categories = await _categoryCourseRepo.GetAllCategoryOfCouse(course.Id);
                 var countLecture = await _courseRepo.CountLectureCourse(course.Id);
                 var imgUrl = await _courseRepo.GetImageCourse(course.Id, "Background");
                 returnList.Add(new SaveCourseCard
                 {
+                    SaveCourseId = saveCourseId,
                     Name = course.Name,
                     CountLecture = countLecture,
                     Level = course.Level,
