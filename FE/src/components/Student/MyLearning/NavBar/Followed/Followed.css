@@ -96,12 +96,15 @@
      color: white;
      font-weight: 600;
      margin-bottom: 3px;
+     margin-right: 80px;
 }
 
 #tutors-grid .tutor-card .image-container .tutor-info .user-info .course-count {
      color: #cacacb;
      font-size: 13px;
+     margin-right: 76px;
 }
+
 
 #tutors-grid .tutor-card .unfollow-btn {
      width: 100%;
@@ -117,6 +120,18 @@
      color: white;
      font-weight: 600;
      font-size: 15px;
+}
+
+.followerCount {
+     margin-top: 27px;
+     margin-bottom: 10px;
+}
+
+.followerCount p {
+     font-size: 16px;
+     /* Chỉnh kích thước font chữ theo ý bạn */
+     font-weight: 500;
+     /* Đặt độ dày font chữ thành 600 */
 }
 
 
