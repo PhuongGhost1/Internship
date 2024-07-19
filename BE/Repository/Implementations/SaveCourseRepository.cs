@@ -32,6 +32,7 @@ namespace BE.Repository.Implementations
             if (saveCourse == null) return false;
 
             _context.SaveCourses.Remove(saveCourse);
+            _context.SaveCourses.Remove(saveCourse);
             await _context.SaveChangesAsync();
             return true;
         }
@@ -59,6 +60,13 @@ namespace BE.Repository.Implementations
             var savedCourses = await _context.Courses.Where(c => SaveCourseIds.Contains(c.Id) && c.Status == 0)
                                 .ToListAsync();
             return savedCourses;
+        }
+
+        public async Task<string> GetSaveCourseId(string userId, string courseId)
+        {
+            var SaveCourse = await _context.SaveCourses
+                .Where(sv => sv.UserId == userId && sv.CourseId == courseId).FirstOrDefaultAsync();
+            return SaveCourse.Id;
         }
     }
 }

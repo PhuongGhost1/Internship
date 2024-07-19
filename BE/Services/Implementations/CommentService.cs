@@ -1,4 +1,5 @@
 using BE.Dto.Comment;
+using BE.Dto.Message;
 using BE.Mappers;
 using BE.Models;
 using BE.Repository.Interface;
@@ -20,28 +21,48 @@ namespace BE.Services.Implementations
 
 
         //---------------------CRUD--------------------------//
-        public async Task<Comment?> CreateComment(CreateCommentDto createCommentDto)
+        public async Task<MessageDto> CreateComment(CreateCommentDto createCommentDto)
         {
             var user = await _userRepo.GetUserById(createCommentDto.UserId);
 
-            if(user == null) throw new Exception("Unable to find user!");
+            if (user == null)
+                return new MessageDto
+                {
+                    Message = "user is null",
+                    Status = 0,
+                };
 
-            var course = await _courseRepo.RetriveCourseInformationById(createCommentDto.UserId);
+            var course = await _courseRepo.RetriveCourseInformationById(createCommentDto.CourseId);
 
-            if(course == null) throw new Exception("Unable to find course!");
+            if (course == null)
+                return new MessageDto
+                {
+                    Message = "course is null",
+                    Status = 0,
+                };
 
-            var createComment = createCommentDto.ToCreateCommentDto(createCommentDto.UserId, createCommentDto.CourseId);
+            var createComment = createCommentDto.ToCreateCommentDto();
 
-            if(createComment == null) throw new Exception("Unable to create comment");
+            if (createComment == null)
+                return new MessageDto
+                {
+                    Message = "create course is null",
+                    Status = 0,
+                };
 
-            return await _commentRepo.CreateComment(createComment);
+            await _commentRepo.CreateComment(createComment);
+            return new MessageDto
+            {
+                Message = "Create Message Success",
+                Status = 1,
+            };
         }
 
         public async Task<bool> DeleteComment(string commentId)
         {
             var comment = await _commentRepo.GetCommentById(commentId);
 
-            if(comment == null) throw new Exception("Unable to find comment!");
+            if (comment == null) throw new Exception("Unable to find comment!");
 
             return await _commentRepo.DeleteComment(commentId);
         }
@@ -50,11 +71,11 @@ namespace BE.Services.Implementations
         {
             var comment = await _commentRepo.GetCommentById(updateCommentDto.CommentId);
 
-            if(comment == null) throw new Exception("Unable to find comment!");
+            if (comment == null) throw new Exception("Unable to find comment!");
 
             var updateComment = updateCommentDto.ToUpdateCommentDto();
 
-            if(updateComment == null) throw new Exception("Unable to update comment!");
+            if (updateComment == null) throw new Exception("Unable to update comment!");
 
             return await _commentRepo.UpdateComment(updateComment);
         }
@@ -64,5 +85,25 @@ namespace BE.Services.Implementations
             return await _commentRepo.GetAllComments();
         }
 
+        public async Task<List<CommentCourseDto>> GetCommentByCourse(string courseId)
+        {
+            var commentCourses = new List<CommentCourseDto>();
+
+            var comments = (await _commentRepo.GetCommentsByCourse(courseId)).OrderByDescending(c => c.CreatedAt);
+
+            foreach (var comment in comments)
+            {
+                Console.WriteLine(comment.UserId);
+                string? userImage = await _userRepo.GetImageUser(comment.UserId);
+
+                commentCourses.Add(new CommentCourseDto
+                {
+                    Comment = comment,
+                    UserImage = userImage
+                });
+            }
+
+            return commentCourses;
+        }
     }
 }

@@ -19,21 +19,21 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace BE.Repository.Implementations
 {
-    public class CourseRepository : ICourseRepository
-    {
-        private readonly CourseOnlContext _context;
-        public CourseRepository(CourseOnlContext context)
-        {
-            _context = context;
-        }
+     public class CourseRepository : ICourseRepository
+     {
+          private readonly CourseOnlContext _context;
+          public CourseRepository(CourseOnlContext context)
+          {
+               _context = context;
+          }
 
-        public async Task<List<Course>> GetAllCourseAvailable()
-        {
-            return await _context.Courses.Where(c => c.Status == 1).ToListAsync();
-        }
-        public async Task<List<Course>> GetAllCoursesByQueryName(SearchQueryObject searchQueryObject)
-        {
-            var courses = _context.Courses.AsQueryable();
+          public async Task<List<Course>> GetAllCourseAvailable()
+          {
+               return await _context.Courses.Where(c => c.Status == 1).ToListAsync();
+          }
+          public async Task<List<Course>> GetAllCoursesByQueryName(SearchQueryObject searchQueryObject)
+          {
+               var courses = _context.Courses.AsQueryable();
 
                if (!string.IsNullOrWhiteSpace(searchQueryObject.Name))
                {
@@ -118,23 +118,23 @@ namespace BE.Repository.Implementations
                return (float)ratingAvg;
           }
 
-        public async Task<int?> RetriveRatingNumber(string courseId)
-        {
-            Console.WriteLine(courseId);
+          public async Task<int?> RetriveRatingNumber(string courseId)
+          {
+               Console.WriteLine(courseId);
 
-            var ratingNum = await
-                       (from c in _context.Courses
-                        join comment in _context.Comments on c.Id equals comment.CourseId
-                        where c.Id == courseId
-                        select comment)
-                       .CountAsync();
-
-
-            return ratingNum;
-        }
+               var ratingNum = await
+                          (from c in _context.Courses
+                           join comment in _context.Comments on c.Id equals comment.CourseId
+                           where c.Id == courseId
+                           select comment)
+                          .CountAsync();
 
 
-          public async Task<string> CreateCourse(CreateCoursData data)
+               return ratingNum;
+          }
+
+
+          public async Task<string> CreateCourseData(CreateCoursData data)
           {
                try
                {
@@ -438,12 +438,6 @@ namespace BE.Repository.Implementations
 
 
           //---------------------CRUD--------------------------//
-          public async Task<Course?> CreateCourse(Course course)
-          {
-               await _context.Courses.AddAsync(course);
-               await _context.SaveChangesAsync();
-               return course;
-          }
 
           public async Task<Course?> UpdateCourse(Course course)
           {
@@ -467,44 +461,39 @@ namespace BE.Repository.Implementations
 
           public async Task<Course?> FindCourseByCourseName(string courseName)
           {
-               if (courseName.Contains("-"))
-               {
-                    courseName = courseName.Replace("-", " ");
-               }
+               return await _context.Courses.Include(course => course.CategoryCourses)
+                                               .ThenInclude(cateCourse => cateCourse.Category)
+                                           .Include(course => course.User)
+                                           .FirstOrDefaultAsync(course => course.Name.Replace(" ", "-").ToLower() == courseName.ToLower());
+          }
 
-            return await _context.Courses.Include(course => course.CategoryCourses)
-                                            .ThenInclude(cateCourse => cateCourse.Category)
-                                        .Include(course => course.User)
-                                        .FirstOrDefaultAsync(course => course.Name.ToLower() == courseName.ToLower());
-        }
-
-        public async Task<List<NewReleaseCourseForHomepageDto>> GetMostPurchasedCourses()
-        {
-            var mostPurchasedCourses = await _context.PaymentCourses
-                                                    .Join(_context.CartCourses,
-                                                            paymentCourse => paymentCourse.CartcourseId,
-                                                            cartCourse => cartCourse.Id,
-                                                            (paymentCourse, cartCourse) => new { paymentCourse, cartCourse })
-                                                    .Join(_context.Courses,
-                                                            combined => combined.cartCourse.CourseId,
-                                                            course => course.Id,
-                                                            (combined, course) => course)
-                                                    .GroupBy(c => c.Id)
-                                                    .OrderByDescending(g => g.Count())
-                                                    .Select(g => new
-                                                    {
-                                                        Course = g.First(),
-                                                        PurchaseCount = g.Count()
-                                                    })
-                                                    .Take(8)
-                                                    .ToListAsync();
+          public async Task<List<NewReleaseCourseForHomepageDto>> GetMostPurchasedCourses(int count)
+          {
+               var mostPurchasedCourses = await _context.PaymentCourses
+                                                       .Join(_context.CartCourses,
+                                                               paymentCourse => paymentCourse.CartcourseId,
+                                                               cartCourse => cartCourse.Id,
+                                                               (paymentCourse, cartCourse) => new { paymentCourse, cartCourse })
+                                                       .Join(_context.Courses,
+                                                               combined => combined.cartCourse.CourseId,
+                                                               course => course.Id,
+                                                               (combined, course) => course)
+                                                       .GroupBy(c => c.Id)
+                                                       .OrderByDescending(g => g.Count())
+                                                       .Select(g => new
+                                                       {
+                                                            Course = g.First(),
+                                                            PurchaseCount = g.Count()
+                                                       })
+                                                       .Take(count)
+                                                       .ToListAsync();
 
                var mostPurchasedCoursesDto = new List<NewReleaseCourseForHomepageDto>();
 
-               foreach(var c in mostPurchasedCourses)
+               foreach (var c in mostPurchasedCourses)
                {
                     var image = await _context.Images
-                         .Where(i => i.CourseId == c.Course.Id)
+                         .Where(i => i.CourseId == c.Course.Id && i.Type == "Background")
                          .OrderByDescending(i => i.CreatedAt)
                          .Select(i => new ImageForAdminDto
                          {
@@ -644,59 +633,59 @@ namespace BE.Repository.Implementations
 
                await _context.SaveChangesAsync();
 
-            return true;
-        }
+               return true;
+          }
 
-        public async Task<TimeSpan?> TimeLearningCourse(string courseId)
-        {
-            var course = await _context.Courses
-                                            .Include(c => c.Chapters)
-                                            .ThenInclude(ch => ch.Lectures)
-                                            .FirstOrDefaultAsync(c => c.Id == courseId);
-            TimeSpan? totalVideoTime = TimeSpan.Zero;
-            foreach (var chapter in course.Chapters)
-            {
-                foreach (var lecture in chapter.Lectures)
-                {
-                    totalVideoTime += lecture.TimeVideo;
-                }
-                foreach (var quiz in chapter.Quizzes)
-                {
-                    totalVideoTime += TimeSpan.FromMinutes(30);
-                }
-            }
-            return totalVideoTime;
-        }
+          public async Task<TimeSpan?> TimeLearningCourse(string courseId)
+          {
+               var course = await _context.Courses
+                                               .Include(c => c.Chapters)
+                                               .ThenInclude(ch => ch.Lectures)
+                                               .FirstOrDefaultAsync(c => c.Id == courseId);
+               TimeSpan? totalVideoTime = TimeSpan.Zero;
+               foreach (var chapter in course.Chapters)
+               {
+                    foreach (var lecture in chapter.Lectures)
+                    {
+                         totalVideoTime += lecture.TimeVideo;
+                    }
+                    foreach (var quiz in chapter.Quizzes)
+                    {
+                         totalVideoTime += TimeSpan.FromMinutes(30);
+                    }
+               }
+               return totalVideoTime;
+          }
 
-        public async Task<string?> GetImageCourse(string courseId, string type)
-        {
-            var course = await _context.Courses
-                                            .Include(c => c.Images)
-                                            .FirstOrDefaultAsync(c => c.Id == courseId);
-            string imgUrl = "";
-            foreach (var img in course.Images)
-            {
-                if (img.Type == type)
-                {
-                    imgUrl = img.Url;
-                }
-            }
-            return imgUrl;
-        }
-        public async Task<List<Course>> SearchingCourse(string query)
-        {
-            var courses = await GetAllCourseAvailable();
+          public async Task<string?> GetImageCourse(string courseId, string type)
+          {
+               var course = await _context.Courses
+                                               .Include(c => c.Images)
+                                               .FirstOrDefaultAsync(c => c.Id == courseId);
+               string imgUrl = "";
+               foreach (var img in course.Images)
+               {
+                    if (img.Type == type)
+                    {
+                         imgUrl = img.Url;
+                    }
+               }
+               return imgUrl;
+          }
+          public async Task<List<Course>> SearchingCourse(string query)
+          {
+               var courses = await GetAllCourseAvailable();
 
-            if (!string.IsNullOrEmpty(query))
-            {
-                string lowerQuery = query.ToLower();
-                courses = courses.Where(c => c.Name.ToLower().Contains(lowerQuery))
-                                 .OrderByDescending(c => c.Name.ToLower().StartsWith(lowerQuery))
-                                 .ThenBy(c => c.Name.ToLower())
-                                 .ToList();
-            }
-            return courses;
-        }
+               if (!string.IsNullOrEmpty(query))
+               {
+                    string lowerQuery = query.ToLower();
+                    courses = courses.Where(c => c.Name.ToLower().Contains(lowerQuery))
+                                     .OrderByDescending(c => c.Name.ToLower().StartsWith(lowerQuery))
+                                     .ThenBy(c => c.Name.ToLower())
+                                     .ToList();
+               }
+               return courses;
+          }
 
           public async Task<int> CountLectureCourse(string courseId)
           {
@@ -706,19 +695,19 @@ namespace BE.Repository.Implementations
                return lectureCount;
           }
 
-          public async Task<List<NewReleaseCourseForHomepageDto>> NewReleaseCourses()
+          public async Task<List<NewReleaseCourseForHomepageDto>> NewReleaseCourses(int count)
           {
                var newReleaseCourses = await _context.Courses
                     .OrderByDescending(c => c.CreateAt)
-                    .Take(8)
+                    .Take(count)
                     .ToListAsync();
 
                var newReleaseCoursesDto = new List<NewReleaseCourseForHomepageDto>();
 
-               foreach(var c in newReleaseCourses)
+               foreach (var c in newReleaseCourses)
                {
                     var image = await _context.Images
-                         .Where(i => i.CourseId == c.Id)
+                         .Where(i => i.CourseId == c.Id && i.Type == "Background")
                          .OrderByDescending(i => i.CreatedAt)
                          .Select(i => new ImageForAdminDto
                          {
@@ -757,10 +746,10 @@ namespace BE.Repository.Implementations
                using (var context = new CourseOnlContext())
                {
                     var ratingAvg = await (from c in context.Courses
-                                             join ec in context.EnrollCourses on c.Id equals ec.CourseId
-                                             join comment in context.Comments on c.Id equals comment.CourseId
-                                             where c.Id == courseId
-                                             select comment.Rating)
+                                           join ec in context.EnrollCourses on c.Id equals ec.CourseId
+                                           join comment in context.Comments on c.Id equals comment.CourseId
+                                           where c.Id == courseId
+                                           select comment.Rating)
                                         .AverageAsync();
 
                     return (float?)ratingAvg;
@@ -772,9 +761,9 @@ namespace BE.Repository.Implementations
                using (var context = new CourseOnlContext())
                {
                     var ratingNum = await (from c in context.Courses
-                                             join comment in context.Comments on c.Id equals comment.CourseId
-                                             where c.Id == courseId
-                                             select comment)
+                                           join comment in context.Comments on c.Id equals comment.CourseId
+                                           where c.Id == courseId
+                                           select comment)
                                         .CountAsync();
 
                     return ratingNum;
@@ -786,14 +775,14 @@ namespace BE.Repository.Implementations
                using (var context = new CourseOnlContext())
                {
                     var quizCountByChapter = await (from chap in context.Chapters
-                                                       join c in context.Courses on chap.CourseId equals c.Id
-                                                       join q in context.Quizzes on chap.Id equals q.ChapterId into quizGroup
-                                                       where c.Id == courseId
-                                                       select new
-                                                       {
-                                                       ChapterId = chap.Id,
-                                                       QuizCount = quizGroup.Count()
-                                                       })
+                                                    join c in context.Courses on chap.CourseId equals c.Id
+                                                    join q in context.Quizzes on chap.Id equals q.ChapterId into quizGroup
+                                                    where c.Id == courseId
+                                                    select new
+                                                    {
+                                                         ChapterId = chap.Id,
+                                                         QuizCount = quizGroup.Count()
+                                                    })
                                                   .ToListAsync();
 
                     return quizCountByChapter.Sum(x => x.QuizCount);
@@ -829,57 +818,12 @@ namespace BE.Repository.Implementations
                }
           }
 
-        public async Task<List<NewReleaseCourseForHomepageDto>> NewReleaseCoursesByNam(int size)
-        {
-            var newReleaseCourses = await _context.Courses
-                    .OrderByDescending(c => c.CreateAt)
-                    .Take(size)
-                    .ToListAsync();
 
-               var newReleaseCoursesDto = new List<NewReleaseCourseForHomepageDto>();
-
-               foreach(var c in newReleaseCourses)
-               {
-                    var image = await _context.Images
-                         .Where(i => i.CourseId == c.Id)
-                         .OrderByDescending(i => i.CreatedAt)
-                         .Select(i => new ImageForAdminDto
-                         {
-                              Id = i.Id,
-                              Url = i.Url,
-                              Type = i.Type,
-                              LastUpdated = i.CreatedAt
-                         })
-                         .FirstOrDefaultAsync();
-
-                    var ratingAvg = await GetRatingAverage(c.Id) ?? 0;
-                    var ratingCount = await GetRatingNumber(c.Id) ?? 0;
-                    var totalVideoTime = await CalculateTotalVideoTimeByCourseId(c.Id) ?? 0;
-                    var quizCount = await NumberOfQuizInChapterByCourseId(c.Id) ?? 0;
-
-                    var newRelease = new NewReleaseCourseForHomepageDto
-                    {
-                         Id = c.Id,
-                         Name = c.Name,
-                         Image = new List<ImageForAdminDto> { image },
-                         Level = c.Level,
-                         Price = c.Price,
-                         RatingAvg = ratingAvg,
-                         RatingCount = ratingCount,
-                         TimeLearning = totalVideoTime + quizCount * 30,
-                    };
-
-                    newReleaseCoursesDto.Add(newRelease);
-               }
-
-               return newReleaseCoursesDto;
-          }
-
-          public async Task<List<NewReleaseCourseForHomepageDto>> GetTopRatedCourses()
+          public async Task<List<NewReleaseCourseForHomepageDto>> GetTopRatedCourses(int count)
           {
                var topRatedCourses = await _context.Courses
                     .OrderByDescending(c => c.Rating)
-                    .Take(6)
+                    .Take(count)
                     .ToListAsync();
 
                var topRatedCoursesDto = new List<NewReleaseCourseForHomepageDto>();
@@ -887,7 +831,7 @@ namespace BE.Repository.Implementations
                foreach (var c in topRatedCourses)
                {
                     var image = await _context.Images
-                         .Where(i => i.CourseId == c.Id)
+                         .Where(i => i.CourseId == c.Id && i.Type == "Background")
                          .OrderByDescending(i => i.CreatedAt)
                          .Select(i => new ImageForAdminDto
                          {
@@ -920,5 +864,55 @@ namespace BE.Repository.Implementations
 
                return topRatedCoursesDto;
           }
-    }
+
+          public async Task<bool> CreateCourse(Course course)
+          {
+               _context.Courses.Add(course);
+               await _context.SaveChangesAsync();
+               return true;
+          }
+
+          public async Task<Cart?> GetCart(string userId)
+          {
+               return await _context.Carts.Where(c => c.UserId == userId).FirstOrDefaultAsync();
+          }
+
+          public async Task CreateCart(string userId)
+          {
+               _context.Carts.Add(new Cart
+               {
+                    Id = GenerateIdModel("cart"),
+                    UserId = userId,
+                    DateCreated = GetTimeNow(),
+                    Total = 0,
+                    Status = 1
+               });
+               await _context.SaveChangesAsync();
+          }
+          public async Task AddCourseToCart(Cart? cart, string courseId)
+          {
+               Course? course = await _context.Courses.Where(c => c.Id == courseId).FirstOrDefaultAsync();
+               _context.CartCourses.Add(new CartCourse
+               {
+                    Id = GenerateIdModel("cartcourse"),
+                    Cart = cart,
+                    CourseId = courseId,
+                    CreatedAt = GetTimeNow(),
+                    Total = course.Price,
+                    Status = 1,
+               });
+
+               cart.Total += course.Price;
+               _context.Carts.Update(cart);
+               await _context.SaveChangesAsync();
+          }
+          public async Task<List<CartCourse>> GetListCartCourse(Cart cart)
+          {
+               List<CartCourse> cartCourse = await _context.CartCourses
+                                           .Where(cc => cc.Cart == cart)
+                                           .Include(cc => cc.Course)
+                                           .ToListAsync();
+               return cartCourse;
+          }
+     }
 }

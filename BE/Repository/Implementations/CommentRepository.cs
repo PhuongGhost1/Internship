@@ -15,18 +15,17 @@ namespace BE.Repository.Implementations
 
 
         //---------------------CRUD--------------------------//    
-        public async Task<Comment?> CreateComment(Comment comment)
+        public async Task CreateComment(Comment comment)
         {
             await _context.Comments.AddAsync(comment);
             await _context.SaveChangesAsync();
-            return comment;
         }
 
         public async Task<bool> DeleteComment(string commentId)
         {
             var comment = await _context.Comments.FindAsync(commentId);
 
-            if(comment == null) return false;
+            if (comment == null) return false;
 
             comment.IsVisible = true;
 
@@ -50,6 +49,13 @@ namespace BE.Repository.Implementations
             _context.Comments.Update(comment);
             await _context.SaveChangesAsync();
             return comment;
+        }
+
+        public async Task<List<Comment>> GetCommentsByCourse(string courseId)
+        {
+            return await _context.Comments.Include(c => c.User)
+                                    .Where(c => c.CourseId == courseId && c.IsVisible == true)
+                                    .ToListAsync();
         }
     }
 }

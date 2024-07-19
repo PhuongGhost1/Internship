@@ -6,6 +6,7 @@ using BE.Dto.Course;
 using BE.Helpers;
 using BE.Dto.Course.Chapter;
 using BE.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BE.Repository.Interface
 {
@@ -17,23 +18,21 @@ namespace BE.Repository.Interface
                 Task<float?> RetriveRatingAverage(string courseId);
                 Task<int?> RetriveRatingNumber(string courseId);
                 Task<CourseDto?> GetLecturesAndQuizzesByCourseId(string courseId);
-                Task<string> CreateCourse(CreateCoursData data);
+                Task<string> CreateCourseData(CreateCoursData data);
                 Task<List<Course>> FindCourseByCategoryName(string categoryName);
                 Task<Course?> SearchCourseByUserId(string userId);
                 Task<List<Course>> GetRecentRandomCourses(int numberOfCourses);
-                Task<List<NewReleaseCourseForHomepageDto>> GetMostPurchasedCourses();
+                Task<List<NewReleaseCourseForHomepageDto>> GetMostPurchasedCourses(int count);
                 Task<List<MonthlyAnalyticsDto>> GetMonthlyExpenseAndRevenue();
                 Task<List<CourseManagementForAdminDto>> GetCourseManagementByAdmin();
                 Task<List<CourseManagementForAdminDto>> GetCourseManagementForWaitingByAdmin();
                 Task<bool> UpdateCourseByAdmin(string courseId, int status);
                 Task<List<Course>> GetCourseWithStatus(string userId, int status);
                 Task<List<Course>> GetAllCourseAvailable();
-                Task<List<NewReleaseCourseForHomepageDto>> NewReleaseCourses();
-                Task<List<NewReleaseCourseForHomepageDto>> NewReleaseCoursesByNam(int size);
-                Task<List<NewReleaseCourseForHomepageDto>> GetTopRatedCourses();
+                Task<List<NewReleaseCourseForHomepageDto>> NewReleaseCourses(int count);
+                Task<List<NewReleaseCourseForHomepageDto>> GetTopRatedCourses(int count);
 
                 //---------------------CRUD--------------------------//
-                Task<Course?> CreateCourse(Course course);
                 Task<Course?> UpdateCourse(Course course);
                 Task<bool> DeleteCourse(string courseId);
                 Task<Course?> FindCourseByCourseName(string courseName);
@@ -43,5 +42,10 @@ namespace BE.Repository.Interface
                 Task<string?> GetImageCourse(string courseId, string type);
                 Task<List<Course>> SearchingCourse(string query);
                 Task<int> CountLectureCourse(string courseId);
+                Task<bool> CreateCourse(Course course);
+                Task<Cart?> GetCart(string userId);
+                Task CreateCart(string userId);
+                Task AddCourseToCart(Cart? cart, string courseId);
+                Task<List<CartCourse>> GetListCartCourse(Cart cart);
         }
 }
