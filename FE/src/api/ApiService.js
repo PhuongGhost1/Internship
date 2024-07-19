@@ -1,11 +1,15 @@
 import axios from "axios";
 
 const ApiService = {
-  getCourseByName: async (courseName) => {
+  getCourseByName: async (courseName, userId) => {
     try {
+      const formData = new FormData();
+      formData.append("courseName", courseName);
+      formData.append("userId", userId);
+
       const response = await axios.post(
         "http://localhost:5144/api/v1/web/course/find-course",
-        { courseName: courseName },
+        formData,
         {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
@@ -18,9 +22,7 @@ const ApiService = {
       throw error;
     }
   },
-  getMostPurchasedCourses: async (
-    count
-  ) => {
+  getMostPurchasedCourses: async (count) => {
     try {
       const response = await axios.get(
         `http://localhost:5144/api/v1/web/course/most-purchased-courses/${count}`
@@ -499,7 +501,7 @@ const ApiService = {
         }
       );
       return response.data;
-    } catch (error) { }
+    } catch (error) {}
   },
   getInstructorProfile: async (insId) => {
     try {
@@ -533,9 +535,7 @@ const ApiService = {
       throw error;
     }
   },
-  getNewReleaseCourses: async (
-    count
-  ) => {
+  getNewReleaseCourses: async (count) => {
     try {
       const response = await axios.get(
         `http://localhost:5144/api/v1/web/course/new-release-courses/${count}`
@@ -546,9 +546,7 @@ const ApiService = {
       throw error;
     }
   },
-  getTopRatedCourses: async (
-    count
-  ) => {
+  getTopRatedCourses: async (count) => {
     try {
       const response = await axios.get(
         `http://localhost:5144/api/v1/web/course/top-rated-courses/${count}`
@@ -678,6 +676,27 @@ const ApiService = {
       return response.data;
     } catch (error) {
       console.error("Error removing save course: ", error);
+      throw error;
+    }
+  },
+  checkSaveCourseExist: async (UserId, CourseId) => {
+    try {
+      const formData = new FormData();
+      formData.append("UserId", UserId);
+      formData.append("CourseId", CourseId);
+
+      const response = await axios.post(
+        "http://localhost:5144/api/v1/web/save-course/get-saveCourse-exist",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching check save course exist:", error);
       throw error;
     }
   },

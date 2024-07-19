@@ -34,7 +34,7 @@ namespace BE.Services.Interfaces
                 //---------------------CRUD--------------------------//
                 Task<Course?> UpdateCourse(UpdateCourseDto updateCourseDto);
                 Task<bool> DeleteCourse(string courseId);
-                Task<Course?> GetCourseByCourseName(string courseName);
+                Task<CourseToCheckDto?> GetCourseByCourseName(string courseName, string userId);
                 Task<string> CreateChapter(CreateChapterData data);
                 Task<string> CreateQuiz(CreateQuizData data);
                 Task<List<CardCourseDto>> SearchCourse(string query, int page, int items);

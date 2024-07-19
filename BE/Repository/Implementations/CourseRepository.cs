@@ -16,6 +16,11 @@ using System.Globalization;
 using BE.Dto.ImageD;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Cryptography.X509Certificates;
+using BE.Dto.SaveCourse;
+using BE.Dto.User;
+using BE.Dto.CategoryCourse;
+using BE.Dto.Category;
+using BE.Dto.Follow;
 
 namespace BE.Repository.Implementations
 {
@@ -459,12 +464,87 @@ namespace BE.Repository.Implementations
                return true;
           }
 
-          public async Task<Course?> FindCourseByCourseName(string courseName)
+          public async Task<CourseToCheckDto?> FindCourseByCourseName(string courseName, string userId)
           {
-               return await _context.Courses.Include(course => course.CategoryCourses)
-                                               .ThenInclude(cateCourse => cateCourse.Category)
-                                           .Include(course => course.User)
-                                           .FirstOrDefaultAsync(course => course.Name.Replace(" ", "-").ToLower() == courseName.ToLower());
+               if(courseName.Contains("-")) courseName = courseName.Replace("-", " ").ToLower();
+               var course = await _context.Courses
+                    .Include(course => course.CategoryCourses)
+                         .ThenInclude(cateCourse => cateCourse.Category)
+                    .Include(course => course.User)
+                         .ThenInclude(u => u.FollowFolloweds)
+                    .Include(course => course.SaveCourses)
+                         .ThenInclude(sc => sc.User)
+                    .FirstOrDefaultAsync(course => course.Name == courseName);
+
+               if (course == null) return new CourseToCheckDto();
+
+               var followers = await _context.Follows
+                                        .Include(f => f.Follower)
+                                        .Where(f => f.FollowedId == course.User.Id)
+                                        .Select(f => f.Follower)
+                                        .ToListAsync();
+
+               var isFollowingInstructor = await _context.Follows
+                                   .AnyAsync(f => f.FollowerId == userId && f.FollowedId == course.User.Id);
+
+               var saveCourseIds = course.SaveCourses.Select(sc => sc.CourseId).ToList();
+
+               var saveCourses = await _context.SaveCourses
+                    .Where(sc => sc.UserId == userId && saveCourseIds.Contains(sc.CourseId))
+                    .ToListAsync();
+
+               var courseToCheckDto = new CourseToCheckDto
+               {
+                    Id = course.Id,
+                    Name = course.Name,
+                    Rating = course.Rating,
+                    Price = course.Price,
+                    Description = course.Description,
+                    CateCoruse = course.CategoryCourses.Select(cc => new CategoryCourseDto
+                    {
+                         Id = cc.Id,
+                         CreatedAt = cc.CreatedAt,
+                         Category = cc.Category != null ? new CategoryDto
+                         {
+                              cateId = cc.Category.Id,
+                              Name = cc.Category.Name,
+                              Names = new List<string?> { cc.Category.Name }
+                         } : null
+                    }).ToList(),
+                    SaveCourses = course.SaveCourses.Select(sc => new SaveCourseDto
+                    {
+                         Id = sc.Id,
+                         StatusSaveCourse = saveCourses.Any(saved => saved.CourseId == sc.CourseId),
+                         Course = new CourseInfoFollowingDto
+                         {
+                              Id = sc.Course.Id,
+                              Name = sc.Course.Name,
+                              Rating = sc.Course.Rating,
+                              Price = sc.Course.Price
+                         },
+                         User = new BasicInfoUser
+                         {
+                              Id = sc.User.Id,
+                              Name = sc.User.Name,
+                              Email = sc.User.Email
+                         }
+                    }).ToList(),
+                    User = course.User != null ? new UserInfoFollowingDto
+                    {
+                         Id = course.User.Id,
+                         Name = course.User.Username,
+                         Email = course.User.Email,
+                         StatusFollowing = isFollowingInstructor,
+                         FollowFolloweds = followers.Select(f => new UserInfoFollowingDto
+                         {
+                              Id = f.Id,
+                              Name = f.Username,
+                              Email = f.Email,
+                         }).ToList()
+                    } : null
+               };
+
+               return courseToCheckDto;
           }
 
           public async Task<List<NewReleaseCourseForHomepageDto>> GetMostPurchasedCourses(int count)

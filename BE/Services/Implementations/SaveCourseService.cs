@@ -21,6 +21,19 @@ namespace BE.Services.Implementations
             _categoryCourseRepo = categoryCourseRepo;
         }
 
+        public async Task<bool> CheckSaveCourseExistAsync(CreateSaveCourseDto createSaveCourseDto)
+        {
+            var user = await _userRepo.GetUserById(createSaveCourseDto.UserId);
+
+            if(user == null) return false;
+
+            var course = await _courseRepo.RetriveCourseInformationById(createSaveCourseDto.CourseId);
+
+            if(course == null) return false;
+
+            return await _saveCourseRepo.CheckSaveCourseExist(createSaveCourseDto.UserId, createSaveCourseDto.CourseId);
+        }
+
 
         //---------------------CRUD--------------------------//
         public async Task<SaveCourse?> CreateSaveCourse(CreateSaveCourseDto createSaveCourseDto)

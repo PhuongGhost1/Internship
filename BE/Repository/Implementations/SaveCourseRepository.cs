@@ -17,6 +17,13 @@ namespace BE.Repository.Implementations
             return await _context.SaveCourses.Where(sc => sc.UserId == userId && sc.CourseId == courseId).Select(sc => sc.Id).FirstOrDefaultAsync();
         }
 
+        public async Task<bool> CheckSaveCourseExist(string userId, string courseId)
+        {
+            var saveCourse = await _context.SaveCourses.Where(sc => sc.UserId == userId && sc.CourseId == courseId).FirstOrDefaultAsync();
+
+            return saveCourse != null;
+        }
+
         //---------------------CRUD--------------------------//
         public async Task<SaveCourse?> CreateSaveCourse(SaveCourse saveCourse)
         {

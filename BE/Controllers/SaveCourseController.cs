@@ -17,6 +17,12 @@ namespace BE.Controllers
             _saveCourseService = saveCourseService;
         }
 
+        [HttpPost, Route("get-saveCourse-exist")]
+        public async Task<bool> CheckSaveCourseExist([FromForm] CreateSaveCourseDto createSaveCourseDto)
+        {
+            return await _saveCourseService.CheckSaveCourseExistAsync(createSaveCourseDto);
+        }
+
 
         //---------------------CRUD--------------------------//
         [CustomAuthorize("Student", "Instructor")]

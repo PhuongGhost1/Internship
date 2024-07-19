@@ -19,5 +19,6 @@ namespace BE.Dto.User
         public List<CourseInfoFollowingDto> Courses { get; set; } = new List<CourseInfoFollowingDto>();
         public List<UserInfoFollowingDto> FollowFolloweds { get; set; } = new List<UserInfoFollowingDto>();
         public List<UserInfoFollowingDto> FollowFollowers { get; set; } = new List<UserInfoFollowingDto>();
+        public bool? StatusFollowing {get; set;}
     }
 }
