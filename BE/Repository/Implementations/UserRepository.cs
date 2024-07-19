@@ -45,7 +45,7 @@ namespace BE.Repository.Implementations
 
         public async Task<User?> CheckUserLogin(string username, string password)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => (u.Username == username || u.Email == username) && u.Password == password);
+            var user = await _context.Users.FirstOrDefaultAsync(u => (u.Username == username || u.Email == username) && u.Password == password && u.Status == 1 & u.LoginType == "Default");
 
             if (user == null) return null;
 

@@ -94,19 +94,19 @@ export default function CoursesReview({ comments }) {
                                     <div className="comment" key={index}>
                                         <div className="name-avatar">
                                             <div>
-                                                <img src={avatar} alt="" className="avatar-user" />
-                                                <p className="username">{comment.username}</p>
+                                                <img src={comment.userImage ? comment.userImage : avatar} alt="" className="avatar-user" />
+                                                <p className="username">{comment.comment.user.username}</p>
                                             </div>
                                         </div>
                                         <div className="comment-ratingStar">
                                             <div className="rating-update">
                                                 <IoStar className="star-icon" />
-                                                <span className="num-rating">{comment.rating}</span>
+                                                <span className="num-rating">{comment.comment.rating}</span>
                                                 <BsDot className="dot-icon" />
-                                                <span className="time-up">Reviewed on {dateEngformat(comment.dateUp)}</span>
+                                                <span className="time-up">Reviewed on {dateEngformat(comment.comment.createdAt)}</span>
                                             </div>
                                             <div className="comment-description">
-                                                <p>{comment.comment}</p>
+                                                <p>{comment.comment.comment1}</p>
                                             </div>
                                         </div>
                                     </div>
