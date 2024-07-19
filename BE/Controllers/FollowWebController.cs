@@ -33,7 +33,7 @@ namespace BE.Controllers
                return await _followService.ViewAllFollows();
           }
 
-          [CustomAuthorize("Student", "Instructor")]
+          //[CustomAuthorize("Student", "Instructor")]
           [HttpPost]
           [Route("create-follow")]
           public async Task<Follow?> CreateFollow([FromForm] CreateFollowDto createFollowDto)
@@ -49,12 +49,12 @@ namespace BE.Controllers
                return await _followService.UpdateFollow(followId, updateFollowDto);
           }
 
-          [CustomAuthorize("Student", "Instructor")]
+          //[CustomAuthorize("Student", "Instructor")]
           [HttpPost]
           [Route("delete-follow")]
-          public async Task<bool> DeleteFollow([FromForm] string followId)
+          public async Task<bool> DeleteFollow([FromForm] CreateFollowDto deleteFollowDto)
           {
-               return await _followService.DeleteFollow(followId);
+               return await _followService.DeleteFollow(deleteFollowDto);
           }
      }
 }

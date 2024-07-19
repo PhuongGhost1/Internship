@@ -49,7 +49,7 @@ namespace BE.Repository.Implementations
                          .Select(f => f.FollowedId)
                          .Distinct()
                          .ToListAsync();
-
+                    
                     var userInfo = MapUserToUserInfoDto(followedUser, followedIds);
                     followedDict[followedUser.Id] = userInfo;
                }
@@ -137,11 +137,13 @@ namespace BE.Repository.Implementations
                return follow;
           }
 
-          public async Task<bool> DeleteFollow(string followId)
+          public async Task<bool> DeleteFollow(Follow followUser)
           {
-               var follow = await _context.Follows.FindAsync(followId);
+               if (followUser == null) throw new ArgumentException("Invalid follow user data.");
 
-               if (follow == null) return false;
+               var follow = await _context.Follows.FirstOrDefaultAsync(f => f.FollowerId == followUser.FollowerId && f.FollowedId == followUser.FollowedId);
+
+               if (follow == null) throw new KeyNotFoundException("Follow relationship not found.");
 
                _context.Follows.Remove(follow);
                await _context.SaveChangesAsync();
@@ -163,6 +165,11 @@ namespace BE.Repository.Implementations
                _context.Follows.Update(follow);
                await _context.SaveChangesAsync();
                return follow;
+          }
+
+          public async Task<Follow?> GetFollowListById(string followerId, string followedId)
+          {
+               return await _context.Follows.FirstOrDefaultAsync(follow => follow.FollowerId == followerId && follow.FollowedId == followedId);
           }
      }
 }

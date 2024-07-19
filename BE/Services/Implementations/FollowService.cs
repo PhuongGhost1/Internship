@@ -32,13 +32,15 @@ namespace BE.Services.Implementations
                return await _followRepo.CreateFollow(createFollow);
           }
 
-          public async Task<bool> DeleteFollow(string followId)
+          public async Task<bool> DeleteFollow(CreateFollowDto deleteFollowDto)
           {
-               var follow = await _followRepo.GetFollowById(followId);
+               if(deleteFollowDto == null) throw new Exception("Unable to delete follow!");
+
+               var follow = await _followRepo.GetFollowListById(deleteFollowDto.FollowerId, deleteFollowDto.FollowedId);
 
                if (follow == null) throw new Exception("Unable to find follow!");
 
-               return await _followRepo.DeleteFollow(followId);
+               return await _followRepo.DeleteFollow(follow);
           }
 
           public async Task<Follow?> UpdateFollow(string followId, UpdateFollowDto updateFollowDto)

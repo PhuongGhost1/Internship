@@ -12,6 +12,6 @@ namespace BE.Services.Interfaces
           Task<List<Follow>> ViewAllFollows();
           Task<Follow?> CreateFollow(CreateFollowDto createFollowDto);
           Task<Follow?> UpdateFollow(string followId, UpdateFollowDto updateFollowDto);
-          Task<bool> DeleteFollow(string followId);
+          Task<bool> DeleteFollow(CreateFollowDto deleteFollowDto);
      }
 }
