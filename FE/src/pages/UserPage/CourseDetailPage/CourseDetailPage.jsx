@@ -51,6 +51,10 @@ export default function CourseDetailPage() {
     }
   };
 
+  const fetchComment = async (courseId) => {
+
+  }
+
   useEffect(() => {
     const options = {
       root: null, // root là viewport của trình duyệt
