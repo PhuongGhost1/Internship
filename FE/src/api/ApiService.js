@@ -594,6 +594,16 @@ const ApiService = {
         } catch (error) {
             console.log(error);
         }
+    },
+    LoginGoogle: async () => {
+        try {
+            const response = await axios.get(
+                "http://localhost:5144/api/v1/web/user/login-google"
+            )
+            return response.data
+        } catch (error) {
+            console.log(error)
+        }
     }
 };
 

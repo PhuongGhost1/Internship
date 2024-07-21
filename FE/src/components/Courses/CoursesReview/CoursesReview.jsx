@@ -8,30 +8,6 @@ import avatar from '../../../assets/user-avatar.jpg'
 import { BsDot } from "react-icons/bs";
 
 export default function CoursesReview({ comments }) {
-    // const comments = [
-    //     {
-    //         rating: 4,
-    //         comment: `Some of the lab assignments had instructions that didn't line up with how the programs actually worked. This was particularly the case for modular flow where auto-numerics seemed impossible to use.`,
-    //         dateUp: '2024/6/21',
-    //         username: 'Duy'
-    //     },
-    //     {
-    //         rating: 5,
-    //         comment: `i rather to chose what is data science is better in perspective of materials and assignment, because in tools for data science i feel a lot of boring because to much explanation for what have to use`,
-    //         dateUp: '2024/4/27',
-    //         username: 'Duy'
-    //     },
-    //     {
-    //         rating: 3,
-    //         comment: `The course is overwhelming for a beginner with no experiecne of programming. The examples given in the class seem difficult and should have been of a lower difficulty level to keep the hopes high.`,
-    //         dateUp: '2024/2/9',
-    //         username: 'Duy'
-    //     },
-    // ]
-
-    // useEffect(()=>{
-    //     console.log(comments)
-    // },[comments])
 
     return (
         <div id="courses-review">

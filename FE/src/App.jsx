@@ -31,6 +31,7 @@ import CategoryPage from "./pages/Admin/CategoryPage/CategoryPage";
 import CreateCoursePage from "./pages/InstructorPage/CreateCourse/CreateCoursePage";
 
 import { AuthProvider } from "./pages/Context/AuthContext";
+import SignInPage from "./pages/AuthPage/SignInPage/SignInPage";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
           <Route path="/">
             <Route index element={<Home />} />
             <Route path="login" element={<LoginPage />} />
+            <Route path="sign-in" element={<SignInPage />} />
             <Route path="signup" element={<RegisterPage />} />
             <Route path="payment" element={<PaymentPage />} />
             <Route path="search" element={<SearchPage />} />
