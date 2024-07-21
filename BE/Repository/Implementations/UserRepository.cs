@@ -33,6 +33,12 @@ namespace BE.Repository.Implementations
             return await _context.Users.AnyAsync(u => u.Email.ToLower() == email.ToLower());
         }
 
+        public async Task UpdateUserByObj(User user)
+        {
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<bool> CheckPasswordExist(string password)
         {
             return await _context.Users.AnyAsync(u => u.Password.ToLower() == password.ToLower());
@@ -59,6 +65,20 @@ namespace BE.Repository.Implementations
             await _context.SaveChangesAsync();
 
             return user;
+        }
+
+        public async Task CreateUserGoogle(string email)
+        {
+            _context.Users.Add(new User
+            {
+                Id = GenerateIdModel("user"),
+                Email = email,
+                CreateAt = GetTimeNow(),
+                Wallet = 0,
+                LoginType = "Google",
+                Status = 1
+            });
+            await _context.SaveChangesAsync();
         }
 
         public async Task<bool> CreateUserData(string username, string email, string password, string description, string phone, string role)
@@ -99,10 +119,16 @@ namespace BE.Repository.Implementations
 
         public async Task<User?> GetUserByEmail(string email)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower());
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower() && u.Status == 1);
 
             if (user == null) return null;
 
+            return user;
+        }
+
+        public async Task<User?> GetUserLoginGoogle(string email)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower() && u.Status == 1 && u.LoginType == "Google");
             return user;
         }
 

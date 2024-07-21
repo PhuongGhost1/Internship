@@ -901,7 +901,6 @@ namespace BE.Repository.Implementations
                     Total = course.Price,
                     Status = 1,
                });
-
                cart.Total += course.Price;
                _context.Carts.Update(cart);
                await _context.SaveChangesAsync();
@@ -909,10 +908,25 @@ namespace BE.Repository.Implementations
           public async Task<List<CartCourse>> GetListCartCourse(Cart cart)
           {
                List<CartCourse> cartCourse = await _context.CartCourses
-                                           .Where(cc => cc.Cart == cart)
-                                           .Include(cc => cc.Course)
-                                           .ToListAsync();
+                                             .Include(cc => cc.Course)
+                                             .Include(cc => cc.PaymentCourse)
+                                             .Include(cc => cc.AffiliatePayment)
+                                             .Where(cc => cc.Cart == cart && cc.AffiliatePayment == null && cc.PaymentCourse == null)
+                                             .ToListAsync();
                return cartCourse;
+          }
+          public async Task DeleteCartCoure(CartCourse cartCourse)
+          {
+               _context.CartCourses.Remove(cartCourse);
+               await _context.SaveChangesAsync();
+          }
+
+          public async Task<List<CartCourse>> GetListCartCourseByListId(List<string> cartCourseIds)
+          {
+               var cartCourses = await _context.CartCourses
+                                    .Where(cc => cartCourseIds.Contains(cc.Id))
+                                    .ToListAsync();
+               return cartCourses;
           }
      }
 }

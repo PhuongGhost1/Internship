@@ -133,7 +133,7 @@ public partial class CourseOnlContext : DbContext
 
             entity.ToTable("AffiliatePayment");
 
-            entity.HasIndex(e => e.CartcourseId, "cartcourse_id");
+            entity.HasIndex(e => e.CartcourseId, "UQ_AffiliatePayment_CartCourseID").IsUnique();
 
             entity.HasIndex(e => e.UserId, "user_id");
 
@@ -146,15 +146,13 @@ public partial class CourseOnlContext : DbContext
             entity.Property(e => e.CreateDate)
                 .HasColumnType("datetime")
                 .HasColumnName("create_date");
-            entity.Property(e => e.Total)
-                .HasMaxLength(20)
-                .HasColumnName("total");
+            entity.Property(e => e.Total).HasColumnName("total");
             entity.Property(e => e.UserId)
                 .HasMaxLength(40)
                 .HasColumnName("user_id");
 
-            entity.HasOne(d => d.Cartcourse).WithMany(p => p.AffiliatePayments)
-                .HasForeignKey(d => d.CartcourseId)
+            entity.HasOne(d => d.Cartcourse).WithOne(p => p.AffiliatePayment)
+                .HasForeignKey<AffiliatePayment>(d => d.CartcourseId)
                 .HasConstraintName("AffiliatePayment_ibfk_1");
 
             entity.HasOne(d => d.User).WithMany(p => p.AffiliatePayments)
@@ -758,9 +756,6 @@ public partial class CourseOnlContext : DbContext
             entity.Property(e => e.PaymendCode)
                 .HasMaxLength(20)
                 .HasColumnName("paymend_code");
-            entity.Property(e => e.PaymentMethod)
-                .HasMaxLength(20)
-                .HasColumnName("payment_method");
             entity.Property(e => e.Total).HasColumnName("total");
             entity.Property(e => e.UserId)
                 .HasMaxLength(40)

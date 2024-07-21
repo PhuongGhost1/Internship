@@ -170,7 +170,7 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>(); builder.S
 builder.Services.AddScoped<IRoleRepository, RoleRepository>(); builder.Services.AddScoped<IPermissonRepository, PermissonRepository>(); builder.Services.AddScoped<IFollowRepository, FollowRepository>();
 builder.Services.AddScoped<IUserCertificationRepository, UserCertificationRepository>(); builder.Services.AddScoped<ISaveCourseRepository, SaveCourseRepository>();
 builder.Services.AddScoped<ICategoryCourseRepository, CategoryCourseRepository>(); builder.Services.AddScoped<IEnrollCourseRepository, EnrollCourseRepository>();
-builder.Services.AddScoped<IResourcesRepository, ResourceRepository>(); builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+builder.Services.AddScoped<IResourcesRepository, ResourceRepository>(); builder.Services.AddScoped<IPaymentRepository, PaymentRepository>(); builder.Services.AddScoped<ICartRepository, CartRepository>();
 
 
 

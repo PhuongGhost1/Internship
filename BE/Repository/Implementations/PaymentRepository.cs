@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BE.Models;
 using BE.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
+using static BE.Utils.Utils;
 
 namespace BE.Repository.Implementations
 {
@@ -13,9 +14,9 @@ namespace BE.Repository.Implementations
         private readonly CourseOnlContext _context;
         public PaymentRepository(CourseOnlContext context)
         {
-            _context = context;   
+            _context = context;
         }
-        
+
         public async Task<int?> GetTotalPricesForSingleMonth()
         {
             var currentDate = DateTime.UtcNow;
@@ -32,7 +33,7 @@ namespace BE.Repository.Implementations
         public async Task<double?> GetPercentageChangeForCurrentMonth()
         {
             var currentDate = DateTime.UtcNow;
-            
+
             var startOfCurrentMonth = new DateTime(currentDate.Year, currentDate.Month, 1);
             var endOfCurrentMonth = startOfCurrentMonth.AddMonths(1).AddTicks(-1);
 
@@ -99,6 +100,63 @@ namespace BE.Repository.Implementations
 
             var formattedPercentageChange = Math.Round(percentageChange, 2);
             return formattedPercentageChange;
+        }
+
+        public async Task<Payment> CreatePaymentPayingCourse(string userId, float? totalMoney)
+        {
+            var payment = new Payment
+            {
+                Id = GenerateIdModel("payment"),
+                UserId = userId,
+                PaymendCode = GeneratePaymentCode(),
+                CreateDate = GetTimeNow(),
+                Total = totalMoney
+            };
+            _context.Payments.Add(payment);
+            await _context.SaveChangesAsync();
+            return payment;
+        }
+        private string GeneratePaymentCode()
+        {
+
+            const string prefix = "PAY";
+
+            string dateTimePart = DateTime.Now.ToString("yyyyMMddHHmmss");
+
+            Random random = new Random();
+            int randomPart = random.Next(1000, 9999);
+
+            string paymentCode = $"{prefix}{dateTimePart}{randomPart}";
+
+            return paymentCode;
+        }
+
+        public async Task CreatePaymentCourse(Payment payment, CartCourse cartCourse)
+        {
+            var paymentCourse = new PaymentCourse
+            {
+                Id = GenerateIdModel("paymentcourse"),
+                Payment = payment,
+                Cartcourse = cartCourse,
+                Total = cartCourse.Total
+            };
+
+            _context.PaymentCourses.Add(paymentCourse);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task CreatePaymentAffiliate(CartCourse cartCourse, Affiliate affiliate)
+        {
+            var affiliatePayment = new AffiliatePayment
+            {
+                Id = GenerateIdModel("affiliatepayment"),
+                UserId = affiliate.CreateBy,
+                Cartcourse = cartCourse,
+                Total = cartCourse.Total * affiliate.CommissionPercent,
+                CreateDate = GetTimeNow()
+            };
+            _context.AffiliatePayments.Add(affiliatePayment);
+            await _context.SaveChangesAsync();
         }
     }
 }

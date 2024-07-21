@@ -21,7 +21,7 @@ public partial class CartCourse
 
     public virtual Affiliate? Affiliate { get; set; }
 
-    public virtual ICollection<AffiliatePayment> AffiliatePayments { get; set; } = new List<AffiliatePayment>();
+    public virtual AffiliatePayment? AffiliatePayment { get; set; }
 
     public virtual Cart? Cart { get; set; }
 
