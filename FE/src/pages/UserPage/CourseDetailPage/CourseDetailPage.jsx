@@ -26,6 +26,7 @@ export default function CourseDetailPage() {
   const reviewRef = useRef(null);
   const { courseName } = useParams();
   const [cardData, setCardData] = useState([]);
+  const [comments, setComments] = useState([]);
 
   const scrollToSection = (sectionRef) => {
     const yOffset = -60;

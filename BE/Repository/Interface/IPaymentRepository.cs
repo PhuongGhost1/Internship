@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BE.Models;
 
 namespace BE.Repository.Interface
 {
@@ -12,5 +13,8 @@ namespace BE.Repository.Interface
         Task<int?> GetTotalPricesForCurrentWeek();
         Task<int?> GetTotalPricesForPreviousWeek();
         Task<double?> GetPercentageChangeForCurrentWeek();
+        Task<Payment> CreatePaymentPayingCourse(string userId, float? totalMoney);
+        Task CreatePaymentCourse(Payment payment, CartCourse cartCourse);
+        Task CreatePaymentAffiliate(CartCourse cartCourse, Affiliate affiliate);
     }
 }

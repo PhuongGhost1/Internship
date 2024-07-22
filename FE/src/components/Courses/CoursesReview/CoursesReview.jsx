@@ -7,27 +7,7 @@ import { dateEngformat } from "../../../utils/Validation";
 import avatar from '../../../assets/user-avatar.jpg'
 import { BsDot } from "react-icons/bs";
 
-export default function CoursesReview() {
-    const comments = [
-        {
-            rating: 4,
-            comment: `Some of the lab assignments had instructions that didn't line up with how the programs actually worked. This was particularly the case for modular flow where auto-numerics seemed impossible to use.`,
-            dateUp: '2024/6/21',
-            username: 'Duy'
-        },
-        {
-            rating: 5,
-            comment: `i rather to chose what is data science is better in perspective of materials and assignment, because in tools for data science i feel a lot of boring because to much explanation for what have to use`,
-            dateUp: '2024/4/27',
-            username: 'Duy'
-        },
-        {
-            rating: 3,
-            comment: `The course is overwhelming for a beginner with no experiecne of programming. The examples given in the class seem difficult and should have been of a lower difficulty level to keep the hopes high.`,
-            dateUp: '2024/2/9',
-            username: 'Duy'
-        },
-    ]
+export default function CoursesReview({ comments }) {
 
     return (
         <div id="courses-review">
@@ -81,33 +61,69 @@ export default function CoursesReview() {
                 </div>
             </div>
             <div className="comment-container">
-                <p className="title">Showing 3 of 4</p>
-                <div className="comments">
-                    {comments.map((comment, index) => {
-                        return (
-                            <div className="comment" key={index}>
-                                <div className="name-avatar">
-                                    <div>
-                                        <img src={avatar} alt="" className="avatar-user" />
-                                        <p className="username">{comment.username}</p>
+                {!(comments == null || comments.length == 0) ? (
+                    <>
+                        <p className="title">Showing 3 of 4</p>
+                        <div className="comments">
+                            {comments.map((comment, index) => {
+                                return (
+                                    <div className="comment" key={index}>
+                                        <div className="name-avatar">
+                                            <div>
+                                                <img src={comment.userImage ? comment.userImage : avatar} alt="" className="avatar-user" />
+                                                <p className="username">{comment.comment.user.username}</p>
+                                            </div>
+                                        </div>
+                                        <div className="comment-ratingStar">
+                                            <div className="rating-update">
+                                                <IoStar className="star-icon" />
+                                                <span className="num-rating">{comment.comment.rating}</span>
+                                                <BsDot className="dot-icon" />
+                                                <span className="time-up">Reviewed on {dateEngformat(comment.comment.createdAt)}</span>
+                                            </div>
+                                            <div className="comment-description">
+                                                <p>{comment.comment.comment1}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                        <p className="view-more">View More Comments</p>
+                    </>
+                ) : (
+                    <div className="no-comment">
+                        <div className="no-comment-design">
+                            <div className="no-comment-card top">
+                                <div className="user-account">
+                                    <div className="circle-out">
+                                        <div className="circle-in"></div>
                                     </div>
                                 </div>
-                                <div className="comment-ratingStar">
-                                    <div className="rating-update">
-                                        <IoStar className="star-icon" />
-                                        <span className="num-rating">{comment.rating}</span>
-                                        <BsDot className="dot-icon" />
-                                        <span className="time-up">Reviewed on {dateEngformat(comment.dateUp)}</span>
-                                    </div>
-                                    <div className="comment-description">
-                                        <p>{comment.comment}</p>
+                                <div className="comments-blur">
+                                    <div className="comments-blur-container">
+                                        <div className="comment-blur long"></div>
+                                        <div className="comment-blur short"></div>
                                     </div>
                                 </div>
                             </div>
-                        )
-                    })}
-                </div>
-                <p className="view-more">View More Comments</p>
+                            <div className="no-comment-card bottom">
+                                <div className="user-account">
+                                    <div className="circle-out">
+                                        <div className="circle-in"></div>
+                                    </div>
+                                </div>
+                                <div className="comments-blur">
+                                    <div className="comments-blur-container">
+                                        <div className="comment-blur long"></div>
+                                        <div className="comment-blur short"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p className="no-comment-title">No comment yet</p>
+                    </div>
+                )}
             </div>
         </div>
     )

@@ -50,9 +50,9 @@ namespace BE.Controllers
 
         [HttpGet]
         [Route("signin-google")]
-        public async Task<ReturnResponseDto> GoogleResponse()
+        public async Task<IActionResult> GoogleResponse()
         {
-            return await _userService.GoogleResponse();
+            return Redirect(await _userService.GoogleResponse());
         }
 
         [HttpPost]

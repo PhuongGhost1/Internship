@@ -41,5 +41,7 @@ namespace BE.Services.Interfaces
                 Task<bool> CreateCourse(CreateCourseDto course);
                 Task<MessageDto> AddCourseToCart(CourseUserDto courseUser);
                 Task<List<CartCourseCardDto>> GetListCartCourseByUser(string userId);
+                Task<MessageDto> DeleteItemFromCart(string cartCourseId);
+                Task<MessageDto> PayCartCourses(PayCartCourseDto data);
         }
 }

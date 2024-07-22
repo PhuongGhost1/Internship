@@ -1,4 +1,5 @@
 using System.Net;
+using System.Net.Http.Headers;
 using BE.Dto.User;
 using BE.Dto.User.AdminManagement;
 using BE.Dto.User.Instructor;
@@ -9,6 +10,7 @@ using BE.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Facebook;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace BE.Services.Implementations
@@ -129,21 +131,121 @@ namespace BE.Services.Implementations
             return await _userRepo.GetUserStatisticsAsync();
         }
 
-        public async Task<ReturnResponseDto> GoogleResponse()
+        public async Task<string> GoogleResponse()
         {
-            var code = _httpContextAccessor.HttpContext.Request.Query["code"];
-            var state = _httpContextAccessor.HttpContext.Request.Query["state"];
+            var request = _httpContextAccessor.HttpContext?.Request;
+            if (request == null)
+            {
+                throw new Exception("HTTP Request is not available.");
+            }
+
+            var code = request.Query["code"];
+            var state = request.Query["state"];
+
             if (string.IsNullOrEmpty(code) || string.IsNullOrEmpty(state))
             {
                 throw new Exception("Invalid Google response");
             }
 
-            return new ReturnResponseDto
+            GoogleTokenResponse tokenResponse;
+            try
             {
-                Code = code,
-                State = state
-            };
+                tokenResponse = await GetGoogleAccessTokenAsync(code);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                throw new Exception("Failed to get Google access token: " + ex.Message);
+            }
+
+            if (tokenResponse == null || string.IsNullOrEmpty(tokenResponse.AccessToken))
+            {
+                throw new Exception("Failed to retrieve access token from Google");
+            }
+
+            GoogleUserInfo userInfo;
+            try
+            {
+                userInfo = await GetGoogleUserInfoAsync(tokenResponse.AccessToken);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                throw new Exception("Failed to get user info from Google: " + ex.Message);
+            }
+
+            if (userInfo == null)
+            {
+                throw new Exception("Failed to retrieve user info from Google");
+            }
+
+            User user;
+            try
+            {
+                user = await _userRepo.GetUserLoginGoogle(userInfo.Email);
+                if (user == null)
+                {
+                    await _userRepo.CreateUserGoogle(userInfo.Email);
+                    user = await _userRepo.GetUserLoginGoogle(userInfo.Email);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                throw new Exception("Failed to handle user data: " + ex.Message);
+            }
+            var token = _tokenRepo.CreateToken(user);
+
+            var redirectUrl = $"http://localhost:5173/sign-in?token={Uri.EscapeDataString(token)}";
+
+            return redirectUrl;
         }
+
+        private async Task<GoogleTokenResponse> GetGoogleAccessTokenAsync(string code)
+        {
+            using (var httpClient = new HttpClient())
+            {
+                var requestParams = new Dictionary<string, string>
+        {
+            { "code", code },
+            { "client_id", _config["Google:ClientId"] },
+            { "client_secret", _config["Google:ClientSecret"] },
+            { "redirect_uri", $"{_httpContextAccessor.HttpContext.Request.Scheme}://{_httpContextAccessor.HttpContext.Request.Host}/api/v1/web/user/signin-google" },
+            { "grant_type", "authorization_code" }
+        };
+
+                var requestContent = new FormUrlEncodedContent(requestParams);
+                var response = await httpClient.PostAsync("https://oauth2.googleapis.com/token", requestContent);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return null;
+                }
+
+                var responseContent = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<GoogleTokenResponse>(responseContent);
+            }
+        }
+
+        private async Task<GoogleUserInfo> GetGoogleUserInfoAsync(string accessToken)
+        {
+            using (var httpClient = new HttpClient())
+            {
+                var request = new HttpRequestMessage(HttpMethod.Get, "https://www.googleapis.com/oauth2/v2/userinfo");
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+                var response = await httpClient.SendAsync(request);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return null;
+                }
+
+                var responseContent = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<GoogleUserInfo>(responseContent);
+            }
+        }
+
 
         public async Task<UserLoginToken> Login(UserLoginDto userLoginDto)
         {
@@ -190,7 +292,7 @@ namespace BE.Services.Implementations
                 throw new Exception("Google Client ID is missing in the configuration");
             }
 
-            var redirectUri = $"{_httpContextAccessor.HttpContext.Request.Scheme}://{_httpContextAccessor.HttpContext.Request.Host}/api/v1/web/user/signin-google";
+            var redirectUri = "http://localhost:5144/api/v1/web/user/signin-google";
 
             if (string.IsNullOrEmpty(redirectUri))
             {
@@ -308,7 +410,7 @@ namespace BE.Services.Implementations
         {
             var user = await _userRepo.GetUserById(insId);
 
-            if(user == null) return new InstructorProfileDto();
+            if (user == null) return new InstructorProfileDto();
 
             return await _userRepo.GetInstructorProfileByInsId(insId);
         }
@@ -317,7 +419,7 @@ namespace BE.Services.Implementations
         {
             var user = await _userRepo.GetUserById(insId);
 
-            if(user == null) return new InstructorProfileDto();
+            if (user == null) return new InstructorProfileDto();
 
             return await _userRepo.GetInstructorProfileWithWaitingCourseByInsId(insId);
         }

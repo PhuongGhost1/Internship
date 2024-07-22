@@ -233,5 +233,16 @@ namespace BE.Controllers
         {
             return await _courseService.GetListCartCourseByUser(userId);
         }
+
+        [HttpPost, Route("delete-item-cart")]
+        public async Task<MessageDto> DeleteItemFromCart([FromForm] string cartCourseId)
+        {
+            return await _courseService.DeleteItemFromCart(cartCourseId);
+        }
+        [HttpPost, Route("pay-cart-course-items")]
+        public async Task<MessageDto> PayCartCourses([FromForm] PayCartCourseDto data)
+        {
+            return await _courseService.PayCartCourses(data);
+        }
     }
 }

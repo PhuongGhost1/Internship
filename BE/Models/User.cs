@@ -29,6 +29,10 @@ public partial class User
 
     public string? Gender { get; set; }
 
+    public string? LoginType { get; set; }
+
+    public int? Status { get; set; }
+
     public virtual ICollection<AffiliatePayment> AffiliatePayments { get; set; } = new List<AffiliatePayment>();
 
     public virtual ICollection<Affiliate> Affiliates { get; set; } = new List<Affiliate>();

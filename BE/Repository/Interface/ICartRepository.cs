@@ -9,5 +9,8 @@ namespace BE.Repository.Interface
         Task RemoveFromCartAsync(string cartId, string courseId);
         Task<Cart> GetCartByUserIdAsync(string userId);
         Task SaveAsync();
+        Task<Cart?> GetCartById(string cartId);
+        Task<CartCourse?> GetCartCourseById(string cartCourseId);
+        Task UpdateCart(Cart cart);
     }
 }

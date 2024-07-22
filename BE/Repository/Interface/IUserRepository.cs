@@ -8,8 +8,11 @@ namespace BE.Repository.Interface
         public interface IUserRepository
         {
                 Task<User?> CreateUser(User user);
+                Task UpdateUserByObj(User user);
+                Task CreateUserGoogle(string email);
                 Task<User?> UpdateUser(ForgotDto forgotDto, string email);
                 Task<User?> GetUserByEmail(string email);
+                Task<User?> GetUserLoginGoogle(string email);
                 Task<User?> CheckUserLogin(string username, string password);
                 Task<bool> CheckPasswordExist(string password);
                 Task<bool> CheckEmailExist(string email);

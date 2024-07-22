@@ -11,6 +11,7 @@ import Checkbox from '@mui/material/Checkbox';
 import { TiSocialFacebook } from "react-icons/ti";
 import { FaGoogle } from "react-icons/fa";
 import { AuthContext } from "../../Context/AuthContext";
+import ApiService from "../../../api/ApiService";
 import Cookies from 'js-cookie';
 
 
@@ -29,6 +30,11 @@ export default function LoginPage() {
         } else {
 
         }
+    }
+
+    const hanldeGoogleLogin = async () => {
+        const data = await ApiService.LoginGoogle();
+        window.location.href = data.returnAuthUrl
     }
     return (
         <div id="log-in">
@@ -64,11 +70,8 @@ export default function LoginPage() {
                         <span>or</span>
                     </div>
                     <div className="facebook-google">
-                        <div className="google btn">
+                        <div className="google btn" onClick={hanldeGoogleLogin}>
                             <FaGoogle />
-                        </div>
-                        <div className="facebook btn">
-                            <TiSocialFacebook />
                         </div>
                     </div>
                     <div className="ask-cr">

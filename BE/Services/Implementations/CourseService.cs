@@ -25,9 +25,12 @@ namespace BE.Services.Implementations
         private readonly ILectureRepository _lectureRepo;
         private readonly ICategoryRepository _cateRepo;
         private readonly IUserRepository _userRepo;
+        private readonly ICartRepository _cartRepo;
+        private readonly IPaymentRepository _paymentRepo;
         private static readonly Random _random = new Random();
         public CourseService(ICourseRepository courseRepo, IImageRepository imageRepo, IQuizRepository quizRepo,
-                            ILectureRepository lectureRepo, ICategoryRepository cateRepo, IUserRepository userRepo)
+                            ILectureRepository lectureRepo, ICategoryRepository cateRepo, IUserRepository userRepo,
+                            ICartRepository cartRepo, IPaymentRepository paymentRepo)
         {
             _courseRepo = courseRepo;
             _imageRepo = imageRepo;
@@ -35,6 +38,8 @@ namespace BE.Services.Implementations
             _lectureRepo = lectureRepo;
             _cateRepo = cateRepo;
             _userRepo = userRepo;
+            _cartRepo = cartRepo;
+            _paymentRepo = paymentRepo;
         }
 
         public async Task<List<Course>> GetAllCourses(SearchQueryObject searchQueryObject)
@@ -309,14 +314,15 @@ namespace BE.Services.Implementations
         {
             try
             {
-                var cart = await _courseRepo.GetCart(courseUser.userId);
+                Console.WriteLine("UserId: " + courseUser.UserId);
+                var cart = await _courseRepo.GetCart(courseUser.UserId);
                 if (cart == null)
                 {
-                    await _courseRepo.CreateCart(courseUser.userId);
-                    cart = await _courseRepo.GetCart(courseUser.userId);
+                    await _courseRepo.CreateCart(courseUser.UserId);
+                    cart = await _courseRepo.GetCart(courseUser.UserId);
                 }
 
-                await _courseRepo.AddCourseToCart(cart, courseUser.courseId);
+                await _courseRepo.AddCourseToCart(cart, courseUser.CourseId);
 
                 return new MessageDto
                 {
@@ -324,11 +330,11 @@ namespace BE.Services.Implementations
                     Status = 1
                 };
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return new MessageDto
                 {
-                    Message = "Error add Course to cart",
+                    Message = e.Message,
                     Status = 0
                 };
             }
@@ -351,6 +357,79 @@ namespace BE.Services.Implementations
                 }
             }
             return ListCartCourseReturn;
+        }
+        public async Task<MessageDto> DeleteItemFromCart(string cartCourseId)
+        {
+            try
+            {
+                CartCourse cartCourse = await _cartRepo.GetCartCourseById(cartCourseId);
+                Cart cart = await _cartRepo.GetCartById(cartCourse.CartId);
+                cart.Total -= cartCourse.Total;
+                await _cartRepo.UpdateCart(cart);
+                await _courseRepo.DeleteCartCoure(cartCourse);
+                return new MessageDto
+                {
+                    Message = "Delete from cart success",
+                    Status = 1
+                };
+            }
+            catch (Exception e)
+            {
+                return new MessageDto
+                {
+                    Message = e.Message,
+                    Status = 0
+                };
+            }
+        }
+        public async Task<MessageDto> PayCartCourses(PayCartCourseDto data)
+        {
+            try
+            {
+                float? totalMoney = 0;
+                var cartCourses = await _courseRepo.GetListCartCourseByListId(data.CartCourseIds);
+                //check wallet
+                foreach (var cartCourse in cartCourses)
+                {
+                    totalMoney += cartCourse.Total;
+                }
+                var user = await _userRepo.GetUserById(data.UserId);
+                if (user.Wallet < totalMoney)
+                {
+                    return new MessageDto
+                    {
+                        Message = "Insufficient balance",
+                        Status = 2
+                    };
+                }
+                user.Wallet -= totalMoney;
+                await _userRepo.UpdateUserByObj(user);
+                //Create Payment
+                var payment = await _paymentRepo.CreatePaymentPayingCourse(data.UserId, totalMoney);
+                foreach (var cartCourse in cartCourses)
+                {
+                    await _paymentRepo.CreatePaymentCourse(payment, cartCourse);
+                    //Create Affiliate Payment
+                    if (cartCourse.AffiliateId != null)
+                    {
+
+                    }
+                }
+
+                return new MessageDto
+                {
+                    Message = "Pay course success",
+                    Status = 1
+                };
+            }
+            catch (Exception e)
+            {
+                return new MessageDto
+                {
+                    Message = e.Message,
+                    Status = 0
+                };
+            }
         }
     }
 }

@@ -3,30 +3,22 @@ export const formatNumber = (num) => {
 };
 
 export const dateEngformat = (dateinput) => {
-  // Split the input date string into an array of [year, month, day]
-  const [year, month, day] = dateinput.split("/");
+  // Create a new Date object from the input date string
+  const date = new Date(dateinput);
 
   // Create an array of month names
   const monthNames = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
   ];
 
-  // Get the month name from the array (subtract 1 because months are zero-indexed)
-  const monthName = monthNames[parseInt(month) - 1];
+  // Extract the day, month, and year from the Date object
+  const year = date.getFullYear();
+  const monthName = monthNames[date.getMonth()];
+  const day = date.getDate();
 
   // Return the formatted date string
-  return `${monthName} ${parseInt(day)}, ${year}`;
+  return `${monthName} ${day}, ${year}`;
 };
 
 export const formatTime = (timeString) => {

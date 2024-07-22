@@ -20,119 +20,119 @@ import slide_img from "../../assets/slide_img.webp";
 import ApiService from "../../api/ApiService";
 
 export default function Home() {
-  const [newReleaseCoursesData, setNewReleaseCoursesData] = useState(null);
-  const [mostPopularCourses, setMostPopularCoursesData] = useState(null);
-  const [topRatedCourses, setTopRatedCourses] = useState(null);
+    const [newReleaseCoursesData, setNewReleaseCoursesData] = useState(null);
+    const [mostPopularCourses, setMostPopularCoursesData] = useState(null);
+    const [topRatedCourses, setTopRatedCourses] = useState(null);
 
-  useEffect(() => {
-    const fetchNewReleaseCourses = async (count) => {
-      try {
-        const data = await ApiService.getNewReleaseCourses(count);
-        setNewReleaseCoursesData(data);
-      } catch (error) {
-        console.log("Error fetching new release courses: ", error);
-      }
-    };
-    fetchNewReleaseCourses(14);
-  }, []);
+    useEffect(() => {
+        const fetchNewReleaseCourses = async (count) => {
+            try {
+                const data = await ApiService.getNewReleaseCourses(count);
+                setNewReleaseCoursesData(data);
+            } catch (error) {
+                console.log("Error fetching new release courses: ", error);
+            }
+        };
+        fetchNewReleaseCourses(14);
+    }, []);
 
-  useEffect(() => {
-    const fetchMostPopularCourses = async (count) => {
-      try {
-        const data = await ApiService.getMostPurchasedCourses(count);
-        setMostPopularCoursesData(data);
-      } catch (error) {
-        console.log("Error fetching new release courses: ", error);
-      }
-    };
-    fetchMostPopularCourses(6);
-  }, []);
+    useEffect(() => {
+        const fetchMostPopularCourses = async (count) => {
+            try {
+                const data = await ApiService.getMostPurchasedCourses(count);
+                setMostPopularCoursesData(data);
+            } catch (error) {
+                console.log("Error fetching new release courses: ", error);
+            }
+        };
+        fetchMostPopularCourses(6);
+    }, []);
 
-  useEffect(() => {
-    const fetchTopRatedCourses = async (count) => {
-      try {
-        const data = await ApiService.getTopRatedCourses(count);
-        setTopRatedCourses(data);
-      } catch (error) {
-        console.log("Error fetching top rated courses: ", error);
-      }
-    };
-    fetchTopRatedCourses(6);
-  }, []);
+    useEffect(() => {
+        const fetchTopRatedCourses = async (count) => {
+            try {
+                const data = await ApiService.getTopRatedCourses(count);
+                setTopRatedCourses(data);
+            } catch (error) {
+                console.log("Error fetching top rated courses: ", error);
+            }
+        };
+        fetchTopRatedCourses(6);
+    }, []);
 
-  return (
-    <div id="home">
-      <Header />
-      <div className="slide-show">
-        <img className="slide" src={slide} alt="" />
-        <div className="blur-block">
-          <div className="slide-content">
-            <p className="course-name">Code Course for learing</p>
-            <p className="introduce">
-              Master the technology skills to drive your career
-            </p>
-            <p className="description">
-              Looking to get certified in cloud, land a role in cybersecurity,
-              or pave a new career path with AI? Pluralsight Skills can get you
-              there—whether you’re just starting out or a seasoned pro.
-            </p>
-            <a href="/" className="start-btn">
-              Start your trip
-            </a>
-          </div>
-          <div className="slide-image-container">
-            <img src={slide_img} alt="" className="slide-img" />
-          </div>
-        </div>
-        <div className="topic">
-          <div className="topic-title">Popular topics to learn now</div>
-          <div className="categories">
-            <a href="/" className="python category">
-              <img src={Python_logo} alt="" className="icon" />
-            </a>
-            <a href="/" className="cs category">
-              <img src={CS_logo} alt="" className="icon" />
-            </a>
-            <a href="/" className="aws category">
-              <img src={AWS_logo} alt="" className="icon" />
-            </a>
-            <a href="/" className="ai category">
-              <img src={AI_logo} alt="" className="icon" />
-            </a>
-            <a href="/" className="js category">
-              <img src={JavaScript_logo} alt="" className="icon" />
-            </a>
-            <a href="/" className="react category">
-              <img src={React_logo} alt="" className="icon" />
-            </a>
-            <a href="/" className="dotnet category">
-              <img src={Dotnet_logo} alt="" className="icon" />
-            </a>
-            <a href="/" className="django category">
-              <img src={Django_logo} alt="" className="icon" />
-            </a>
-            <a href="/" className="angular category">
-              <img src={Angular_logo} alt="" className="icon" />
-            </a>
-          </div>
+    return (
+        <div id="home">
+            <Header />
+            <div className="slide-show">
+                <img className="slide" src={slide} alt="" />
+                <div className="blur-block">
+                    <div className="slide-content">
+                        <p className="course-name">Code Course for learing</p>
+                        <p className="introduce">
+                            Master the technology skills to drive your career
+                        </p>
+                        <p className="description">
+                            Looking to get certified in cloud, land a role in cybersecurity,
+                            or pave a new career path with AI? Pluralsight Skills can get you
+                            there—whether you’re just starting out or a seasoned pro.
+                        </p>
+                        <a href="/" className="start-btn">
+                            Start your trip
+                        </a>
+                    </div>
+                    <div className="slide-image-container">
+                        <img src={slide_img} alt="" className="slide-img" />
+                    </div>
+                </div>
+                <div className="topic">
+                    <div className="topic-title">Popular topics to learn now</div>
+                    <div className="categories">
+                        <a href="/" className="python category">
+                            <img src={Python_logo} alt="" className="icon" />
+                        </a>
+                        <a href="/" className="cs category">
+                            <img src={CS_logo} alt="" className="icon" />
+                        </a>
+                        <a href="/" className="aws category">
+                            <img src={AWS_logo} alt="" className="icon" />
+                        </a>
+                        <a href="/" className="ai category">
+                            <img src={AI_logo} alt="" className="icon" />
+                        </a>
+                        <a href="/" className="js category">
+                            <img src={JavaScript_logo} alt="" className="icon" />
+                        </a>
+                        <a href="/" className="react category">
+                            <img src={React_logo} alt="" className="icon" />
+                        </a>
+                        <a href="/" className="dotnet category">
+                            <img src={Dotnet_logo} alt="" className="icon" />
+                        </a>
+                        <a href="/" className="django category">
+                            <img src={Django_logo} alt="" className="icon" />
+                        </a>
+                        <a href="/" className="angular category">
+                            <img src={Angular_logo} alt="" className="icon" />
+                        </a>
+                    </div>
 
+                </div>
+            </div>
+            <div className="courses-container">
+                <div className="new courses">
+                    <p className="courses-title">New Release</p>
+                    <SliderCards datas={newReleaseCoursesData} />
+                </div>
+                <div className="most-popular courses">
+                    <p className="courses-title">Most Popular Courses</p>
+                    <SliderCards datas={mostPopularCourses} />
+                </div>
+                <div className="free courses">
+                    <p className="courses-title">Top Favorite Courses</p>
+                    <SliderCards datas={topRatedCourses} />
+                </div>
+            </div>
+            <Footer />
         </div>
-      </div>
-      <div className="courses-container">
-        <div className="new courses">
-          <p className="courses-title">New Release</p>
-          <SliderCards datas={newReleaseCoursesData} />
-        </div>
-        <div className="most-popular courses">
-          <p className="courses-title">Most Popular Courses</p>
-          <SliderCards datas={mostPopularCourses} />
-        </div>
-        <div className="free courses">
-          <p className="courses-title">Top Favorite Courses</p>
-          <SliderCards datas={topRatedCourses} />
-        </div>
-      </div>
-      <Footer />
-    </div>
-  );
+    );
 }

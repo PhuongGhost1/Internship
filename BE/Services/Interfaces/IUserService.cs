@@ -4,6 +4,7 @@ using BE.Dto.User.AdminManagement;
 using BE.Dto.User.Instructor;
 using BE.Dto.UserLogin;
 using BE.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BE.Services.Interfaces
 {
@@ -13,7 +14,7 @@ namespace BE.Services.Interfaces
         Task<ReturnLoginDto> LoginWithFacebook();
         Task<ReturnResponseDto> FacebookResponse();
         Task<ReturnLoginDto> LoginWithGoogle();
-        Task<ReturnResponseDto> GoogleResponse();
+        Task<string> GoogleResponse();
         Task<UserLoginToken> Login(UserLoginDto userLoginDto);
         Task<UserLoginToken> Register(RegisterDto registerDto);
         Task<UserLoginToken> Forgot(string email, ForgotDto forgotDto);

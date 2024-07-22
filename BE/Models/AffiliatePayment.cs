@@ -11,7 +11,7 @@ public partial class AffiliatePayment
 
     public string? CartcourseId { get; set; }
 
-    public string? Total { get; set; }
+    public float? Total { get; set; }
 
     public DateTime? CreateDate { get; set; }
 

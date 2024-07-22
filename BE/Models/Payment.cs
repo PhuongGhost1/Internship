@@ -9,8 +9,6 @@ public partial class Payment
 
     public string? UserId { get; set; }
 
-    public string? PaymentMethod { get; set; }
-
     public string? PaymendCode { get; set; }
 
     public DateTime? CreateDate { get; set; }
