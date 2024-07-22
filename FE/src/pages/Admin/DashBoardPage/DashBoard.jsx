@@ -43,7 +43,6 @@ export default function DashBoard() {
             <div className="Chart">
               <div className="">
                 <Analytics />
-                <Appointment />
               </div>
             </div>
           </div>

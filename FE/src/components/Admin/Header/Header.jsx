@@ -10,7 +10,7 @@ export default function Header() {
       <div className="header-container">
         <div className="logo">
           <span className="icon">
-            <a href="http://localhost:5173/admin/dashboard">
+            <a href="https://groupcooked.web.app/admin/dashboard">
               <img src={Logo} alt="" />
             </a>
           </span>{" "}

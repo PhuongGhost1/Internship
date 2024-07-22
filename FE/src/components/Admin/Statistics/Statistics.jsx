@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import './Statistics.css';
+import "./Statistics.css";
 import ApiService from "../../../api/ApiService";
 
 export default function Statistics() {
@@ -8,7 +8,9 @@ export default function Statistics() {
   useEffect(() => {
     const fetchMostPurchasedCourses = async () => {
       try {
-        const mostPurchasedCourses = await ApiService.getMostPurchasedCourses();
+        const mostPurchasedCourses = await ApiService.getMostPurchasedCourses(
+          3
+        );
         setCourseData(mostPurchasedCourses);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -22,7 +24,7 @@ export default function Statistics() {
     <div id="Statistics">
       <h2>Most Purchased Courses</h2>
       {courseData.length === 0 ? (
-        <div className="course-item">Chưa có thông tin nào hiện có.</div>
+        <div className="course-item">No courses available.</div>
       ) : (
         <div className="Ranking">
           <div id="leaderboard">
@@ -34,7 +36,7 @@ export default function Statistics() {
                     <td className="number">{index + 1}</td>
                     <td className="name">{course.name}</td>
                     <td className="points">
-                      {course.points}
+                      {course.price}
                       {index === 0 && (
                         <img
                           className="gold-medal"

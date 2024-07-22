@@ -79,7 +79,6 @@ function App() {
             <Route path="student" element={<ManageStudentPage />} />
             <Route path="course" element={<ManageCoursePage />} />
             <Route path="requests" element={<RequestsPage />} />
-            <Route path="setting" element={<SettingPage />} />
             <Route path="report" element={<ReportPage />} />
             <Route path="feedback" element={<FeedBackAdminPage />} />
             <Route path="category" element={<CategoryPage />} />

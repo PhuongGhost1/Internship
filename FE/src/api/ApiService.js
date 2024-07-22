@@ -1,5 +1,15 @@
 import axios from "axios";
 
+const API_URL =
+  "https://groupcooked.happyflower-ab63cd56.southeastasia.azurecontainerapps.io/api/v1";
+
+const api = axios.create({
+  baseURL: API_URL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
 const ApiService = {
   getCourseByName: async (courseName, userId) => {
     try {
@@ -7,15 +17,11 @@ const ApiService = {
       formData.append("courseName", courseName);
       formData.append("userId", userId);
 
-      const response = await axios.post(
-        "http://localhost:5144/api/v1/web/course/find-course",
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      );
+      const response = await api.post("/web/course/find-course", formData, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      });
       return response.data;
     } catch (error) {
       console.error("Error fetching most purchased courses:", error);
@@ -24,8 +30,8 @@ const ApiService = {
   },
   getMostPurchasedCourses: async (count) => {
     try {
-      const response = await axios.get(
-        `http://localhost:5144/api/v1/web/course/most-purchased-courses/${count}`
+      const response = await api.get(
+        `/web/course/most-purchased-courses/${count}`
       );
       return response.data;
     } catch (error) {
@@ -35,9 +41,7 @@ const ApiService = {
   },
   getMonthlyExpenseAndRevenue: async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5144/api/v1/web/course/monthly-expense-revenue"
-      );
+      const response = await api.get("/web/course/monthly-expense-revenue");
       return response.data;
     } catch (error) {
       console.error("Error fetching monthly expense and revenue:", error);
@@ -46,9 +50,7 @@ const ApiService = {
   },
   getTotalPricesForSingleMonthly: async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5144/api/v1/web/payment/total-prices-single-month"
-      );
+      const response = await api.get("/web/payment/total-prices-single-month");
       return response.data;
     } catch (error) {
       console.error("Error fetching total prices monthly:", error);
@@ -57,8 +59,8 @@ const ApiService = {
   },
   getPercentageChangeForCurrentMonthly: async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5144/api/v1/web/payment/get-current-monthly-changes"
+      const response = await api.get(
+        "/web/payment/get-current-monthly-changes"
       );
       return response.data;
     } catch (error) {
@@ -68,9 +70,7 @@ const ApiService = {
   },
   getTotalPricesForCurrentWeekly: async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5144/api/v1/web/payment/total-prices-single-week"
-      );
+      const response = await api.get("/web/payment/total-prices-single-week");
       return response.data;
     } catch (error) {
       console.error("Error fetching monthly expense and revenue:", error);
@@ -79,9 +79,7 @@ const ApiService = {
   },
   getPercentageChangeForCurrentWeekly: async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5144/api/v1/web/payment/get-current-weekly-changes"
-      );
+      const response = await api.get("/web/payment/get-current-weekly-changes");
       return response.data;
     } catch (error) {
       console.error("Error fetching monthly expense and revenue:", error);
@@ -90,9 +88,7 @@ const ApiService = {
   },
   getCountAccountsByStudentRoleForMonth: async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5144/api/v1/web/user/count-total-student-monthly"
-      );
+      const response = await api.get("/web/user/count-total-student-monthly");
       return response.data;
     } catch (error) {
       console.error("Error fetching student account monthly:", error);
@@ -101,8 +97,8 @@ const ApiService = {
   },
   getCountAccountsByInstructorForMonth: async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5144/api/v1/web/user/count-total-instructor-monthly"
+      const response = await api.get(
+        "/web/user/count-total-instructor-monthly"
       );
       return response.data;
     } catch (error) {
@@ -112,8 +108,8 @@ const ApiService = {
   },
   getPercentageChangeForInstructorAccountsLastMonth: async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5144/api/v1/web/user/get-instructor-percentage-changes-monthly"
+      const response = await api.get(
+        "/web/user/get-instructor-percentage-changes-monthly"
       );
       return response.data;
     } catch (error) {
@@ -126,8 +122,8 @@ const ApiService = {
   },
   getPercentageChangeForStudentAccountsLastMonth: async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5144/api/v1/web/user/get-student-percentage-changes-monthly"
+      const response = await api.get(
+        "/web/user/get-student-percentage-changes-monthly"
       );
       return response.data;
     } catch (error) {
@@ -140,9 +136,7 @@ const ApiService = {
   },
   getInstructors: async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5144/api/v1/web/user/get-instructors"
-      );
+      const response = await api.get("/web/user/get-instructors");
       return response.data;
     } catch (error) {
       console.error("Error fetching get instructors info:", error);
@@ -154,15 +148,11 @@ const ApiService = {
       const formData = new FormData();
       formData.append("userId", userId);
 
-      const response = await axios.put(
-        `http://localhost:5144/api/v1/web/user/update-user-status`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      );
+      const response = await api.put(`/web/user/update-user-status`, formData, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      });
 
       return response.data; // Assuming response.data is the updated status or success indicator
     } catch (error) {
@@ -172,9 +162,7 @@ const ApiService = {
   },
   getStudents: async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5144/api/v1/web/user/get-students"
-      );
+      const response = await api.get("/web/user/get-students");
       return response.data;
     } catch (error) {
       console.error("Error fetching get students info:", error);
@@ -183,9 +171,7 @@ const ApiService = {
   },
   getCourseManagementByAdmin: async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5144/api/v1/web/course/manage-courses"
-      );
+      const response = await api.get("/web/course/manage-courses");
       return response.data;
     } catch (error) {
       console.error("Error fetching get courses info:", error);
@@ -194,9 +180,7 @@ const ApiService = {
   },
   getCourseManagementForWaitingByAdmin: async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5144/api/v1/web/course/manage-waiting-courses"
-      );
+      const response = await api.get("/web/course/manage-waiting-courses");
       return response.data;
     } catch (error) {
       console.error("Error fetching get waiting courses info:", error);
@@ -209,8 +193,8 @@ const ApiService = {
       formData.append("courseId", courseId);
       formData.append("status", status);
 
-      const response = await axios.put(
-        "http://localhost:5144/api/v1/web/course/update-course-management",
+      const response = await api.put(
+        "/web/course/update-course-management",
         formData,
         {
           headers: {
@@ -227,9 +211,7 @@ const ApiService = {
   },
   getRequestBecomeInstructorManagementByAdmin: async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5144/api/v1/web/user/get-request-feedbacks"
-      );
+      const response = await api.get("/web/user/get-request-feedbacks");
       return response.data;
     } catch (error) {
       console.error("Error fetching get waiting courses info:", error);
@@ -242,8 +224,8 @@ const ApiService = {
       formData.append("userId", userId);
       formData.append("status", status);
 
-      const response = await axios.post(
-        "http://localhost:5144/api/v1/web/role-user/request-roleUser",
+      const response = await api.post(
+        "/web/role-user/request-roleUser",
         formData,
         {
           headers: {
@@ -264,8 +246,8 @@ const ApiService = {
       formData.append("userId", userId);
       formData.append("status", status);
 
-      const response = await axios.post(
-        "http://localhost:5144/api/v1/web/role-user/update-request-roleUser",
+      const response = await api.post(
+        "/web/role-user/update-request-roleUser",
         formData,
         {
           headers: {
@@ -282,9 +264,7 @@ const ApiService = {
   },
   getReportsManagementByAdmin: async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5144/api/v1/web/user/get-reports"
-      );
+      const response = await api.get("/web/user/get-reports");
       return response.data;
     } catch (error) {
       console.error("Error fetching get reports info:", error);
@@ -304,8 +284,8 @@ const ApiService = {
       formData.append("commentId", commentId);
       formData.append("courseId", courseId);
 
-      const response = await axios.put(
-        "http://localhost:5144/api/v1/web/user/update-report-management-status",
+      const response = await api.put(
+        "/web/user/update-report-management-status",
         formData,
         {
           headers: {
@@ -322,9 +302,7 @@ const ApiService = {
   },
   getAllCategoriesManagementByAdmin: async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5144/api/v1/web/category/categories-list"
-      );
+      const response = await api.get("/web/category/categories-list");
       return response.data;
     } catch (error) {
       console.error("Error fetching get all categories info:", error);
@@ -336,8 +314,8 @@ const ApiService = {
       const formData = new FormData();
       formData.append("cateId", cateId);
 
-      const response = await axios.put(
-        "http://localhost:5144/api/v1/web/category/update-status-category",
+      const response = await api.put(
+        "/web/category/update-status-category",
         formData,
         {
           headers: {
@@ -360,8 +338,8 @@ const ApiService = {
 
       console.log([...formData.entries()]);
 
-      const response = await axios.post(
-        "http://localhost:5144/api/v1/web/category/create-category",
+      const response = await api.post(
+        "/web/category/create-category",
         formData,
         {
           headers: {
@@ -378,12 +356,9 @@ const ApiService = {
   },
   getCredentials: async (UserId) => {
     try {
-      const response = await axios.get(
-        "http://localhost:5144/api/v1/web/certification/credentials",
-        {
-          params: { UserId },
-        }
-      );
+      const response = await api.get("/web/certification/credentials", {
+        params: { UserId },
+      });
 
       return response.data;
     } catch (error) {
@@ -396,15 +371,11 @@ const ApiService = {
       const formData = new FormData();
       formData.append("courseId", courseId);
 
-      const response = await axios.post(
-        "http://localhost:5144/api/v1/web/course/content",
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      );
+      const response = await api.post("/web/course/content", formData, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      });
 
       return response.data;
     } catch (error) {
@@ -414,9 +385,7 @@ const ApiService = {
   },
   getCourseRandom: async (count) => {
     try {
-      const response = await axios.get(
-        `http://localhost:5144/api/v1/web/course/random/${count}`
-      );
+      const response = await api.get(`/web/course/random/${count}`);
 
       return response.data;
     } catch (error) {
@@ -429,15 +398,11 @@ const ApiService = {
       const formdata = new FormData();
       formdata.append("Username", username);
       formdata.append("Password", password);
-      const response = await axios.post(
-        "http://localhost:5144/api/v1/web/user/user-login",
-        formdata,
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      );
+      const response = await api.post("/web/user/user-login", formdata, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      });
       return response.data;
     } catch (error) {
       console.error("Error checkLogin: ", error);
@@ -449,15 +414,11 @@ const ApiService = {
       const formData = new FormData();
       formData.append("token", token);
 
-      const response = await axios.post(
-        "http://localhost:5144/api/v1/web/user/get-user-token",
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      );
+      const response = await api.post("/web/user/get-user-token", formData, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      });
 
       return response.data;
     } catch (error) {
@@ -491,26 +452,19 @@ const ApiService = {
       formdata.append("DOB", dob);
       formdata.append("Description", description);
       formdata.append("Gender", gender);
-      const response = await axios.post(
-        "http://localhost:5144/api/v1/web/user/update-profile",
-        formdata,
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      );
+      const response = await api.post("/web/user/update-profile", formdata, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      });
       return response.data;
     } catch (error) {}
   },
   getInstructorProfile: async (insId) => {
     try {
-      const response = await axios.get(
-        "http://localhost:5144/api/v1/web/user/get-instructor-profile",
-        {
-          params: { insId },
-        }
-      );
+      const response = await api.get("/web/user/get-instructor-profile", {
+        params: { insId },
+      });
 
       return response.data;
     } catch (error) {
@@ -519,8 +473,8 @@ const ApiService = {
   },
   getWaitingCourses: async (insId) => {
     try {
-      const response = await axios.get(
-        "http://localhost:5144/api/v1/web/user/get-instructor-profile-on-waiting-courses",
+      const response = await api.get(
+        "/web/user/get-instructor-profile-on-waiting-courses",
         {
           params: { insId },
         }
@@ -537,8 +491,8 @@ const ApiService = {
   },
   getNewReleaseCourses: async (count) => {
     try {
-      const response = await axios.get(
-        `http://localhost:5144/api/v1/web/course/new-release-courses/${count}`
+      const response = await api.get(
+        `/web/course/new-release-courses/${count}`
       );
       return response.data;
     } catch (error) {
@@ -548,9 +502,7 @@ const ApiService = {
   },
   getTopRatedCourses: async (count) => {
     try {
-      const response = await axios.get(
-        `http://localhost:5144/api/v1/web/course/top-rated-courses/${count}`
-      );
+      const response = await api.get(`/web/course/top-rated-courses/${count}`);
       return response.data;
     } catch (error) {
       console.error("Error fetching get top rated courses:", error);
@@ -561,8 +513,8 @@ const ApiService = {
     try {
       const formData = new FormData();
       formData.append("userId", userId);
-      const response = await axios.post(
-        "http://localhost:5144/api/v1/web/save-course/get-save-course",
+      const response = await api.post(
+        "/web/save-course/get-save-course",
         formData,
         {
           headers: {
@@ -581,15 +533,11 @@ const ApiService = {
       const formData = new FormData();
       formData.append("UserId", UserId);
 
-      const response = await axios.post(
-        "http://localhost:5144/api/v1/web/follow/view-following",
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      );
+      const response = await api.post("/web/follow/view-following", formData, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      });
       return response.data;
     } catch (error) {
       console.error("Error fetching following list:", error);
@@ -602,15 +550,11 @@ const ApiService = {
       formData.append("FollowerId", FollowerId);
       formData.append("FollowedId", FollowedId);
 
-      const response = await axios.post(
-        "http://localhost:5144/api/v1/web/follow/create-follow",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await api.post("/web/follow/create-follow", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       return response.data;
     } catch (error) {
       console.error("Error fetching creating following: ", error);
@@ -623,15 +567,11 @@ const ApiService = {
       formData.append("FollowerId", FollowerId);
       formData.append("FollowedId", FollowedId);
 
-      const response = await axios.post(
-        "http://localhost:5144/api/v1/web/follow/delete-follow",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await api.post("/web/follow/delete-follow", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       return response.data;
     } catch (error) {
       console.error("Error removing follow: ", error);
@@ -644,8 +584,8 @@ const ApiService = {
       formData.append("CourseId", CourseId);
       formData.append("UserId", UserId);
 
-      const response = await axios.post(
-        "http://localhost:5144/api/v1/web/save-course/create-saveCourse",
+      const response = await api.post(
+        "/web/save-course/create-saveCourse",
         formData,
         {
           headers: {
@@ -664,8 +604,8 @@ const ApiService = {
       const formData = new FormData();
       formData.append("saveCourseId", saveCourseId);
 
-      const response = await axios.post(
-        "http://localhost:5144/api/v1/web/save-course/delete-saveCourse",
+      const response = await api.post(
+        "/web/save-course/delete-saveCourse",
         formData,
         {
           headers: {
@@ -685,8 +625,8 @@ const ApiService = {
       formData.append("UserId", UserId);
       formData.append("CourseId", CourseId);
 
-      const response = await axios.post(
-        "http://localhost:5144/api/v1/web/save-course/get-saveCourse-exist",
+      const response = await api.post(
+        "/web/save-course/get-saveCourse-exist",
         formData,
         {
           headers: {
@@ -704,8 +644,8 @@ const ApiService = {
     try {
       const formData = new FormData();
       formData.append("courseId", courseId);
-      const response = await axios.post(
-        "http://localhost:5144/api/v1/web/comment/get-comment-course",
+      const response = await api.post(
+        "/web/comment/get-comment-course",
         formData,
         {
           headers: {
@@ -720,8 +660,24 @@ const ApiService = {
   },
   LoginGoogle: async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5144/api/v1/web/user/login-google"
+      const response = await api.get("/web/user/login-google");
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  getCart: async (userId) => {
+    try {
+      const formData = new FormData();
+      formData.append("userId", userId);
+      const response = await axios.post(
+        "http://localhost:5144/api/v1/web/course/view-cart",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
       );
       return response.data;
     } catch (error) {

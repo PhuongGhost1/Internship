@@ -7,16 +7,14 @@ using BE.Dto.User;
 
 namespace BE.Dto.Course
 {
-    public class NewReleaseCourseForHomepageDto
+    public class CourseForCartDto
     {
         public string? Id { get; set; }
         public string? Name { get; set; }
+        public float? Rating { get; set; }
         public float? Price { get; set; }
-        public float? RatingAvg { get; set; }
-        public int? RatingCount { get; set; }
-        public int? TimeLearning { get; set; }
-        public string? Level { get; set; }
-        public List<ImageForAdminDto> Image { get; set; } = new List<ImageForAdminDto>();
+        public string? Description {get; set;}
+        public string? imgUrl { get; set; }
         public UserInfoFollowingDto? User {get; set;}
     }
 }

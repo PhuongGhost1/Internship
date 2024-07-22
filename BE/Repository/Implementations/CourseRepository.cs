@@ -21,6 +21,7 @@ using BE.Dto.User;
 using BE.Dto.CategoryCourse;
 using BE.Dto.Category;
 using BE.Dto.Follow;
+using BE.Dto.Cart;
 
 namespace BE.Repository.Implementations
 {
@@ -797,6 +798,14 @@ namespace BE.Repository.Implementations
                               LastUpdated = i.CreatedAt
                          })
                          .FirstOrDefaultAsync();
+                    
+                    var user = await _context.Users
+                                             .Where(u => u.Id == c.UserId)
+                                             .Select(u => new UserInfoFollowingDto{
+                                                  Id = u.Id,
+                                                  Name = u.Username,
+                                                  Email = u.Email
+                                             }).FirstOrDefaultAsync();
 
                     var ratingAvg = await GetRatingAverage(c.Id) ?? 0;
                     var ratingCount = await GetRatingNumber(c.Id) ?? 0;
@@ -813,6 +822,7 @@ namespace BE.Repository.Implementations
                          RatingAvg = ratingAvg,
                          RatingCount = ratingCount,
                          TimeLearning = totalVideoTime + quizCount * 30,
+                         User = user
                     };
 
                     newReleaseCoursesDto.Add(newRelease);
@@ -922,7 +932,7 @@ namespace BE.Repository.Implementations
                          })
                          .FirstOrDefaultAsync();
 
-                    var ratingAvg = c.Rating ?? 0;
+                    var ratingAvg = await GetRatingAverage(c.Id) ?? 0;
                     var ratingCount = await GetRatingNumber(c.Id) ?? 0;
                     var totalVideoTime = await CalculateTotalVideoTimeByCourseId(c.Id) ?? 0;
                     var quizCount = await NumberOfQuizInChapterByCourseId(c.Id) ?? 0;
@@ -985,16 +995,90 @@ namespace BE.Repository.Implementations
                _context.Carts.Update(cart);
                await _context.SaveChangesAsync();
           }
-          public async Task<List<CartCourse>> GetListCartCourse(Cart cart)
+          public async Task<UserCartDto> GetListCartCourse(string userId)
           {
-               List<CartCourse> cartCourse = await _context.CartCourses
-                                             .Include(cc => cc.Course)
-                                             .Include(cc => cc.PaymentCourse)
-                                             .Include(cc => cc.AffiliatePayment)
-                                             .Where(cc => cc.Cart == cart && cc.AffiliatePayment == null && cc.PaymentCourse == null)
-                                             .ToListAsync();
-               return cartCourse;
+               var user = await _context.Users
+                                        .Include(u => u.Carts)
+                                             .ThenInclude(cart => cart.CartCourses)
+                                                  .ThenInclude(cc => cc.Course)
+                                                       .ThenInclude(course => course.Images)
+                                        .Include(u => u.Carts)
+                                             .ThenInclude(cart => cart.CartCourses)
+                                                  .ThenInclude(cc => cc.Course)
+                                                       .ThenInclude(c => c.User)
+                                        .Include(u => u.Carts)
+                                             .ThenInclude(cart => cart.CartCourses)
+                                        .Where(u => u.Id == userId)
+                                        .FirstOrDefaultAsync();
+
+               if (user == null)
+               {
+                    return new UserCartDto();
+               }
+
+               var cartDtos = new List<CartDTO>();
+
+               foreach (var cart in user.Carts)
+               {
+                    var cartCourseDtos = new List<CartCourseDTO>();
+
+                    foreach (var cc in cart.CartCourses)
+                    {
+                         var course = cc.Course != null ? new CourseForCartDto
+                         {
+                              Id = cc.Course.Id,
+                              Name = cc.Course.Name,
+                              Price = cc.Course.Price,
+                              Rating = cc.Course.Rating,
+                              Description = cc.Course.Description,
+                              imgUrl = await GetImageCourse(cc.Course.Id, "Background"),
+                              User = cc.Course.User != null ? new UserInfoFollowingDto{
+                                   Id = cc.Course.User.Id,
+                                   Email = cc.Course.User.Email,
+                                   Name = cc.Course.User.Username,
+                              } : null
+                         } : null;
+
+                         var cartDto = cc.Cart != null ? new CartDTO
+                         {
+                              Id = cc.Cart.Id,
+                              Total = cc.Cart.Total,
+                              UserId = cc.Cart.Id,
+                              Status = cc.Cart.Status,
+                              DateCreated = cc.Cart.DateCreated,
+                         } : null;
+
+                         var cartCourseDto = new CartCourseDTO
+                         {
+                              Cart = cc.Cart != null ? cartDto : null,
+                              Course = course
+                         };
+
+                         cartCourseDtos.Add(cartCourseDto);
+                    }
+
+                    var cartDtoResult = new CartDTO
+                    {
+                         Id = cart.Id,
+                         Total = cart.Total,
+                         UserId = user.Id,
+                         Status = cart.Status,
+                         DateCreated = cart.DateCreated,
+                         CartCourses = cartCourseDtos
+                    };
+
+                    cartDtos.Add(cartDtoResult);
+               }
+
+               return new UserCartDto
+               {
+                    Id = user.Id,
+                    Email = user.Email,
+                    Username = user.Username,
+                    Carts = cartDtos
+               };
           }
+
           public async Task DeleteCartCoure(CartCourse cartCourse)
           {
                _context.CartCourses.Remove(cartCourse);

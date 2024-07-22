@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using static BE.Utils.Utils;
 using BE.Attributes;
 using BE.Dto.Message;
+using BE.Dto.User;
 
 namespace BE.Controllers
 {
@@ -229,9 +230,9 @@ namespace BE.Controllers
         }
 
         [HttpPost, Route("view-cart")]
-        public async Task<List<CartCourseCardDto>> ViewCart([FromForm] string userId)
+        public async Task<UserCartDto> ViewCart([FromForm] string userId)
         {
-            return await _courseService.GetListCartCourseByUser(userId);
+            return await _courseService.GetListCartCourse(userId);
         }
 
         [HttpPost, Route("delete-item-cart")]

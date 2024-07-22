@@ -222,9 +222,9 @@ export default function Certification() {
                 <div className="icon">
                   <SlShareAlt size={15} />
                 </div>
-                <div className="text">
+                {/* <div className="text">
                   <h2>Share Certificate</h2>
-                </div>
+                </div> */}
               </div>
 
               <div onClick={handlePrint} className="certification-bt-dowwnload">
