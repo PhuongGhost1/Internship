@@ -92,8 +92,17 @@ export default function Certification() {
           <div className="container1-column">
             <div className="container-column1">
               <div className="complete-avatar">
-                <img
+                {/* <img
                   src={certificationData.user.images[0].url}
+                  alt="Avatar"
+                  className="avatar"
+                /> */}
+                <img
+                  src={
+                    certificationData.user.images.length > 0
+                      ? certificationData.user.images[0].url
+                      : ""
+                  }
                   alt="Avatar"
                   className="avatar"
                 />
