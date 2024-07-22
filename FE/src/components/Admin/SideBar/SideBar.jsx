@@ -10,6 +10,7 @@ import { IoSettingsSharp } from "react-icons/io5";
 import { TbReportAnalytics } from "react-icons/tb";
 import { VscFeedback } from "react-icons/vsc";
 import { BiCategory } from "react-icons/bi";
+import { useLocation } from 'react-router-dom';
 
 export default function SideBar({ type }) {
      const [activeItem, setActiveItem] = useState(localStorage.getItem("activeItem") || "dashboard");
@@ -41,13 +42,15 @@ export default function SideBar({ type }) {
           }
      }, [type]);
 
+     const location = useLocation();
+
      return (
           <div id="SideBar">
                <div className="sidebar-header">
                     <h5>Administrator</h5>
                </div>
                <ul className="sidebar-menu">
-                    <li className={`menu-item ${activeItem === "dashboard" ? "active" : ""}`}>
+                    <li className={`menu-item ${location.pathname === '/admin/dashboard' ? "active" : ""}`}>
                          <span onClick={() => handleItemClick("dashboard")}>
                               <a href="/admin/dashboard">
                                    <LuBarChart3 className="LuBarChart" /> &nbsp;Dashboard
@@ -58,54 +61,54 @@ export default function SideBar({ type }) {
                          <MdOutlineManageAccounts className="Manage" /> &nbsp;Management
                     </li>
                     <div className={`dropdown ${activeItem === "manage" ? "active" : ""}`}>
-                         <div className={`menu-item ${activeItem === "instructor" ? "active" : ""}`}>
+                         <div className={`menu-item ${location.pathname === '/admin/instructor' ? "active" : ""}`}>
                               <a href="/admin/instructor">
                                    <FaChalkboardTeacher className="instructor" /> &nbsp;Instructor
                               </a>
                          </div>
-                         <div className={`menu-item ${activeItem === "student" ? "active" : ""}`}>
+                         <div className={`menu-item ${location.pathname === '/admin/student' ? "active" : ""}`}>
                               <a href="/admin/student">
                                    <PiStudentBold className="Student" /> &nbsp;Student
                               </a>
                          </div>
                     </div>
 
-                    <li className={`menu-item ${activeItem === "category" ? "active" : ""}`}>
+                    <li className={`menu-item ${location.pathname === '/admin/category' ? "active" : ""}`}>
                          <span onClick={() => handleItemClick("category")}>
                               <a href="/admin/category">
-                                   <BiCategory  className="category" /> &nbsp;Category
+                                   <BiCategory className="category" /> &nbsp;Category
                               </a>
                          </span>
                     </li>
-                    <li className={`menu-item ${activeItem === "course" ? "active" : ""}`}>
+                    <li className={`menu-item ${location.pathname === '/admin/course' ? "active" : ""}`}>
                          <span onClick={() => handleItemClick("course")}>
                               <a href="/admin/course">
                                    <SiCoursera className="course" /> &nbsp;Course management
                               </a>
                          </span>
                     </li>
-                    <li className={`menu-item ${activeItem === "requests" ? "active" : ""}`}>
+                    <li className={`menu-item ${location.pathname === '/admin/requests' ? "active" : ""}`}>
                          <span onClick={() => handleItemClick("requests")}>
                               <a href="/admin/requests">
                                    <IoGitPullRequestSharp className="requests" /> &nbsp;Requests
                               </a>
                          </span>
                     </li>
-                    <li className={`menu-item ${activeItem === "report" ? "active" : ""}`}>
+                    <li className={`menu-item ${location.pathname === '/admin/report' ? "active" : ""}`}>
                          <span onClick={() => handleItemClick("report")}>
                               <a href="/admin/report">
-                                   <TbReportAnalytics  className="report" /> &nbsp;Report
+                                   <TbReportAnalytics className="report" /> &nbsp;Report
                               </a>
                          </span>
                     </li>
-                    <li className={`menu-item ${activeItem === "feedback" ? "active" : ""}`}>
+                    <li className={`menu-item ${location.pathname === '/admin/feedback' ? "active" : ""}`}>
                          <span onClick={() => handleItemClick("feedback")}>
                               <a href="/admin/feedback">
-                                   <VscFeedback  className="feedback" /> &nbsp;Feedback
+                                   <VscFeedback className="feedback" /> &nbsp;Feedback
                               </a>
                          </span>
                     </li>
-                    <li className={`menu-item ${activeItem === "setting" ? "active" : ""}`}>
+                    <li className={`menu-item ${location.pathname === '/admin/setting' ? "active" : ""}`}>
                          <span onClick={() => handleItemClick("setting")}>
                               <a href="/admin/setting">
                                    <IoSettingsSharp className="setting" /> &nbsp;Setting
