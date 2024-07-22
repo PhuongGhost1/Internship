@@ -3,15 +3,15 @@ using BE.Models;
 
 namespace BE.Services.Interfaces
 {
-    public interface IFollowService
-    {
-        Task<List<FollowingDto>> GetFollowing(string userId);
+     public interface IFollowService
+     {
+          Task<FollowingDto> GetFollowing(string UserId);
 
 
-        //---------------------CRUD--------------------------//
-        Task<List<Follow>> ViewAllFollows();
-        Task<Follow?> CreateFollow(CreateFollowDto createFollowDto);
-        Task<Follow?> UpdateFollow(string followId, UpdateFollowDto updateFollowDto);
-        Task<bool> DeleteFollow(string followId);
-    }
+          //---------------------CRUD--------------------------//
+          Task<List<Follow>> ViewAllFollows();
+          Task<Follow?> CreateFollow(CreateFollowDto createFollowDto);
+          Task<Follow?> UpdateFollow(string followId, UpdateFollowDto updateFollowDto);
+          Task<bool> DeleteFollow(CreateFollowDto deleteFollowDto);
+     }
 }

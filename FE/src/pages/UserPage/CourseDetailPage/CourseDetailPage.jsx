@@ -42,9 +42,9 @@ export default function CourseDetailPage() {
 
   const fetchData = async () => {
     try {
-      const data1 = await api.getCourseByName(courseName);
+      const data1 = await api.getCourseByName(courseName, "user_00ebd16723");
       setCourseData(data1);
-      const data2 = await api.getNewReleaseCoursesWithName(6);
+      const data2 = await api.getNewReleaseCourses(6);
       setCardData(data2);
     } catch (error) {
       console.error("Error fetching course:", error);
@@ -106,13 +106,25 @@ export default function CourseDetailPage() {
     };
   }, []);
 
+  const handleStatusUpdate = async () => {
+    try {
+      const data1 = await api.getCourseByName(courseName, "user_00ebd16723");
+      setCourseData(data1);
+    } catch (error) {
+      console.log("Error fetching updated course data: ", error);
+    }
+  };
+
   return (
     <div id="course-detail-page">
       <Header />
       <div className="courser-detail-container">
         <div className="flex-container">
           <div className="course-detail-learning-map-container">
-            <CoursesDetail courseData={courseData} />
+            <CoursesDetail
+              courseData={courseData}
+              onStatusUpdate={handleStatusUpdate}
+            />
             <CoursesDetailBar
               onAboutClick={() => {
                 scrollToSection(aboutRef);

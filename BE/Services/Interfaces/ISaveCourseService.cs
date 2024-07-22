@@ -6,7 +6,7 @@ namespace BE.Services.Interfaces
 {
     public interface ISaveCourseService
     {
-
+        Task<bool> CheckSaveCourseExistAsync(CreateSaveCourseDto createSaveCourseDto);
 
         //---------------------CRUD--------------------------//
         Task<List<SaveCourse>> ViewAllSaveCourses();

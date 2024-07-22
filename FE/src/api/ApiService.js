@@ -1,11 +1,15 @@
 import axios from "axios";
 
 const ApiService = {
-  getCourseByName: async (courseName) => {
+  getCourseByName: async (courseName, userId) => {
     try {
+      const formData = new FormData();
+      formData.append("courseName", courseName);
+      formData.append("userId", userId);
+
       const response = await axios.post(
         "http://localhost:5144/api/v1/web/course/find-course",
-        { courseName: courseName },
+        formData,
         {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
@@ -18,10 +22,10 @@ const ApiService = {
       throw error;
     }
   },
-  getMostPurchasedCourses: async () => {
+  getMostPurchasedCourses: async (count) => {
     try {
       const response = await axios.get(
-        "http://localhost:5144/api/v1/web/course/most-purchased-courses"
+        `http://localhost:5144/api/v1/web/course/most-purchased-courses/${count}`
       );
       return response.data;
     } catch (error) {
@@ -531,10 +535,10 @@ const ApiService = {
       throw error;
     }
   },
-  getNewReleaseCourses: async () => {
+  getNewReleaseCourses: async (count) => {
     try {
       const response = await axios.get(
-        "http://localhost:5144/api/v1/web/course/new-release-courses"
+        `http://localhost:5144/api/v1/web/course/new-release-courses/${count}`
       );
       return response.data;
     } catch (error) {
@@ -542,21 +546,10 @@ const ApiService = {
       throw error;
     }
   },
-  getNewReleaseCoursesWithName: async (count) => {
+  getTopRatedCourses: async (count) => {
     try {
       const response = await axios.get(
-        `http://localhost:5144/api/v1/web/course/new-release-courses-by-name/${count}`
-      );
-      return response.data;
-    } catch (error) {
-      console.error("Error fetching get new release courses by name:", error);
-      throw error;
-    }
-  },
-  getTopRatedCourses: async () => {
-    try {
-      const response = await axios.get(
-        "http://localhost:5144/api/v1/web/course/top-rated-courses"
+        `http://localhost:5144/api/v1/web/course/top-rated-courses/${count}`
       );
       return response.data;
     } catch (error) {
@@ -580,6 +573,131 @@ const ApiService = {
       return response.data;
     } catch (error) {
       console.error(error);
+    }
+  },
+
+  getFollowing: async (UserId) => {
+    try {
+      const formData = new FormData();
+      formData.append("UserId", UserId);
+
+      const response = await axios.post(
+        "http://localhost:5144/api/v1/web/follow/view-following",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching following list:", error);
+      throw error;
+    }
+  },
+  createFollowing: async (FollowerId, FollowedId) => {
+    try {
+      const formData = new FormData();
+      formData.append("FollowerId", FollowerId);
+      formData.append("FollowedId", FollowedId);
+
+      const response = await axios.post(
+        "http://localhost:5144/api/v1/web/follow/create-follow",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching creating following: ", error);
+      throw error;
+    }
+  },
+  removeFollowing: async (FollowerId, FollowedId) => {
+    try {
+      const formData = new FormData();
+      formData.append("FollowerId", FollowerId);
+      formData.append("FollowedId", FollowedId);
+
+      const response = await axios.post(
+        "http://localhost:5144/api/v1/web/follow/delete-follow",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error removing follow: ", error);
+      throw error;
+    }
+  },
+  createSaveCourse: async (CourseId, UserId) => {
+    try {
+      const formData = new FormData();
+      formData.append("CourseId", CourseId);
+      formData.append("UserId", UserId);
+
+      const response = await axios.post(
+        "http://localhost:5144/api/v1/web/save-course/create-saveCourse",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching creating save course: ", error);
+      throw error;
+    }
+  },
+  removeSaveCourse: async (saveCourseId) => {
+    try {
+      const formData = new FormData();
+      formData.append("saveCourseId", saveCourseId);
+
+      const response = await axios.post(
+        "http://localhost:5144/api/v1/web/save-course/delete-saveCourse",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error removing save course: ", error);
+      throw error;
+    }
+  },
+  checkSaveCourseExist: async (UserId, CourseId) => {
+    try {
+      const formData = new FormData();
+      formData.append("UserId", UserId);
+      formData.append("CourseId", CourseId);
+
+      const response = await axios.post(
+        "http://localhost:5144/api/v1/web/save-course/get-saveCourse-exist",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching check save course exist:", error);
+      throw error;
     }
   },
 };

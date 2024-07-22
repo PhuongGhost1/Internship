@@ -25,39 +25,39 @@ export default function Home() {
   const [topRatedCourses, setTopRatedCourses] = useState(null);
 
   useEffect(() => {
-    const fetchNewReleaseCourses = async () => {
+    const fetchNewReleaseCourses = async (count) => {
       try {
-        const data = await ApiService.getNewReleaseCourses();
+        const data = await ApiService.getNewReleaseCourses(count);
         setNewReleaseCoursesData(data);
       } catch (error) {
         console.log("Error fetching new release courses: ", error);
       }
     };
-    fetchNewReleaseCourses();
+    fetchNewReleaseCourses(14);
   }, []);
 
   useEffect(() => {
-    const fetchMostPopularCourses = async () => {
+    const fetchMostPopularCourses = async (count) => {
       try {
-        const data = await ApiService.getMostPurchasedCourses();
+        const data = await ApiService.getMostPurchasedCourses(count);
         setMostPopularCoursesData(data);
       } catch (error) {
         console.log("Error fetching new release courses: ", error);
       }
     };
-    fetchMostPopularCourses();
+    fetchMostPopularCourses(6);
   }, []);
 
   useEffect(() => {
-    const fetchTopRatedCourses = async () => {
+    const fetchTopRatedCourses = async (count) => {
       try {
-        const data = await ApiService.getTopRatedCourses();
+        const data = await ApiService.getTopRatedCourses(count);
         setTopRatedCourses(data);
       } catch (error) {
         console.log("Error fetching top rated courses: ", error);
       }
     };
-    fetchTopRatedCourses();
+    fetchTopRatedCourses(6);
   }, []);
 
   return (
@@ -87,17 +87,35 @@ export default function Home() {
         <div className="topic">
           <div className="topic-title">Popular topics to learn now</div>
           <div className="categories">
-            {newReleaseCoursesData &&
-              newReleaseCoursesData.map((course, index) => (
-                <a
-                  key={index}
-                  href="/"
-                  className={`${course.name.toLowerCase()} category`}
-                >
-                  <img src={course.image[0].url} alt="" className="icon" />
-                </a>
-              ))}
+            <a href="/" className="python category">
+              <img src={Python_logo} alt="" className="icon" />
+            </a>
+            <a href="/" className="cs category">
+              <img src={CS_logo} alt="" className="icon" />
+            </a>
+            <a href="/" className="aws category">
+              <img src={AWS_logo} alt="" className="icon" />
+            </a>
+            <a href="/" className="ai category">
+              <img src={AI_logo} alt="" className="icon" />
+            </a>
+            <a href="/" className="js category">
+              <img src={JavaScript_logo} alt="" className="icon" />
+            </a>
+            <a href="/" className="react category">
+              <img src={React_logo} alt="" className="icon" />
+            </a>
+            <a href="/" className="dotnet category">
+              <img src={Dotnet_logo} alt="" className="icon" />
+            </a>
+            <a href="/" className="django category">
+              <img src={Django_logo} alt="" className="icon" />
+            </a>
+            <a href="/" className="angular category">
+              <img src={Angular_logo} alt="" className="icon" />
+            </a>
           </div>
+
         </div>
       </div>
       <div className="courses-container">

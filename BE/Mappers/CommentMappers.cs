@@ -6,19 +6,24 @@ namespace BE.Mappers
 {
     public static class CommentMappers
     {
-        public static Comment ToCreateCommentDto(this CreateCommentDto createCommentDto, string userId, string courseId){
-            return new Comment{
+        public static Comment ToCreateCommentDto(this CreateCommentDto createCommentDto)
+        {
+            return new Comment
+            {
                 Id = GenerateIdModel("comment"),
                 CreatedAt = GetTimeNow(),
-                CourseId = courseId,
-                UserId = userId,
+                CourseId = createCommentDto.CourseId,
+                UserId = createCommentDto.UserId,
                 Rating = createCommentDto.Rating,
-                Comment1 = createCommentDto.Comment
+                Comment1 = createCommentDto.Comment,
+                IsVisible = true
             };
         }
 
-        public static Comment ToUpdateCommentDto(this UpdateCommentDto updateCommentDto){
-            return new Comment{
+        public static Comment ToUpdateCommentDto(this UpdateCommentDto updateCommentDto)
+        {
+            return new Comment
+            {
                 CreatedAt = GetTimeNow(),
                 Rating = updateCommentDto.Rating,
                 Comment1 = updateCommentDto.Comment

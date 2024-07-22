@@ -32,7 +32,7 @@ export default function ManageCoursePage() {
           await ApiService.getCourseManagementForWaitingByAdmin();
         setCourseWaitingData(courseWaData);
       } catch (error) {
-        console.log("Error fetching wating course data: ", error);
+        console.log("Error fetching waiting course data: ", error);
       }
     };
 
@@ -48,6 +48,18 @@ export default function ManageCoursePage() {
     timeLoading();
   }, []);
 
+  const handleStatusUpdate = async () => {
+    try {
+      const updatedCourseData = await ApiService.getCourseManagementByAdmin();
+      const courseWaData =
+        await ApiService.getCourseManagementForWaitingByAdmin();
+      setCourseData(updatedCourseData);
+      setCourseWaitingData(courseWaData);
+    } catch (error) {
+      console.log("Error fetching updated course data: ", error);
+    }
+  };
+
   return (
     <div id="ManageCoursePage">
       <LoadingOverlay loading={loading} />
@@ -61,10 +73,16 @@ export default function ManageCoursePage() {
 
         <div className="Layout_Status_Posted">
           <div className="CourseStatus">
-            <CourseStatus data={courseData} />
+            <CourseStatus
+              data={courseData}
+              onStatusUpdate={handleStatusUpdate}
+            />
           </div>
           <div className="PostedCourse">
-            <PostedCourse data={courseWaitingData} />
+            <PostedCourse
+              data={courseWaitingData}
+              onStatusUpdate={handleStatusUpdate}
+            />
           </div>
         </div>
       </div>

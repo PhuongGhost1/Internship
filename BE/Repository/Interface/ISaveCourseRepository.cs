@@ -4,7 +4,8 @@ namespace BE.Repository.Interface
 {
     public interface ISaveCourseRepository
     {
-
+        Task<string?> GetSaveCourseId(string userId, string courseId);
+        Task<bool> CheckSaveCourseExist(string userId, string courseId);
 
         //---------------------CRUD--------------------------//
         Task<SaveCourse?> GetSaveCourseById(string saveCourseUserId);

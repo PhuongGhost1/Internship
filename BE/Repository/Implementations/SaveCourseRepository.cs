@@ -12,7 +12,17 @@ namespace BE.Repository.Implementations
             _context = context;
         }
 
+        public async Task<string?> GetSaveCourseId(string userId, string courseId)
+        {
+            return await _context.SaveCourses.Where(sc => sc.UserId == userId && sc.CourseId == courseId).Select(sc => sc.Id).FirstOrDefaultAsync();
+        }
 
+        public async Task<bool> CheckSaveCourseExist(string userId, string courseId)
+        {
+            var saveCourse = await _context.SaveCourses.Where(sc => sc.UserId == userId && sc.CourseId == courseId).FirstOrDefaultAsync();
+
+            return saveCourse != null;
+        }
 
         //---------------------CRUD--------------------------//
         public async Task<SaveCourse?> CreateSaveCourse(SaveCourse saveCourse)
@@ -28,7 +38,8 @@ namespace BE.Repository.Implementations
 
             if (saveCourse == null) return false;
 
-            _context.SaveCourses.Update(saveCourse);
+            _context.SaveCourses.Remove(saveCourse);
+            _context.SaveCourses.Remove(saveCourse);
             await _context.SaveChangesAsync();
             return true;
         }
@@ -53,7 +64,7 @@ namespace BE.Repository.Implementations
         {
             var SaveCourseIds = await _context.SaveCourses.Where(sv => sv.UserId == userId)
                                 .Select(sv => sv.CourseId).ToListAsync();
-            var savedCourses = await _context.Courses.Where(c => SaveCourseIds.Contains(c.Id) && c.Status == 1)
+            var savedCourses = await _context.Courses.Where(c => SaveCourseIds.Contains(c.Id) && c.Status == 0)
                                 .ToListAsync();
             return savedCourses;
         }

@@ -13,6 +13,7 @@ using BE.Mappers;
 using BE.Helpers;
 using BE.Dto.Course.Chapter;
 using BE.Dto.Payment.CartCourse;
+using BE.Dto.Message;
 
 namespace BE.Services.Implementations
 {
@@ -95,9 +96,9 @@ namespace BE.Services.Implementations
             return "hi";
         }
 
-        public async Task<string> CreateCourse(CreateCoursData data)
+        public async Task<string> CreateCourseData(CreateCoursData data)
         {
-            return await _courseRepo.CreateCourse(data);
+            return await _courseRepo.CreateCourseData(data);
         }
 
         public async Task<List<Course>> GetAllCoursesByCategoryName(string cateName)
@@ -140,18 +141,6 @@ namespace BE.Services.Implementations
 
 
         //---------------------CRUD--------------------------//
-        public async Task<Course?> CreateCourse(CreateCourseDto createCourseDto)
-        {
-            var user = await _userRepo.GetUserById(createCourseDto.UserId);
-
-            if (user == null) throw new Exception("Unable to find user!");
-
-            var createCourse = createCourseDto.ToCreateCourseDto(createCourseDto.UserId);
-
-            if (createCourse == null) throw new Exception("Unable to create course!");
-
-            return await _courseRepo.CreateCourse(createCourse);
-        }
 
         public async Task<Course?> UpdateCourse(UpdateCourseDto updateCourseDto)
         {
@@ -175,11 +164,14 @@ namespace BE.Services.Implementations
             return await _courseRepo.DeleteCourse(courseId);
         }
 
-        public async Task<Course?> GetCourseByCourseName(string courseName)
+        public async Task<CourseToCheckDto?> GetCourseByCourseName(string courseName, string userId)
         {
-            if (courseName == null) throw new Exception("Unable to find chapter!");
+            var user = await _userRepo.GetUserById(userId);
 
-            return await _courseRepo.FindCourseByCourseName(courseName);
+            if(user == null) return new CourseToCheckDto();
+
+            if(courseName == null) throw new Exception("Unable to find chapter!");
+            return await _courseRepo.FindCourseByCourseName(courseName, userId);
         }
 
         public async Task<string> CreateChapter(CreateChapterData data)
@@ -191,9 +183,9 @@ namespace BE.Services.Implementations
             return await _courseRepo.CreateQuiz(data);
         }
 
-        public async Task<List<NewReleaseCourseForHomepageDto>> GetMostPurchasedCoursesAsync()
+        public async Task<List<NewReleaseCourseForHomepageDto>> GetMostPurchasedCoursesAsync(int count)
         {
-            var courses = await _courseRepo.GetMostPurchasedCourses();
+            var courses = await _courseRepo.GetMostPurchasedCourses(count);
 
             if (courses == null || courses.Count == 0)
             {
@@ -291,31 +283,74 @@ namespace BE.Services.Implementations
             return searchCourses;
         }
 
-        public async Task<List<NewReleaseCourseForHomepageDto>> NewReleaseCoursesAsync()
+        public async Task<List<NewReleaseCourseForHomepageDto>> NewReleaseCoursesAsync(int count)
         {
-            var newReleaseCourses = await _courseRepo.NewReleaseCourses();
+            var newReleaseCourses = await _courseRepo.NewReleaseCourses(count);
 
-            if(newReleaseCourses == null || newReleaseCourses.Count == 0) return new List<NewReleaseCourseForHomepageDto>();
+            if (newReleaseCourses == null || newReleaseCourses.Count == 0) return new List<NewReleaseCourseForHomepageDto>();
 
             return newReleaseCourses;
         }
 
-        public async Task<List<NewReleaseCourseForHomepageDto>> NewReleaseCoursesByNameAsync(int size)
+
+        public async Task<List<NewReleaseCourseForHomepageDto>> GetTopRatedCoursesAsync(int count)
         {
-            var newReleaseCourses = await _courseRepo.NewReleaseCoursesByNam(size);
+            var topRatedCourses = await _courseRepo.GetTopRatedCourses(count);
 
-            if(newReleaseCourses == null || newReleaseCourses.Count == 0) return new List<NewReleaseCourseForHomepageDto>();
-
-            return newReleaseCourses;
-        }
-
-        public async Task<List<NewReleaseCourseForHomepageDto>> GetTopRatedCoursesAsync()
-        {
-            var topRatedCourses = await _courseRepo.GetTopRatedCourses();
-
-            if(topRatedCourses == null || topRatedCourses.Count == 0) return new List<NewReleaseCourseForHomepageDto>();
+            if (topRatedCourses == null || topRatedCourses.Count == 0) return new List<NewReleaseCourseForHomepageDto>();
 
             return topRatedCourses;
+        }
+        public async Task<bool> CreateCourse(CreateCourseDto course)
+        {
+            return await _courseRepo.CreateCourse(CourseMappers.ToCreateCourseDto(course));
+        }
+        public async Task<MessageDto> AddCourseToCart(CourseUserDto courseUser)
+        {
+            try
+            {
+                var cart = await _courseRepo.GetCart(courseUser.userId);
+                if (cart == null)
+                {
+                    await _courseRepo.CreateCart(courseUser.userId);
+                    cart = await _courseRepo.GetCart(courseUser.userId);
+                }
+
+                await _courseRepo.AddCourseToCart(cart, courseUser.courseId);
+
+                return new MessageDto
+                {
+                    Message = "Add Course to cart Success",
+                    Status = 1
+                };
+            }
+            catch (Exception)
+            {
+                return new MessageDto
+                {
+                    Message = "Error add Course to cart",
+                    Status = 0
+                };
+            }
+        }
+        public async Task<List<CartCourseCardDto>> GetListCartCourseByUser(string userId)
+        {
+            var ListCartCourseReturn = new List<CartCourseCardDto>();
+            Cart? cart = await _courseRepo.GetCart(userId);
+            if (cart != null)
+            {
+                List<CartCourse> cartCourses = await _courseRepo.GetListCartCourse(cart);
+                foreach (CartCourse cartCourse in cartCourses)
+                {
+                    string? imgUrl = await _courseRepo.GetImageCourse(cartCourse.Course.Id, "Background");
+                    ListCartCourseReturn.Add(new CartCourseCardDto
+                    {
+                        cartCourse = cartCourse,
+                        imgUrl = imgUrl
+                    });
+                }
+            }
+            return ListCartCourseReturn;
         }
     }
 }

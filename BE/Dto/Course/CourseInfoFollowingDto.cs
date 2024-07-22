@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 
 namespace BE.Dto.Course
 {
-    public class CreateCourseDto
+    public class CourseInfoFollowingDto
     {
-        public string? UserId { get; set; }
+        public string? Id { get; set; }
         public string? Name { get; set; }
+        public float? Rating { get; set; }
+        public float? Price { get; set; }
     }
 }

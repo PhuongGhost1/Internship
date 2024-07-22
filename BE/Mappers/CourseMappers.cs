@@ -6,17 +6,17 @@ namespace BE.Mappers
 {
     public static class CourseMappers
     {
-        public static Course ToCreateCourseDto(this CreateCourseDto createCourseDto, string userId)
+        public static Course ToCreateCourseDto(this CreateCourseDto createCourseDto)
         {
             return new Course
             {
                 Id = GenerateIdModel("course"),
                 CreateAt = GetTimeNow(),
-                UserId = userId,
+                UserId = createCourseDto.UserId,
                 Name = createCourseDto.Name,
-                Description = createCourseDto.Description,
-                Price = createCourseDto.Price,
-                WhatLearn = createCourseDto.WhatLearn
+                Status = 0,
+                IsVisible = true,
+                Rating = 0,
             };
         }
 

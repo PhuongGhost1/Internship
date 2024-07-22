@@ -1,55 +1,53 @@
-import React, { useState } from "react";
-import './Followed.css';
-import add from '../../../../../assets/add_profile.png';
-
-const tutors = [
-  { name: "John Doe", title: "Wordpress & Plugin Tutor", students: "100K Students", courses: "15 Courses", social: ["facebook", "twitter", "linkedin", "youtube"], avatar: add },
-  { name: "Kerstin Cable", title: "Language Learning Coach, Writer, Online Tutor", students: "14K Students", courses: "11 Courses", social: ["facebook", "twitter", "linkedin", "youtube"], avatar: add },
-  // Add other tutors here with their respective avatars...
-  // Make sure you have more than 15 tutors for pagination to take effect
-  { name: "Tutor 3", title: "Title 3", students: "14K Students", courses: "11 Courses", social: ["facebook", "twitter", "linkedin", "youtube"], avatar: add },
-  { name: "Tutor 4", title: "Title 4", students: "14K Students", courses: "11 Courses", social: ["facebook", "twitter", "linkedin", "youtube"], avatar: add },
-  { name: "Tutor 5", title: "Title 5", students: "14K Students", courses: "11 Courses", social: ["facebook", "twitter", "linkedin", "youtube"], avatar: add },
-  { name: "Tutor 6", title: "Title 6", students: "14K Students", courses: "11 Courses", social: ["facebook", "twitter", "linkedin", "youtube"], avatar: add },
-  { name: "Tutor 7", title: "Title 7", students: "14K Students", courses: "11 Courses", social: ["facebook", "twitter", "linkedin", "youtube"], avatar: add },
-  { name: "Tutor 8", title: "Title 8", students: "14K Students", courses: "11 Courses", social: ["facebook", "twitter", "linkedin", "youtube"], avatar: add },
-  { name: "Tutor 9", title: "Title 9", students: "14K Students", courses: "11 Courses", social: ["facebook", "twitter", "linkedin", "youtube"], avatar: add },
-  { name: "Tutor 10", title: "Title 10", students: "14K Students", courses: "11 Courses", social: ["facebook", "twitter", "linkedin", "youtube"], avatar: add },
-  { name: "Tutor 11", title: "Title 11", students: "14K Students", courses: "11 Courses", social: ["facebook", "twitter", "linkedin", "youtube"], avatar: add },
-  { name: "Tutor 12", title: "Title 12", students: "14K Students", courses: "11 Courses", social: ["facebook", "twitter", "linkedin", "youtube"], avatar: add },
-  { name: "Tutor 13", title: "Title 13", students: "14K Students", courses: "11 Courses", social: ["facebook", "twitter", "linkedin", "youtube"], avatar: add },
-  { name: "Tutor 14", title: "Title 14", students: "14K Students", courses: "11 Courses", social: ["facebook", "twitter", "linkedin", "youtube"], avatar: add },
-  { name: "Tutor 15", title: "Title 15", students: "14K Students", courses: "11 Courses", social: ["facebook", "twitter", "linkedin", "youtube"], avatar: add },
-  { name: "Tutor 16", title: "Title 16", students: "14K Students", courses: "11 Courses", social: ["facebook", "twitter", "linkedin", "youtube"], avatar: add },
-];
+import React, { useEffect, useState } from "react";
+import "./Followed.css";
+import ApiService from "../../../../../api/ApiService";
+import Background_user from "../../../../../assets/background-user1.jpg";
+import Avatar from "@mui/material/Avatar";
+import AvatarGroup from "@mui/material/AvatarGroup";
 
 const Followed = () => {
-  const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
-  const tutorsPerPage = 15;
+  const [data, setData] = useState([]);
 
-  // Logic for filtering tutors based on search term
-  const filteredTutors = tutors.filter(tutor =>
-    tutor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    tutor.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    tutor.students.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    tutor.courses.toLowerCase().includes(searchTerm.toLowerCase())
+  useEffect(() => {
+    fetchFollowing("user_e5d1e4648e");
+  }, []);
+
+  const fetchFollowing = async (userId) => {
+    try {
+      const response = await ApiService.getFollowing(userId);
+      setData(response ? [response] : []);
+    } catch (error) {
+      console.error("Error fetching data: ", error);
+    }
+  };
+
+  const removeFollowing = async (FollowerId, FollowedId) => {
+    try {
+      const deleteFollowing = await ApiService.removeFollowing(
+        FollowerId,
+        FollowedId
+      );
+      fetchFollowing(FollowerId);
+      return deleteFollowing.data;
+    } catch (error) {
+      console.error("Error remove following: ", error);
+      throw error;
+    }
+  };
+
+  // Filter data based on the search term and instructor name
+  const filteredData = data.flatMap((tutor) =>
+    tutor.followFolloweds.filter((followed) =>
+      followed.name.toLowerCase().includes(searchTerm.toLowerCase())
+    )
   );
 
-  // Logic for displaying current tutors
-  const indexOfLastTutor = currentPage * tutorsPerPage;
-  const indexOfFirstTutor = indexOfLastTutor - tutorsPerPage;
-  const currentTutors = filteredTutors.slice(indexOfFirstTutor, indexOfLastTutor);
-
-  // Logic for handling page numbers
-  const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(filteredTutors.length / tutorsPerPage); i++) {
-    pageNumbers.push(i);
-  }
+  const defaultAvatar = "path_to_default_avatar_image"; // Define your default avatar URL here
+  const defaultTutorImage = "path_to_default_tutor_image"; // Define your default tutor image URL here
 
   return (
     <div id="Followed">
-
       <div id="search-bar">
         <input
           type="text"
@@ -60,45 +58,67 @@ const Followed = () => {
       </div>
 
       <div id="tutors-grid">
-        {currentTutors.map((tutor, index) => (
-          <div className="tutor-card" key={index}>
-            <div className="avatar">
-              <img src={tutor.avatar} alt={`${tutor.name}'s avatar`} />
+        {filteredData.length > 0 ? (
+          filteredData.map((followed) => (
+            <div className="tutor-card" key={followed.id}>
+              <div className="image-container">
+                <img
+                  src={Background_user}
+                  alt="Background"
+                  className="background"
+                />
+                <div className="followerCount">
+                  <p>Follower: {followed.followerCount}</p>
+                  <p>Following: {followed.followFolloweds.length}</p>
+                </div>
+                <div className="follower-images">
+                  {followed.followFollowers.length > 0 ? (
+                    <AvatarGroup max={3} className="avatar-group">
+                      {followed.followFollowers.map((follower) => (
+                        <Avatar
+                          key={follower.id}
+                          alt={follower.name}
+                          src={follower.images[0]?.url || defaultAvatar}
+                          className="avatar"
+                        />
+                      ))}
+                    </AvatarGroup>
+                  ) : (
+                    <p>No followers available</p>
+                  )}
+                </div>
+                <div className="tutor-info">
+                  <img
+                    src={followed.images[0]?.url || defaultTutorImage}
+                    alt="Tutor"
+                    className="tutor-image"
+                  />
+                  <div className="user-info">
+                    <p className="tutor-name">{followed.name}</p>
+                    <p className="course-count">
+                      {followed.coursesCount} course
+                      {followed.coursesCount !== 1 ? "s" : ""}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="follower-info">
+                {/* Additional follower info can be added here */}
+              </div>
+              <button
+                className="unfollow-btn"
+                onClick={() =>
+                  removeFollowing(data[0].followingListOfUserId, followed.id)
+                }
+              >
+                UNFOLLOW
+              </button>
             </div>
-            <h3>{tutor.name}</h3>
-            <p>{tutor.title}</p>
-            <div className="social-links">
-              {tutor.social.map((platform, idx) => (
-                <a key={idx} href={`#${platform}`} className={`icon-${platform}`}></a>
-              ))}
-            </div>
-            <p>{tutor.students}</p>
-            <p>{tutor.courses}</p>
-          </div>
-        ))}
+          ))
+        ) : (
+          <p>Loading....</p>
+        )}
       </div>
-
-      {pageNumbers.length > 1 && ( // Only show pagination if there is more than 1 page
-        <div className="pagination">
-          <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>
-            Previous
-          </button>
-          {pageNumbers.map(number => (
-            <button
-              key={number}
-              onClick={() => setCurrentPage(number)}
-              className={currentPage === number ? 'active' : ''}
-              disabled={currentPage === number}
-            >
-              {number}
-            </button>
-          ))}
-          <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === pageNumbers.length}>
-            Next
-          </button>
-        </div>
-
-      )}
     </div>
   );
 };

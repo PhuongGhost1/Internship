@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using static BE.Utils.Utils;
 using BE.Attributes;
+using BE.Dto.Message;
 
 namespace BE.Controllers
 {
@@ -52,7 +53,7 @@ namespace BE.Controllers
             return await _courseService.GetLecturesAndQuizzesByCourseId(courseId);
         }
 
-        [CustomAuthorize("Instructor")]
+        //[CustomAuthorize("Instructor")]
         [HttpPost("upload-img")]
         public async Task<IActionResult> UploadImgCourse([FromForm] int courseId, [FromForm] IFormFile image)
         {
@@ -60,13 +61,13 @@ namespace BE.Controllers
             return Ok(new { Medialink = medialink });
         }
 
-        [CustomAuthorize("Instructor")]
-        [HttpPost("create")]
+        // [CustomAuthorize("Instructor")]
+        // [HttpPost("create")]
 
-        public async Task<string> CreateCourse([FromForm] CreateCoursData data)
-        {
-            return await _courseService.CreateCourse(data);
-        }
+        // public async Task<string> CreateCourse([FromForm] CreateCoursData data)
+        // {
+        //     return await _courseService.CreateCourse(data);
+        // }
 
 
         [HttpPost]
@@ -87,15 +88,8 @@ namespace BE.Controllers
 
 
         //---------------------CRUD--------------------------//
-        [CustomAuthorize("Instructor")]
-        [HttpPost]
-        [Route("create-course")]
-        public async Task<Course?> CreateCourse([FromForm] CreateCourseDto createCourseDto)
-        {
-            return await _courseService.CreateCourse(createCourseDto);
-        }
 
-        [CustomAuthorize("Instructor")]
+        //[CustomAuthorize("Instructor")]
         [HttpPost]
         [Route("update-course")]
         public async Task<Course?> UpdateCourse([FromForm] UpdateCourseDto updateCourseDto)
@@ -103,7 +97,7 @@ namespace BE.Controllers
             return await _courseService.UpdateCourse(updateCourseDto);
         }
 
-        [CustomAuthorize("Instructor")]
+        //[CustomAuthorize("Instructor")]
         [HttpPost]
         [Route("delete-course")]
         public async Task<bool> DeleteCourse([FromForm] string courseId)
@@ -111,11 +105,10 @@ namespace BE.Controllers
             return await _courseService.DeleteCourse(courseId);
         }
 
-        [HttpPost]
-        [Route("find-course")]
-        public async Task<Course?> FindCourseByName([FromForm] string courseName)
+        [HttpPost, Route("find-course")]
+        public async Task<CourseToCheckDto?> FindCourseByName([FromForm] string courseName, [FromForm] string userId)
         {
-            return await _courseService.GetCourseByCourseName(courseName);
+            return await _courseService.GetCourseByCourseName(courseName, userId);
         }
 
         [HttpPost]
@@ -125,7 +118,7 @@ namespace BE.Controllers
             return await _courseService.SearchCourseByUserId(userId);
         }
 
-        [CustomAuthorize("Student", "Instructor")]
+        //[CustomAuthorize("Student", "Instructor")]
         [HttpPost]
         [Route("new-release-course")]
         public async Task<List<Course>> GetRecentRandomCourses([FromForm] int numberOfSize)
@@ -140,14 +133,14 @@ namespace BE.Controllers
             return await _courseService.CreateChapter(data);
         }
 
-        [CustomAuthorize("Instructor")]
+        //[CustomAuthorize("Instructor")]
         [HttpPost("createQuiz")]
         public async Task<string> CreateQuiz([FromForm] CreateQuizData data)
         {
             return await _courseService.CreateQuiz(data);
         }
 
-        [CustomAuthorize("Instructor")]
+        //[CustomAuthorize("Instructor")]
         [HttpPost("UploadVideo")]
 
         public async Task<string> UploadVideoLecture([FromForm] IFormFile video)
@@ -169,10 +162,10 @@ namespace BE.Controllers
             return GenerateHashCode(courseName);
         }
 
-        [HttpGet, Route("most-purchased-courses")]
-        public async Task<List<NewReleaseCourseForHomepageDto>> GetMostPurchasedCourses()
+        [HttpGet, Route("most-purchased-courses/{count:int}")]
+        public async Task<List<NewReleaseCourseForHomepageDto>> GetMostPurchasedCourses(int count)
         {
-            return await _courseService.GetMostPurchasedCoursesAsync();
+            return await _courseService.GetMostPurchasedCoursesAsync(count);
         }
 
         [HttpGet, Route("monthly-expense-revenue")]
@@ -211,22 +204,34 @@ namespace BE.Controllers
             return await _courseService.SearchCourse(query, page, items);
         }
 
-        [HttpGet, Route("new-release-courses")]
-        public async Task<List<NewReleaseCourseForHomepageDto>> GetNewReleaseCoursesAsync()
+        [HttpGet, Route("new-release-courses/{count:int}")]
+        public async Task<List<NewReleaseCourseForHomepageDto>> GetNewReleaseCoursesAsync(int count)
         {
-            return await _courseService.NewReleaseCoursesAsync();
+            return await _courseService.NewReleaseCoursesAsync(count);
         }
 
-        [HttpGet, Route("new-release-courses-by-name/{count:int}")]
-        public async Task<List<NewReleaseCourseForHomepageDto>> GetNewReleaseCoursesAsyncByName(int count)
+        [HttpGet, Route("top-rated-courses/{count:int}")]
+        public async Task<List<NewReleaseCourseForHomepageDto>> GetTopRatedCoursesAsync(int count)
         {
-            return await _courseService.NewReleaseCoursesByNameAsync(count);
+            return await _courseService.GetTopRatedCoursesAsync(count);
         }
 
-        [HttpGet, Route("top-rated-courses")]
-        public async Task<List<NewReleaseCourseForHomepageDto>> GetTopRatedCoursesAsync()
+        [HttpPost, Route("create")]
+        public async Task<bool> SearchCourse([FromForm] CreateCourseDto course)
         {
-            return await _courseService.GetTopRatedCoursesAsync();
+            return await _courseService.CreateCourse(course);
+        }
+
+        [HttpPost, Route("add-cart")]
+        public async Task<MessageDto> AddCourseToCart([FromForm] CourseUserDto courseUser)
+        {
+            return await _courseService.AddCourseToCart(courseUser);
+        }
+
+        [HttpPost, Route("view-cart")]
+        public async Task<List<CartCourseCardDto>> ViewCart([FromForm] string userId)
+        {
+            return await _courseService.GetListCartCourseByUser(userId);
         }
     }
 }
