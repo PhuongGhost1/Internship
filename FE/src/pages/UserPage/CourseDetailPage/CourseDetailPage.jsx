@@ -41,6 +41,12 @@ export default function CourseDetailPage() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    if (courseData) {
+      fetchComment(courseData.id);
+    }
+  }, [courseData]);
+
   const fetchData = async () => {
     try {
       const data1 = await api.getCourseByName(courseName, "user_00ebd16723");
@@ -50,6 +56,11 @@ export default function CourseDetailPage() {
     } catch (error) {
       console.error("Error fetching course:", error);
     }
+  };
+
+  const fetchComment = async (courseId) => {
+    const data = await api.getCourseComment(courseId);
+    setComments(data);
   };
 
   useEffect(() => {
@@ -163,7 +174,7 @@ export default function CourseDetailPage() {
           <SliderCards datas={cardData} />
         </div>
         <div ref={reviewRef}></div>
-        <CoursesReview />
+        <CoursesReview comments={comments} />
       </div>
       <Footer />
     </div>

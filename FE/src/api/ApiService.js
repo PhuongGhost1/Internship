@@ -700,6 +700,34 @@ const ApiService = {
       throw error;
     }
   },
+  getCourseComment: async (courseId) => {
+    try {
+      const formData = new FormData();
+      formData.append("courseId", courseId);
+      const response = await axios.post(
+        "http://localhost:5144/api/v1/web/comment/get-comment-course",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  LoginGoogle: async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:5144/api/v1/web/user/login-google"
+      );
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };
 
 export default ApiService;
