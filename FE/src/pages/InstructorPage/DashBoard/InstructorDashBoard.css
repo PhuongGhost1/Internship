@@ -1,0 +1,12 @@
+#InstructorDashBoard .Container {
+     display: flex;
+}
+
+#InstructorDashBoard .Container .Container-One {
+     flex: 6;
+}
+
+
+#InstructorDashBoard .Container .Container-Two {
+     flex: 6;
+}
