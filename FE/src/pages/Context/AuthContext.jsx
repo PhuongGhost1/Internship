@@ -12,9 +12,6 @@ const AuthProvider = ({ children }) => {
             login(token);
         }
     }, []);
-    useEffect(() => {
-        console.log(user)
-    }, [user])
     const login = async (token) => {
         const response = await ApiService.login(token);
         setUser(response)
