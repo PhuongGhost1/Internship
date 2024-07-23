@@ -137,7 +137,7 @@ namespace BE.Repository.Implementations
             {
                 Id = GenerateIdModel("paymentcourse"),
                 Payment = payment,
-                Cartcourse = cartCourse,
+                CartcourseId = cartCourse.Id,
                 Total = cartCourse.Total
             };
 

@@ -1,15 +1,20 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import './Header.css';
 
 import Logo from '../../../assets/Logo.png'
 
 import { IoSearchOutline } from "react-icons/io5";
 import SliderCards from "../SliderCards/SliderCards";
+import { AuthContext } from "../../../pages/Context/AuthContext";
+import { HiOutlineUserCircle } from "react-icons/hi2";
+import { FaBell } from "react-icons/fa";
 
 export default function Header() {
   const [isDropDown, setIsDropDown] = useState(false);
   const [height, setHeight] = useState('0px');
   const contentDropdownRef = useRef(null);
+  const { user } = useContext(AuthContext);
+  const [imgUser, setImgUser] = useState(null)
 
   useEffect(() => {
     if (isDropDown) {
@@ -26,6 +31,7 @@ export default function Header() {
       setHeight('0px');
     }
   }, [isDropDown]);
+
 
   const handleSearchFocus = () => {
     setIsDropDown(true);
@@ -55,15 +61,29 @@ export default function Header() {
             />
           </div>
         </div>
+
         <div className="action-button">
           {isDropDown ? (
             <div className="cancel-btn" onClick={handleCancelBtn}>CANCEL</div>
           ) : (
-            <React.Fragment>
+            user ? (
+              <div className="user-action">
+                <div className="user-logo">
+                  {imgUser ?
+                    <img src={imgUser} alt="" />
+                    :
+                    <HiOutlineUserCircle />
+                  }
+                </div>
+                <div className="notification">
+                  <FaBell />
+                </div>
+              </div>
+            ) : (<React.Fragment>
               <a href="/login" className="login">Log in</a>
               <a href="/signup" className="signup">Sign Up</a>
             </React.Fragment>
-          )}
+            ))}
         </div>
       </div>
       <div
@@ -76,6 +96,6 @@ export default function Header() {
           <SliderCards items='1' />
         </div>
       </div>
-    </div>
+    </div >
   );
 }

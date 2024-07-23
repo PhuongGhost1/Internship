@@ -1,45 +1,26 @@
 import React, { useEffect } from "react";
 import "./SignInPage.css";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import success from "../../../assets/success.png";
+import Cookies from "js-cookie";
 
 const SignInPage = () => {
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchToken = async () => {
       const queryParams = new URLSearchParams(window.location.search);
-      const code = queryParams.get("code");
-      const state = queryParams.get("state");
-      const scope = queryParams.get("scope");
-      const authuser = queryParams.get("authuser");
-      const hd = queryParams.get("hd");
-      const prompt = queryParams.get("prompt");
+      const token = queryParams.get("token");
 
-      if (code && state) {
-        try {
-          console.log(code);
-          console.log(state);
-          console.log(scope);
-          console.log(authuser);
-          console.log(hd);
-          console.log(prompt);
-          console.log(
-            `https://groupcooked.web.app/api/v1/web/user/signin-google?code=${code}&state=${state}&scope=${scope}&authuser=${authuser}&hd=${hd}&prompt=${prompt}`
-          );
-          const response = await axios.get(
-            `https://groupcooked.web.app/api/v1/web/user/signin-google?code=${code}&state=${state}&scope=${scope}&authuser=${authuser}&hd=${hd}&prompt=${prompt}`
-          );
-          console.log(response.data);
-          const { token } = response.data;
-
-          // Store the token in local storage or cookies
-          localStorage.setItem("authToken", token);
-
-          // Redirect to the home page or dashboard
-          history("/");
-          console.error("Error fetching token", error);
-        } catch {}
+      if (token) {
+        Cookies.set("token", token, {
+          expires: 1,
+          sameSite: "None",
+          secure: true,
+        });
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
       } else {
         console.error("Invalid response from Google");
       }
@@ -48,7 +29,12 @@ const SignInPage = () => {
     fetchToken();
   }, [history]);
 
-  return <div>Signing in with Google...</div>;
+  return (
+    <div id="sign-in-page">
+      <img src={success} alt="" />
+      <p>Your login has been completed successfully</p>
+    </div>
+  );
 };
 
 export default SignInPage;

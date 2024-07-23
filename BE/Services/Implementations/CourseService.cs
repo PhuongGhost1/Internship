@@ -399,10 +399,9 @@ namespace BE.Services.Implementations
                 foreach (var cartCourse in cartCourses)
                 {
                     await _paymentRepo.CreatePaymentCourse(payment, cartCourse);
-                    //Create Affiliate Payment
                     if (cartCourse.AffiliateId != null)
                     {
-
+                        await _paymentRepo.CreatePaymentAffiliate(cartCourse, cartCourse.Affiliate);
                     }
                 }
 
