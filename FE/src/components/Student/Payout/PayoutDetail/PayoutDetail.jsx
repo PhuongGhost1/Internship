@@ -87,6 +87,10 @@ const PayoutDetail = ({ total, courseName }) => {
     console.log("CourseName in PayoutDetail:", courseName);
   }, [total, courseName]);
 
+  const handleCancel = () => {
+    window.location.reload();
+  };
+
   return (
     <div id="payout-container">
       <div className="container1">
@@ -207,7 +211,7 @@ const PayoutDetail = ({ total, courseName }) => {
                     <div className="form-group addWallet">
                       <div className="input-money">
                         <label htmlFor="walletAmount" className="form-title">
-                          Add Money to Wallet :
+                          Import Money To Wallet :
                         </label>
                         <input
                           type="text"
@@ -253,8 +257,8 @@ const PayoutDetail = ({ total, courseName }) => {
             </div>
 
             <div className="button-contain">
-              <div className="add-wallet button">Add Wallet Now</div>
-              <div className="cancel button">Cancel And Return</div>
+              <div className="add-wallet button">Pay Now</div>
+              <div className="cancel button" onClick={handleCancel}>Cancel And Return</div>
             </div>
           </div>
         </div>

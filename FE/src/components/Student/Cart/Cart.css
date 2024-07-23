@@ -205,7 +205,7 @@
   color: crimson;
 }
 
-.pay-bt {
+#Cart .pay-bt {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -218,9 +218,16 @@
   padding: 0 10px;
   cursor: pointer;
   background-color: #2e5ca0;
+  opacity: 1;
+  transition: opacity 0.3s;
 }
 
-.pay-bt .text h2 {
+#Cart .pay-bt.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+#Cart .pay-bt .text h2 {
   display: flex;
   align-items: center;
   margin-right: 20px;
@@ -231,7 +238,8 @@
   margin: 0 10px;
 }
 
-.pay-bt .icon {
+#Cart .pay-bt .icon {
+  margin-top: 2px;
   align-items: center;
   color: white;
   margin-left: 10px;
@@ -257,6 +265,14 @@
   scroll-behavior: smooth;
   display: flex;
   cursor: pointer;
+  user-select: none; /* Prevents text selection */
+  -webkit-user-drag: none; /* Prevents dragging in WebKit browsers */
+  -moz-user-select: none; /* Firefox-specific */
+  -ms-user-select: none; /* Internet Explorer/Edge-specific */
+}
+
+#Cart .results::-webkit-scrollbar {
+  display: none; /* Hides scrollbar in WebKit browsers */
 }
 
 #Cart .result {
@@ -336,9 +352,16 @@
   font-size: 18px;
   font-weight: 600;
   margin: 15px 0;
-  overflow: hidden; /* Ngăn văn bản tràn ra ngoài */
-  text-overflow: ellipsis; /* Hiển thị dấu ... khi văn bản quá dài */
-  white-space: nowrap; /* Không cho phép xuống dòng */
+  overflow: hidden; /* Prevent text from overflowing */
+  text-overflow: ellipsis; /* Show ... when text is too long */
+  white-space: nowrap; /* Prevent text from wrapping */
+  color: #333; /* Dark gray text color */
+  transition: color 0.3s ease; /* Smooth transition for color only */
+}
+
+#Cart .result .title .title-font:hover {
+  color: #007bff; /* Change text color on hover */
+  text-decoration: underline; /* Add an underline on hover */
 }
 
 #Cart .result .title .title-font span {
@@ -346,7 +369,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  max-width: 100%; /* Đảm bảo rằng văn bản không tràn ra ngoài */
+  max-width: 70%; /* Đảm bảo rằng văn bản không tràn ra ngoài */
 }
 
 #Cart .result .info {

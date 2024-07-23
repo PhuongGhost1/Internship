@@ -21,7 +21,7 @@ export default function Cart() {
   const [dataFull, setDataFull] = useState([]);
   const [checkedItems, setCheckedItems] = useState({});
   const [total, setTotal] = useState(0);
-  const itemsPerPage = 100;
+  const itemsPerPage = 42;
   const [pagination, setPagination] = useState(1);
   const resultsRef = useRef(null);
   const [isLeftDisabled, setIsLeftDisabled] = useState(true);
@@ -87,7 +87,6 @@ export default function Cart() {
         const viewFullData = await ApiService.getNewReleaseCourses(
           itemsPerPage
         );
-        console.log(viewFullData);
         setDataFull(viewFullData);
       } catch (error) {
         console.error("Error fetching full data:", error);
@@ -110,6 +109,7 @@ export default function Cart() {
 
   const handleItemChange = (event) => {
     const { name, checked } = event.target;
+    console.log(`Course ID: ${name}, Checked: ${checked}`); // Debugging
     setCheckedItems((prevState) => ({
       ...prevState,
       [name]: checked,
@@ -126,12 +126,14 @@ export default function Cart() {
       return acc;
     }, 0);
     setTotal(newTotal);
+    console.log(`New Total: ${newTotal}`); // Debugging
   }, [checkedItems, datas]);
 
   const paginatedData = datas.slice(
     (pagination - 1) * itemsPerPage,
     pagination * itemsPerPage
   );
+  console.log("Paginated Data:", paginatedData);
 
   const paginatedFullData = dataFull.slice(
     (pagination - 1) * itemsPerPage,
@@ -189,7 +191,7 @@ export default function Cart() {
     if (!slider.isDown) return;
     e.preventDefault();
     const x = e.pageX - slider.offsetLeft;
-    const walk = (x - slider.startX) * 1.8;
+    const walk = (x - slider.startX) * 3.5;
     slider.scrollLeft = slider.scrollLeftStart - walk;
   };
 
@@ -296,25 +298,28 @@ export default function Cart() {
               </div>
 
               <div className="column3">
-                <div className="pay-bt">
+                <Link
+                  to="/student/payout"
+                  state={{
+                    total: Number(total),
+                    courseName: selectedCourseName,
+                  }}
+                  className={`pay-bt ${total === 0 ? "disabled" : ""}`}
+                  style={{
+                    pointerEvents: total > 0 ? "auto" : "none",
+                    color: total > 0 ? "white" : "white",
+                  }}
+                >
                   <div className="icon">
                     <MdPayments size={20} />
                   </div>
 
                   <div className="text">
                     <h2>
-                      <Link
-                        to="/student/payout"
-                        state={{
-                          total: Number(total),
-                          courseName: selectedCourseName,
-                        }}
-                      >
-                        Pay
-                      </Link>
+                      {total > 0 ? "Continue" : "Select Items to Continue"}
                     </h2>
                   </div>
-                </div>
+                </Link>
               </div>
             </div>
           </div>
@@ -388,7 +393,7 @@ export default function Cart() {
                   </div>
                   <div className="student card">
                     <PiUserCircleFill />
-                    <span className="card-info">{course.enrolledNumber}</span>
+                    <span className="card-info">128</span>
                     <span className="card-hint">Students</span>
                   </div>
                 </div>
