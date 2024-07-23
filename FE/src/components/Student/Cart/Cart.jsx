@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Cart.css";
-// import HtmlCss from '../../../assets/Html-Title.png';
-
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
-
 import { MdPayments, MdOutlineDeleteForever } from "react-icons/md";
 import { GoBookmark } from "react-icons/go";
 import { BsBarChartLine } from "react-icons/bs";
@@ -17,14 +14,18 @@ import { PiUserCircleFill } from "react-icons/pi";
 import { Button, Stack } from "@mui/material";
 import ApiService from "../../../api/ApiService";
 import { Link } from "react-router-dom";
+import { IoIosArrowRoundBack, IoIosArrowRoundForward } from "react-icons/io";
 
 export default function Cart() {
   const [datas, setDatas] = useState([]);
   const [dataFull, setDataFull] = useState([]);
   const [checkedItems, setCheckedItems] = useState({});
   const [total, setTotal] = useState(0);
-  const itemsPerPage = 4;
+  const itemsPerPage = 100;
   const [pagination, setPagination] = useState(1);
+  const resultsRef = useRef(null);
+  const [isLeftDisabled, setIsLeftDisabled] = useState(true);
+  const [isRightDisabled, setIsRightDisabled] = useState(false);
 
   const fetchCartData = async () => {
     try {
@@ -251,67 +252,94 @@ export default function Cart() {
           <h2>You might also like</h2>
         </div>
 
-        <div className="results">
-          {paginatedFullData.map((course, index) => (
-            <div className="result" key={`${index}-${course.id}`}>
-              <div className="img-container">
-                <img
-                  src={course.image[0]?.url}
-                  className="background"
-                  alt="Course background"
-                />
-                <div className="owner">
-                  <span></span>
+        <div className="results-slider">
+          <div
+            className={`arrowleft ${isLeftDisabled ? "disabled" : ""}`}
+            onClick={slideLeft}
+          >
+            <IoIosArrowRoundBack size={30} />
+          </div>
+          <div
+            className="results"
+            ref={resultsRef}
+            onMouseDown={handleMouseDown}
+            onMouseLeave={handleMouseLeave}
+            onMouseUp={handleMouseUp}
+            onMouseMove={handleMouseMove}
+          >
+            {paginatedFullData.map((course, index) => (
+              <div className="result" key={`${index}-${course.id}`}>
+                <div className="img-container">
+                  <img
+                    src={course.image[0]?.url}
+                    className="background"
+                    alt="Course background"
+                  />
+                  <div className="owner">
+                    <span></span>
+                  </div>
+                  <div className="save-course-btn">
+                    <GoBookmark />
+                  </div>
                 </div>
-                <div className="save-course-btn">
-                  <GoBookmark />
+                <div className="title">
+                  <div className="title-font">
+                    <span>{course.name}</span>
+                  </div>
+                </div>
+                <div className="info">
+                  <div className="difficult tag">
+                    <BsBarChartLine />
+                    <span>{course.level}</span>
+                  </div>
+                  <div className="lecture tag">
+                    <IoVideocamOutline />
+                    <span>Videos</span>
+                  </div>
+                  <div className="time tag">
+                    <AiOutlineFieldTime />
+                    <span>{(course.timeLearning / 60).toFixed(1)} Hrs</span>
+                  </div>
+                </div>
+                <div className="rating-countS">
+                  <div className="rating card">
+                    <TiStarOutline />
+                    <span className="card-info">{course.ratingAvg}</span>
+                    <span className="card-hint">({course.ratingCount})</span>
+                  </div>
+                  <div className="student card">
+                    <PiUserCircleFill />
+                    <span className="card-info">128</span>
+                    <span className="card-hint">Students</span>
+                  </div>
+                </div>
+                <div className="price-add">
+                  <span className="price">
+                    ${course.price.toLocaleString()}
+                  </span>
+                  <div className="btn-contain">
+                    <Stack spacing={2} direction="row">
+                      <Button
+                        variant="contained"
+                        style={{ borderRadius: "10px", padding: "10px 20px" }}
+                        onClick={() =>
+                          addCourseToCart(course.id, "user_2a120a4776")
+                        }
+                      >
+                        Add To Cart
+                      </Button>
+                    </Stack>
+                  </div>
                 </div>
               </div>
-              <div className="title">{course.name}</div>
-              <div className="info">
-                <div className="difficult tag">
-                  <BsBarChartLine />
-                  <span>{course.level}</span>
-                </div>
-                <div className="lecture tag">
-                  <IoVideocamOutline />
-                  <span>Videos</span>
-                </div>
-                <div className="time tag">
-                  <AiOutlineFieldTime />
-                  <span>{(course.timeLearning / 60).toFixed(1)} Hrs</span>
-                </div>
-              </div>
-              <div className="rating-countS">
-                <div className="rating card">
-                  <TiStarOutline />
-                  <span className="card-info">{course.ratingAvg}</span>
-                  <span className="card-hint">({course.ratingCount})</span>
-                </div>
-                <div className="student card">
-                  <PiUserCircleFill />
-                  <span className="card-info">128</span>
-                  <span className="card-hint">Students</span>
-                </div>
-              </div>
-              <div className="price-add">
-                <span className="price">${course.price.toLocaleString()}</span>
-                <div className="btn-contain">
-                  <Stack spacing={2} direction="row">
-                    <Button
-                      variant="contained"
-                      style={{ borderRadius: "10px", padding: "10px 20px" }}
-                      onClick={() =>
-                        addCourseToCart(course.id, "user_2a120a4776")
-                      }
-                    >
-                      Add To Cart
-                    </Button>
-                  </Stack>
-                </div>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
+          <div
+            className={`arrowright ${isRightDisabled ? "disabled" : ""}`}
+            onClick={slideRight}
+          >
+            <IoIosArrowRoundForward size={30} />
+          </div>
         </div>
       </div>
     </div>

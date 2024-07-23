@@ -276,7 +276,7 @@ export default function PersonalDetail() {
                                     <div className="input-container">
                                         <input
                                             type="date"
-                                            style={{ width: '28%' }}
+                                            style={{ width: '30%' }}
                                             value={dob}
                                             onChange={(e) => setDob(e.target.value)} // Update state on change
                                         />
