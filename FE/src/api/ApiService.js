@@ -721,6 +721,23 @@ const ApiService = {
       throw error;
     }
   },
+  checkCourseInCart: async (cartId, courseId) => {
+    try {
+      const response = await api.get(
+        "http://localhost:5144/api/v1/web/course/is-course-in-cart",
+        {
+          params: {
+            cartId,
+            courseId,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error checking course in cart:", error);
+      throw error;
+    }
+  },
 };
 
 export default ApiService;

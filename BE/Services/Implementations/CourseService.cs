@@ -421,5 +421,15 @@ namespace BE.Services.Implementations
                 };
             }
         }
+
+        public async Task<bool> IsCourseInCartAsync(string cartId, string courseId)
+        {
+            var cart = await _cartRepo.GetCartById(cartId);
+            var course = await _courseRepo.RetriveCourseInformationById(courseId);
+
+            if(cart == null || course == null) return false;
+
+            return await _courseRepo.IsCourseInCartAsync(cartId, courseId);
+        }
     }
 }

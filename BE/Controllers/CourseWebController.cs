@@ -245,5 +245,11 @@ namespace BE.Controllers
         {
             return await _courseService.PayCartCourses(data);
         }
+        [HttpGet("is-course-in-cart")]
+        public async Task<IActionResult> IsCourseInCart([FromQuery] string cartId, [FromQuery] string courseId)
+        {
+            bool result = await _courseService.IsCourseInCartAsync(cartId, courseId);
+            return Ok(result);
+        }
     }
 }

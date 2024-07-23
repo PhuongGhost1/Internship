@@ -44,5 +44,6 @@ namespace BE.Services.Interfaces
                 Task<UserCartDto> GetListCartCourse(string userId);
                 Task<MessageDto> DeleteItemFromCart(string cartCourseId);
                 Task<MessageDto> PayCartCourses(PayCartCourseDto data);
+                Task<bool> IsCourseInCartAsync(string cartId, string courseId);
         }
 }

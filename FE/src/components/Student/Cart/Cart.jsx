@@ -49,10 +49,26 @@ export default function Cart() {
 
   const addCourseToCart = async (CourseId, UserId) => {
     try {
+      const response = await ApiService.getCart(UserId);
+      const cart =
+        response.carts && response.carts.length > 0 ? response.carts[0] : null;
+
+      if (!cart) {
+        console.error("No cart found for user.");
+        return;
+      }
+
+      const isInCart = await ApiService.checkCourseInCart(cart.id, CourseId);
+
+      if (isInCart) {
+        alert("The course is already in the cart.");
+        return;
+      }
+
       await ApiService.addCourseToCart(CourseId, UserId);
       fetchCartData();
     } catch (error) {
-      console.error("Error adding course to cart data:", error);
+      console.error("Error adding course to cart:", error);
     }
   };
 
@@ -71,6 +87,7 @@ export default function Cart() {
         const viewFullData = await ApiService.getNewReleaseCourses(
           itemsPerPage
         );
+        console.log(viewFullData);
         setDataFull(viewFullData);
       } catch (error) {
         console.error("Error fetching full data:", error);
@@ -371,7 +388,7 @@ export default function Cart() {
                   </div>
                   <div className="student card">
                     <PiUserCircleFill />
-                    <span className="card-info">128</span>
+                    <span className="card-info">{course.enrolledNumber}</span>
                     <span className="card-hint">Students</span>
                   </div>
                 </div>

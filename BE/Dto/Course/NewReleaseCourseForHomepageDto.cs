@@ -16,6 +16,7 @@ namespace BE.Dto.Course
         public int? RatingCount { get; set; }
         public int? TimeLearning { get; set; }
         public string? Level { get; set; }
+        public int? EnrolledNumber {get; set;}
         public List<ImageForAdminDto> Image { get; set; } = new List<ImageForAdminDto>();
         public UserInfoFollowingDto? User {get; set;}
     }
