@@ -121,6 +121,61 @@ export default function Cart() {
     pagination * itemsPerPage
   );
 
+  // Slide functionality
+  const slideLeft = () => {
+    if (resultsRef.current) {
+      resultsRef.current.scrollLeft -= 1080;
+      updateArrowStates();
+    }
+  };
+
+  const slideRight = () => {
+    if (resultsRef.current) {
+      resultsRef.current.scrollLeft += 1080;
+      updateArrowStates();
+    }
+  };
+
+  const updateArrowStates = () => {
+    const scrollLeft = resultsRef.current.scrollLeft;
+    const scrollWidth = resultsRef.current.scrollWidth;
+    const clientWidth = resultsRef.current.clientWidth;
+
+    setIsLeftDisabled(scrollLeft === 0);
+    setIsRightDisabled(scrollLeft >= scrollWidth - clientWidth);
+  };
+
+  useEffect(() => {
+    updateArrowStates();
+  }, [dataFull, pagination]);
+
+  // Mouse drag functionality
+  const handleMouseDown = (e) => {
+    const slider = resultsRef.current;
+    slider.isDown = true;
+    slider.startX = e.pageX - slider.offsetLeft;
+    slider.scrollLeftStart = slider.scrollLeft;
+  };
+
+  const handleMouseLeave = () => {
+    const slider = resultsRef.current;
+    slider.isDown = false;
+  };
+
+  const handleMouseUp = () => {
+    const slider = resultsRef.current;
+    slider.isDown = false;
+  };
+
+  const handleMouseMove = (e) => {
+    const slider = resultsRef.current;
+    if (!slider.isDown) return;
+    e.preventDefault();
+    const x = e.pageX - slider.offsetLeft;
+    const walk = (x - slider.startX) * 1.8;
+    slider.scrollLeft = slider.scrollLeftStart - walk;
+  };
+
   const selectedCourseName =
     datas
       .flatMap((cart) => cart.cartCourses)
@@ -270,11 +325,13 @@ export default function Cart() {
             {paginatedFullData.map((course, index) => (
               <div className="result" key={`${index}-${course.id}`}>
                 <div className="img-container">
-                  <img
-                    src={course.image[0]?.url}
-                    className="background"
-                    alt="Course background"
-                  />
+                  <Link to={`/courses/${course.name}`}>
+                    <img
+                      src={course.image[0]?.url}
+                      className="background"
+                      alt={`Background for ${course.name}`}
+                    />
+                  </Link>
                   <div className="owner">
                     <span></span>
                   </div>
@@ -283,9 +340,14 @@ export default function Cart() {
                   </div>
                 </div>
                 <div className="title">
-                  <div className="title-font">
-                    <span>{course.name}</span>
-                  </div>
+                  <Link
+                    to={`/courses/${course.name}`}
+                    className="course-title-link"
+                  >
+                    <div className="title-font">
+                      <span>{course.name}</span>
+                    </div>
+                  </Link>
                 </div>
                 <div className="info">
                   <div className="difficult tag">
