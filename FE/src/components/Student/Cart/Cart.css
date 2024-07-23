@@ -265,6 +265,14 @@
   scroll-behavior: smooth;
   display: flex;
   cursor: pointer;
+  user-select: none; /* Prevents text selection */
+  -webkit-user-drag: none; /* Prevents dragging in WebKit browsers */
+  -moz-user-select: none; /* Firefox-specific */
+  -ms-user-select: none; /* Internet Explorer/Edge-specific */
+}
+
+#Cart .results::-webkit-scrollbar {
+  display: none; /* Hides scrollbar in WebKit browsers */
 }
 
 #Cart .result {

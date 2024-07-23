@@ -211,7 +211,7 @@ const PayoutDetail = ({ total, courseName }) => {
                     <div className="form-group addWallet">
                       <div className="input-money">
                         <label htmlFor="walletAmount" className="form-title">
-                          Add Money to Wallet :
+                          Import Money To Wallet :
                         </label>
                         <input
                           type="text"
@@ -256,9 +256,8 @@ const PayoutDetail = ({ total, courseName }) => {
               )}
             </div>
 
-
             <div className="button-contain">
-              <div className="add-wallet button">Payment Now</div>
+              <div className="add-wallet button">Pay Now</div>
               <div className="cancel button" onClick={handleCancel}>Cancel And Return</div>
             </div>
           </div>
@@ -293,7 +292,7 @@ const PayoutDetail = ({ total, courseName }) => {
             >
               <div className="order-details-row1">Total</div>
               <div className="order-details-row2">
-                ${total}
+                ${total.toLocaleString()}
               </div>
             </div>
           </div>

@@ -21,7 +21,7 @@ export default function Cart() {
     const [dataFull, setDataFull] = useState([]);
     const [checkedItems, setCheckedItems] = useState({});
     const [total, setTotal] = useState(0);
-    const itemsPerPage = 100;
+    const itemsPerPage = 42;
     const [pagination, setPagination] = useState(1);
     const resultsRef = useRef(null);
     const [isLeftDisabled, setIsLeftDisabled] = useState(true);
@@ -178,7 +178,7 @@ export default function Cart() {
         if (!slider.isDown) return;
         e.preventDefault();
         const x = e.pageX - slider.offsetLeft;
-        const walk = (x - slider.startX) * 1.8;
+        const walk = (x - slider.startX) * 3.5;
         slider.scrollLeft = slider.scrollLeftStart - walk;
     };
 
