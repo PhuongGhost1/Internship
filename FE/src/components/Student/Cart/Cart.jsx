@@ -15,17 +15,21 @@ import { Button, Stack } from "@mui/material";
 import ApiService from "../../../api/ApiService";
 import { Link } from "react-router-dom";
 import { IoIosArrowRoundBack, IoIosArrowRoundForward } from "react-icons/io";
+import Modal from "react-modal";
+
+Modal.setAppElement("#root");
 
 export default function Cart() {
   const [datas, setDatas] = useState([]);
   const [dataFull, setDataFull] = useState([]);
   const [checkedItems, setCheckedItems] = useState({});
   const [total, setTotal] = useState(0);
-  const itemsPerPage = 42;
+  const itemsPerPage = 3;
   const [pagination, setPagination] = useState(1);
   const resultsRef = useRef(null);
   const [isLeftDisabled, setIsLeftDisabled] = useState(true);
   const [isRightDisabled, setIsRightDisabled] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const fetchCartData = async () => {
     try {
@@ -195,10 +199,39 @@ export default function Cart() {
     slider.scrollLeft = slider.scrollLeftStart - walk;
   };
 
-  const selectedCourseName =
-    datas
+  const handlePayment = async () => {
+    const selectedCartCourseIds = datas
       .flatMap((cart) => cart.cartCourses)
-      .map((item) => item.course.name)[0] || "";
+      .filter((item) => checkedItems[item.course.id])
+      .map((item) => item.cartCourseId);
+
+    if (selectedCartCourseIds.length === 0) {
+      alert("No courses selected for payment.");
+      return;
+    }
+
+    try {
+      const response = await ApiService.payCartCourse(
+        selectedCartCourseIds,
+        "user_2a120a4776"
+      );
+      console.log(response);
+      if (response.status === 1) {
+        alert("Payment successful");
+      } else if (response.status === 2) {
+        setModalIsOpen(true);
+      } else {
+        alert("Payment failed: " + response.Message);
+      }
+    } catch (error) {
+      console.error("Error during payment:", error);
+    }
+  };
+
+  const handleRedirect = () => {
+    setModalIsOpen(false);
+    window.location.href = "http://localhost:5173/student/payout";
+  };
 
   return (
     <div id="Cart">
@@ -298,28 +331,44 @@ export default function Cart() {
               </div>
 
               <div className="column3">
-                <Link
-                  to="/student/payout"
-                  state={{
-                    total: Number(total),
-                    courseName: selectedCourseName,
-                  }}
+                <button
                   className={`pay-bt ${total === 0 ? "disabled" : ""}`}
                   style={{
                     pointerEvents: total > 0 ? "auto" : "none",
                     color: total > 0 ? "white" : "white",
                   }}
+                  onClick={handlePayment}
                 >
                   <div className="icon">
                     <MdPayments size={20} />
                   </div>
 
                   <div className="text">
-                    <h2>
-                      {total > 0 ? "Continue" : "Select Items to Continue"}
-                    </h2>
+                    <h2>{total > 0 ? "Pay" : "Select Items to Continue"}</h2>
                   </div>
-                </Link>
+                </button>
+
+                <Modal
+                  isOpen={modalIsOpen}
+                  onRequestClose={() => setModalIsOpen(false)}
+                  contentLabel="Insufficient Balance"
+                  className="Modal__Content"
+                  overlayClassName="Modal__Overlay"
+                >
+                  <h2>Insufficient balance</h2>
+                  <p>Do you want to navigate to a different page?</p>
+                  <div>
+                    <button className="Modal__Button" onClick={handleRedirect}>
+                      Yes, Redirect
+                    </button>
+                    <button
+                      className="Modal__Button Modal__Button--secondary"
+                      onClick={() => setModalIsOpen(false)}
+                    >
+                      No
+                    </button>
+                  </div>
+                </Modal>
               </div>
             </div>
           </div>
@@ -393,7 +442,7 @@ export default function Cart() {
                   </div>
                   <div className="student card">
                     <PiUserCircleFill />
-                    <span className="card-info">128</span>
+                    <span className="card-info">{course.enrolledNumber}</span>
                     <span className="card-hint">Students</span>
                   </div>
                 </div>

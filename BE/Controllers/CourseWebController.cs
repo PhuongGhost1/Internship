@@ -23,7 +23,7 @@ namespace BE.Controllers
         {
             _courseService = courseService;
         }
-
+        
 
         [HttpGet]
         [Route("all-courses")]
@@ -241,7 +241,7 @@ namespace BE.Controllers
             return await _courseService.DeleteItemFromCart(cartCourseId);
         }
         [HttpPost, Route("pay-cart-course-items")]
-        public async Task<MessageDto> PayCartCourses([FromForm] PayCartCourseDto data)
+        public async Task<MessageDto> PayCartCourses([FromBody] PayCartCourseDto data)
         {
             return await _courseService.PayCartCourses(data);
         }

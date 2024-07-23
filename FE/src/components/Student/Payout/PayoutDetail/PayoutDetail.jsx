@@ -258,7 +258,9 @@ const PayoutDetail = ({ total, courseName }) => {
 
             <div className="button-contain">
               <div className="add-wallet button">Pay Now</div>
-              <div className="cancel button" onClick={handleCancel}>Cancel And Return</div>
+              <div className="cancel button" onClick={handleCancel}>
+                Cancel And Return
+              </div>
             </div>
           </div>
         </div>
@@ -291,9 +293,7 @@ const PayoutDetail = ({ total, courseName }) => {
               style={{ fontWeight: "bold" }}
             >
               <div className="order-details-row1">Total</div>
-              <div className="order-details-row2">
-                ${total.toLocaleString()}
-              </div>
+              <div className="order-details-row2">${total}</div>
             </div>
           </div>
         </div>

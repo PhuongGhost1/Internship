@@ -376,13 +376,27 @@ namespace BE.Services.Implementations
         {
             try
             {
+                Console.WriteLine($"Received data: CartCourseIds={string.Join(",", data.CartCourseIds)}, UserId={data.UserId}");
+                var cartCourseIdsList = data.CartCourseIds;
+                Console.WriteLine($"Cart Course IDs List: {string.Join(",", cartCourseIdsList)}");
+
                 float? totalMoney = 0;
                 var cartCourses = await _courseRepo.GetListCartCourseByListId(data.CartCourseIds);
-                //check wallet
-                foreach (var cartCourse in cartCourses)
+                if (cartCourses == null || !cartCourses.Any())
                 {
-                    totalMoney += cartCourse.Total;
+                    Console.WriteLine("No cart courses found for the provided IDs.");
                 }
+                else
+                {
+                    Console.WriteLine($"Total Cart Course Count: {cartCourses.Count}");
+                    foreach (var cartCourse in cartCourses)
+                    {
+                        Console.WriteLine($"Cart Course ID: {cartCourse.Id}, Total: {cartCourse.Total}");
+                        totalMoney += cartCourse.Total;
+                    }
+                }
+
+                Console.WriteLine($"Total Money Calculated: {totalMoney}");
                 var user = await _userRepo.GetUserById(data.UserId);
                 if (user.Wallet < totalMoney)
                 {

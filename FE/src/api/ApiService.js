@@ -492,7 +492,7 @@ const ApiService = {
   getNewReleaseCourses: async (count) => {
     try {
       const response = await api.get(
-        `/web/course/new-release-courses/${count}`
+        `http://localhost:5144/api/v1/web/course/new-release-courses/${count}`
       );
       return response.data;
     } catch (error) {
@@ -735,6 +735,26 @@ const ApiService = {
       return response.data;
     } catch (error) {
       console.error("Error checking course in cart:", error);
+      throw error;
+    }
+  },
+  payCartCourse: async (CartCourseIds, UserId) => {
+    try {
+      const response = await api.post(
+        "http://localhost:5144/api/v1/web/course/pay-cart-course-items",
+        {
+          CartCourseIds: CartCourseIds,
+          UserId: UserId,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching pay course from cart: ", error);
       throw error;
     }
   },
