@@ -1089,6 +1089,7 @@ namespace BE.Repository.Implementations
           public async Task<List<CartCourse>> GetListCartCourseByListId(List<string> cartCourseIds)
           {
                var cartCourses = await _context.CartCourses
+                                   .Include(cc => cc.Affiliate)
                                     .Where(cc => cartCourseIds.Contains(cc.Id))
                                     .ToListAsync();
                return cartCourses;

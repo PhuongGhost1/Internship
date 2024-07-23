@@ -166,3 +166,40 @@
     justify-content: center;
     align-items: center;
 }
+
+#header .user-action {
+    width: 170px;
+    display: flex;
+    align-items: center;
+}
+
+#header .user-action .user-logo {
+    height: fit-content;
+}
+
+#header .user-action .user-logo {
+    cursor: pointer;
+}
+
+#header .user-action .user-logo svg {
+    font-size: 36px;
+    color: var(--light-orange);
+    margin-left: 20px;
+}
+
+#header .user-action .user-logo img {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    object-position: center;
+}
+
+#header .user-action .notification {
+    cursor: pointer;
+    margin-left: 40px;
+}
+
+#header .user-action .notification svg {
+    font-size: 28px;
+    color: var(--light-orange);
+}
