@@ -87,6 +87,10 @@ const PayoutDetail = ({ total, courseName }) => {
     console.log("CourseName in PayoutDetail:", courseName);
   }, [total, courseName]);
 
+  const handleCancel = () => {
+    window.location.reload();
+  };
+
   return (
     <div id="payout-container">
       <div className="container1">
@@ -252,9 +256,10 @@ const PayoutDetail = ({ total, courseName }) => {
               )}
             </div>
 
+
             <div className="button-contain">
-              <div className="add-wallet button">Add Wallet Now</div>
-              <div className="cancel button">Cancel And Return</div>
+              <div className="add-wallet button">Payment Now</div>
+              <div className="cancel button" onClick={handleCancel}>Cancel And Return</div>
             </div>
           </div>
         </div>
@@ -288,7 +293,7 @@ const PayoutDetail = ({ total, courseName }) => {
             >
               <div className="order-details-row1">Total</div>
               <div className="order-details-row2">
-                ${total.toLocaleString()}
+                ${total}
               </div>
             </div>
           </div>
