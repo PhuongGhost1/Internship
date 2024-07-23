@@ -336,9 +336,16 @@
   font-size: 18px;
   font-weight: 600;
   margin: 15px 0;
-  overflow: hidden; /* Ngăn văn bản tràn ra ngoài */
-  text-overflow: ellipsis; /* Hiển thị dấu ... khi văn bản quá dài */
-  white-space: nowrap; /* Không cho phép xuống dòng */
+  overflow: hidden; /* Prevent text from overflowing */
+  text-overflow: ellipsis; /* Show ... when text is too long */
+  white-space: nowrap; /* Prevent text from wrapping */
+  color: #333; /* Dark gray text color */
+  transition: color 0.3s ease; /* Smooth transition for color only */
+}
+
+#Cart .result .title .title-font:hover {
+  color: #007bff; /* Change text color on hover */
+  text-decoration: underline; /* Add an underline on hover */
 }
 
 #Cart .result .title .title-font span {
