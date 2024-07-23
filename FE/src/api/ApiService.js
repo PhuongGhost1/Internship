@@ -684,6 +684,43 @@ const ApiService = {
       console.log(error);
     }
   },
+  addCourseToCart: async (CourseId, UserId) => {
+    try {
+      const formData = new FormData();
+      formData.append("CourseId", CourseId);
+      formData.append("UserId", UserId);
+
+      const response = await api.post("/web/course/add-cart", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching add course to cart: ", error);
+      throw error;
+    }
+  },
+  removeCourseFromCart: async (cartCourseId) => {
+    try {
+      const formData = new FormData();
+      formData.append("cartCourseId", cartCourseId);
+
+      const response = await api.post(
+        "/web/course/delete-item-cart",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error removing course from cart: ", error);
+      throw error;
+    }
+  },
 };
 
 export default ApiService;

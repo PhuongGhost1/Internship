@@ -16,6 +16,7 @@ import { TiStarOutline } from "react-icons/ti";
 import { PiUserCircleFill } from "react-icons/pi";
 import { Button, Stack } from "@mui/material";
 import ApiService from "../../../api/ApiService";
+import { Link } from "react-router-dom";
 
 export default function Cart() {
   const [datas, setDatas] = useState([]);
@@ -25,25 +26,43 @@ export default function Cart() {
   const itemsPerPage = 4;
   const [pagination, setPagination] = useState(1);
 
-  useEffect(() => {
-    const fetchCartData = async () => {
-      try {
-        const viewcartData = await ApiService.getCart("user_2a120a4776");
-        setDatas(viewcartData.carts);
-        const initialCheckedState = {};
-        viewcartData.carts.forEach((cart) => {
-          cart.cartCourses.forEach((cc) => {
-            initialCheckedState[cc.course.id] = false;
-          });
+  const fetchCartData = async () => {
+    try {
+      const viewcartData = await ApiService.getCart("user_2a120a4776");
+      setDatas(viewcartData.carts);
+      const initialCheckedState = {};
+      viewcartData.carts.forEach((cart) => {
+        cart.cartCourses.forEach((cc) => {
+          initialCheckedState[cc.course.id] = false;
         });
-        setCheckedItems(initialCheckedState);
-      } catch (error) {
-        console.error("Error fetching cart data:", error);
-      }
-    };
+      });
+      setCheckedItems(initialCheckedState);
+    } catch (error) {
+      console.error("Error fetching cart data:", error);
+    }
+  };
 
+  useEffect(() => {
     fetchCartData();
   }, []);
+
+  const addCourseToCart = async (CourseId, UserId) => {
+    try {
+      await ApiService.addCourseToCart(CourseId, UserId);
+      fetchCartData();
+    } catch (error) {
+      console.error("Error adding course to cart data:", error);
+    }
+  };
+
+  const removeCourseFromCart = async (cartCourseId) => {
+    try {
+      await ApiService.removeCourseFromCart(cartCourseId);
+      fetchCartData();
+    } catch (error) {
+      console.error("Error removing course from cart data:", error);
+    }
+  };
 
   useEffect(() => {
     const fetchFullData = async () => {
@@ -58,7 +77,7 @@ export default function Cart() {
     };
 
     fetchFullData();
-  }, []);
+  }, [itemsPerPage]);
 
   const handleAllChange = (event) => {
     const { checked } = event.target;
@@ -100,6 +119,11 @@ export default function Cart() {
     (pagination - 1) * itemsPerPage,
     pagination * itemsPerPage
   );
+
+  const selectedCourseName =
+    datas
+      .flatMap((cart) => cart.cartCourses)
+      .map((item) => item.course.name)[0] || "";
 
   return (
     <div id="Cart">
@@ -172,7 +196,12 @@ export default function Cart() {
                         </div>
                         <div className="button-delete-container">
                           <div className="icon-bt">
-                            <MdOutlineDeleteForever size={20} />
+                            <MdOutlineDeleteForever
+                              onClick={() =>
+                                removeCourseFromCart(item.cartCourseId)
+                              }
+                              size={20}
+                            />
                           </div>
                         </div>
                       </div>
@@ -200,7 +229,17 @@ export default function Cart() {
                   </div>
 
                   <div className="text">
-                    <h2>Pay</h2>
+                    <h2>
+                      <Link
+                        to="/student/payout"
+                        state={{
+                          total: Number(total),
+                          courseName: selectedCourseName,
+                        }}
+                      >
+                        Pay
+                      </Link>
+                    </h2>
                   </div>
                 </div>
               </div>
@@ -222,7 +261,7 @@ export default function Cart() {
                   alt="Course background"
                 />
                 <div className="owner">
-                  <span>{course.user?.email}</span>
+                  <span></span>
                 </div>
                 <div className="save-course-btn">
                   <GoBookmark />
@@ -262,6 +301,9 @@ export default function Cart() {
                     <Button
                       variant="contained"
                       style={{ borderRadius: "10px", padding: "10px 20px" }}
+                      onClick={() =>
+                        addCourseToCart(course.id, "user_2a120a4776")
+                      }
                     >
                       Add To Cart
                     </Button>

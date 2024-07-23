@@ -1043,13 +1043,14 @@ namespace BE.Repository.Implementations
                          {
                               Id = cc.Cart.Id,
                               Total = cc.Cart.Total,
-                              UserId = cc.Cart.Id,
+                              UserId = cc.Cart.UserId,
                               Status = cc.Cart.Status,
                               DateCreated = cc.Cart.DateCreated,
                          } : null;
 
                          var cartCourseDto = new CartCourseDTO
                          {
+                              CartCourseId = cc.Id,
                               Cart = cc.Cart != null ? cartDto : null,
                               Course = course
                          };
