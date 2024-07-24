@@ -1,0 +1,11 @@
+#UserInfoPage .FL-Rate {
+     display: flex;
+}
+
+#UserInfoPage .FL-Rate .Userfollow {
+     flex: 2;
+}
+
+#UserInfoPage .FL-Rate .Userrate {
+     flex: 7;
+}

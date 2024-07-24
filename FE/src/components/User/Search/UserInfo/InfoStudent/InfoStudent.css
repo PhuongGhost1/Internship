@@ -1,0 +1,103 @@
+#InfoStudent {
+     width: 100%;
+     position: relative;
+}
+
+#InfoStudent .container-img {
+     width: 100%;
+     display: flex;
+}
+
+#InfoStudent .container-img img {
+     width: 100%;
+     height: 200px;
+     object-fit: cover;
+     object-position: center;
+}
+
+#InfoStudent .info-container {
+     display: flex;
+     align-items: center;
+     position: absolute;
+     top: 150px;
+     left: 50%;
+     transform: translateX(-50%);
+     background-color: white;
+     padding: 20px;
+     border-radius: 10px;
+     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+     width: 65%;
+     height: 150px;
+     justify-content: space-between;
+}
+
+#InfoStudent .info-container .profile {
+     position: relative;
+     display: flex;
+     align-items: center;
+}
+
+#InfoStudent .info-container .profile img {
+     width: 130px;
+     /* Adjust width as necessary */
+     height: 120px;
+     /* Adjust height as necessary */
+     border-radius: 30px;
+     object-fit: cover;
+     margin-right: 70px;
+     position: absolute;
+     top: -60px;
+     /* Adjust to move image up */
+     left: 10px;
+     border: 4px solid #5b5edb;
+     /* Optional: Add a border for better visibility */
+}
+
+#InfoStudent .info-container .info {
+     display: flex;
+     flex-direction: column;
+     margin-left: 160px;
+     /* Adjust to avoid overlap with the profile image */
+}
+
+#InfoStudent .info-container .info .name {
+     font-size: 24px;
+     font-weight: bold;
+}
+
+#InfoStudent .info-container .info .title {
+     font-size: 16px;
+     color: gray;
+}
+
+#InfoStudent .info-container .info .iconinfo {
+     margin-top: 10px;
+     display: flex;
+     gap: 15px;
+}
+
+#InfoStudent .info-container .info .iconinfo svg {
+     font-size: 24px;
+     color: #333;
+}
+
+#InfoStudent .info-container .details {
+     display: flex;
+     justify-content: space-between;
+     width: 60%;
+}
+
+#InfoStudent .info-container .details .detail-item {
+     flex-direction: column;
+     margin-left: 40px;
+}
+
+#InfoStudent .info-container .details .detail-item .label {
+     font-weight: bold;
+     font-size: 14px;
+     color: #666;
+}
+
+#InfoStudent .info-container .details .detail-item .value {
+     font-size: 16px;
+}
