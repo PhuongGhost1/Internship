@@ -1,0 +1,49 @@
+#InfoRate {
+    padding: 20px;
+    width: 100%;
+}
+
+.rateinfo-container {
+    background-color: #eeeeee;
+    border-radius: 10px;
+    padding: 30px;
+    display: flex;
+}
+
+#InfoRate .rateinfo-container .stat {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 0 20px;
+    flex: 1;
+}
+
+#InfoRate .rateinfo-container .stat .stat-icon svg {
+    border-radius: 50%;
+    background-color: #eeeeee;
+    font-size: 45px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+#InfoRate .rateinfo-container .stat .stat-value {
+    font-size: 40px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+#InfoRate .rateinfo-container .stat .stat-value .stat-change {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    margin-left: 20px;
+    padding: 5px 15px;
+    border: 1px solid #eeeeee;
+    border-radius: 25px;
+}
+
+#InfoRate .rateinfo-container .stat .stat-title {
+    font-size: 18px;
+    color: gray;
+}

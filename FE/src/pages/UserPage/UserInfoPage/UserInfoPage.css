@@ -1,3 +1,7 @@
+#UserInfoPage {
+     background-color: #eeeeee;
+}
+
 #UserInfoPage .FL-Rate {
      display: flex;
 }
