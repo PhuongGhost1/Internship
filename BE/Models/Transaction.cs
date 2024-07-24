@@ -15,6 +15,8 @@ public partial class Transaction
 
     public string? PaymentId { get; set; }
 
+    public string? CaptureOrderCode {get; set;}
+
     public virtual AffiliatePayment? AffiliatePayment { get; set; }
 
     public virtual DepositWithdrawal? DepositWithdrawal { get; set; }

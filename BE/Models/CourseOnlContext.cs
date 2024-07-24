@@ -757,6 +757,7 @@ public partial class CourseOnlContext : DbContext
                 .HasMaxLength(20)
                 .HasColumnName("paymend_code");
             entity.Property(e => e.Total).HasColumnName("total");
+            entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.UserId)
                 .HasMaxLength(40)
                 .HasColumnName("user_id");
@@ -1157,6 +1158,10 @@ public partial class CourseOnlContext : DbContext
             entity.HasOne(d => d.Payment).WithMany(p => p.Transactions)
                 .HasForeignKey(d => d.PaymentId)
                 .HasConstraintName("Transaction_ibfk_4");
+
+            entity.Property(e => e.CaptureOrderCode)
+                .HasMaxLength(40)
+                .HasColumnName("captureOrder_code");
 
             entity.HasOne(d => d.User).WithMany(p => p.Transactions)
                 .HasForeignKey(d => d.UserId)

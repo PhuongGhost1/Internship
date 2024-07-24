@@ -14,7 +14,11 @@ namespace BE.Repository.Interface
         Task<int?> GetTotalPricesForPreviousWeek();
         Task<double?> GetPercentageChangeForCurrentWeek();
         Task<Payment> CreatePaymentPayingCourse(string userId, float? totalMoney);
+        Task<Payment?> GetPaymentInfoFromPaymentByPaymentCode(string paymentCode);
         Task CreatePaymentCourse(Payment payment, CartCourse cartCourse);
         Task CreatePaymentAffiliate(CartCourse cartCourse, Affiliate affiliate);
+        Task AddPayment(Payment payment);
+        Task DeletePaymentInfo(Payment payment);
+        Task<bool> UpdateStatusPayment(string paymentId);
     }
 }

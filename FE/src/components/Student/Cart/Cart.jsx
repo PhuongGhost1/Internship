@@ -113,7 +113,6 @@ export default function Cart() {
 
   const handleItemChange = (event) => {
     const { name, checked } = event.target;
-    console.log(`Course ID: ${name}, Checked: ${checked}`); // Debugging
     setCheckedItems((prevState) => ({
       ...prevState,
       [name]: checked,
@@ -130,14 +129,12 @@ export default function Cart() {
       return acc;
     }, 0);
     setTotal(newTotal);
-    console.log(`New Total: ${newTotal}`); // Debugging
   }, [checkedItems, datas]);
 
   const paginatedData = datas.slice(
     (pagination - 1) * itemsPerPage,
     pagination * itemsPerPage
   );
-  console.log("Paginated Data:", paginatedData);
 
   const paginatedFullData = dataFull.slice(
     (pagination - 1) * itemsPerPage,
@@ -215,7 +212,6 @@ export default function Cart() {
         selectedCartCourseIds,
         "user_2a120a4776"
       );
-      console.log(response);
       if (response.status === 1) {
         alert("Payment successful");
       } else if (response.status === 2) {
@@ -232,6 +228,67 @@ export default function Cart() {
     setModalIsOpen(false);
     window.location.href = "http://localhost:5173/student/payout";
   };
+
+  const redirectToPaypal = async (total, userId) => {
+    if (total > 0) {
+      try {
+        const response = await ApiService.createPaypalOrder(total, userId);
+        const approvalUrl = response.links.find(
+          (link) => link.rel === "approve"
+        ).href;
+        window.location.href = approvalUrl;
+      } catch (error) {
+        console.error("Error creating PayPal order: ", error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const handleRedirectPayout = async () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const orderId = urlParams.get("token");
+      const payerId = urlParams.get("PayerID");
+      const hasCaptured = localStorage.getItem(`order-captured-${orderId}`);
+
+      if (hasCaptured === "true") {
+        console.log("Order has already been captured.");
+        return;
+      }
+
+      if (orderId && payerId) {
+        try {
+          console.log(`Token: ${orderId}, PayerId: ${payerId}`);
+          await ApiService.capturePaypalOrder(orderId);
+          localStorage.setItem(`order-captured-${orderId}`, "true");
+        } catch (error) {
+          console.error("Error capturing order:", error);
+        }
+      }
+    };
+
+    const handleCancelOrder = async () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const orderId = urlParams.get("token");
+
+      if (orderId) {
+        try {
+          await ApiService.cancelPaypalOrder(orderId);
+          localStorage.removeItem(`order-captured-${orderId}`);
+        } catch (error) {
+          console.error("Error canceling order:", error);
+        }
+      }
+    };
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const payerId = urlParams.get("PayerID");
+
+    if (payerId) {
+      handleRedirectPayout();
+    } else {
+      handleCancelOrder();
+    }
+  }, []);
 
   return (
     <div id="Cart">
@@ -345,6 +402,22 @@ export default function Cart() {
 
                   <div className="text">
                     <h2>{total > 0 ? "Pay" : "Select Items to Continue"}</h2>
+                  </div>
+                </button>
+
+                <button
+                  className={`pay-bt ${total === 0 ? "disabled" : ""}`}
+                  style={{
+                    pointerEvents: total > 0 ? "auto" : "none",
+                    color: total > 0 ? "black" : "white",
+                  }}
+                  onClick={() => redirectToPaypal(total, "user_2a120a4776")}
+                >
+                  <div className="icon">
+                    <MdPayments size={20} />
+                  </div>
+                  <div className="text">
+                    <h2>{total > 0 ? "Paypal" : "Select Items to Continue"}</h2>
                   </div>
                 </button>
 

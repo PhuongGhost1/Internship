@@ -758,6 +758,74 @@ const ApiService = {
       throw error;
     }
   },
+  createPaypalOrder: async (total, referenceId) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:5144/api/v1/web/payment/create-order",
+        {
+          purchaseUnits: [
+            {
+              amount: {
+                currencyCode: "USD",
+                value: total.toString(),
+              },
+              referenceId: referenceId,
+            },
+          ],
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error creating PayPal order: ", error);
+      throw error;
+    }
+  },
+  capturePaypalOrder: async (orderId) => {
+    try {
+      console.log(`Token in ApiService: ${orderId}`);
+      const response = await axios.post(
+        `http://localhost:5144/api/v1/web/payment/capture-order/${orderId}`,
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error(
+        "Error capturing PayPal order: ",
+        error.response ? error.response.data : error.message
+      );
+      throw error;
+    }
+  },
+  cancelPaypalOrder: async (orderId) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:5144/api/v1/web/payment/cancel-order/${orderId}`,
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error(
+        "Error canceling PayPal order: ",
+        error.response ? error.response.data : error.message
+      );
+      throw error;
+    }
+  },
 };
 
 export default ApiService;
