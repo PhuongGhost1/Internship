@@ -33,6 +33,7 @@ import CreateCoursePage from "./pages/InstructorPage/CreateCourse/CreateCoursePa
 import { AuthProvider } from "./pages/Context/AuthContext";
 import SignInPage from "./pages/AuthPage/SignInPage/SignInPage";
 import InstructorDashBoard from "./pages/InstructorPage/DashBoard/InstructorDashBoard";
+import UserInfoPage from "./pages/UserPage/UserInfoPage/UserInfoPage";
 
 function App() {
      return (
@@ -74,6 +75,10 @@ function App() {
                               <Route path="profile" element={<InstructorProfilePage />} />
                               <Route path="dashboard" element={< InstructorDashBoard />} />
                          </Route>
+                         <Route path="/user">
+                              <Route path=":id" element={< UserInfoPage />} />
+                         </Route>
+
 
                          <Route path="/admin">
                               <Route path="dashboard" element={<DashBoard />} />
@@ -81,7 +86,6 @@ function App() {
                               <Route path="student" element={<ManageStudentPage />} />
                               <Route path="course" element={<ManageCoursePage />} />
                               <Route path="requests" element={<RequestsPage />} />
-                              <Route path="setting" element={<SettingPage />} />
                               <Route path="report" element={<ReportPage />} />
                               <Route path="feedback" element={<FeedBackAdminPage />} />
                               <Route path="category" element={<CategoryPage />} />
