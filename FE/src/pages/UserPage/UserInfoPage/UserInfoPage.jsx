@@ -5,7 +5,7 @@ import InfoStudent from "../../../components/User/Search/UserInfo/InfoStudent/In
 import InfoFollow from "../../../components/User/Search/UserInfo/InfoFollow/InfoFollow";
 import InfoRate from "../../../components/User/Search/UserInfo/InfoRate/InfoRate";
 import InfoSlider from "../../../components/User/Search/UserInfo/InfoSlider/InfoSlider"
-
+import Footer from "../../../components/Items/Footer/Footer";
 
 export default function UserInfoPage() {
      return (
@@ -24,6 +24,7 @@ export default function UserInfoPage() {
 
                     </div>
                </div>
+               <Footer />
           </div>
      )
 }

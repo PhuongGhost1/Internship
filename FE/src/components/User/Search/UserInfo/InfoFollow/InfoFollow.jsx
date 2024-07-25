@@ -11,12 +11,7 @@ const follow = [
      { avatar: Avarta, name: 'Nguyễn Minh Quân', role: 'User' },
      { avatar: Avarta, name: 'Nguyễn Minh Quân', role: 'User' },
      { avatar: Avarta, name: 'Nguyễn Minh Quân', role: 'User' },
-     { avatar: Avarta, name: 'Nguyễn Minh Quân', role: 'User' },
-     { avatar: Avarta, name: 'Nguyễn Minh Quân', role: 'User' },
-     { avatar: Avarta, name: 'Nguyễn Minh Quân', role: 'User' },
-     { avatar: Avarta, name: 'Nguyễn Minh Quân', role: 'User' },
-     { avatar: Avarta, name: 'Nguyễn Minh Quân', role: 'User' },
-     { avatar: Avarta, name: 'Nguyễn Minh Quân', role: 'User' },
+
 ];
 export default function InfoFollow() {
      return (

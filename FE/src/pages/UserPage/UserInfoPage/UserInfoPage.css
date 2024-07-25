@@ -4,6 +4,7 @@
 
 #UserInfoPage .FL-Rate {
      display: flex;
+     margin-top: 80px;
 }
 
 #UserInfoPage .FL-Rate .Userfollow {
