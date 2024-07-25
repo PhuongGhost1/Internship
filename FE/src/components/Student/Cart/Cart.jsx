@@ -24,7 +24,7 @@ export default function Cart() {
   const [dataFull, setDataFull] = useState([]);
   const [checkedItems, setCheckedItems] = useState({});
   const [total, setTotal] = useState(0);
-  const itemsPerPage = 3;
+  const itemsPerPage = 10;
   const [pagination, setPagination] = useState(1);
   const resultsRef = useRef(null);
   const [isLeftDisabled, setIsLeftDisabled] = useState(true);
