@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
+
 import { MdPayments, MdOutlineDeleteForever } from "react-icons/md";
 import { GoBookmark } from "react-icons/go";
 import { BsBarChartLine } from "react-icons/bs";
@@ -12,6 +13,10 @@ import { AiOutlineFieldTime } from "react-icons/ai";
 import { TiStarOutline } from "react-icons/ti";
 import { PiUserCircleFill } from "react-icons/pi";
 import { Button, Stack } from "@mui/material";
+import { CiCreditCard2 } from "react-icons/ci";
+import { RiPaypalFill } from "react-icons/ri";
+import { IoWalletSharp } from "react-icons/io5";
+
 import ApiService from "../../../api/ApiService";
 import { Link } from "react-router-dom";
 import { IoIosArrowRoundBack, IoIosArrowRoundForward } from "react-icons/io";
@@ -29,7 +34,7 @@ export default function Cart() {
   const resultsRef = useRef(null);
   const [isLeftDisabled, setIsLeftDisabled] = useState(true);
   const [isRightDisabled, setIsRightDisabled] = useState(false);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [isOpenVisible, setIsOpenVisible] = useState(false);
 
   const fetchCartData = async () => {
     try {
@@ -215,18 +220,13 @@ export default function Cart() {
       if (response.status === 1) {
         alert("Payment successful");
       } else if (response.status === 2) {
-        setModalIsOpen(true);
+        alert("Your wallet balance is insufficient, please choose Credit Card or Paypal.");
       } else {
         alert("Payment failed: " + response.Message);
       }
     } catch (error) {
       console.error("Error during payment:", error);
     }
-  };
-
-  const handleRedirect = () => {
-    setModalIsOpen(false);
-    window.location.href = "http://localhost:5173/student/payout";
   };
 
   const redirectToPaypal = async (total, userId) => {
@@ -289,6 +289,18 @@ export default function Cart() {
       handleCancelOrder();
     }
   }, []);
+
+  useEffect(() => {
+    if (isOpenVisible) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [isOpenVisible]);
+
+  useEffect(() => {
+    document.body.style.overflow = (isOpenVisible) ? 'hidden' : 'auto';
+  }, [isOpenVisible]);
 
   return (
     <div id="Cart">
@@ -394,54 +406,96 @@ export default function Cart() {
                     pointerEvents: total > 0 ? "auto" : "none",
                     color: total > 0 ? "white" : "white",
                   }}
-                  onClick={handlePayment}
+                  onClick={() => { total > 0 && setIsOpenVisible(true); }} // Only setIsOpenVisible if total > 0
                 >
                   <div className="icon">
                     <MdPayments size={20} />
                   </div>
 
                   <div className="text">
-                    <h2>{total > 0 ? "Pay" : "Select Items to Continue"}</h2>
+                    <h2>{total > 0 ? "Continue" : "Select Items to Continue"}</h2>
                   </div>
                 </button>
 
-                <button
-                  className={`pay-bt ${total === 0 ? "disabled" : ""}`}
-                  style={{
-                    pointerEvents: total > 0 ? "auto" : "none",
-                    color: total > 0 ? "black" : "white",
-                  }}
-                  onClick={() => redirectToPaypal(total, "user_2a120a4776")}
-                >
-                  <div className="icon">
-                    <MdPayments size={20} />
+                <div className="popup-paymentnow" style={isOpenVisible ? { display: 'block' } : { display: 'none' }}>
+                  <div className="popup-paymentnow-buttonclose-container">
+                    <div className="popup-paymentnow-buttonclose" onClick={() => { setIsOpenVisible(false) }} title="Close Popup">Close X</div>
                   </div>
-                  <div className="text">
-                    <h2>{total > 0 ? "Paypal" : "Select Items to Continue"}</h2>
-                  </div>
-                </button>
 
-                <Modal
-                  isOpen={modalIsOpen}
-                  onRequestClose={() => setModalIsOpen(false)}
-                  contentLabel="Insufficient Balance"
-                  className="Modal__Content"
-                  overlayClassName="Modal__Overlay"
-                >
-                  <h2>Insufficient balance</h2>
-                  <p>Do you want to navigate to a different page?</p>
-                  <div>
-                    <button className="Modal__Button" onClick={handleRedirect}>
-                      Yes, Redirect
-                    </button>
-                    <button
-                      className="Modal__Button Modal__Button--secondary"
-                      onClick={() => setModalIsOpen(false)}
-                    >
-                      No
-                    </button>
+                  <div className="popup-row">
+                    <div className="popup-row-title">
+                      <p>Select Payment Method</p>
+                    </div>
+
+                    <div className="popup-row-text">
+                      <p>
+                        "Choose your payment method: Use 'Pay Now' to pay directly from your wallet balance. If your wallet balance is insufficient, please select either 'Credit Card' or 'Paypal' to complete the transaction."
+                      </p>
+                    </div>
+
+                    {/* <div>
+                      <button className="popup-row-button">Save changes</button>
+                    </div> */}
+
+                    <div className="display-button">
+                      <button
+                        className={`pay-bt1 ${total === 0 ? "disabled" : ""}`}
+                        style={{
+                          pointerEvents: total > 0 ? "auto" : "none",
+                          color: total > 0 ? "white" : "white",
+                        }}
+                        onClick={handlePayment}
+                      >
+                        <div className="icon">
+                          <IoWalletSharp size={20} />
+                        </div>
+
+                        <div className="text">
+                          <h2>{total > 0 ? "Pay Now" : "Select Items to Continue"}</h2>
+                        </div>
+                      </button>
+
+                      <Link
+                        to={`/student/payout`}
+                      >
+                        <button
+                          className={`pay-bt2 ${total === 0 ? "disabled" : ""}`}
+                          style={{
+                            pointerEvents: total > 0 ? "auto" : "none",
+                            color: total > 0 ? "white" : "white",
+                          }}
+                        >
+                          <div className="icon">
+                            <CiCreditCard2 size={30} />
+                          </div>
+
+                          <div className="text">
+                            <h2>{total > 0 ? "Credit Card" : "Select Items to Continue"}</h2>
+                          </div>
+                        </button>
+                      </Link>
+
+
+                      <button
+                        className={`pay-bt3 ${total === 0 ? "disabled" : ""}`}
+                        style={{
+                          pointerEvents: total > 0 ? "auto" : "none",
+                          color: total > 0 ? "black" : "white",
+                        }}
+                        onClick={() => redirectToPaypal(total, "user_2a120a4776")}
+                      >
+                        <div className="icon">
+                          <RiPaypalFill size={20} />
+                        </div>
+                        <div className="text">
+                          <h2>{total > 0 ? "PayPal" : "Select Items to Continue"}</h2>
+                        </div>
+                      </button>
+                    </div>
                   </div>
-                </Modal>
+                </div>
+
+                <div className="overlay1" style={isOpenVisible ? { display: 'block' } : { display: 'none' }} onClick={() => { setIsOpenVisible(false) }}></div>
               </div>
             </div>
           </div>
