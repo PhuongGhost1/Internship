@@ -7,6 +7,8 @@ using BE.Helpers;
 using BE.Dto.Course.Chapter;
 using BE.Models;
 using Microsoft.AspNetCore.Mvc;
+using BE.Dto.ImageD;
+using BE.Dto.Course.FilterSearchCourse;
 
 namespace BE.Repository.Interface
 {
@@ -49,5 +51,11 @@ namespace BE.Repository.Interface
                 Task<List<CartCourse>> GetListCartCourse(Cart cart);
                 Task DeleteCartCoure(CartCourse cartCourse);
                 Task<List<CartCourse>> GetListCartCourseByListId(List<string> cartCourseIds);
+                Task<int?> CalculateTotalVideoTimeByCourseId(string courseId);
+                Task<int?> NumberOfQuizInChapterByCourseId(string courseId);
+                Task<ImageForAdminDto> GetImageForAdminDto(string courseId);
+                Task<List<Course>> FilterCourse(List<Course> courses, InputFilterSearchDto dto);
+                Task<bool> CheckSavedCourse(string courseId, string userId);
+                Task<int> CountEnrollCourse(string courseId);
         }
 }

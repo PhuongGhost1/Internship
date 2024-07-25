@@ -92,7 +92,7 @@
 }
 
 
-#header .action-button a {
+#header .action-button .login-signup a {
     text-decoration: none;
     width: 75px;
     height: 30px;
@@ -134,7 +134,7 @@
     cursor: pointer;
 }
 
-#header .action-button a:hover {
+#header .action-button .login-signup a:hover {
     color: white;
     background-color: var(--dark-orange);
     border-radius: 5px;
@@ -171,20 +171,19 @@
     width: 170px;
     display: flex;
     align-items: center;
+    cursor: pointer;
+    position: relative;
 }
 
 #header .user-action .user-logo {
     height: fit-content;
 }
 
-#header .user-action .user-logo {
-    cursor: pointer;
-}
-
 #header .user-action .user-logo svg {
     font-size: 36px;
     color: var(--light-orange);
-    margin-left: 20px;
+    margin-left: 10px;
+    margin-right: 15px;
 }
 
 #header .user-action .user-logo img {
@@ -194,12 +193,98 @@
     object-position: center;
 }
 
-#header .user-action .notification {
-    cursor: pointer;
-    margin-left: 40px;
+#header .user-action .user-info .name {
+    font-weight: 700;
 }
 
-#header .user-action .notification svg {
-    font-size: 28px;
-    color: var(--light-orange);
+#header .user-action .user-info .email {
+    color: rgb(112, 112, 112);
+}
+
+#header .user-action .user-info .email {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 110px;
+    display: block;
+}
+
+#header .user-action .user-dropdown {
+    position: absolute;
+    top: 55px;
+    right: 0;
+}
+
+#header .user-action .user-dropdown .dropdown-container {
+    position: relative;
+    background-color: white;
+    width: 200px;
+    padding: 10px 5px;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+#header .user-action .user-dropdown .dropdown-container .arrow {
+    width: 25px;
+    height: 30px;
+    background-color: white;
+    position: absolute;
+    right: 20px;
+    top: -10px;
+    border-radius: 3px;
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    z-index: -1;
+}
+
+#header .user-action .user-dropdown .dropdown-container .selection-block {
+    padding: 7px 20px;
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    border-radius: 5px;
+    color: black;
+}
+
+#header .user-action .user-dropdown .dropdown-container .selection-block:hover {
+    background-color: #f9f9f9;
+}
+
+#header .user-action .user-dropdown .dropdown-container .selection-block svg {
+    font-size: 18px;
+    margin-right: 15px;
+}
+
+#header .user-action .user-dropdown .dropdown-container .special-block {
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+}
+
+#header .user-action .user-dropdown .dropdown-container .special-block.notification {
+    border-bottom: 1px solid rgb(221, 221, 221);
+}
+
+#header .user-action .user-dropdown .dropdown-container .special-block svg {
+    font-size: 18px;
+    margin-right: 15px;
+}
+
+#header .user-action .user-dropdown .dropdown-container .special-block.logout {
+    border-top: 1px solid rgb(221, 221, 221);
+}
+
+#header .user-action .user-dropdown .dropdown-container .special-block.logout {
+    color: red;
+}
+
+#header .user-action .user-dropdown {
+    max-height: 0px;
+    transition: all 0.5s ease;
+    overflow: hidden;
+}
+
+#header .user-action .user-dropdown.active {
+    max-height: 250px;
+    opacity: 1;
 }

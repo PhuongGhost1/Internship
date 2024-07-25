@@ -7,6 +7,7 @@ using BE.Helpers;
 using BE.Dto.Course.Chapter;
 using BE.Models;
 using BE.Dto.Message;
+using BE.Dto.Course.FilterSearchCourse;
 
 namespace BE.Services.Interfaces
 {
@@ -37,11 +38,12 @@ namespace BE.Services.Interfaces
                 Task<Course?> GetCourseByCourseName(string courseName);
                 Task<string> CreateChapter(CreateChapterData data);
                 Task<string> CreateQuiz(CreateQuizData data);
-                Task<List<CardCourseDto>> SearchCourse(string query, int page, int items);
+                Task<List<NewReleaseCourseForHomepageDto>> SearchCourse(string query, int page, int items);
                 Task<bool> CreateCourse(CreateCourseDto course);
                 Task<MessageDto> AddCourseToCart(CourseUserDto courseUser);
                 Task<List<CartCourseCardDto>> GetListCartCourseByUser(string userId);
                 Task<MessageDto> DeleteItemFromCart(string cartCourseId);
                 Task<MessageDto> PayCartCourses(PayCartCourseDto data);
+                Task<List<OutputFilterSearchDto>> SearchFilterCourses(InputFilterSearchDto dto, int page, int items);
         }
 }

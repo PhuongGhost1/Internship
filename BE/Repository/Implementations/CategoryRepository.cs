@@ -28,12 +28,12 @@ namespace BE.Repository.Implementations
 
         public async Task<List<Category>> GetCategoriesByCourseId(string courseId)
         {
-            var categoriesInvolvedCourse = await 
+            var categoriesInvolvedCourse = await
                                             (from cate in _context.Categories
-                                            join cateCourse in _context.CategoryCourses on cate.Id equals cateCourse.CategoryId
-                                            join course in _context.Courses on cateCourse.CourseId equals course.Id
-                                            where course.Id == courseId
-                                            select cate)
+                                             join cateCourse in _context.CategoryCourses on cate.Id equals cateCourse.CategoryId
+                                             join course in _context.Courses on cateCourse.CourseId equals course.Id
+                                             where course.Id == courseId
+                                             select cate)
                                             .ToListAsync();
             return categoriesInvolvedCourse;
         }
@@ -52,7 +52,7 @@ namespace BE.Repository.Implementations
         {
             var category = await _context.Categories.FindAsync(cateId);
 
-            if(category == null) return false;
+            if (category == null) return false;
 
             _context.Categories.Remove(category);
             await _context.SaveChangesAsync();
@@ -75,7 +75,7 @@ namespace BE.Repository.Implementations
         {
             var cate = await _context.Categories.FindAsync(cateId);
 
-            if(cate == null) return false;
+            if (cate == null) return false;
 
             cate.IsVisible = !cate.IsVisible;
 
