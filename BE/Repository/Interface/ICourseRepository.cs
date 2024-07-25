@@ -50,5 +50,6 @@ namespace BE.Repository.Interface
                 Task<UserCartDto> GetListCartCourse(string userId);
                 Task DeleteCartCoure(CartCourse cartCourse);
                 Task<List<CartCourse>> GetListCartCourseByListId(List<string> cartCourseIds);
+                Task<bool> IsCourseInCartAsync(string cartId, string courseId);
         }
 }

@@ -15,6 +15,7 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
+using BE.Helpers;
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure CORS
@@ -167,6 +168,17 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddHttpContextAccessor();
 
+//Paypal
+builder.Services.AddSingleton<PaypalClient>(sp =>
+    {
+        var configuration = sp.GetRequiredService<IConfiguration>();
+        var clientId = configuration["PayPalSettings:ClientId"];
+        var clientSecret = configuration["PayPalSettings:ClientSecret"];
+        var url = configuration["PayPalSettings:Url"];
+        return new PaypalClient(clientId, clientSecret, url);
+    });
+
+
 //Repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>(); builder.Services.AddScoped<ITokenRepository, TokenRepository>(); builder.Services.AddScoped<IRoleUserRepository, RoleUserRepository>();
 builder.Services.AddScoped<IQuizRepository, QuizRepository>(); builder.Services.AddScoped<IQuestionRepository, QuestionRepository>(); builder.Services.AddScoped<ILectureRepository, LectureRepository>();
@@ -177,7 +189,7 @@ builder.Services.AddScoped<IRoleRepository, RoleRepository>(); builder.Services.
 builder.Services.AddScoped<IUserCertificationRepository, UserCertificationRepository>(); builder.Services.AddScoped<ISaveCourseRepository, SaveCourseRepository>();
 builder.Services.AddScoped<ICategoryCourseRepository, CategoryCourseRepository>(); builder.Services.AddScoped<IEnrollCourseRepository, EnrollCourseRepository>();
 builder.Services.AddScoped<IResourcesRepository, ResourceRepository>(); builder.Services.AddScoped<IPaymentRepository, PaymentRepository>(); builder.Services.AddScoped<ICartRepository, CartRepository>();
-
+builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 
 
 

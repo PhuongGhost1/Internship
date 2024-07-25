@@ -16,6 +16,36 @@ namespace BE.Repository.Implementations
         {
             _context = context;
         }
+        public async Task<bool> UpdateStatusPayment(string paymentId)
+        {
+            var payment = await _context.Payments.FirstOrDefaultAsync(payment => payment.Id == paymentId);
+
+            if(payment == null) return false;
+
+            payment.Status = 1;
+
+            _context.Payments.Update(payment);
+            await _context.SaveChangesAsync();
+            
+            return true;
+        }
+        
+        public async Task<Payment?> GetPaymentInfoFromPaymentByPaymentCode(string paymentCode)
+        {
+            return await _context.Payments.FirstOrDefaultAsync(pay => pay.PaymendCode == paymentCode);
+        }
+
+        public async Task AddPayment(Payment payment)
+        {
+            _context.Payments.Add(payment);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeletePaymentInfo(Payment payment)
+        {
+            _context.Payments.Remove(payment);
+            await _context.SaveChangesAsync();
+        }
 
         public async Task<int?> GetTotalPricesForSingleMonth()
         {

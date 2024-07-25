@@ -139,6 +139,14 @@ namespace BE.Repository.Implementations
                return ratingNum;
           }
 
+          private async Task<int?> RetrieveEnrolledNumber(string courseId)
+          {
+               var enrollmentCount = await _context.EnrollCourses
+                    .Where(e => e.CourseId == courseId)
+                    .CountAsync();
+
+               return enrollmentCount;
+          }
 
           public async Task<string> CreateCourseData(CreateCoursData data)
           {
@@ -811,6 +819,7 @@ namespace BE.Repository.Implementations
                     var ratingCount = await GetRatingNumber(c.Id) ?? 0;
                     var totalVideoTime = await CalculateTotalVideoTimeByCourseId(c.Id) ?? 0;
                     var quizCount = await NumberOfQuizInChapterByCourseId(c.Id) ?? 0;
+                    var enrollmentCount = await RetrieveEnrolledNumber(c.Id);
 
                     var newRelease = new NewReleaseCourseForHomepageDto
                     {
@@ -819,9 +828,10 @@ namespace BE.Repository.Implementations
                          Image = new List<ImageForAdminDto> { image },
                          Level = c.Level,
                          Price = c.Price,
-                         RatingAvg = ratingAvg,
+                         RatingAvg = enrollmentCount,
                          RatingCount = ratingCount,
                          TimeLearning = totalVideoTime + quizCount * 30,
+                         EnrolledNumber = enrollmentCount,
                          User = user
                     };
 
@@ -936,6 +946,7 @@ namespace BE.Repository.Implementations
                     var ratingCount = await GetRatingNumber(c.Id) ?? 0;
                     var totalVideoTime = await CalculateTotalVideoTimeByCourseId(c.Id) ?? 0;
                     var quizCount = await NumberOfQuizInChapterByCourseId(c.Id) ?? 0;
+                    var enrollmentCount = await RetrieveEnrolledNumber(c.Id) ?? 0;
 
                     var topRated = new NewReleaseCourseForHomepageDto
                     {
@@ -947,6 +958,7 @@ namespace BE.Repository.Implementations
                          RatingAvg = ratingAvg,
                          RatingCount = ratingCount,
                          TimeLearning = totalVideoTime + quizCount * 30,
+                         EnrolledNumber = enrollmentCount
                     };
 
                     topRatedCoursesDto.Add(topRated);
@@ -1093,6 +1105,10 @@ namespace BE.Repository.Implementations
                                     .Where(cc => cartCourseIds.Contains(cc.Id))
                                     .ToListAsync();
                return cartCourses;
+          }
+          public async Task<bool> IsCourseInCartAsync(string cartId, string courseId)
+          {
+               return await _context.CartCourses.AnyAsync(cc => cc.CartId == cartId && cc.CourseId == courseId);
           }
      }
 }

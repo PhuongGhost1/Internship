@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import "./SignInPage.css";
 import { useNavigate } from "react-router-dom";
-import success from '../../../assets/success.png'
-import Cookies from 'js-cookie';
+import success from "../../../assets/success.png";
+import Cookies from "js-cookie";
 
 const SignInPage = () => {
   const navigate = useNavigate();
@@ -10,15 +10,19 @@ const SignInPage = () => {
   useEffect(() => {
     const fetchToken = async () => {
       const queryParams = new URLSearchParams(window.location.search);
-      const token = queryParams.get('token')
+      const token = queryParams.get("token");
 
       if (token) {
-        Cookies.set('token', token, { expires: 1, sameSite: 'None', secure: true });
+        Cookies.set("token", token, {
+          expires: 1,
+          sameSite: "None",
+          secure: true,
+        });
         setTimeout(() => {
-          navigate('/');
+          navigate("/");
         }, 2000);
       } else {
-        console.error('Invalid response from Google');
+        console.error("Invalid response from Google");
       }
     };
 

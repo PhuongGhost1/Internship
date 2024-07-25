@@ -14,6 +14,8 @@ public partial class Payment
     public DateTime? CreateDate { get; set; }
 
     public float? Total { get; set; }
+    
+    public int? Status {get; set;}
 
     public virtual ICollection<PaymentCourse> PaymentCourses { get; set; } = new List<PaymentCourse>();
 

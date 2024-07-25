@@ -492,7 +492,7 @@ const ApiService = {
   getNewReleaseCourses: async (count) => {
     try {
       const response = await api.get(
-        `/web/course/new-release-courses/${count}`
+        `http://localhost:5144/api/v1/web/course/new-release-courses/${count}`
       );
       return response.data;
     } catch (error) {
@@ -718,6 +718,111 @@ const ApiService = {
       return response.data;
     } catch (error) {
       console.error("Error removing course from cart: ", error);
+      throw error;
+    }
+  },
+  checkCourseInCart: async (cartId, courseId) => {
+    try {
+      const response = await api.get(
+        "http://localhost:5144/api/v1/web/course/is-course-in-cart",
+        {
+          params: {
+            cartId,
+            courseId,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error checking course in cart:", error);
+      throw error;
+    }
+  },
+  payCartCourse: async (CartCourseIds, UserId) => {
+    try {
+      const response = await api.post(
+        "http://localhost:5144/api/v1/web/course/pay-cart-course-items",
+        {
+          CartCourseIds: CartCourseIds,
+          UserId: UserId,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching pay course from cart: ", error);
+      throw error;
+    }
+  },
+  createPaypalOrder: async (total, referenceId) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:5144/api/v1/web/payment/create-order",
+        {
+          purchaseUnits: [
+            {
+              amount: {
+                currencyCode: "USD",
+                value: total.toString(),
+              },
+              referenceId: referenceId,
+            },
+          ],
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error creating PayPal order: ", error);
+      throw error;
+    }
+  },
+  capturePaypalOrder: async (orderId) => {
+    try {
+      console.log(`Token in ApiService: ${orderId}`);
+      const response = await axios.post(
+        `http://localhost:5144/api/v1/web/payment/capture-order/${orderId}`,
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error(
+        "Error capturing PayPal order: ",
+        error.response ? error.response.data : error.message
+      );
+      throw error;
+    }
+  },
+  cancelPaypalOrder: async (orderId) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:5144/api/v1/web/payment/cancel-order/${orderId}`,
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error(
+        "Error canceling PayPal order: ",
+        error.response ? error.response.data : error.message
+      );
       throw error;
     }
   },
