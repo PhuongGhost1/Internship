@@ -1,0 +1,51 @@
+#InfoFollow {
+     padding: 20px;
+     width: 350px;
+     margin-top: 28px;
+     margin-left: 75px;
+}
+
+#InfoFollow .followinfo-container {
+     background-color: white;
+     border-radius: 10px;
+     padding: 20px;
+}
+
+#InfoFollow .followinfo-container h3 {
+     padding-bottom: 10px;
+     font-size: 20px;
+     font-weight: bold;
+     margin-bottom: 15px;
+}
+
+#InfoFollow .follow {
+     display: flex;
+     align-items: center;
+     margin-bottom: 30px;
+}
+
+#InfoFollow .follow:last-child {
+     margin-bottom: 0;
+}
+
+#InfoFollow .avatar {
+     width: 40px;
+     height: 40px;
+     border-radius: 50%;
+     margin-right: 30px;
+}
+
+#InfoFollow .info {
+     display: flex;
+     flex-direction: column;
+}
+
+#InfoFollow .name {
+     font-weight: bold;
+     font-size: 14px;
+}
+
+#InfoFollow .role {
+     color: gray;
+     font-size: 12px;
+}

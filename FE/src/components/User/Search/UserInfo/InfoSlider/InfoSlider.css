@@ -1,0 +1,86 @@
+#InfoSlider {
+     display: flex;
+     align-items: center;
+     margin-left: -9px;
+     margin-bottom: 60px;
+}
+
+#InfoSlider .card-container {
+     display: flex;
+     gap: 20px;
+     overflow: hidden;
+}
+
+#InfoSlider .card {
+     border: 1px solid #ddd;
+     border-radius: 8px;
+     overflow: hidden;
+     width: 318px;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+     transition: transform 0.2s;
+}
+
+#InfoSlider .card:hover {
+     transform: scale(1.05);
+}
+
+#InfoSlider .card-img {
+     width: 100%;
+     height: 200px;
+     object-fit: cover;
+}
+
+#InfoSlider .card-content {
+     padding: 15px;
+}
+
+#InfoSlider .card-category {
+     font-size: 14px;
+     color: gray;
+}
+
+#InfoSlider .card-title {
+     font-size: 18px;
+     font-weight: bold;
+     margin: 10px 0;
+}
+
+#InfoSlider .card-details {
+     display: flex;
+     justify-content: space-between;
+     font-size: 14px;
+     color: gray;
+}
+
+#InfoSlider .card-new {
+     display: inline-block;
+     background-color: green;
+     color: white;
+     padding: 2px 8px;
+     border-radius: 12px;
+     font-size: 12px;
+     margin-top: 10px;
+}
+
+.slider-arrow {
+     background-color: white;
+     border: none;
+     font-size: 24px;
+     cursor: pointer;
+     padding: 10px;
+     border-radius: 50%;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+     transition: background-color 0.2s;
+}
+
+#InfoSlider .slider-arrow:hover {
+     background-color: #ddd;
+}
+
+#InfoSlider .left-arrow {
+     margin-right: 10px;
+}
+
+#InfoSlider .right-arrow {
+     margin-left: 10px;
+}
