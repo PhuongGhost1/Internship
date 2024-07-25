@@ -492,7 +492,7 @@ const ApiService = {
   getNewReleaseCourses: async (count) => {
     try {
       const response = await api.get(
-        `http://localhost:5144/api/v1/web/course/new-release-courses/${count}`
+        `https://groupcooked.happyflower-ab63cd56.southeastasia.azurecontainerapps.io/api/v1/web/course/new-release-courses/${count}`
       );
       return response.data;
     } catch (error) {
@@ -671,7 +671,7 @@ const ApiService = {
       const formData = new FormData();
       formData.append("userId", userId);
       const response = await axios.post(
-        "http://localhost:5144/api/v1/web/course/view-cart",
+        "https://groupcooked.happyflower-ab63cd56.southeastasia.azurecontainerapps.io/api/v1/web/course/view-cart",
         formData,
         {
           headers: {
@@ -724,7 +724,7 @@ const ApiService = {
   checkCourseInCart: async (cartId, courseId) => {
     try {
       const response = await api.get(
-        "http://localhost:5144/api/v1/web/course/is-course-in-cart",
+        "https://groupcooked.happyflower-ab63cd56.southeastasia.azurecontainerapps.io/api/v1/web/course/is-course-in-cart",
         {
           params: {
             cartId,
@@ -741,7 +741,7 @@ const ApiService = {
   payCartCourse: async (CartCourseIds, UserId) => {
     try {
       const response = await api.post(
-        "http://localhost:5144/api/v1/web/course/pay-cart-course-items",
+        "https://groupcooked.happyflower-ab63cd56.southeastasia.azurecontainerapps.io/api/v1/web/course/pay-cart-course-items",
         {
           CartCourseIds: CartCourseIds,
           UserId: UserId,
@@ -761,7 +761,7 @@ const ApiService = {
   createPaypalOrder: async (total, referenceId) => {
     try {
       const response = await axios.post(
-        "http://localhost:5144/api/v1/web/payment/create-order",
+        "https://groupcooked.happyflower-ab63cd56.southeastasia.azurecontainerapps.io/api/v1/web/payment/create-order",
         {
           purchaseUnits: [
             {
@@ -789,7 +789,7 @@ const ApiService = {
     try {
       console.log(`Token in ApiService: ${orderId}`);
       const response = await axios.post(
-        `http://localhost:5144/api/v1/web/payment/capture-order/${orderId}`,
+        `https://groupcooked.happyflower-ab63cd56.southeastasia.azurecontainerapps.io/api/v1/web/payment/capture-order/${orderId}`,
         {},
         {
           headers: {
@@ -809,7 +809,7 @@ const ApiService = {
   cancelPaypalOrder: async (orderId) => {
     try {
       const response = await axios.post(
-        `http://localhost:5144/api/v1/web/payment/cancel-order/${orderId}`,
+        `https://groupcooked.happyflower-ab63cd56.southeastasia.azurecontainerapps.io/api/v1/web/payment/cancel-order/${orderId}`,
         {},
         {
           headers: {
@@ -829,7 +829,7 @@ const ApiService = {
   getUserProfileToSeen: async (userId) => {
     try {
       const response = await api.get(
-        "http://localhost:5144/api/v1/web/user/user-profile-to-seen",
+        "https://groupcooked.happyflower-ab63cd56.southeastasia.azurecontainerapps.io/api/v1/web/user/user-profile-to-seen",
         {
           params: { userId },
         }
@@ -838,60 +838,67 @@ const ApiService = {
       return response.data;
     } catch (error) {
       console.error("Error get user: ", error);
-    },
-    SearchCourses: async (page, items, query) => {
-        try {
-            const formData = new FormData()
-            formData.append("query", query)
-            const response = await axios.post(
-                `http://localhost:5144/api/v1/web/course/search?page=${page}&items=${items}`,
-                formData,
-                {
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded",
-                    },
-                }
-            )
-            return response.data
-        } catch (error) {
-            console.log(error)
+    }
+  },
+  SearchCourses: async (page, items, query) => {
+    try {
+      const formData = new FormData();
+      formData.append("query", query);
+      const response = await axios.post(
+        `https://groupcooked.happyflower-ab63cd56.southeastasia.azurecontainerapps.io/api/v1/web/course/search?page=${page}&items=${items}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
         }
-    },
-    GetCategories: async () => {
-        try {
-            const response = await axios.get(
-                "http://localhost:5144/api/v1/web/category/categories-list"
-            );
-            return response.data
-        } catch (error) {
-            console.log(error)
-        }
-    },
-    SearchFilter: async (page, items
-        , query, categories, priceRange, ratings, levels, userId
-    ) => {
-        try {
-            const formData = new FormData();
-            formData.append("query", query);
-            formData.append("categories", JSON.stringify(categories));
-            formData.append("priceRange", JSON.stringify(priceRange));
-            formData.append("ratings", JSON.stringify(ratings));
-            formData.append("levels", JSON.stringify(levels));
-            formData.append("userId", userId);
+      );
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  GetCategories: async () => {
+    try {
+      const response = await axios.get(
+        "https://groupcooked.happyflower-ab63cd56.southeastasia.azurecontainerapps.io/api/v1/web/category/categories-list"
+      );
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  SearchFilter: async (
+    page,
+    items,
+    query,
+    categories,
+    priceRange,
+    ratings,
+    levels,
+    userId
+  ) => {
+    try {
+      const formData = new FormData();
+      formData.append("query", query);
+      formData.append("categories", JSON.stringify(categories));
+      formData.append("priceRange", JSON.stringify(priceRange));
+      formData.append("ratings", JSON.stringify(ratings));
+      formData.append("levels", JSON.stringify(levels));
+      formData.append("userId", userId);
 
-            const response = await axios.post(
-                `http://localhost:5144/api/v1/web/course/search-filter?page=${page}&items=${items}`,
-                formData,
-                {
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded"
-                    }
-                }
-            );
-            return response.data
-        } catch (error) {
-            console.log(error)
+      const response = await axios.post(
+        `https://groupcooked.happyflower-ab63cd56.southeastasia.azurecontainerapps.io/api/v1/web/course/search-filter?page=${page}&items=${items}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
         }
+      );
+      return response.data;
+    } catch (error) {
+      console.log(error);
     }
   },
 };
