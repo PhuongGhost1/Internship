@@ -15,6 +15,8 @@ using BE.Dto.Course.Chapter;
 using BE.Dto.Payment.CartCourse;
 using BE.Dto.Message;
 using BE.Dto.User;
+using BE.Dto.ImageD;
+using BE.Dto.Course.FilterSearchCourse;
 
 namespace BE.Services.Implementations
 {
@@ -264,25 +266,29 @@ namespace BE.Services.Implementations
             return randomCoursesDto;
         }
 
-        public async Task<List<CardCourseDto>> SearchCourse(string query, int page, int items)
+        public async Task<List<NewReleaseCourseForHomepageDto>> SearchCourse(string query, int page, int items)
         {
             var courses = await _courseRepo.SearchingCourse(query);
             var coursesPagination = courses.Skip((page - 1) * items).Take(items).ToList();
-            var searchCourses = new List<CardCourseDto>();
+            var searchCourses = new List<NewReleaseCourseForHomepageDto>();
 
             foreach (var course in coursesPagination)
             {
                 var ratingCount = await _courseRepo.RetriveRatingNumber(course.Id);
-                var timeLearning = await _courseRepo.TimeLearningCourse(course.Id);
-                var imgUrl = await _courseRepo.GetImageCourse(course.Id, "Background");
+                var totalVideoTime = await _courseRepo.CalculateTotalVideoTimeByCourseId(course.Id);
+                var quizCount = await _courseRepo.NumberOfQuizInChapterByCourseId(course.Id);
+                var image = new List<ImageForAdminDto> { await _courseRepo.GetImageForAdminDto(course.Id) };
 
-                searchCourses.Add(new CardCourseDto
+                searchCourses.Add(new NewReleaseCourseForHomepageDto
                 {
-                    name = course.Name,
-                    ratingAvg = course.Rating,
-                    ratingCount = ratingCount,
-                    timeLearning = timeLearning,
-                    imgUrl = imgUrl
+                    Id = course.Id,
+                    Name = course.Name,
+                    Price = course.Price,
+                    RatingAvg = course.Rating,
+                    RatingCount = ratingCount,
+                    TimeLearning = totalVideoTime + quizCount * 30,
+                    Level = course.Level,
+                    Image = image
                 });
             }
 
@@ -443,6 +449,46 @@ namespace BE.Services.Implementations
             if(cart == null || course == null) return false;
 
             return await _courseRepo.IsCourseInCartAsync(cartId, courseId);
+        }
+        public async Task<List<OutputFilterSearchDto>> SearchFilterCourses(InputFilterSearchDto dto, int page, int items)
+        {
+            var searchCourses = await _courseRepo.SearchingCourse(dto.Query);
+            var filterCourses = await _courseRepo.FilterCourse(searchCourses, dto);
+            var coursesPagination = filterCourses.Skip((page - 1) * items).Take(items).ToList();
+            var searchFilterCourse = new List<OutputFilterSearchDto>();
+
+            foreach (var course in coursesPagination)
+            {
+                var ratingCount = await _courseRepo.RetriveRatingNumber(course.Id);
+                var timeLearning = await _courseRepo.TimeLearningCourse(course.Id);
+                var imgUrl = await _courseRepo.GetImageCourse(course.Id, "Background");
+                var lectureCount = await _courseRepo.CountLectureCourse(course.Id);
+                var studentCount = await _courseRepo.CountEnrollCourse(course.Id);
+                var isSaved = false;
+                string? instructorName = null;
+                string? instructorImg = null;
+                if (dto.UserId != null)
+                {
+                    isSaved = await _courseRepo.CheckSavedCourse(course.Id, dto.UserId);
+                }
+                searchFilterCourse.Add(new OutputFilterSearchDto
+                {
+                    CourseId = course.Id,
+                    CourseImg = imgUrl,
+                    CourseName = course.Name,
+                    CourseLevel = course.Level,
+                    LectureCount = lectureCount,
+                    TimeTotal = timeLearning,
+                    RatingAVG = course.Rating,
+                    RatingCount = ratingCount,
+                    StudentCount = studentCount,
+                    Price = course.Price,
+                    IsSaved = isSaved,
+                    InstructorName = instructorName,
+                    InstructorImg = instructorImg
+                });
+            }
+            return searchFilterCourse;
         }
     }
 }

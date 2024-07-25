@@ -8,91 +8,25 @@ import Slider from '@mui/material/Slider';
 import Rating from '@mui/material/Rating';
 import { FaCircleCheck } from "react-icons/fa6";
 
-export default function FilterBar() {
-    const datas = [
-        {
-            name: "Mobile Application Development"
-        },
-        {
-            name: "Mobile Application Development"
-        },
-        {
-            name: "Mobile Application Development"
-        },
-        {
-            name: "Mobile Application Development"
-        },
-        {
-            name: "Mobile Application Development"
-        },
-        {
-            name: "Mobile Application Development"
-        },
-        {
-            name: "Mobile Application Development"
-        },
-        {
-            name: "Mobile Application Development"
-        },
-    ]
-
-    const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+export default function FilterBar({ categories,
+    handleSelectedCategories,
+    selectedCategories,
+    value,
+    setValue,
+    ratingSelected,
+    hanldeRatingSelected,
+    difficultSelected,
+    hanldeDifficultClick }) {
     const [openDropdowns, setOpenDropdowns] = useState({
         categorycontainer: false,
         pricerangecontainer: false,
         ratingcontainer: false,
         difficultcontainer: false
     });
-    const [priceFilter, setPriceFilter] = useState(null);
-    const [priceRange, setPriceRange] = useState({ min: 1, max: 200 });
-
-    const [ratingSelected, setRatingSelected] = useState(
-        [
-            {
-                starCount: 5,
-                isSelected: false,
-            },
-            {
-                starCount: 4,
-                isSelected: false,
-            },
-            {
-                starCount: 3,
-                isSelected: false,
-            },
-            {
-                starCount: 2,
-                isSelected: false,
-            },
-            {
-                starCount: 1,
-                isSelected: false,
-            },
-        ]
-    )
-
-    const [difficultSelected, setDifficultSelected] = useState(
-        [
-            {
-                name: 'Beginner',
-                isSelected: false,
-            },
-            {
-                name: 'Intermediate',
-                isSelected: false,
-            },
-            {
-                name: 'Advanced',
-                isSelected: false,
-            },
-        ]
-    )
 
     function removeHyphens(str) {
         return str.replace(/-/g, '');
     }
-
-    const [value, setValue] = useState([20, 37]);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -110,20 +44,6 @@ export default function FilterBar() {
         }));
     };
 
-    const hanldeDifficultClick = (index) => {
-        setDifficultSelected(prev => {
-            return prev.map((item, i) => {
-                if (i === index) {
-                    return {
-                        ...item,
-                        isSelected: !item.isSelected
-                    }
-                }
-                return item
-            })
-        })
-    }
-
     return (
         <div id="filter-bar">
             <div className="filter-title">
@@ -139,10 +59,14 @@ export default function FilterBar() {
                 </div>
                 <div className="dropdown-container">
                     <div className="categories items">
-                        {datas.map((data, index) => {
+                        {categories.map((data, index) => {
                             return (
                                 <div className="category item" key={index}>
-                                    <Checkbox {...label} />
+                                    <Checkbox
+                                        checked={selectedCategories.includes(data.id)}
+                                        onChange={() => { handleSelectedCategories(data.id) }}
+                                        inputProps={{ 'aria-label': 'controlled' }}
+                                    />
                                     <span className="data-name">{data.name}</span>
                                 </div>
                             )
@@ -194,7 +118,11 @@ export default function FilterBar() {
                         {ratingSelected.map((data, index) => {
                             return (
                                 <div className="rating item">
-                                    <Checkbox {...label} />
+                                    <Checkbox
+                                        checked={data.isSelected}
+                                        onChange={() => { hanldeRatingSelected(data.starCount) }}
+                                        inputProps={{ 'aria-label': 'controlled' }}
+                                    />
                                     <Box
                                         sx={{
                                             '& > legend': { mt: 2 },

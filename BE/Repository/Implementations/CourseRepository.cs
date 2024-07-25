@@ -22,6 +22,7 @@ using BE.Dto.CategoryCourse;
 using BE.Dto.Category;
 using BE.Dto.Follow;
 using BE.Dto.Cart;
+using BE.Dto.Course.FilterSearchCourse;
 
 namespace BE.Repository.Implementations
 {
@@ -870,7 +871,7 @@ namespace BE.Repository.Implementations
                }
           }
 
-          private async Task<int?> NumberOfQuizInChapterByCourseId(string courseId)
+          public async Task<int?> NumberOfQuizInChapterByCourseId(string courseId)
           {
                using (var context = new CourseOnlContext())
                {
@@ -889,7 +890,7 @@ namespace BE.Repository.Implementations
                }
           }
 
-          private async Task<int?> CalculateTotalVideoTimeByCourseId(string courseId)
+          public async Task<int?> CalculateTotalVideoTimeByCourseId(string courseId)
           {
                using (var context = new CourseOnlContext())
                {
@@ -1109,6 +1110,82 @@ namespace BE.Repository.Implementations
           public async Task<bool> IsCourseInCartAsync(string cartId, string courseId)
           {
                return await _context.CartCourses.AnyAsync(cc => cc.CartId == cartId && cc.CourseId == courseId);
+          }
+
+          public async Task<ImageForAdminDto> GetImageForAdminDto(string courseId)
+          {
+               var image = await _context.Images
+                         .Where(i => i.CourseId == courseId && i.Type == "Background")
+                         .OrderByDescending(i => i.CreatedAt)
+                         .Select(i => new ImageForAdminDto
+                         {
+                              Id = i.Id,
+                              Url = i.Url,
+                              Type = i.Type,
+                              LastUpdated = i.CreatedAt
+                         })
+                         .FirstOrDefaultAsync();
+               return image;
+          }
+
+          public async Task<List<Course>> FilterCourse(List<Course> courses, InputFilterSearchDto dto)
+          {
+               var filterCourses = courses.AsQueryable();
+               //filter through Price Range
+               if (dto.PriceRange != null && dto.PriceRange.Count == 2)
+               {
+                    var minPrice = dto.PriceRange[0];
+                    var maxPrice = dto.PriceRange[1];
+                    filterCourses = filterCourses.Where(course => course.Price >= minPrice && course.Price <= maxPrice);
+               }
+               // filter through rating
+               if (dto.Ratings != null && dto.Ratings.Any(r => r.IsSelected))
+               {
+                    var selectedRating = dto.Ratings.Where(r => r.IsSelected).Select(r => r.StarCount).ToList();
+                    filterCourses = filterCourses.Where(course => course.Rating.HasValue && selectedRating.Contains((int)Math.Ceiling(course.Rating.Value)));
+               }
+               //filter through
+               if (dto.Levels != null && dto.Levels.Any(r => r.IsSelected))
+               {
+                    var selectedLevel = dto.Levels.Where(l => l.IsSelected).Select(l => l.Name);
+                    filterCourses = filterCourses.Where(course => selectedLevel.Contains(course.Level));
+               }
+               //filter categories
+               if (dto.Categories != null && dto.Categories.Count() > 0)
+               {
+                    Console.WriteLine("Categories count:" + dto.Categories.Count());
+                    var newFilterCourse = new List<Course>();
+                    foreach (var course in filterCourses.ToList()) // Convert to List to support async
+                    {
+                         var categoriescourse = await GetListCategoriesIdByCourse(course.Id);
+                         if (categoriescourse != null && categoriescourse.Any(dto.Categories.Contains))
+                         {
+                              newFilterCourse.Add(course);
+                         }
+                    }
+                    filterCourses = newFilterCourse.AsQueryable();
+               }
+               return await Task.FromResult(filterCourses.ToList());
+          }
+
+          private async Task<List<string?>> GetListCategoriesIdByCourse(string courseId)
+          {
+               return await _context.CategoryCourses.Where(cc => cc.CourseId == courseId)
+                                                   .Select(cc => cc.CategoryId)
+                                                   .ToListAsync();
+          }
+
+          public async Task<bool> CheckSavedCourse(string courseId, string userId)
+          {
+               var coursesId = await _context.SaveCourses.Where(sv => sv.UserId == userId)
+                                                            .Select(sv => sv.CourseId)
+                                                            .ToListAsync();
+               return coursesId.Contains(courseId);
+          }
+          public async Task<int> CountEnrollCourse(string courseId)
+          {
+               return await _context.EnrollCourses.Where(ec => ec.CourseId == courseId)
+                                                  .CountAsync();
           }
      }
 }

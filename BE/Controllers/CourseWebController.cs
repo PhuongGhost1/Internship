@@ -9,6 +9,9 @@ using static BE.Utils.Utils;
 using BE.Attributes;
 using BE.Dto.Message;
 using BE.Dto.User;
+using BE.Dto.Course.FilterSearchCourse;
+using Newtonsoft.Json;
+using BE.Dto.Course.FilterSearchCourse.Item;
 
 namespace BE.Controllers
 {
@@ -200,7 +203,7 @@ namespace BE.Controllers
         }
 
         [HttpPost, Route("search")]
-        public async Task<List<CardCourseDto>> SearchCourse([FromForm] string query, [FromQuery] int page, [FromQuery] int items)
+        public async Task<List<NewReleaseCourseForHomepageDto>> SearchCourse([FromForm] string? query, [FromQuery] int page, [FromQuery] int items)
         {
             return await _courseService.SearchCourse(query, page, items);
         }
@@ -250,6 +253,24 @@ namespace BE.Controllers
         {
             bool result = await _courseService.IsCourseInCartAsync(cartId, courseId);
             return Ok(result);
+        }
+
+        [HttpPost, Route("search-filter")]
+        public async Task<List<OutputFilterSearchDto>> SearchFilterCourses(
+            [FromForm] InputString input,
+            [FromQuery] int page,
+            [FromQuery] int items)
+        {
+            var dto = new InputFilterSearchDto
+            {
+                Query = input.Query,
+                Categories = string.IsNullOrEmpty(input.Categories) ? null : JsonConvert.DeserializeObject<List<string>>(input.Categories),
+                PriceRange = string.IsNullOrEmpty(input.PriceRange) ? null : JsonConvert.DeserializeObject<List<int?>>(input.PriceRange),
+                Ratings = string.IsNullOrEmpty(input.Ratings) ? null : JsonConvert.DeserializeObject<List<RatingObj>>(input.Ratings),
+                Levels = string.IsNullOrEmpty(input.Levels) ? null : JsonConvert.DeserializeObject<List<LevelObj>>(input.Levels),
+                UserId = input.UserId
+            };
+            return await _courseService.SearchFilterCourses(dto, page, items);
         }
     }
 }
