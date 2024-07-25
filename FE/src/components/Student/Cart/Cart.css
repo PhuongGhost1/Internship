@@ -205,46 +205,6 @@
   color: crimson;
 }
 
-#Cart .pay-bt {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: auto;
-  height: 35px;
-  box-shadow: #00419e 0px 0px 0px 1px;
-  border-radius: 2%;
-  margin-top: 15px;
-  margin-bottom: 10px;
-  padding: 0 10px;
-  cursor: pointer;
-  background-color: #2e5ca0;
-  opacity: 1;
-  transition: opacity 0.3s;
-}
-
-#Cart .pay-bt.disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-#Cart .pay-bt .text h2 {
-  display: flex;
-  align-items: center;
-  margin-right: 20px;
-  color: white;
-  letter-spacing: 0.16px;
-  line-height: 24px;
-  font-size: 20px;
-  margin: 0 10px;
-}
-
-#Cart .pay-bt .icon {
-  margin-top: 2px;
-  align-items: center;
-  color: white;
-  margin-left: 10px;
-}
-
 /**************************************** Right *******************************************************************/
 
 #Cart .display-cart .text2-container h2 {
@@ -489,39 +449,348 @@
   box-shadow: none;
 }
 
-.Modal__Content {
-  background: #fff;
-  border-radius: 8px;
-  padding: 20px;
-  width: 400px;
-  max-width: 90%;
-  margin: auto;
-  position: relative;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.Modal__Overlay {
-  background: rgba(0, 0, 0, 0.5);
+/**************************************** Popup **************************************************************************/
+#Cart .column3 .overlay1 {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(112, 106, 106, 0.426);
+  backdrop-filter: blur(1px);
+  z-index: 1;
+}
+
+#Cart .column3 .popup-paymentnow {
+  background: #fff;
+  overflow-y: hidden;
+  position: fixed;
+  top: 27%;
+  left: 55%;
+  transform: translateX(-60%) translateY(-23%);
+  min-height: 30vh;
+  min-height: 300px;
+  height: 450px;
+  max-height: 80vh;
+  width: 568px;
+  border-radius: 8px;
+
+  z-index: 2;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#Cart .column3 .popup-paymentnow-buttonclose {
+  /* margin-top: 15px; */
+  /* margin-left: 490px; */
+  background: rgb(238, 236, 236);
+  border: 0px solid #fff;
+  background-color: transparent;
+  color: #00419e;
+
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+
+  transform: translateX(680%) translateY(110%);
+}
+
+#Cart .column3 .popup-paymentnow-buttonclose-container {
+  width: 70px;
+  height: 18px;
+  margin-left: 5px;
+  margin-top: 5px;
+  border-radius: 5px;
+}
+
+#Cart .column3 .popup-paymentnow-buttonclose:hover {
+  background-color: #dbe6f5;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+#Cart .column3 .row-update-container .text {
+  cursor: pointer;
+}
+
+#Cart .column3 .popup-row {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  /* align-items: center; */
+  gap: 10px;
+  margin-top: 40px;
+}
+
+#Cart .column3 .popup-row > div {
+  flex: 1;
+  text-align: left;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+#Cart .column3 .popup-row-title {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 2.3rem;
+}
+
+#Cart .column3 .popup-row-text {
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+  font-size: 1.3rem;
+  margin-top: 15px;
+}
+
+#Cart .column3 .popup-row-text2-container {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+#Cart .column3 .popup-row-text2-container p.popup-row-text2 {
+  color: #00419e;
+}
+
+#Cart .column3 .popup-row-text2-container p.popup-row-text2:hover {
+  color: #2e5ca0;
+}
+
+#Cart .column3 .popup-row-text2-button {
+  width: 25px;
+  height: 25px;
+  appearance: none;
+  /* Remove default checkbox appearance */
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  position: relative;
+  background-color: #fff;
+  /* Background color for unchecked state */
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#Cart .column3 .popup-row-text2-button:checked {
+  background-color: #00419e;
+  /* Change this to the color you want when checked */
+  border-color: #00419e;
+}
+
+#Cart .column3 .popup-row-text2-button:checked::before,
+#Cart .column3 .popup-row-text2-button:checked::after {
+  content: "";
+  position: absolute;
+  background-color: white;
+  border-radius: 1px;
+}
+
+#Cart .column3 .popup-row-text2-button:checked::before {
+  width: 3px;
+  /* Width of the first part of the checkmark */
+  height: 15px;
+  /* Height of the first part of the checkmark */
+  top: 2px;
+  /* Adjust the vertical position */
+  left: 11.5px;
+  /* Adjust the horizontal position */
+  transform: rotate(40deg);
+  /* Rotate to create checkmark */
+}
+
+#Cart .column3 .popup-row-text2-button:checked::after {
+  width: 3px;
+  /* Width of the second part of the checkmark */
+  height: 7px;
+  /* Height of the second part of the checkmark */
+  top: 8px;
+  /* Adjust the vertical position */
+  left: 5px;
+  /* Adjust the horizontal position */
+  transform: rotate(-45deg);
+  /* Rotate to create checkmark */
+}
+
+#Cart .column3 .popup-row-button {
+  width: 130px;
+  height: 50px;
+  margin-top: 30px;
+  text-align: center;
+  position: fixed;
+  cursor: pointer;
+
+  color: #fff;
+  background-color: #00419e;
+  border: 1px solid #00419e;
+  border-radius: 3px;
+
+  font-family: "Roboto", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 1.3rem;
+}
+
+#Cart .column3 .popup-row-button:hover {
+  background-color: #002f7a;
+  color: #e5e7e8;
+}
+
+/************************************** All Button ***************************************/
+#Cart .display-button {
+  display: flex;
+  flex-direction: column;
+}
+
+#Cart .pay-bt {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.Modal__Button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 10px 20px;
+  width: 100%;
+  height: 35px;
+  border-radius: 10px;
+  border: 1px solid #1976d2;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  padding: 0 10px;
   cursor: pointer;
-  margin: 5px;
+  background-color: #1976d2;
+  opacity: 1;
+  transition: opacity 0.3s, background-color 0.3s;
 }
 
-.Modal__Button--secondary {
-  background-color: #6c757d;
+#Cart .display-button .pay-bt1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 35px;
+  border-radius: 3px;
+  border: 1px solid #1976d2;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  padding: 0 10px;
+  cursor: pointer;
+  background-color: #1976d2;
+  opacity: 1;
+  transition: opacity 0.3s, background-color 0.3s;
+}
+
+#Cart .display-button .pay-bt2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 35px;
+  border-radius: 3px;
+  border: 1px solid black;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  padding: 0 10px;
+  cursor: pointer;
+  background-color: black;
+  opacity: 1;
+  transition: opacity 0.3s, background-color 0.3s;
+}
+
+#Cart .display-button .pay-bt3 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 35px;
+  border-radius: 3px;
+  border: 1px solid #ffc439;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  padding: 0 10px;
+  cursor: pointer;
+  background-color: #ffc439;
+  opacity: 1;
+  transition: opacity 0.3s, background-color 0.3s;
+}
+
+#Cart .pay-bt.disabled,
+#Cart .display-button .pay-bt1.disabled,
+#Cart .display-button .pay-bt2.disabled,
+#Cart .display-button .pay-bt3.disabled {
+  opacity: 0.5; /* Makes the button appear disabled */
+  cursor: not-allowed; /* Shows a 'not-allowed' cursor */
+  background-color: #6c7074; /* Optional: change background color when disabled */
+  border: 1px solid #6c7074;
+}
+
+#Cart .pay-bt .text h2 {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  color: white;
+  letter-spacing: 0.16px;
+  line-height: 24px;
+  font-size: 20px;
+  margin: 0 10px;
+}
+
+#Cart .display-button .pay-bt1 .text h2 {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  color: white;
+  letter-spacing: 0.16px;
+  line-height: 24px;
+  margin: 0 10px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+  font-size: 1.3rem;
+  margin-top: 5px;
+}
+
+#Cart .display-button .pay-bt2 .text h2 {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  color: white;
+  letter-spacing: 0.16px;
+  line-height: 24px;
+  margin: 0 10px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+  font-size: 1.3rem;
+  margin-top: 5px;
+}
+
+#Cart .display-button .pay-bt3 .text h2 {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  color: white;
+  letter-spacing: 0.16px;
+  line-height: 24px;
+  margin: 0 10px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 600;
+  font-style: italic;
+  font-size: 1.3rem;
+  margin-top: 5px;
+}
+
+#Cart .pay-bt .icon,
+#Cart .display-button .pay-bt1 .icon,
+#Cart .display-button .pay-bt2 .icon {
+  margin-top: 2px;
+  align-items: center;
+  color: white;
+}
+
+#Cart .display-button .pay-bt3 .icon {
+  margin-top: 2px;
+  align-items: center;
+  color: white;
+  transform: rotate(3.5deg);
 }
