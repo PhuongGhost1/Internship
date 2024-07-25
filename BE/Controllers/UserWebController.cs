@@ -188,5 +188,11 @@ namespace BE.Controllers
         {
             return await _userService.GetInstructorProfileWithWaitingCourseByInsId(insId);
         }
+
+        [HttpGet, Route("user-profile-to-seen")]
+        public async Task<UserProfileBeSeenDto> GetUserProfileBeSeenDataAsync([FromQuery] string userId)
+        {
+            return await _userService.GetUserProfileBeSeenDataAsync(userId);
+        }
     }
 }

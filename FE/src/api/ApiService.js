@@ -826,6 +826,20 @@ const ApiService = {
       throw error;
     }
   },
+  getUserProfileToSeen: async (userId) => {
+    try {
+      const response = await api.get(
+        "http://localhost:5144/api/v1/web/user/user-profile-to-seen",
+        {
+          params: { userId },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      console.error("Error get user: ", error);
+    }
+  },
 };
 
 export default ApiService;

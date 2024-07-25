@@ -1,84 +1,151 @@
 import React, { useState } from "react";
 import "./InfoSlider.css";
-import Background from '../../../../../assets/background-user1.jpg';
+import Background from "../../../../../assets/background-user1.jpg";
+import PropTypes from "prop-types";
 
-const cardData = [
-     {
-          category: "Adventure Sports",
-          title: "Fear Of Driving And Automatic Negative Thoughts",
-          lessons: 12,
-          duration: "3 hr 30 min",
-          imageUrl: Background,
-     },
-     {
-          category: "Sales and Operations",
-          title: "Work more, Earn more while sitting at your home",
-          lessons: 23,
-          duration: "1 hr 30 min",
-          imageUrl: Background,
-     },
-     {
-          category: "Marketing",
-          title: "Foundation course to understand about Software",
-          lessons: 23,
-          duration: "1 hr 30 min",
-          imageUrl: Background,
-          isNew: true,
-     },
-     {
-          category: "Marketing",
-          title: "Foundation course to understand about Software",
-          lessons: 23,
-          duration: "1 hr 30 min",
-          imageUrl: Background,
-          isNew: true,
-     },
-     {
-          category: "Tech",
-          title: "Learn about React in depth",
-          lessons: 10,
-          duration: "2 hr 15 min",
-          imageUrl: Background,
-          isNew: true,
-     }
-];
+export default function InfoSlider({ user }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const maxVisibleCards = 4;
+  if (!user || !user.courses) return null;
+  const { courses } = user;
 
-export default function InfoSlider() {
-     const [currentIndex, setCurrentIndex] = useState(0);
-     const maxVisibleCards = 4;
+  const handlePrevClick = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    }
+  };
 
-     const handlePrevClick = () => {
-          if (currentIndex > 0) {
-               setCurrentIndex(currentIndex - 1);
-          }
-     };
+  const handleNextClick = () => {
+    if (currentIndex < courses.length - maxVisibleCards) {
+      setCurrentIndex(currentIndex + 1);
+    }
+  };
 
-     const handleNextClick = () => {
-          if (currentIndex < cardData.length - maxVisibleCards) {
-               setCurrentIndex(currentIndex + 1);
-          }
-     };
-
-     return (
-          <div id="InfoSlider">
-               <button onClick={handlePrevClick} className="slider-arrow left-arrow">&#8592;</button>
-               <div className="card-container">
-                    {cardData.slice(currentIndex, currentIndex + maxVisibleCards).map((card, index) => (
-                         <div key={index} className="card">
-                              <img src={card.imageUrl} alt={card.title} className="card-img" />
-                              <div className="card-content">
-                                   <div className="card-category">{card.category}</div>
-                                   <div className="card-title">{card.title}</div>
-                                   <div className="card-details">
-                                        <span>{card.lessons} Lessons</span>
-                                        <span>{card.duration}</span>
-                                   </div>
-                                   {card.isNew && <div className="card-new">New</div>}
-                              </div>
-                         </div>
-                    ))}
-               </div>
-               <button onClick={handleNextClick} className="slider-arrow right-arrow">&#8594;</button>
-          </div>
-     );
+  return (
+    <div id="InfoSlider">
+      <button onClick={handlePrevClick} className="slider-arrow left-arrow">
+        &#8592;
+      </button>
+      <div className="card-container">
+        {courses.length > 0 &&
+          courses
+            .slice(currentIndex, currentIndex + maxVisibleCards)
+            .map((card, index) => (
+              <div key={card.id || index} className="card">
+                <img
+                  src={
+                    card.images.find((img) => img.type === "Background")?.url ||
+                    Background
+                  }
+                  alt={card.name}
+                  className="card-img"
+                />
+                <div className="card-content">
+                  <div className="card-category">
+                    {card.cateCoruse[0]?.category?.names.join(", ") ||
+                      "No Category"}
+                  </div>
+                  <div className="card-title">{card.name}</div>
+                  <div className="card-details">
+                    <span>{card.processings} Lessons</span>
+                    <span>{card.estimatedLearningTime} mins</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+      </div>
+      <button onClick={handleNextClick} className="slider-arrow right-arrow">
+        &#8594;
+      </button>
+    </div>
+  );
 }
+
+InfoSlider.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.string,
+    username: PropTypes.string,
+    description: PropTypes.string,
+    email: PropTypes.string,
+    dob: PropTypes.string,
+    phone: PropTypes.string,
+    totalStudents: PropTypes.number,
+    totalCourses: PropTypes.number,
+    averageRatingForCourses: PropTypes.number,
+    images: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string,
+        url: PropTypes.string,
+        type: PropTypes.string,
+        lastUpdated: PropTypes.string,
+      })
+    ),
+    courses: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        processings: PropTypes.number,
+        estimatedLearningTime: PropTypes.number,
+        images: PropTypes.arrayOf(
+          PropTypes.shape({
+            id: PropTypes.string,
+            url: PropTypes.string,
+            type: PropTypes.string,
+            lastUpdated: PropTypes.string,
+          })
+        ),
+        cateCoruse: PropTypes.arrayOf(
+          PropTypes.shape({
+            id: PropTypes.string,
+            category: PropTypes.shape({
+              names: PropTypes.arrayOf(PropTypes.string),
+              cateId: PropTypes.string,
+              name: PropTypes.string,
+              isVisible: PropTypes.bool,
+            }),
+            course: PropTypes.object,
+            createdAt: PropTypes.string,
+          })
+        ),
+      })
+    ),
+    followFollowers: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string,
+        username: PropTypes.string,
+        description: PropTypes.string,
+        email: PropTypes.string,
+        dob: PropTypes.string,
+        phone: PropTypes.string,
+        totalStudents: PropTypes.number,
+        totalCourses: PropTypes.number,
+        averageRatingForCourses: PropTypes.number,
+        images: PropTypes.arrayOf(
+          PropTypes.shape({
+            id: PropTypes.string,
+            url: PropTypes.string,
+            type: PropTypes.string,
+            lastUpdated: PropTypes.string,
+          })
+        ),
+        courses: PropTypes.arrayOf(
+          PropTypes.shape({
+            id: PropTypes.string,
+            name: PropTypes.string,
+            processings: PropTypes.number,
+            estimatedLearningTime: PropTypes.number,
+            images: PropTypes.arrayOf(
+              PropTypes.shape({
+                id: PropTypes.string,
+                url: PropTypes.string,
+                type: PropTypes.string,
+                lastUpdated: PropTypes.string,
+              })
+            ),
+          })
+        ),
+        followFollowers: PropTypes.array,
+      })
+    ),
+  }),
+};

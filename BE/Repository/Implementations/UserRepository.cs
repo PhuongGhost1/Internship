@@ -1,3 +1,5 @@
+using BE.Dto.Category;
+using BE.Dto.CategoryCourse;
 using BE.Dto.Course;
 using BE.Dto.ImageD;
 using BE.Dto.Notification;
@@ -829,6 +831,223 @@ namespace BE.Repository.Implementations
                 return null;
             }
             return image.Url;
+        }
+
+        private async Task<int?> NumberOfQuizInChapterByCourseId(string courseId)
+        {
+            var quizCountByChapter = await (from chap in _context.Chapters
+                                                join c in _context.Courses on chap.CourseId equals c.Id
+                                                join q in _context.Quizzes on chap.Id equals q.ChapterId into quizGroup
+                                                where c.Id == courseId
+                                                select new
+                                                {
+                                                    ChapterId = chap.Id,
+                                                    QuizCount = quizGroup.Count()
+                                                })
+                                                .ToListAsync();
+
+            return quizCountByChapter.Sum(x => x.QuizCount);
+        }
+
+        private async Task<int?> NumberOfLectureInChapterByCourseId(string courseId)
+        {
+            var totalLectureInChapter = await (from lec in _context.Lectures
+                                                join chap in _context.Chapters on lec.ChapterId equals chap.Id
+                                                join course in _context.Courses on chap.CourseId equals course.Id
+                                                where course.Id == courseId
+                                                select lec)
+                                                .CountAsync();
+
+            return totalLectureInChapter;
+        }
+
+        private async Task<int?> CalculateTotalVideoTimeByCourseId(string courseId)
+        {
+            var totalVideoTimeMinutes = await
+                                            (from chap in _context.Chapters
+                                            join c in _context.Courses on chap.CourseId equals c.Id
+                                            join l in _context.Lectures on chap.Id equals l.ChapterId
+                                            where c.Id == courseId
+                                            select l.TimeVideo)
+                                            .ToListAsync();
+
+            int sumTotalMinutes = totalVideoTimeMinutes.Sum(timeOnly => ToMinutes(timeOnly));
+
+            return sumTotalMinutes;
+        }
+
+        private int ToMinutes(TimeSpan? timeOnly)
+        {
+            if (timeOnly.HasValue)
+            {
+                return timeOnly.Value.Hours * 60 + timeOnly.Value.Minutes;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        private async Task<float?> RetriveRatingAverage(List<string> courseIds)
+        {
+            var ratingAverage = await _context.Comments
+                                .Where(comment => courseIds.Contains(comment.CourseId))
+                                .AverageAsync(comment => (float?)comment.Rating);
+            return ratingAverage;
+        }
+
+        private async Task<int?> RetriveNumberCoursesOfInstructor(string userId)
+        {
+            var ratingNum = await _context.Courses
+                                        .Where(c => c.UserId == userId)
+                                        .CountAsync();
+            return ratingNum;
+        }
+
+        private async Task<int?> RetrieveEnrolledNumber(List<string> courseIds, string userId)
+        {
+            var enrollmentCount = await _context.EnrollCourses
+                                            .Where(e => courseIds.Contains(e.CourseId) && e.UserId == userId)
+                                            .CountAsync();
+            return enrollmentCount;
+        }
+
+        public async Task<UserProfileBeSeenDto> GetUserProfileBeSeenData(string userId)
+        {
+            try
+            {
+                var user = await _context.Users
+                                        .Where(u => u.Id == userId)
+                                        .Include(u => u.Images)
+                                        .Include(u => u.Courses)
+                                            .ThenInclude(c => c.Images)
+                                        .Include(u => u.Courses)
+                                            .ThenInclude(c => c.CategoryCourses)
+                                                .ThenInclude(cc => cc.Category)
+                                        .Include(u => u.FollowFollowers)
+                                        .FirstOrDefaultAsync();
+
+                if (user == null) return new UserProfileBeSeenDto();
+
+                var followers = await _context.Follows
+                                            .Include(f => f.Follower)
+                                                .ThenInclude(f => f.Images)
+                                            .Where(f => f.FollowedId == userId)
+                                            .Select(f => f.Follower)
+                                            .ToListAsync();
+                
+                var courses = await _context.Courses.Where(c => c.UserId == userId).ToListAsync();
+                var courseIds = await _context.Courses.Where(c => c.UserId == userId).Select(c => c.Id).ToListAsync();
+
+                var TotalStudents = await RetrieveEnrolledNumber(courseIds, userId) ?? 0;
+                var TotalCourses = await RetriveNumberCoursesOfInstructor(userId) ?? 0;
+                var AverageRatingForCourses = await RetriveRatingAverage(courseIds) ?? 0;
+
+                var courseDtos = new List<CourseForProfileSeenDto>();
+                foreach (var course in courses)
+                {
+                    var numberOfLectures = await NumberOfLectureInChapterByCourseId(course.Id);
+                    var numberOfQuizzes = await NumberOfQuizInChapterByCourseId(course.Id);
+                    var totalVideoTime = await CalculateTotalVideoTimeByCourseId(course.Id);
+
+                    var numberOfLecturesValue = numberOfLectures.GetValueOrDefault(0);
+                    var numberOfQuizzesValue = numberOfQuizzes.GetValueOrDefault(0);
+                    var totalVideoTimeValue = totalVideoTime.GetValueOrDefault(0);
+
+                    var processings = numberOfLecturesValue + numberOfQuizzesValue;
+                    var estimatedLearningTime = totalVideoTimeValue + (numberOfQuizzesValue * 30);
+
+                    var courseDto = new CourseForProfileSeenDto
+                    {
+                        Id = course.Id,
+                        Name = course.Name,
+                        Processings = processings,
+                        EstimatedLearningTime = estimatedLearningTime,
+                        Images = course.Images?
+                                        .OrderByDescending(i => i.CreatedAt)
+                                        .Select(i => new ImageForAdminDto
+                                        {
+                                            Id = i.Id,
+                                            Url = i.Url,
+                                            Type = i.Type,
+                                            LastUpdated = i.CreatedAt
+                                        })
+                                        .Take(1)
+                                        .ToList() ?? new List<ImageForAdminDto>(),
+                        CateCoruse = course.CategoryCourses
+                                             .Where(cateCourse => cateCourse.Category.IsVisible == true)
+                                             .Select(cateCourse => new CategoryCourseDto
+                                             {
+                                                  Id = cateCourse.Id,
+                                                  Category = new CategoryDto
+                                                  {
+                                                       Names = new List<string?> { cateCourse.Category.Name },
+                                                       cateId = cateCourse.Category.Id,
+                                                       Name = cateCourse.Category.Name,
+                                                       IsVisible = cateCourse.Category.IsVisible
+                                                  }
+                                             })
+                                             .ToList(),
+                    };
+
+                    courseDtos.Add(courseDto);
+                }
+
+                var followersList = followers
+                    .Select(follow => new UserProfileBeSeenDto
+                    {
+                        Id = follow.Id,
+                        Username = follow.Username,
+                        Email = follow.Email,
+                        Dob = follow.Dob,
+                        Phone = follow.Phone,
+                        Description = follow.Description,
+                        Images = follow.Images
+                                        .OrderByDescending(i => i.CreatedAt)
+                                        .Select(i => new ImageForAdminDto
+                                        {
+                                            Id = i.Id,
+                                            Url = i.Url,
+                                            Type = i.Type,
+                                            LastUpdated = i.CreatedAt
+                                        })
+                                        .Take(1)
+                                        .ToList() ?? new List<ImageForAdminDto>()
+                    }).ToList();
+
+                var userProfile = new UserProfileBeSeenDto
+                {
+                    Id = user.Id,
+                    Username = user.Username,
+                    Description = user.Description,
+                    Email = user.Email,
+                    Dob = user.Dob,
+                    Phone = user.Phone,
+                    TotalStudents = TotalStudents,
+                    TotalCourses = TotalCourses,
+                    AverageRatingForCourses = AverageRatingForCourses,
+                    Images = user.Images?
+                                    .OrderByDescending(i => i.CreatedAt)
+                                    .Select(i => new ImageForAdminDto
+                                    {
+                                        Id = i.Id,
+                                        Url = i.Url,
+                                        Type = i.Type,
+                                        LastUpdated = i.CreatedAt
+                                    })
+                                    .Take(1)
+                                    .ToList() ?? new List<ImageForAdminDto>(),
+                    Courses = courseDtos,
+                    FollowFollowers = followersList.Count != 0 ? followersList : new List<UserProfileBeSeenDto>()
+                };
+
+                return userProfile;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+                throw;
+            }
         }
     }
 }

@@ -423,5 +423,14 @@ namespace BE.Services.Implementations
 
             return await _userRepo.GetInstructorProfileWithWaitingCourseByInsId(insId);
         }
+
+        public async Task<UserProfileBeSeenDto> GetUserProfileBeSeenDataAsync(string userId)
+        {
+            var user = await _userRepo.GetUserById(userId);
+
+            if(user == null) return new UserProfileBeSeenDto();
+
+            return await _userRepo.GetUserProfileBeSeenData(userId);
+        }
     }
 }
