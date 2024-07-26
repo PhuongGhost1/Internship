@@ -450,8 +450,8 @@ namespace BE.Services.Implementations
                 var lectureCount = await _courseRepo.CountLectureCourse(course.Id);
                 var studentCount = await _courseRepo.CountEnrollCourse(course.Id);
                 var isSaved = false;
-                string? instructorName = null;
-                string? instructorImg = null;
+                var instructorImg = await _userRepo.GetImageUser(course.UserId);
+                var instructorName = (await _userRepo.GetUserById(course.UserId))?.Username;
                 if (dto.UserId != null)
                 {
                     isSaved = await _courseRepo.CheckSavedCourse(course.Id, dto.UserId);

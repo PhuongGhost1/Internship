@@ -29,7 +29,6 @@ namespace BE.Repository.Interface
                 Task<List<ReportManagementByAdminDto>> GetReportManagementByAdmin();
                 Task<bool> UpdateUserCommentReportStatus(string? userId, string reportId, string? commentId, string? courseId);
                 Task<List<User?>> GetAllInstructor();
-
                 Task<bool> UpdateUserProfile(UserProfileDto user);
                 Task<InstructorProfileDto> GetInstructorProfileByInsId(string insId);
                 Task<InstructorProfileDto> GetInstructorProfileWithWaitingCourseByInsId(string insId);

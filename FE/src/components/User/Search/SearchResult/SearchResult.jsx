@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import './SearchResult.css';
 import { IoIosArrowDown } from "react-icons/io";
 import { IoMdCheckmark } from "react-icons/io";
@@ -11,211 +11,12 @@ import { TiStarOutline } from "react-icons/ti";
 import { PiUserCircleFill } from "react-icons/pi";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import { formatTimeToHours } from "../../../../utils/Validation";
 
-export default function SearchResult({ query }) {
-    const datas = [
-        {
-            imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/5e360aa2986a2a96295b34d639919836c323cbb6-1200x900.jpg?w=3840&q=100&fit=clip&auto=format",
-            name: "Blockchain Developer",
-            ratingAVG: 4.5,
-            ratingCount: 2003,
-            timeLearing: "7 hours 43 minutes"
-        },
-        {
-            imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/b122bbb8302858740db71ef43ad17f7097ec7b63-1200x900.jpg?w=3840&q=100&fit=clip&auto=format",
-            name: "Blockchain With Solidity",
-            ratingAVG: 4.5,
-            ratingCount: 2003,
-            timeLearing: "8 hours 45 minutes"
-        },
-        {
-            imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/180434427a41505e6661e4bee15580f296730630-1200x900.jpg?w=3840&q=100&fit=clip&auto=format",
-            name: "Blockchain Fundamental",
-            ratingAVG: 4.5,
-            ratingCount: 279,
-            timeLearing: "8 hours 45 minutes"
-        },
-        {
-            imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-            name: "Discovering Ethical AI",
-            ratingAVG: 4.5,
-            ratingCount: 1789,
-            timeLearing: "8 hours 45 minutes"
-        },
-        {
-            imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-            name: "Discovering Ethical AI",
-            ratingAVG: 4.5,
-            ratingCount: 1789,
-            timeLearing: "8 hours 45 minutes"
-        },
-        {
-            imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-            name: "Discovering Ethical AI",
-            ratingAVG: 4.5,
-            ratingCount: 1789,
-            timeLearing: "8 hours 45 minutes"
-        },
-        {
-            imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-            name: "Discovering Ethical AI",
-            ratingAVG: 4.5,
-            ratingCount: 1789,
-            timeLearing: "8 hours 45 minutes"
-        },
-        {
-            imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-            name: "Discovering Ethical AI",
-            ratingAVG: 4.5,
-            ratingCount: 1789,
-            timeLearing: "8 hours 45 minutes"
-        },
-        {
-            imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-            name: "Discovering Ethical AI",
-            ratingAVG: 4.5,
-            ratingCount: 1789,
-            timeLearing: "8 hours 45 minutes"
-        },
-        {
-            imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-            name: "Discovering Ethical AI",
-            ratingAVG: 4.5,
-            ratingCount: 1789,
-            timeLearing: "8 hours 45 minutes"
-        },
-        {
-            imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-            name: "Discovering Ethical AI",
-            ratingAVG: 4.5,
-            ratingCount: 1789,
-            timeLearing: "8 hours 45 minutes"
-        },
-        {
-            imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-            name: "Discovering Ethical AI",
-            ratingAVG: 4.5,
-            ratingCount: 1789,
-            timeLearing: "8 hours 45 minutes"
-        },
-
-        {
-            imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-            name: "Discovering Ethical AI",
-            ratingAVG: 4.5,
-            ratingCount: 1789,
-            timeLearing: "8 hours 45 minutes"
-        },
-        {
-            imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-            name: "Discovering Ethical AI",
-            ratingAVG: 4.5,
-            ratingCount: 1789,
-            timeLearing: "8 hours 45 minutes"
-        },
-
-        {
-            imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-            name: "Discovering Ethical AI",
-            ratingAVG: 4.5,
-            ratingCount: 1789,
-            timeLearing: "8 hours 45 minutes"
-        },
-        {
-            imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-            name: "Discovering Ethical AI",
-            ratingAVG: 4.5,
-            ratingCount: 1789,
-            timeLearing: "8 hours 45 minutes"
-        },
-
-        {
-            imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-            name: "Discovering Ethical AI",
-            ratingAVG: 4.5,
-            ratingCount: 1789,
-            timeLearing: "8 hours 45 minutes"
-        },
-        {
-            imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-            name: "Discovering Ethical AI",
-            ratingAVG: 4.5,
-            ratingCount: 1789,
-            timeLearing: "8 hours 45 minutes"
-        },
-
-        {
-            imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-            name: "Discovering Ethical AI",
-            ratingAVG: 4.5,
-            ratingCount: 1789,
-            timeLearing: "8 hours 45 minutes"
-        },
-        {
-            imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-            name: "Discovering Ethical AI",
-            ratingAVG: 4.5,
-            ratingCount: 1789,
-            timeLearing: "8 hours 45 minutes"
-        },
-        {
-            imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-            name: "Discovering Ethical AI",
-            ratingAVG: 4.5,
-            ratingCount: 1789,
-            timeLearing: "8 hours 45 minutes"
-        },
-        {
-            imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-            name: "Discovering Ethical AI",
-            ratingAVG: 4.5,
-            ratingCount: 1789,
-            timeLearing: "8 hours 45 minutes"
-        },
-        {
-            imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-            name: "Discovering Ethical AI",
-            ratingAVG: 4.5,
-            ratingCount: 1789,
-            timeLearing: "8 hours 45 minutes"
-        },
-        {
-            imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-            name: "Discovering Ethical AI",
-            ratingAVG: 4.5,
-            ratingCount: 1789,
-            timeLearing: "8 hours 45 minutes"
-        },
-
-        {
-            imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-            name: "Discovering Ethical AI",
-            ratingAVG: 4.5,
-            ratingCount: 1789,
-            timeLearing: "8 hours 45 minutes"
-        },
-        {
-            imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-            name: "Discovering Ethical AI",
-            ratingAVG: 4.5,
-            ratingCount: 1789,
-            timeLearing: "8 hours 45 minutes"
-        },
-        {
-            imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-            name: "Discovering Ethical AI",
-            ratingAVG: 4.5,
-            ratingCount: 1789,
-            timeLearing: "8 hours 45 minutes"
-        },
-        {
-            imgUrl: "https://cdn.sanity.io/images/tlr8oxjg/production/882dcf032f8e9ab350c82a8f70acdfcbd2cbb839-1200x750.png?w=3840&q=100&fit=clip&auto=format",
-            name: "Discovering Ethical AI",
-            ratingAVG: 4.5,
-            ratingCount: 1789,
-            timeLearing: "8 hours 45 minutes"
-        },
-    ]
+export default function SearchResult({ query, datas }) {
+    useEffect(()=>{
+        console.log(datas)
+    },[datas])
     const [isDropDown, setIsDropDown] = useState(false)
     const [sortBy, setSortBy] = useState('Newest')
 
@@ -226,12 +27,6 @@ export default function SearchResult({ query }) {
     const toggleDropdown = () => {
         setIsDropDown(!isDropDown);
     };
-
-    const itemsPerPage = 9;
-
-    const [pagination, setPagination] = useState(1);
-
-    const paginatedData = datas.slice((pagination - 1) * itemsPerPage, pagination * itemsPerPage);
 
     return (
         <div id="search-result">
@@ -267,31 +62,31 @@ export default function SearchResult({ query }) {
                 </div>
             </div>
             <div className="results">
-                {paginatedData.map((data, index) => {
+                {datas.map((data, index) => {
                     return (
                         <div className="result" key={index}>
                             <div className="img-container">
-                                <img src={data.imgUrl} className="background" alt="" />
+                                <img src={data.courseImg} className="background" alt="" />
                                 <div className="owner">
-                                    <img src={user} alt="" />
-                                    <span>Nguyễn Mạnh Duy</span>
+                                    <img src={data.instructorImg} alt="" />
+                                    <span>{data.instructorName}</span>
                                 </div>
                                 <div className="save-course-btn">
                                     <GoBookmark />
                                 </div>
                             </div>
-                            <div className="title">{data.name}</div>
+                            <div className="title">{data.courseName}</div>
                             <div className="info">
-                                <div className="difficult tag"><BsBarChartLine /><span>Beginner</span></div>
-                                <div className="lecture tag"><IoVideocamOutline /><span>Videos</span></div>
-                                <div className="time tag"><AiOutlineFieldTime /><span>3.5 Hrs</span></div>
+                                <div className="difficult tag"><BsBarChartLine /><span>{data.courseLevel}</span></div>
+                                <div className="lecture tag"><IoVideocamOutline /><span>{data.lectureCount} Videos</span></div>
+                                <div className="time tag"><AiOutlineFieldTime /><span>{formatTimeToHours(data.timeTotal)}</span></div>
                             </div>
                             <div className="rating-countS">
                                 <div className="rating card"><TiStarOutline /> <span className="card-info">{data.ratingAVG}</span><span className="card-hint">({data.ratingCount})</span></div>
-                                <div className="student card"><PiUserCircleFill /> <span className="card-info">128</span><span className="card-hint">Students</span></div>
+                                <div className="student card"><PiUserCircleFill /> <span className="card-info">{data.studentCount}</span><span className="card-hint">Students</span></div>
                             </div>
                             <div className="price-add">
-                                <span className="price">$ 30</span>
+                                <span className="price">$ {data.price}</span>
                                 <div className="btn-contain">
                                     <Stack spacing={2} direction="row">
                                         <Button variant="contained" style={{ borderRadius: '10px', padding: '10px 20px' }}>Add To Cart</Button>

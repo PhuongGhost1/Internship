@@ -7,7 +7,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import { ImCancelCircle } from "react-icons/im";
 import Book from '../../../../assets/book.jpg';
 
-export default function SearchBar({ query }) {
+export default function SearchBar({ query}) {
     const [valueInput, setValueInput] = useState(query)
     const navigate = useNavigate()
 
@@ -17,7 +17,7 @@ export default function SearchBar({ query }) {
 
     const handleInputChange = (e) => {
         setValueInput(e.target.value);
-        navigate(`/search?q=${e.target.value}`);
+        navigate(`/search?q=${e.target.value}&page=1`);
     };
 
     return (
@@ -36,7 +36,7 @@ export default function SearchBar({ query }) {
                     <div className="search-bar-item">
                         <div className="search-bar-border">
                             <IoIosSearch className="search-icon" />
-                            <input type="text" />
+                            <input type="text" value={valueInput} onChange={handleInputChange}/>
                             <ImCancelCircle className="cancel-icon" />
                         </div>
                     </div>
