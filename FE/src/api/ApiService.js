@@ -658,6 +658,28 @@ const ApiService = {
         } catch (error) {
             console.log(error)
         }
+    },
+    AddToCart: async (
+        courseId, userId
+    ) => {
+        try {
+            const formData = new FormData();
+            formData.append("courseId", courseId);
+            formData.append("userId", userId);
+
+            const response = await axios.post(
+                `http://localhost:5144/api/v1/web/course/add-cart`,
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    }
+                }
+            );
+            return response.data
+        } catch (error) {
+
+        }
     }
 };
 

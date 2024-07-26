@@ -12,11 +12,12 @@ import { PiUserCircleFill } from "react-icons/pi";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { formatTimeToHours } from "../../../../utils/Validation";
+import ApiService from "../../../../api/ApiService";
 
 export default function SearchResult({ query, datas }) {
-    useEffect(()=>{
+    useEffect(() => {
         console.log(datas)
-    },[datas])
+    }, [datas])
     const [isDropDown, setIsDropDown] = useState(false)
     const [sortBy, setSortBy] = useState('Newest')
 
@@ -24,9 +25,15 @@ export default function SearchResult({ query, datas }) {
         setSortBy(item)
         setIsDropDown(false)
     }
+
     const toggleDropdown = () => {
         setIsDropDown(!isDropDown);
     };
+
+    const fetchAddToCart = async (courseId, userId) => {
+        const data = await ApiService.AddToCart(courseId, userId)
+    };
+
 
     return (
         <div id="search-result">
@@ -89,7 +96,13 @@ export default function SearchResult({ query, datas }) {
                                 <span className="price">$ {data.price}</span>
                                 <div className="btn-contain">
                                     <Stack spacing={2} direction="row">
-                                        <Button variant="contained" style={{ borderRadius: '10px', padding: '10px 20px' }}>Add To Cart</Button>
+                                        <Button
+                                            variant="contained"
+                                            style={{ borderRadius: '10px', padding: '10px 20px' }}
+                                            onClick={fetchAddToCart(data.courseId, user?.id)}
+                                        >
+                                            Add To Cart
+                                        </Button>
                                     </Stack>
                                 </div>
                             </div>
