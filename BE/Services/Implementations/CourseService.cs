@@ -16,6 +16,7 @@ using BE.Dto.Payment.CartCourse;
 using BE.Dto.Message;
 using BE.Dto.ImageD;
 using BE.Dto.Course.FilterSearchCourse;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace BE.Services.Implementations
 {
@@ -474,6 +475,26 @@ namespace BE.Services.Implementations
                 });
             }
             return searchFilterCourse;
+        }
+        public async Task<MessageDto> AddVideoToCourse(string courseId, int chapterIndex, int lectureIndex, IFormFile video)
+        {
+            try
+            {
+                await _courseRepo.AddVideoToLecture(courseId, chapterIndex, lectureIndex, video);
+                return new MessageDto
+                {
+                    Message = "Success",
+                    Status = 1
+                };
+            }
+            catch (Exception e)
+            {
+                return new MessageDto
+                {
+                    Message = e.ToString(),
+                    Status = 0
+                };
+            }
         }
     }
 }

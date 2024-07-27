@@ -34,7 +34,7 @@ export default function CourseVideoContent({ lectureName }) {
     const hlsRef = useRef(null);
 
     useEffect(() => {
-        const src = 'https://storage.googleapis.com/animewebsite-2f080.appspot.com/anime/solo-leveling/Espisode/1/index.m3u8';
+        const src = 'https://storage.googleapis.com/courseonline-fee78.appspot.com/videos/Mastering-NodeJS-and-Express-for-Backend-Development/Chapter1/Lecture1/index.m3u8';
         if (Hls.isSupported()) {
             const hls = new Hls();
             hls.loadSource(src);

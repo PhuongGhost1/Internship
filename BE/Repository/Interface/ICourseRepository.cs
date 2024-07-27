@@ -57,5 +57,6 @@ namespace BE.Repository.Interface
                 Task<List<Course>> FilterCourse(List<Course> courses, InputFilterSearchDto dto);
                 Task<bool> CheckSavedCourse(string courseId, string userId);
                 Task<int> CountEnrollCourse(string courseId);
+                Task AddVideoToLecture(string courseId, int chapterIndex, int lectureIndex, IFormFile video);
         }
 }

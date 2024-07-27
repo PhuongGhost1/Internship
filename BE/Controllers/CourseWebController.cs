@@ -144,12 +144,14 @@ namespace BE.Controllers
             return await _courseService.CreateQuiz(data);
         }
 
-        [CustomAuthorize("Instructor")]
         [HttpPost("UploadVideo")]
-
-        public async Task<string> UploadVideoLecture([FromForm] IFormFile video)
+        public async Task<MessageDto> UploadVideoLecture(
+            [FromForm] string courseId,
+            [FromForm] int chapterIndex,
+            [FromForm] int lectureIndex,
+            [FromForm] IFormFile video)
         {
-            return await UploadVideoToFirebase(video, "Python", 1, 1);
+            return await _courseService.AddVideoToCourse(courseId, chapterIndex, lectureIndex, video);
         }
 
         // [CustomAuthorize("Instructor")]

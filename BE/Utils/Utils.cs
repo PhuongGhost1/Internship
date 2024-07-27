@@ -125,6 +125,7 @@ namespace BE.Utils
             {
                 await video.CopyToAsync(fileStream);
             }
+            Console.WriteLine(videoFilePath);
             ConvertVideoToHls(videoFilePath, videoStoreDirectory);
             if (File.Exists(videoFilePath))
             {
@@ -169,7 +170,7 @@ namespace BE.Utils
 
         public static void ConvertVideoToHls(string inputPath, string outputPath)
         {
-            string arguments = $"-i {inputPath} -codec: copy -start_number 0 -hls_time 2 -hls_list_size 0 -f hls {Path.Combine(outputPath, "index.m3u8")}";
+            string arguments = $"-i \"{inputPath}\" -codec: copy -start_number 0 -hls_time 10 -hls_list_size 0 -f hls \"{Path.Combine(outputPath, "index.m3u8")}\"";
             var process = new System.Diagnostics.Process
             {
                 StartInfo = new System.Diagnostics.ProcessStartInfo
@@ -182,7 +183,13 @@ namespace BE.Utils
                     CreateNoWindow = true,
                 }
             };
+
+            process.OutputDataReceived += (sender, args) => Console.WriteLine(args.Data);
+            process.ErrorDataReceived += (sender, args) => Console.WriteLine(args.Data);
+
             process.Start();
+            process.BeginOutputReadLine();
+            process.BeginErrorReadLine();
             process.WaitForExit();
         }
 

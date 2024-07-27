@@ -1006,5 +1006,14 @@ namespace BE.Repository.Implementations
                return await _context.EnrollCourses.Where(ec => ec.CourseId == courseId)
                                                   .CountAsync();
           }
+          public async Task AddVideoToLecture(string courseId, int chapterIndex, int lectureIndex, IFormFile video)
+          {
+               var chapter = await _context.Chapters.Where(c => c.CourseId == courseId && c.Index == chapterIndex).FirstOrDefaultAsync();
+               var lecture = await _context.Lectures.Where(l => l.Chapter == chapter && l.Index == lectureIndex).FirstOrDefaultAsync();
+               var courseName = (await RetriveCourseInformationById(courseId))?.Name?.Replace(" ", "-");
+               lecture.VideoUrl = await UploadVideoToFirebase(video, courseName, chapterIndex, lectureIndex);
+               _context.Lectures.Update(lecture);
+               await _context.SaveChangesAsync();
+          }
      }
 }

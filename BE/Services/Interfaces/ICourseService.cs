@@ -8,6 +8,7 @@ using BE.Dto.Course.Chapter;
 using BE.Models;
 using BE.Dto.Message;
 using BE.Dto.Course.FilterSearchCourse;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BE.Services.Interfaces
 {
@@ -45,5 +46,7 @@ namespace BE.Services.Interfaces
                 Task<MessageDto> DeleteItemFromCart(string cartCourseId);
                 Task<MessageDto> PayCartCourses(PayCartCourseDto data);
                 Task<List<OutputFilterSearchDto>> SearchFilterCourses(InputFilterSearchDto dto, int page, int items);
+                Task<MessageDto> AddVideoToCourse(string courseId, int chapterIndex, int lectureIndex, IFormFile video);
+
         }
 }
