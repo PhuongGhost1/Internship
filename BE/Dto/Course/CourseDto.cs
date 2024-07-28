@@ -9,13 +9,13 @@ namespace BE.Dto.Course
 {
     public class CourseDto
     {
-        public string? CourseId {get; set;}
-        public string? Name {get; set;} = string.Empty;
+        public string? CourseId { get; set; }
+        public string? Name { get; set; } = string.Empty;
         public List<ChaptersDto> Chapters { get; set; }
-        public List<CategoryDto> Categories {get; set;}
-        public float? RatingAvg {get; set;}
-        public int? RatingNumber {get; set;}
-        public int? EstimatedLearningTime {get; set;}
-        public string? ImageBackground {get; set;} = string.Empty;
+        public List<CategoryDto> Categories { get; set; }
+        public float? RatingAvg { get; set; }
+        public int? RatingNumber { get; set; }
+        public int? EstimatedLearningTime { get; set; }
+        public string? ImageBackground { get; set; } = string.Empty;
     }
 }

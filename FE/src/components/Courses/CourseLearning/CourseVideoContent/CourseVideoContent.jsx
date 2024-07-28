@@ -13,8 +13,11 @@ import Slider from '@mui/material/Slider';
 import LinearProgress from '@mui/material/LinearProgress';
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa6";
+import ApiService from "../../../../api/ApiService";
 
 export default function CourseVideoContent({ lectureName }) {
+    const [videoUrl, setvideoUrl] = useState('');
+    const [videoName, setVideoName] = useState('');
     const [videoInfo, setVideoInfo] = useState({
         isPause: true,
         isMuted: false,
@@ -34,7 +37,8 @@ export default function CourseVideoContent({ lectureName }) {
     const hlsRef = useRef(null);
 
     useEffect(() => {
-        const src = 'https://storage.googleapis.com/courseonline-fee78.appspot.com/videos/Mastering-NodeJS-and-Express-for-Backend-Development/Chapter1/Lecture1/index.m3u8';
+        const src = videoUrl;
+
         if (Hls.isSupported()) {
             const hls = new Hls();
             hls.loadSource(src);
@@ -43,38 +47,53 @@ export default function CourseVideoContent({ lectureName }) {
                 videoRef.current.play();
             });
             hlsRef.current = hls;
-        } else if (videoRef.current.canPlayType('application/vnd.apple.mpegurl')) {
+        } else if (videoRef.current && videoRef.current.canPlayType('application/vnd.apple.mpegurl')) {
             videoRef.current.src = src;
             videoRef.current.addEventListener('canplay', () => {
                 videoRef.current.play();
             });
         }
+
         const updateProgress = () => {
-            const currentTime = videoRef.current.currentTime;
-            const duration = videoRef.current.duration;
-            setProgress((currentTime / duration) * 100);
-            setProgressEdit((currentTime / duration) * 100);
-            setVideoInfo(prev => ({
-                ...prev,
-                currentTime: formatTime(currentTime),
-                maxTime: formatTime(duration)
-            }));
-        };
-
-        console.log(hlsRef.current.currentLevel);
-
-        videoRef.current.addEventListener('timeupdate', updateProgress);
-        videoRef.current.addEventListener('loadedmetadata', updateProgress);
-
-
-        return () => {
-            videoRef.current.removeEventListener('timeupdate', updateProgress);
-            videoRef.current.removeEventListener('loadedmetadata', updateProgress);
-            if (hlsRef.current) {
-                hlsRef.current.destroy();
+            if (videoRef.current) {
+                const currentTime = videoRef.current.currentTime;
+                const duration = videoRef.current.duration;
+                setProgress((currentTime / duration) * 100);
+                setProgressEdit((currentTime / duration) * 100);
+                setVideoInfo(prev => ({
+                    ...prev,
+                    currentTime: formatTime(currentTime),
+                    maxTime: formatTime(duration)
+                }));
             }
         };
-    }, []);
+
+        if (videoRef.current) {
+            videoRef.current.addEventListener('timeupdate', updateProgress);
+            videoRef.current.addEventListener('loadedmetadata', updateProgress);
+        }
+
+        return () => {
+            if (videoRef.current) {
+                videoRef.current.removeEventListener('timeupdate', updateProgress);
+                videoRef.current.removeEventListener('loadedmetadata', updateProgress);
+            }
+            if (hlsRef.current) {
+                hlsRef.current.destroy();
+                hlsRef.current = null;
+            }
+        };
+    }, [videoUrl]);
+
+    useEffect(() => {
+        fetchVideoUrl(lectureName)
+    }, [lectureName])
+
+    const fetchVideoUrl = async (hashCode) => {
+        const data = await ApiService.GetLecture(hashCode);
+        setvideoUrl(data.videoUrl);
+        setVideoName(data.name);
+    }
 
     useEffect(() => {
         console.log(videoInfo.isPause)
@@ -181,7 +200,7 @@ export default function CourseVideoContent({ lectureName }) {
                     <SlArrowRight className="arrow" />
                     <span className="course redict">Course</span>
                     <SlArrowRight className="arrow" />
-                    <span className="lecture-name redict">{lectureName}</span>
+                    <span className="lecture-name redict">{videoName}</span>
                 </div>
                 <div className="prev-next">
                     <div className="prev btn">

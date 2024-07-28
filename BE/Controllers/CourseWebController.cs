@@ -137,7 +137,6 @@ namespace BE.Controllers
             return await _courseService.CreateChapter(data);
         }
 
-        [CustomAuthorize("Instructor")]
         [HttpPost("createQuiz")]
         public async Task<string> CreateQuiz([FromForm] CreateQuizData data)
         {
@@ -267,6 +266,16 @@ namespace BE.Controllers
                 UserId = input.UserId
             };
             return await _courseService.SearchFilterCourses(dto, page, items);
+        }
+        [HttpPost, Route("get-lecture")]
+        public async Task<Lecture> GetLectureByHashCode([FromForm] string hashCode)
+        {
+            return await _courseService.GetLectureByHashCode(hashCode);
+        }
+        [HttpPost, Route("get-quiz")]
+        public async Task<Quiz> GetQuizByHashCode([FromForm] string hashCode)
+        {
+            return await _courseService.GetQuizByHashCode(hashCode);
         }
     }
 }

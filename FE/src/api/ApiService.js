@@ -680,6 +680,42 @@ const ApiService = {
         } catch (error) {
 
         }
+    },
+    GetLecture: async (hashCode) => {
+        try {
+            const formData = new FormData();
+            formData.append('hashCode', hashCode)
+            const response = await axios.post(
+                `http://localhost:5144/api/v1/web/course/get-lecture`,
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    }
+                }
+            );
+            return response.data
+        } catch (error) {
+
+        }
+    },
+    GetQuiz: async (hashCode) => {
+        try {
+            const formData = new FormData();
+            formData.append('hashCode', hashCode)
+            const response = await axios.post(
+                `http://localhost:5144/api/v1/web/course/get-quiz`,
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    }
+                }
+            );
+            return response.data
+        } catch (error) {
+
+        }
     }
 };
 

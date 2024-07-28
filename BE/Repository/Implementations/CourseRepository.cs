@@ -63,7 +63,9 @@ namespace BE.Repository.Implementations
                         Name = l.Name,
                         Index = l.Index,
                         Type = "Lecture",
-                        ChapterId = l.ChapterId
+                        ChapterId = l.ChapterId,
+                        HashCode = GenerateHashCode(l.Id),
+                        Time = l.TimeVideo
                    })
                    .ToListAsync();
 
@@ -75,7 +77,9 @@ namespace BE.Repository.Implementations
                         Name = q.Name,
                         Index = q.Index,
                         Type = "Quiz",
-                        ChapterId = q.ChapterId
+                        ChapterId = q.ChapterId,
+                        HashCode = GenerateHashCode(q.Id),
+                        Time = TimeSpan.FromMinutes(30)
                    })
                    .ToListAsync();
 
@@ -1014,6 +1018,26 @@ namespace BE.Repository.Implementations
                lecture.VideoUrl = await UploadVideoToFirebase(video, courseName, chapterIndex, lectureIndex);
                _context.Lectures.Update(lecture);
                await _context.SaveChangesAsync();
+          }
+          public async Task<Lecture> GetLectureByHashCode(string hashCode)
+          {
+               return _context.Lectures
+                   .AsEnumerable()
+                   .Where(l => GenerateHashCode(l.Id) == hashCode)
+                   .FirstOrDefault();
+          }
+          public async Task<Quiz> GetQuizByHashCode(string hashCode)
+          {
+               var quizzes = await _context.Quizzes.Include(q => q.Questions)
+                                                       .ThenInclude(q => q.Answers)
+                                                       .ToListAsync();
+
+               // Perform the in-memory filter using AsEnumerable
+               var quiz = quizzes
+                   .AsEnumerable()
+                   .FirstOrDefault(q => GenerateHashCode(q.Id) == hashCode);
+
+               return quiz;
           }
      }
 }

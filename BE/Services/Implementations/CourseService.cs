@@ -84,10 +84,6 @@ namespace BE.Services.Implementations
 
         public async Task<CourseDto?> GetLecturesAndQuizzesByCourseId(string courseId)
         {
-            var course = await _courseRepo.RetriveCourseInformationById(courseId);
-
-            if (course == null) throw new Exception("Cannot find course");
-
             var combinedList = await _courseRepo.GetLecturesAndQuizzesByCourseId(courseId);
 
             if (combinedList == null) throw new Exception("Not found lectures or quizzes!");
@@ -176,8 +172,6 @@ namespace BE.Services.Implementations
         {
             if (courseName == null) throw new Exception("Unable to find chapter!");
             var course = await _courseRepo.FindCourseByCourseName(courseName);
-            Console.WriteLine(course);
-
             return course;
         }
 
@@ -495,6 +489,14 @@ namespace BE.Services.Implementations
                     Status = 0
                 };
             }
+        }
+        public async Task<Lecture> GetLectureByHashCode(string hashCode)
+        {
+            return await _courseRepo.GetLectureByHashCode(hashCode);
+        }
+        public async Task<Quiz> GetQuizByHashCode(string hashCode)
+        {
+            return await _courseRepo.GetQuizByHashCode(hashCode);
         }
     }
 }

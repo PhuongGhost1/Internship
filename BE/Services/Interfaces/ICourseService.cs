@@ -47,6 +47,7 @@ namespace BE.Services.Interfaces
                 Task<MessageDto> PayCartCourses(PayCartCourseDto data);
                 Task<List<OutputFilterSearchDto>> SearchFilterCourses(InputFilterSearchDto dto, int page, int items);
                 Task<MessageDto> AddVideoToCourse(string courseId, int chapterIndex, int lectureIndex, IFormFile video);
-
+                Task<Lecture> GetLectureByHashCode(string hashCode);
+                Task<Quiz> GetQuizByHashCode(string hashCode);
         }
 }

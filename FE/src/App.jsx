@@ -49,7 +49,7 @@ function App() {
           <Route path="/courses">
             <Route path=":courseName" element={<CourseDetailPage />} />
             <Route
-              path="learning/:courseType/:itemName"
+              path="learning/:courseName/:courseType/:itemName"
               element={<CourseLearning />}
             />
             <Route path="create/:courseName" element={<CreateCoursePage />} />
