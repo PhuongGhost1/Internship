@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./StudentProfilePage.css";
 
 import Header from "../../../components/Items/Header/Header";
@@ -7,9 +7,21 @@ import PersonalDetail from "../../../components/Student/Profile/PersonalDetail/P
 import CertificationProfile from "../../../components/Student/Profile/CertificationProfile/CertificationProfile";
 import Timeline from "../../../components/Student/Profile/Timeline/Timeline";
 import LoadingOverlay from "../../../components/LoadingOverlay";
+import { AuthContext } from "../../Context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function StudentProfilePage() {
   const [loading, setLoading] = useState(true);
+  const { user } = useContext(AuthContext);
+  const nav = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      console.log(user);
+    } else {
+      nav("/login");
+    }
+  }, []);
 
   useEffect(() => {
     const timeLoading = () => {
@@ -31,7 +43,7 @@ export default function StudentProfilePage() {
           <Timeline />
         </div>
         <div className="courses-certification">
-          <CertificationProfile />
+          <CertificationProfile user={user} />
         </div>
       </div>
       <Footer />

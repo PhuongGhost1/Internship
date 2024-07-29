@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 import "./CourseDetailPage.css";
 
 import Header from "../../../components/Items/Header/Header";
@@ -14,6 +14,7 @@ import CoursesReview from "../../../components/Courses/CoursesReview/CoursesRevi
 
 import api from "../../../api/ApiService";
 import { useParams } from "react-router-dom";
+import { AuthContext } from "../../Context/AuthContext";
 
 export default function CourseDetailPage() {
   const [isIn, setIsIn] = useState("about");
@@ -27,6 +28,7 @@ export default function CourseDetailPage() {
   const { courseName } = useParams();
   const [cardData, setCardData] = useState([]);
   const [comments, setComments] = useState([]);
+  const { user } = useContext(AuthContext);
 
   const scrollToSection = (sectionRef) => {
     const yOffset = -60;
@@ -49,7 +51,10 @@ export default function CourseDetailPage() {
 
   const fetchData = async () => {
     try {
-      const data1 = await api.getCourseByName(courseName, "user_00ebd16723");
+      const data1 = await api.getCourseByName(
+        courseName,
+        user ? user.id : null,
+      );
       setCourseData(data1);
       const data2 = await api.getNewReleaseCourses(6);
       setCardData(data2);
@@ -120,7 +125,10 @@ export default function CourseDetailPage() {
 
   const handleStatusUpdate = async () => {
     try {
-      const data1 = await api.getCourseByName(courseName, "user_00ebd16723");
+      const data1 = await api.getCourseByName(
+        courseName,
+        user ? user.id : null,
+      );
       setCourseData(data1);
     } catch (error) {
       console.log("Error fetching updated course data: ", error);
@@ -136,6 +144,7 @@ export default function CourseDetailPage() {
             <CoursesDetail
               courseData={courseData}
               onStatusUpdate={handleStatusUpdate}
+              user={user}
             />
             <CoursesDetailBar
               onAboutClick={() => {

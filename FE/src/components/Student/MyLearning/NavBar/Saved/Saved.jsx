@@ -6,7 +6,7 @@ import ApiService from "../../../../../api/ApiService";
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
 
-const Saved = () => {
+const Saved = ({ user }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [dataReturn, setDataReturn] = useState([]);
@@ -14,7 +14,7 @@ const Saved = () => {
   const tutorsPerPage = 4;
 
   useEffect(() => {
-    fetchSavedCourse("user_e5d1e4648e");
+    fetchSavedCourse(user.id);
   }, []);
 
   const fetchSavedCourse = async (userId) => {
@@ -32,7 +32,7 @@ const Saved = () => {
   const removeSaveCourse = async (saveCourseId) => {
     try {
       await ApiService.removeSaveCourse(saveCourseId);
-      fetchSavedCourse("user_e5d1e4648e");
+      fetchSavedCourse(user.id);
     } catch (error) {
       console.error("Error removing saved course: ", error);
     }
@@ -41,7 +41,7 @@ const Saved = () => {
   const filteredData = dataReturn.filter(
     (tutor) =>
       tutor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      tutor.level.toLowerCase().includes(searchTerm.toLowerCase())
+      tutor.level.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   const indexOfLastTutor = currentPage * tutorsPerPage;

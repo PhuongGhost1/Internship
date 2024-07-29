@@ -14,7 +14,7 @@ export default function SliderCards({ datas }) {
   useEffect(() => {
     if (datas) {
       setDataLength(datas.length);
-      console.log(datas.length);
+      console.log(datas);
     }
   }, [datas]);
   const sliderRef = useRef(null);

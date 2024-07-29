@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import "./Cart.css";
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
@@ -21,10 +21,11 @@ import ApiService from "../../../api/ApiService";
 import { Link } from "react-router-dom";
 import { IoIosArrowRoundBack, IoIosArrowRoundForward } from "react-icons/io";
 import Modal from "react-modal";
+import { AuthContext } from "../../../pages/Context/AuthContext";
 
 Modal.setAppElement("#root");
 
-export default function Cart() {
+export default function Cart({ user }) {
   const [datas, setDatas] = useState([]);
   const [dataFull, setDataFull] = useState([]);
   const [checkedItems, setCheckedItems] = useState({});
@@ -38,7 +39,7 @@ export default function Cart() {
 
   const fetchCartData = async () => {
     try {
-      const viewcartData = await ApiService.getCart("user_2a120a4776");
+      const viewcartData = await ApiService.getCart(user.id);
       setDatas(viewcartData.carts);
       const initialCheckedState = {};
       viewcartData.carts.forEach((cart) => {
@@ -94,7 +95,7 @@ export default function Cart() {
     const fetchFullData = async () => {
       try {
         const viewFullData = await ApiService.getNewReleaseCourses(
-          itemsPerPage
+          itemsPerPage,
         );
         setDataFull(viewFullData);
       } catch (error) {
@@ -138,12 +139,12 @@ export default function Cart() {
 
   const paginatedData = datas.slice(
     (pagination - 1) * itemsPerPage,
-    pagination * itemsPerPage
+    pagination * itemsPerPage,
   );
 
   const paginatedFullData = dataFull.slice(
     (pagination - 1) * itemsPerPage,
-    pagination * itemsPerPage
+    pagination * itemsPerPage,
   );
 
   // Slide functionality
@@ -215,12 +216,14 @@ export default function Cart() {
     try {
       const response = await ApiService.payCartCourse(
         selectedCartCourseIds,
-        "user_2a120a4776"
+        user.id,
       );
       if (response.status === 1) {
         alert("Payment successful");
       } else if (response.status === 2) {
-        alert("Your wallet balance is insufficient, please choose Credit Card or Paypal.");
+        alert(
+          "Your wallet balance is insufficient, please choose Credit Card or Paypal.",
+        );
       } else {
         alert("Payment failed: " + response.Message);
       }
@@ -234,7 +237,7 @@ export default function Cart() {
       try {
         const response = await ApiService.createPaypalOrder(total, userId);
         const approvalUrl = response.links.find(
-          (link) => link.rel === "approve"
+          (link) => link.rel === "approve",
         ).href;
         window.location.href = approvalUrl;
       } catch (error) {
@@ -292,14 +295,14 @@ export default function Cart() {
 
   useEffect(() => {
     if (isOpenVisible) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = "auto";
     }
   }, [isOpenVisible]);
 
   useEffect(() => {
-    document.body.style.overflow = (isOpenVisible) ? 'hidden' : 'auto';
+    document.body.style.overflow = isOpenVisible ? "hidden" : "auto";
   }, [isOpenVisible]);
 
   return (
@@ -385,7 +388,7 @@ export default function Cart() {
                     </div>
                   </div>
                 </div>
-              ))
+              )),
             )}
           </div>
           <div className="container2">
@@ -406,20 +409,37 @@ export default function Cart() {
                     pointerEvents: total > 0 ? "auto" : "none",
                     color: total > 0 ? "white" : "white",
                   }}
-                  onClick={() => { total > 0 && setIsOpenVisible(true); }} // Only setIsOpenVisible if total > 0
+                  onClick={() => {
+                    total > 0 && setIsOpenVisible(true);
+                  }} // Only setIsOpenVisible if total > 0
                 >
                   <div className="icon">
                     <MdPayments size={20} />
                   </div>
 
                   <div className="text">
-                    <h2>{total > 0 ? "Continue" : "Select Items to Continue"}</h2>
+                    <h2>
+                      {total > 0 ? "Continue" : "Select Items to Continue"}
+                    </h2>
                   </div>
                 </button>
 
-                <div className="popup-paymentnow" style={isOpenVisible ? { display: 'block' } : { display: 'none' }}>
+                <div
+                  className="popup-paymentnow"
+                  style={
+                    isOpenVisible ? { display: "block" } : { display: "none" }
+                  }
+                >
                   <div className="popup-paymentnow-buttonclose-container">
-                    <div className="popup-paymentnow-buttonclose" onClick={() => { setIsOpenVisible(false) }} title="Close Popup">Close X</div>
+                    <div
+                      className="popup-paymentnow-buttonclose"
+                      onClick={() => {
+                        setIsOpenVisible(false);
+                      }}
+                      title="Close Popup"
+                    >
+                      Close X
+                    </div>
                   </div>
 
                   <div className="popup-row">
@@ -429,7 +449,10 @@ export default function Cart() {
 
                     <div className="popup-row-text">
                       <p>
-                        "Choose your payment method: Use 'Pay Now' to pay directly from your wallet balance. If your wallet balance is insufficient, please select either 'Credit Card' or 'Paypal' to complete the transaction."
+                        "Choose your payment method: Use 'Pay Now' to pay
+                        directly from your wallet balance. If your wallet
+                        balance is insufficient, please select either 'Credit
+                        Card' or 'Paypal' to complete the transaction."
                       </p>
                     </div>
 
@@ -451,13 +474,13 @@ export default function Cart() {
                         </div>
 
                         <div className="text">
-                          <h2>{total > 0 ? "Pay Now" : "Select Items to Continue"}</h2>
+                          <h2>
+                            {total > 0 ? "Pay Now" : "Select Items to Continue"}
+                          </h2>
                         </div>
                       </button>
 
-                      <Link
-                        to={`/student/payout`}
-                      >
+                      <Link to={`/student/payout`}>
                         <button
                           className={`pay-bt2 ${total === 0 ? "disabled" : ""}`}
                           style={{
@@ -470,11 +493,14 @@ export default function Cart() {
                           </div>
 
                           <div className="text">
-                            <h2>{total > 0 ? "Credit Card" : "Select Items to Continue"}</h2>
+                            <h2>
+                              {total > 0
+                                ? "Credit Card"
+                                : "Select Items to Continue"}
+                            </h2>
                           </div>
                         </button>
                       </Link>
-
 
                       <button
                         className={`pay-bt3 ${total === 0 ? "disabled" : ""}`}
@@ -482,20 +508,30 @@ export default function Cart() {
                           pointerEvents: total > 0 ? "auto" : "none",
                           color: total > 0 ? "black" : "white",
                         }}
-                        onClick={() => redirectToPaypal(total, "user_2a120a4776")}
+                        onClick={() => redirectToPaypal(total, user.id)}
                       >
                         <div className="icon">
                           <RiPaypalFill size={20} />
                         </div>
                         <div className="text">
-                          <h2>{total > 0 ? "PayPal" : "Select Items to Continue"}</h2>
+                          <h2>
+                            {total > 0 ? "PayPal" : "Select Items to Continue"}
+                          </h2>
                         </div>
                       </button>
                     </div>
                   </div>
                 </div>
 
-                <div className="overlay1" style={isOpenVisible ? { display: 'block' } : { display: 'none' }} onClick={() => { setIsOpenVisible(false) }}></div>
+                <div
+                  className="overlay1"
+                  style={
+                    isOpenVisible ? { display: "block" } : { display: "none" }
+                  }
+                  onClick={() => {
+                    setIsOpenVisible(false);
+                  }}
+                ></div>
               </div>
             </div>
           </div>
@@ -582,9 +618,7 @@ export default function Cart() {
                       <Button
                         variant="contained"
                         style={{ borderRadius: "10px", padding: "10px 20px" }}
-                        onClick={() =>
-                          addCourseToCart(course.id, "user_2a120a4776")
-                        }
+                        onClick={() => addCourseToCart(course.id, user.id)}
                       >
                         Add To Cart
                       </Button>

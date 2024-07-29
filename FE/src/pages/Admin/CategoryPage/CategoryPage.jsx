@@ -1,12 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./CategoryPage.css";
 import Header from "../../../components/Admin/Header/Header";
 import SideBar from "../../../components/Admin/SideBar/SideBar";
 import Category from "../../../components/Admin/Category/Category";
 import LoadingOverlay from "../../../components/LoadingOverlay";
+import { AuthContext } from "../../Context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function CategoryPage() {
   const [loading, setLoading] = useState(true);
+  const [userId, setUserId] = useState(null);
+  const { user } = useContext(AuthContext);
+  const nav = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      setUserId(user.id);
+    } else {
+      nav("/login");
+    }
+  }, [user]);
 
   useEffect(() => {
     const timeLoading = () => {
@@ -18,19 +31,25 @@ export default function CategoryPage() {
     timeLoading();
   }, []);
   return (
-    <div id="CategoryPage">
-      <LoadingOverlay loading={loading} />
-      <div className="Header-Admin">
-        <Header />
-      </div>
-      <div className="Layout">
-        <div className="SideBar-container">
-          <SideBar type="category" />
+    <>
+      {userId ? (
+        <div id="CategoryPage">
+          <LoadingOverlay loading={loading} />
+          <div className="Header-Admin">
+            <Header user={user} />
+          </div>
+          <div className="Layout">
+            <div className="SideBar-container">
+              <SideBar type="category" />
+            </div>
+            <div className="Category-container">
+              <Category />
+            </div>
+          </div>
         </div>
-        <div className="Category-container">
-          <Category />
-        </div>
-      </div>
-    </div>
+      ) : (
+        <p>No user</p>
+      )}
+    </>
   );
 }

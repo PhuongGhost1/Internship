@@ -6,10 +6,12 @@ import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
 import ApiService from "../../../api/ApiService";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
-function CoursesDetail({ courseData, onStatusUpdate }) {
+function CoursesDetail({ courseData, onStatusUpdate, user }) {
   const [isFollowing, setIsFollowing] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
+  const nav = useNavigate();
 
   useEffect(() => {
     if (courseData) {
@@ -17,34 +19,42 @@ function CoursesDetail({ courseData, onStatusUpdate }) {
   }, [courseData]);
 
   const handleStatusChangeForFollowing = async (FollowerId, FollowedId) => {
-    setIsFollowing(courseData.user?.statusFollowing === true ? true : false);
-    try {
-      if (isFollowing) {
-        await ApiService.removeFollowing(FollowerId, FollowedId);
-      } else {
-        await ApiService.createFollowing(FollowerId, FollowedId);
+    if (user) {
+      setIsFollowing(courseData.user?.statusFollowing === true ? true : false);
+      try {
+        if (isFollowing) {
+          await ApiService.removeFollowing(FollowerId, FollowedId);
+        } else {
+          await ApiService.createFollowing(FollowerId, FollowedId);
+        }
+        setIsFollowing(!isFollowing);
+        onStatusUpdate();
+      } catch (error) {
+        console.error("Error updating following status: ", error);
       }
-      setIsFollowing(!isFollowing);
-      onStatusUpdate();
-    } catch (error) {
-      console.error("Error updating following status: ", error);
+    } else {
+      nav("/login");
     }
   };
 
   const handleStatusChangeForSaveCourse = async (CourseId, UserId) => {
-    setIsSaved(
-      courseData.saveCourses[0]?.statusSaveCourse === true ? true : false
-    );
-    try {
-      if (isSaved) {
-        await ApiService.removeSaveCourse(courseData.saveCourses[0].id);
-      } else {
-        await ApiService.createSaveCourse(CourseId, UserId);
+    if (user) {
+      setIsSaved(
+        courseData.saveCourses[0]?.statusSaveCourse === true ? true : false,
+      );
+      try {
+        if (isSaved) {
+          await ApiService.removeSaveCourse(courseData.saveCourses[0].id);
+        } else {
+          await ApiService.createSaveCourse(CourseId, UserId);
+        }
+        setIsSaved(!isSaved);
+        onStatusUpdate();
+      } catch (error) {
+        console.error("Error updating save course status: ", error);
       }
-      setIsSaved(!isSaved);
-      onStatusUpdate();
-    } catch (error) {
-      console.error("Error updating save course status: ", error);
+    } else {
+      nav("/login");
     }
   };
 
@@ -52,9 +62,7 @@ function CoursesDetail({ courseData, onStatusUpdate }) {
     <div id="courses-detail">
       <p className="courses-title">{courseData?.name}</p>
       <button
-        onClick={() =>
-          handleStatusChangeForSaveCourse(courseData?.id, "user_e5d1e4648e")
-        }
+        onClick={() => handleStatusChangeForSaveCourse(courseData?.id, user.id)}
         className="heart-button"
       >
         {isSaved === true ? <FaHeart /> : <FaRegHeart />}
@@ -78,10 +86,7 @@ function CoursesDetail({ courseData, onStatusUpdate }) {
           <div className="Subscribe">
             <button
               onClick={() =>
-                handleStatusChangeForFollowing(
-                  "user_e5d1e4648e",
-                  courseData?.user?.id
-                )
+                handleStatusChangeForFollowing(user.id, courseData?.user?.id)
               }
               className={`follow-button ${
                 isFollowing ? "following" : "not-following"
@@ -130,7 +135,7 @@ const FollowInfoPropType = PropTypes.shape({
       followFolloweds: PropTypes.arrayOf(PropTypes.object),
       followFollowers: PropTypes.arrayOf(PropTypes.object),
       statusFollowing: PropTypes.bool,
-    })
+    }),
   ),
   followFollowers: PropTypes.arrayOf(
     PropTypes.shape({
@@ -145,7 +150,7 @@ const FollowInfoPropType = PropTypes.shape({
       followFolloweds: PropTypes.arrayOf(PropTypes.object),
       followFollowers: PropTypes.arrayOf(PropTypes.object),
       statusFollowing: PropTypes.bool,
-    })
+    }),
   ),
   statusFollowing: PropTypes.bool,
 });
@@ -165,7 +170,7 @@ CoursesDetail.propTypes = {
           name: PropTypes.string.isRequired,
           names: PropTypes.arrayOf(PropTypes.string),
         }),
-      })
+      }),
     ),
     saveCourses: PropTypes.arrayOf(
       PropTypes.shape({
@@ -182,7 +187,7 @@ CoursesDetail.propTypes = {
           name: PropTypes.string,
           email: PropTypes.string,
         }),
-      })
+      }),
     ),
     user: PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -199,6 +204,10 @@ CoursesDetail.propTypes = {
     }),
   }),
   onStatusUpdate: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default CoursesDetail;

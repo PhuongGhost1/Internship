@@ -4,13 +4,13 @@ import "./CreatingCourse.css";
 import { FaArrowRight } from "react-icons/fa";
 import ApiService from "../../../../api/ApiService";
 
-export default function CreatingCourse() {
+export default function CreatingCourse({ user }) {
   const [userData, setUserData] = useState([]);
 
   useEffect(() => {
     const fetchCreatingCoursesData = async () => {
       try {
-        const data = await ApiService.getWaitingCourses("user_400182aadc");
+        const data = await ApiService.getWaitingCourses(user.id);
         setUserData(data);
       } catch (error) {
         console.log("Error fetching creating courses: ", error);

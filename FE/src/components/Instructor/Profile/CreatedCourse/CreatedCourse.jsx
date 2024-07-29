@@ -6,14 +6,14 @@ import { FaRegStopCircle } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
 import ApiService from "../../../../api/ApiService";
 
-export default function CreatedCourse() {
+export default function CreatedCourse({ user }) {
   const [instructorProfile, setInstructorProfile] = useState(null); // Initialize with null
   const [openDropdownIndex, setOpenDropdownIndex] = useState(null);
 
   useEffect(() => {
     const fetchInstructorProfileData = async () => {
       try {
-        const data = await ApiService.getInstructorProfile("user_400182aadc");
+        const data = await ApiService.getInstructorProfile(user.id);
         setInstructorProfile(data);
       } catch (error) {
         console.log("Error fetching instructor profile data: ", error);
