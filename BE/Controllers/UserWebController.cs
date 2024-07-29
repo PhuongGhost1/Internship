@@ -194,5 +194,10 @@ namespace BE.Controllers
         {
             return await _userService.GetUserProfileBeSeenDataAsync(userId);
         }
+        [HttpGet, Route("get-user-role")]
+        public async Task<Role?> GetUserRole([FromQuery] string userId)
+        {
+            return await _userService.GetUserRole(userId);
+        }
     }
 }

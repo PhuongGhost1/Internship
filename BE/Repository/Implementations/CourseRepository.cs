@@ -23,6 +23,7 @@ using BE.Dto.Category;
 using BE.Dto.Follow;
 using BE.Dto.Cart;
 using BE.Dto.Course.FilterSearchCourse;
+using BE.Dto.Message;
 
 namespace BE.Repository.Implementations
 {
@@ -1229,6 +1230,43 @@ namespace BE.Repository.Implementations
                    .FirstOrDefault(q => GenerateHashCode(q.Id) == hashCode);
 
                return quiz;
+          }
+          public async Task<MessageDto> CreateCourseWithName(string userId, string courseName, IFormFile image){
+               try
+               {
+                    var courseId = GenerateIdModel("course");
+                    var course = new Course{
+                         Id = courseId,
+                         Name = courseName,
+                         UserId = userId,
+                         CreateAt = GetTimeNow(),
+                         Price = 0,
+                         Status = 3,
+                         IsVisible = true,
+                         Rating = 0,
+                    };
+                    _context.Courses.Add(course);
+                    var imageUrl = await UploadImgCourseToFirebase(image, GetNameUnderscore(courseName), "Background");
+                    var imageObj = new Image{
+                         Id = GenerateIdModel("image"),
+                         Url = imageUrl,
+                         CourseId = courseId,
+                         CreatedAt = GetTimeNow(),
+                    };
+                    _context.Images.Add(imageObj);
+                    await _context.SaveChangesAsync();
+                    return new MessageDto{
+                         Message = "Create success",
+                         Status = 1
+                    };
+               }
+               catch (System.Exception e)
+               {
+                    return new MessageDto{
+                         Message = e.Message,
+                         Status = 0
+                    };
+               }
           }
      }
 }

@@ -511,5 +511,8 @@ namespace BE.Services.Implementations
         {
             return await _courseRepo.GetQuizByHashCode(hashCode);
         }
+        public async Task<MessageDto> CreateCourseWithName(string userId, string courseName, IFormFile image){
+            return await _courseRepo.CreateCourseWithName(userId, courseName, image);
+        }
     }
 }

@@ -51,5 +51,6 @@ namespace BE.Services.Interfaces
                 Task<MessageDto> AddVideoToCourse(string courseId, int chapterIndex, int lectureIndex, IFormFile video);
                 Task<Lecture> GetLectureByHashCode(string hashCode);
                 Task<Quiz> GetQuizByHashCode(string hashCode);
+                Task<MessageDto> CreateCourseWithName(string userId, string courseName, IFormFile image);
         }
 }

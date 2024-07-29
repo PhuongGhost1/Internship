@@ -1049,5 +1049,11 @@ namespace BE.Repository.Implementations
                 throw;
             }
         }
+        public async Task<Role?> GetUserRole(string userId){
+            var userRole = await _context.RoleUsers.Where(ru => ru.UserId == userId && ru.Status == 1 )
+                                                    .OrderByDescending(ru => ru.UpdateDate)
+                                                    .FirstOrDefaultAsync();
+            return userRole.Role;
+        }
     }
 }

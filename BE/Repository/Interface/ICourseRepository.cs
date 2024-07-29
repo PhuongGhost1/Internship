@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using BE.Dto.User;
 using BE.Dto.ImageD;
 using BE.Dto.Course.FilterSearchCourse;
+using BE.Dto.Message;
 
 namespace BE.Repository.Interface
 {
@@ -62,5 +63,6 @@ namespace BE.Repository.Interface
                 Task AddVideoToLecture(string courseId, int chapterIndex, int lectureIndex, IFormFile video);
                 Task<Lecture> GetLectureByHashCode(string hashCode);
                 Task<Quiz> GetQuizByHashCode(string hashCode);
+                Task<MessageDto> CreateCourseWithName(string userId, string courseName, IFormFile image);
         }
 }
