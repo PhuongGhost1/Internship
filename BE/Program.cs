@@ -16,6 +16,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
 using Microsoft.AspNetCore.Http.Features;
+using BE.Helpers;
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 

@@ -210,7 +210,7 @@ namespace BE.Services.Implementations
             { "code", code },
             { "client_id", _config["Google:ClientId"] },
             { "client_secret", _config["Google:ClientSecret"] },
-            { "redirect_uri", $"{_httpContextAccessor.HttpContext.Request.Scheme}://{_httpContextAccessor.HttpContext.Request.Host}/api/v1/web/user/signin-google" },
+            { "redirect_uri", "https://groupcooked.happyflower-ab63cd56.southeastasia.azurecontainerapps.io/api/v1/web/user/signin-google" },
             { "grant_type", "authorization_code" }
         };
 
