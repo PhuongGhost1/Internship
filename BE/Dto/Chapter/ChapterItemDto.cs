@@ -11,6 +11,8 @@ namespace BE.Dto.Chapter
         public string? Name { get; set; } = string.Empty;
         public int? Index { get; set; }
         public string? Type { get; set; } = string.Empty;
-        public string? ChapterId {get; set;} = string.Empty;
+        public string? ChapterId { get; set; } = string.Empty;
+        public string? HashCode { get; set; } = string.Empty;
+        public TimeSpan? Time { get; set; }
     }
 }

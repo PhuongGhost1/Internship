@@ -44,3 +44,27 @@ export const CoverMinutesToHours = (minutes) => {
 export const nameNavigation = (courseName) => {
   return courseName.toLowerCase().split(' ').join('-');
 };
+
+export const formatTimeToHours = (timeString) => {
+  const [hours, minutes, seconds] = timeString.split(':').map(Number);
+
+  const totalHours = hours + (minutes / 60) + (seconds / 3600);
+
+  const formattedHours = totalHours.toFixed(1);
+
+  return `${formattedHours} Hrs`;
+}
+
+export const convertTimeString = (timeString) => {
+  const [hours, minutes, seconds] = timeString.split(':').map(Number);
+
+  if (hours === 0 && minutes !== 0) {
+    return `${minutes} min`;
+  } else if (hours === 0 && minutes === 0) {
+    return `${seconds} sec`;
+  } else {
+    const totalMinutes = (hours * 60) + minutes;
+    return `${totalMinutes} min`;
+  }
+}
+

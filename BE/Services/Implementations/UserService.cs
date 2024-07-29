@@ -277,7 +277,6 @@ namespace BE.Services.Implementations
                 RedirectUri = _httpContextAccessor.HttpContext.Request.Host + "/User/FacebookResponse"
             };
 
-            // return await _httpContextAccessor.HttpContext.ChallengeAsync(FacebookDefaults.AuthenticationScheme, properties);
             return new ReturnLoginDto
             {
 

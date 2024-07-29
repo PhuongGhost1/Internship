@@ -5,7 +5,7 @@ import ChapterDetailSB from "../../../Items/ChapterDetailSB/ChapterDetailSB";
 import { FaListUl } from "react-icons/fa";
 import { MdMoreVert } from "react-icons/md";
 
-export default function CourseSlideBar({ data }) {
+export default function CourseSlideBar({ data, courseName, itemName }) {
     const [isOpenSlideBar, setIsOpenSlideBar] = useState(true)
     const [isContentVisible, setIsContentVisible] = useState(true);
 
@@ -35,7 +35,12 @@ export default function CourseSlideBar({ data }) {
                         <p>Hide Menu</p>
                     </div>
                     {data.map((chapter, index) => (
-                        <ChapterDetailSB key={index} chapter={chapter} index={index} />
+                        <ChapterDetailSB
+                            key={index}
+                            chapter={chapter}
+                            index={index}
+                            courseName={courseName}
+                            itemName={itemName} />
                     ))}
                 </div>
             )}

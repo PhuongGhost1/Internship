@@ -17,6 +17,7 @@ using BE.Dto.Message;
 using BE.Dto.User;
 using BE.Dto.ImageD;
 using BE.Dto.Course.FilterSearchCourse;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace BE.Services.Implementations
 {
@@ -84,10 +85,6 @@ namespace BE.Services.Implementations
 
         public async Task<CourseDto?> GetLecturesAndQuizzesByCourseId(string courseId)
         {
-            var course = await _courseRepo.RetriveCourseInformationById(courseId);
-
-            if (course == null) throw new Exception("Cannot find course");
-
             var combinedList = await _courseRepo.GetLecturesAndQuizzesByCourseId(courseId);
 
             if (combinedList == null) throw new Exception("Not found lectures or quizzes!");
@@ -465,8 +462,8 @@ namespace BE.Services.Implementations
                 var lectureCount = await _courseRepo.CountLectureCourse(course.Id);
                 var studentCount = await _courseRepo.CountEnrollCourse(course.Id);
                 var isSaved = false;
-                string? instructorName = null;
-                string? instructorImg = null;
+                var instructorImg = await _userRepo.GetImageUser(course.UserId);
+                var instructorName = (await _userRepo.GetUserById(course.UserId))?.Username;
                 if (dto.UserId != null)
                 {
                     isSaved = await _courseRepo.CheckSavedCourse(course.Id, dto.UserId);
@@ -489,6 +486,34 @@ namespace BE.Services.Implementations
                 });
             }
             return searchFilterCourse;
+        }
+        public async Task<MessageDto> AddVideoToCourse(string courseId, int chapterIndex, int lectureIndex, IFormFile video)
+        {
+            try
+            {
+                await _courseRepo.AddVideoToLecture(courseId, chapterIndex, lectureIndex, video);
+                return new MessageDto
+                {
+                    Message = "Success",
+                    Status = 1
+                };
+            }
+            catch (Exception e)
+            {
+                return new MessageDto
+                {
+                    Message = e.ToString(),
+                    Status = 0
+                };
+            }
+        }
+        public async Task<Lecture> GetLectureByHashCode(string hashCode)
+        {
+            return await _courseRepo.GetLectureByHashCode(hashCode);
+        }
+        public async Task<Quiz> GetQuizByHashCode(string hashCode)
+        {
+            return await _courseRepo.GetQuizByHashCode(hashCode);
         }
     }
 }

@@ -220,9 +220,106 @@
     height: 40px;
     font-size: 16px;
     border-radius: 50%;
+    cursor: pointer;
 }
 
 #course-quiz-content .questions-container .question .answer p {
     font-size: 15px;
     flex: 1
+}
+
+#course-quiz-content .start-quiz-container {
+    padding: 40px 260px;
+}
+
+#course-quiz-content .start-quiz-container .title {
+    font-size: 44px;
+}
+
+#course-quiz-content .start-quiz-container .grade-start {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background-color: #d9eafd;
+    padding: 24px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+#course-quiz-content .start-quiz-container .grade-start .grade-title {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+#course-quiz-content .start-quiz-container .grade-start .grade-description {
+    color: rgb(99, 99, 99);
+    margin-top: 5px;
+}
+
+#course-quiz-content .start-quiz-container .grade-start .score {
+    font-size: 28px;
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+#course-quiz-content .start-quiz-container .start-btn-container {
+    display: flex;
+    align-items: center;
+}
+
+#course-quiz-content .start-quiz-container .start-btn-container .start-btn {
+    color: white;
+    background-color: var(--light-orange);
+    padding: 12px 24px;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#course-quiz-content .start-quiz-container .start-btn-container .start-btn:hover {
+    background-color: var(--dark-orange);
+}
+
+#course-quiz-content .submit-cancle {
+    display: flex;
+}
+
+#course-quiz-content .submit-cancle .button {
+    margin-right: 30px;
+    padding: 8px 22px;
+    border: 2px solid var(--light-orange);
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#course-quiz-content .submit-cancle .submit-btn {
+    color: #f9f9f9;
+    background-color: var(--light-orange);
+}
+
+#course-quiz-content .submit-cancle .back-btn {
+    color: var(--light-orange);
+}
+
+#course-quiz-content .submit-cancle .button:hover {
+    background-color: var(--dark-orange);
+    border: 2px solid var(--dark-orange);
+    color: #f9f9f9;
+}
+
+#course-quiz-content .border-letter.selected {
+    background-color: var(--light-orange);
+    color: white;
+}
+
+#course-quiz-content .border-letter:hover {
+    border: 1px solid var(--light-orange);
+    color: var(--light-orange);
+}
+
+#course-quiz-content .border-letter.selected:hover {
+    color: white;
 }

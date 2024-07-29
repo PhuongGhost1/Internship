@@ -887,18 +887,77 @@ const ApiService = {
       formData.append("levels", JSON.stringify(levels));
       formData.append("userId", userId);
 
-      const response = await axios.post(
-        `https://groupcooked.happyflower-ab63cd56.southeastasia.azurecontainerapps.io/api/v1/web/course/search-filter?page=${page}&items=${items}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
+            const response = await axios.post(
+                `http://localhost:5144/api/v1/web/course/search-filter?page=${page}&items=${items}`,
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    }
+                }
+            );
+            return response.data
+        } catch (error) {
+            console.log(error)
         }
-      );
-      return response.data;
-    } catch (error) {
-      console.log(error);
+    },
+    AddToCart: async (
+        courseId, userId
+    ) => {
+        try {
+            const formData = new FormData();
+            formData.append("courseId", courseId);
+            formData.append("userId", userId);
+
+            const response = await axios.post(
+                `http://localhost:5144/api/v1/web/course/add-cart`,
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    }
+                }
+            );
+            return response.data
+        } catch (error) {
+
+        }
+    },
+    GetLecture: async (hashCode) => {
+        try {
+            const formData = new FormData();
+            formData.append('hashCode', hashCode)
+            const response = await axios.post(
+                `http://localhost:5144/api/v1/web/course/get-lecture`,
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    }
+                }
+            );
+            return response.data
+        } catch (error) {
+
+        }
+    },
+    GetQuiz: async (hashCode) => {
+        try {
+            const formData = new FormData();
+            formData.append('hashCode', hashCode)
+            const response = await axios.post(
+                `http://localhost:5144/api/v1/web/course/get-quiz`,
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    }
+                }
+            );
+            return response.data
+        } catch (error) {
+
+        }
     }
   },
 };

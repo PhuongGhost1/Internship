@@ -6,7 +6,7 @@ import FilterBar from "../../../components/User/Search/FilterBar/FilterBar";
 import SearchResult from "../../../components/User/Search/SearchResult/SearchResult";
 import Header from "../../../components/Items/Header/Header";
 import Footer from "../../../components/Items/Footer/Footer";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import ApiService from "../../../api/ApiService";
 import { AuthContext } from "../../Context/AuthContext";
 
@@ -21,6 +21,7 @@ export default function SearchPage() {
     const [categories, setCategories] = useState([]);
     const [selectedCategories, setSelectedCategories] = useState([])
     const [datas, setDatas] = useState([])
+    const navigation = useNavigate()
 
     useEffect(() => {
         fetchCategories()
@@ -110,10 +111,6 @@ export default function SearchPage() {
     }
 
     useEffect(() => {
-        selectedCategories
-    }, [selectedCategories])
-
-    useEffect(() => {
         let userId = null;
         if (user) {
             userId = user.id
@@ -132,15 +129,13 @@ export default function SearchPage() {
         setDatas(data)
     }
 
-    useEffect(() => {
-        console.log(datas)
-    }, [datas])
-
     return (
         <div id="search-page">
             <Header />
             <div className="search-page-container">
-                <SearchBar query={q} />
+                <SearchBar 
+                    query={q} 
+                    handleInputSearch />
                 <div className="filter-result">
                     <div className="filter-container">
                         <FilterBar
@@ -155,7 +150,7 @@ export default function SearchPage() {
                             hanldeDifficultClick={hanldeDifficultClick} />
                     </div>
                     <div className="result-container">
-                        <SearchResult query={q} />
+                        <SearchResult query={q} datas={datas} />
                     </div>
                 </div>
             </div>

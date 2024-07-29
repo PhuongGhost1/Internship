@@ -26,12 +26,14 @@
     margin-top: 10px;
 }
 
-#item-chapter-sb:hover {
+#item-chapter-sb:hover,
+#item-chapter-sb.active {
     background-color: #f7f7f7;
 }
 
 
-#item-chapter-sb:hover::before {
+#item-chapter-sb:hover::before,
+#item-chapter-sb.active::before {
     position: absolute;
     top: 0;
     left: 0;

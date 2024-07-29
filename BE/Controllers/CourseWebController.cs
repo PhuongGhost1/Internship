@@ -137,19 +137,20 @@ namespace BE.Controllers
             return await _courseService.CreateChapter(data);
         }
 
-        //[CustomAuthorize("Instructor")]
         [HttpPost("createQuiz")]
         public async Task<string> CreateQuiz([FromForm] CreateQuizData data)
         {
             return await _courseService.CreateQuiz(data);
         }
 
-        //[CustomAuthorize("Instructor")]
         [HttpPost("UploadVideo")]
-
-        public async Task<string> UploadVideoLecture([FromForm] IFormFile video)
+        public async Task<MessageDto> UploadVideoLecture(
+            [FromForm] string courseId,
+            [FromForm] int chapterIndex,
+            [FromForm] int lectureIndex,
+            [FromForm] IFormFile video)
         {
-            return await UploadVideoToFirebase(video, "Python", 1, 1);
+            return await _courseService.AddVideoToCourse(courseId, chapterIndex, lectureIndex, video);
         }
 
         // [CustomAuthorize("Instructor")]
@@ -271,6 +272,16 @@ namespace BE.Controllers
                 UserId = input.UserId
             };
             return await _courseService.SearchFilterCourses(dto, page, items);
+        }
+        [HttpPost, Route("get-lecture")]
+        public async Task<Lecture> GetLectureByHashCode([FromForm] string hashCode)
+        {
+            return await _courseService.GetLectureByHashCode(hashCode);
+        }
+        [HttpPost, Route("get-quiz")]
+        public async Task<Quiz> GetQuizByHashCode([FromForm] string hashCode)
+        {
+            return await _courseService.GetQuizByHashCode(hashCode);
         }
     }
 }

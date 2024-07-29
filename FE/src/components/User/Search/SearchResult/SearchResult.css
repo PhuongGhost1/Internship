@@ -170,6 +170,9 @@
   font-size: 18px;
   font-weight: 600;
   margin: 15px 0;
+  white-space: nowrap; 
+  overflow: hidden;   
+  text-overflow: ellipsis;
 }
 
 #search-result .result .info {

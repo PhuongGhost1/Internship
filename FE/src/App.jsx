@@ -36,64 +36,63 @@ import InstructorDashBoard from "./pages/InstructorPage/DashBoard/InstructorDash
 import UserInfoPage from "./pages/UserPage/UserInfoPage/UserInfoPage";
 
 function App() {
-     return (
-          <BrowserRouter>
-               <AuthProvider>
-                    <Routes>
-                         <Route path="/">
-                              <Route index element={<Home />} />
-                              <Route path="login" element={<LoginPage />} />
-                              <Route path="sign-in" element={<SignInPage />} />
-                              <Route path="signup" element={<RegisterPage />} />
-                              <Route path="payment" element={<PaymentPage />} />
-                              <Route path="search" element={<SearchPage />} />
-                         </Route>
-                         <Route path="/courses">
-                              <Route path=":courseName" element={<CourseDetailPage />} />
-                              <Route
-                                   path="learning/:courseType/:itemName"
-                                   element={<CourseLearning />}
-                              />
-                              <Route path="create/:courseName" element={<CreateCoursePage />} />
-                         </Route>
-                         <Route path="/student">
-                              <Route path="cart" element={<CartPage />} />
-                              <Route path="payout" element={<PayoutPage />} />
-                              <Route
-                                   path="certification/:userId"
-                                   element={<CertificationPage />}
-                              />
-                              <Route path="profile" element={<StudentProfilePage />} />
-                              <Route path="my-learning">
-                                   <Route path="completed" element={<CourseCompletedPage />} />
-                                   <Route path="following" element={<FollowingPage />} />
-                                   <Route path="in-progress" element={<CourseInProgressPage />} />
-                                   <Route path="saved" element={<CourseSavedPage />} />
-                              </Route>
-                         </Route>
-                         <Route path="/instructor">
-                              <Route path="profile" element={<InstructorProfilePage />} />
-                              <Route path="dashboard" element={< InstructorDashBoard />} />
-                         </Route>
-                         <Route path="/user">
-                              <Route path=":id" element={< UserInfoPage />} />
-                         </Route>
+  return (
+    <BrowserRouter>
+      <AuthProvider>
+        <Routes>
+          <Route path="/">
+            <Route index element={<Home />} />
+            <Route path="login" element={<LoginPage />} />
+            <Route path="sign-in" element={<SignInPage />} />
+            <Route path="signup" element={<RegisterPage />} />
+            <Route path="payment" element={<PaymentPage />} />
+            <Route path="search" element={<SearchPage />} />
+          </Route>
+          <Route path="/courses">
+            <Route path=":courseName" element={<CourseDetailPage />} />
+            <Route
+              path="learning/:courseName/:courseType/:itemName"
+              element={<CourseLearning />}
+            />
+            <Route path="create/:courseName" element={<CreateCoursePage />} />
+          </Route>
+          <Route path="/student">
+            <Route path="cart" element={<CartPage />} />
+            <Route path="payout" element={<PayoutPage />} />
+            <Route
+              path="certification/:userId"
+              element={<CertificationPage />}
+            />
+            <Route path="profile" element={<StudentProfilePage />} />
+            <Route path="my-learning">
+              <Route path="completed" element={<CourseCompletedPage />} />
+              <Route path="following" element={<FollowingPage />} />
+              <Route path="in-progress" element={<CourseInProgressPage />} />
+              <Route path="saved" element={<CourseSavedPage />} />
+            </Route>
+          </Route>
+          <Route path="/instructor">
+            <Route path="profile" element={<InstructorProfilePage />} />
+            <Route path="dashboard" element={<InstructorDashBoard />} />
+          </Route>
+          <Route path="/user">
+            <Route path=":id" element={<UserInfoPage />} />
+          </Route>
 
-
-                         <Route path="/admin">
-                              <Route path="dashboard" element={<DashBoard />} />
-                              <Route path="instructor" element={<ManageInstructorPage />} />
-                              <Route path="student" element={<ManageStudentPage />} />
-                              <Route path="course" element={<ManageCoursePage />} />
-                              <Route path="requests" element={<RequestsPage />} />
-                              <Route path="report" element={<ReportPage />} />
-                              <Route path="feedback" element={<FeedBackAdminPage />} />
-                              <Route path="category" element={<CategoryPage />} />
-                         </Route>
-                    </Routes>
-               </AuthProvider>
-          </BrowserRouter>
-     );
+          <Route path="/admin">
+            <Route path="dashboard" element={<DashBoard />} />
+            <Route path="instructor" element={<ManageInstructorPage />} />
+            <Route path="student" element={<ManageStudentPage />} />
+            <Route path="course" element={<ManageCoursePage />} />
+            <Route path="requests" element={<RequestsPage />} />
+            <Route path="report" element={<ReportPage />} />
+            <Route path="feedback" element={<FeedBackAdminPage />} />
+            <Route path="category" element={<CategoryPage />} />
+          </Route>
+        </Routes>
+      </AuthProvider>
+    </BrowserRouter>
+  );
 }
 
 export default App;

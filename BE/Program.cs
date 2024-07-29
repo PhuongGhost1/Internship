@@ -15,7 +15,8 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
-using BE.Helpers;
+using Microsoft.AspNetCore.Http.Features;
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure CORS
@@ -179,6 +180,13 @@ builder.Services.AddSingleton<PaypalClient>(sp =>
     });
 
 
+builder.Services.Configure<FormOptions>(options =>
+{
+    options.MultipartBodyLengthLimit = 52428800;
+});
+
+builder.WebHost.ConfigureKestrel(options => options.Limits.MaxRequestBodySize = 50 * 1024 * 1024);
+
 //Repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>(); builder.Services.AddScoped<ITokenRepository, TokenRepository>(); builder.Services.AddScoped<IRoleUserRepository, RoleUserRepository>();
 builder.Services.AddScoped<IQuizRepository, QuizRepository>(); builder.Services.AddScoped<IQuestionRepository, QuestionRepository>(); builder.Services.AddScoped<ILectureRepository, LectureRepository>();
@@ -217,6 +225,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseRouting();
 app.UseRequestResponseLoggingMiddleware();
 app.UseExceptionHandleMiddleware();
 //app.UseAuthenticationMiddleware();

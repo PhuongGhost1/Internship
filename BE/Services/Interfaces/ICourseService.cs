@@ -9,6 +9,7 @@ using BE.Models;
 using BE.Dto.Message;
 using BE.Dto.User;
 using BE.Dto.Course.FilterSearchCourse;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BE.Services.Interfaces
 {
@@ -47,5 +48,8 @@ namespace BE.Services.Interfaces
                 Task<MessageDto> PayCartCourses(PayCartCourseDto data);
                 Task<bool> IsCourseInCartAsync(string cartId, string courseId);
                 Task<List<OutputFilterSearchDto>> SearchFilterCourses(InputFilterSearchDto dto, int page, int items);
+                Task<MessageDto> AddVideoToCourse(string courseId, int chapterIndex, int lectureIndex, IFormFile video);
+                Task<Lecture> GetLectureByHashCode(string hashCode);
+                Task<Quiz> GetQuizByHashCode(string hashCode);
         }
 }

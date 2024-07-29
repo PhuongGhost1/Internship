@@ -18,6 +18,7 @@ import Python_logo from "../../assets/Python_logo.png";
 
 import slide_img from "../../assets/slide_img.webp";
 import ApiService from "../../api/ApiService";
+import ShoppingCart from "../../components/Items/ShoppingCart/ShoppingCart";
 
 export default function Home() {
     const [newReleaseCoursesData, setNewReleaseCoursesData] = useState(null);
@@ -133,6 +134,7 @@ export default function Home() {
                 </div>
             </div>
             <Footer />
+            <ShoppingCart />
         </div>
     );
 }
