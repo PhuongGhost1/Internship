@@ -17,10 +17,12 @@ using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
 using Microsoft.AspNetCore.Http.Features;
 using BE.Helpers;
+using DotNetEnv;
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure CORS
+Env.Load();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAllOrigins",

@@ -38,7 +38,7 @@ namespace BE.Repository.Interface
                 //---------------------CRUD--------------------------//
                 Task<Course?> UpdateCourse(Course course);
                 Task<bool> DeleteCourse(string courseId);
-                Task<CourseToCheckDto?> FindCourseByCourseName(string courseName, string userId);
+                Task<CourseToCheckDto?> FindCourseByCourseName(string courseName, string? userId);
                 Task<string> CreateChapter(CreateChapterData data);
                 Task<string> CreateQuiz(CreateQuizData data);
                 Task<TimeSpan?> TimeLearningCourse(string courseId);

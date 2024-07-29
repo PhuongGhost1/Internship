@@ -1,7 +1,8 @@
 import axios from "axios";
-//https://groupcooked.happyflower-ab63cd56.southeastasia.azurecontainerapps.io/api/v1
+const serverUrl = import.meta.env.VITE_SERVER_URL;
 const API_URL =
-  "https://groupcooked.happyflower-ab63cd56.southeastasia.azurecontainerapps.io/api/v1";
+  `${serverUrl}/api/v1`
+  ;
 
 const api = axios.create({
   baseURL: API_URL,
