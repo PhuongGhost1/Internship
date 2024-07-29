@@ -15,12 +15,13 @@ function CoursesDetail({ courseData, onStatusUpdate, user }) {
 
   useEffect(() => {
     if (courseData) {
+      setIsFollowing(courseData.user?.statusFollowing || false);
+      setIsSaved(courseData.saveCourses[0]?.statusSaveCourse || false);
     }
   }, [courseData]);
 
   const handleStatusChangeForFollowing = async (FollowerId, FollowedId) => {
     if (user) {
-      setIsFollowing(courseData.user?.statusFollowing === true ? true : false);
       try {
         if (isFollowing) {
           await ApiService.removeFollowing(FollowerId, FollowedId);
@@ -30,7 +31,7 @@ function CoursesDetail({ courseData, onStatusUpdate, user }) {
         setIsFollowing(!isFollowing);
         onStatusUpdate();
       } catch (error) {
-        console.error("Error updating following status: ", error);
+        console.error("Error updating following status:", error);
       }
     } else {
       nav("/login");
@@ -39,9 +40,6 @@ function CoursesDetail({ courseData, onStatusUpdate, user }) {
 
   const handleStatusChangeForSaveCourse = async (CourseId, UserId) => {
     if (user) {
-      setIsSaved(
-        courseData.saveCourses[0]?.statusSaveCourse === true ? true : false,
-      );
       try {
         if (isSaved) {
           await ApiService.removeSaveCourse(courseData.saveCourses[0].id);
@@ -51,7 +49,7 @@ function CoursesDetail({ courseData, onStatusUpdate, user }) {
         setIsSaved(!isSaved);
         onStatusUpdate();
       } catch (error) {
-        console.error("Error updating save course status: ", error);
+        console.error("Error updating save course status:", error);
       }
     } else {
       nav("/login");

@@ -1,11 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import "./SignInPage.css";
 import { useNavigate } from "react-router-dom";
 import success from "../../../assets/success.png";
 import Cookies from "js-cookie";
+import { AuthContext } from "../../Context/AuthContext";
 
 const SignInPage = () => {
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchToken = async () => {
@@ -18,16 +20,22 @@ const SignInPage = () => {
           sameSite: "None",
           secure: true,
         });
-        setTimeout(() => {
-          navigate("/");
-        }, 2000);
+
+        try {
+          await login(token);
+          setTimeout(() => {
+            navigate("/");
+          }, 2000);
+        } catch (error) {
+          console.error("Login failed:", error);
+        }
       } else {
         console.error("Invalid response from Google");
       }
     };
 
     fetchToken();
-  }, [history]);
+  }, [navigate, login]);
 
   return (
     <div id="sign-in-page">

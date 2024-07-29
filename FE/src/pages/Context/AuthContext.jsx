@@ -14,7 +14,7 @@ const AuthProvider = ({ children }) => {
       const token = Cookies.get("token");
       if (token) {
         try {
-          login(token).finally(() => {
+          await login(token).finally(() => {
             setIsLoading(false);
           });
         } catch (error) {
@@ -24,6 +24,7 @@ const AuthProvider = ({ children }) => {
         setIsLoading(false);
       }
     };
+
     fetchUser();
   }, []);
 
@@ -35,12 +36,19 @@ const AuthProvider = ({ children }) => {
       console.error("Login failed:", error);
     }
   };
+
   const checkLogin = async (email, password) => {
-    const response = await ApiService.checkLogin(email, password);
-    return response;
+    try {
+      const response = await ApiService.checkLogin(email, password);
+      return response;
+    } catch (error) {
+      console.error("Check login failed:", error);
+      throw error;
+    }
   };
+
   return (
-    <AuthContext.Provider value={{ user, checkLogin }}>
+    <AuthContext.Provider value={{ user, checkLogin, login }}>
       {isLoading ? <LoadingOverlay loading={isLoading} /> : children}
     </AuthContext.Provider>
   );

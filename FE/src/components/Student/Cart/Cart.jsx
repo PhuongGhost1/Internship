@@ -60,19 +60,21 @@ export default function Cart({ user }) {
   const addCourseToCart = async (CourseId, UserId) => {
     try {
       const response = await ApiService.getCart(UserId);
-      const cart =
-        response.carts && response.carts.length > 0 ? response.carts[0] : null;
 
-      if (!cart) {
-        console.error("No cart found for user.");
-        return;
-      }
+      if (response && response.carts && response.carts.length > 0) {
+        const cart = response.carts[0];
 
-      const isInCart = await ApiService.checkCourseInCart(cart.id, CourseId);
+        if (!cart.id) {
+          console.error("No cart ID found for user.");
+          return;
+        }
 
-      if (isInCart) {
-        alert("The course is already in the cart.");
-        return;
+        const isInCart = await ApiService.checkCourseInCart(cart.id, CourseId);
+
+        if (isInCart) {
+          alert("The course is already in the cart.");
+          return;
+        }
       }
 
       await ApiService.addCourseToCart(CourseId, UserId);
