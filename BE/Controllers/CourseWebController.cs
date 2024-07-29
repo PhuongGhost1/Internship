@@ -110,7 +110,7 @@ namespace BE.Controllers
         }
 
         [HttpPost, Route("find-course")]
-        public async Task<CourseToCheckDto?> FindCourseByName([FromForm] string courseName, [FromForm] string userId)
+        public async Task<CourseToCheckDto?> FindCourseByName([FromForm] string courseName, [FromForm] string? userId)
         {
             return await _courseService.GetCourseByCourseName(courseName, userId);
         }

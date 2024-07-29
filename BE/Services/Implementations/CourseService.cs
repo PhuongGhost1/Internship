@@ -169,12 +169,8 @@ namespace BE.Services.Implementations
             return await _courseRepo.DeleteCourse(courseId);
         }
 
-        public async Task<CourseToCheckDto?> GetCourseByCourseName(string courseName, string userId)
+        public async Task<CourseToCheckDto?> GetCourseByCourseName(string courseName, string? userId)
         {
-            var user = await _userRepo.GetUserById(userId);
-
-            if(user == null) return new CourseToCheckDto();
-
             if(courseName == null) throw new Exception("Unable to find chapter!");
             return await _courseRepo.FindCourseByCourseName(courseName, userId);
         }

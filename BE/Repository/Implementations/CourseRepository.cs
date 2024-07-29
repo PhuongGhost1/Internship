@@ -478,9 +478,9 @@ namespace BE.Repository.Implementations
                return true;
           }
 
-          public async Task<CourseToCheckDto?> FindCourseByCourseName(string courseName, string userId)
+          public async Task<CourseToCheckDto?> FindCourseByCourseName(string courseName, string? userId)
           {
-               if(courseName.Contains("-")) courseName = courseName.Replace("-", " ").ToLower();
+               if (courseName.Contains("-")) courseName = courseName.Replace("-", " ").ToLower();
                var course = await _context.Courses
                     .Include(course => course.CategoryCourses)
                          .ThenInclude(cateCourse => cateCourse.Category)
@@ -492,20 +492,57 @@ namespace BE.Repository.Implementations
 
                if (course == null) return new CourseToCheckDto();
 
-               var followers = await _context.Follows
+               List<SaveCourseDto>? saveCoursesDto = null;
+               UserInfoFollowingDto? userDto = null;
+
+               if (userId != null)
+               {
+                    var followers = await _context.Follows
                                         .Include(f => f.Follower)
                                         .Where(f => f.FollowedId == course.User.Id)
                                         .Select(f => f.Follower)
                                         .ToListAsync();
 
-               var isFollowingInstructor = await _context.Follows
-                                   .AnyAsync(f => f.FollowerId == userId && f.FollowedId == course.User.Id);
+                    var isFollowingInstructor = await _context.Follows
+                                        .AnyAsync(f => f.FollowerId == userId && f.FollowedId == course.User.Id);
 
-               var saveCourseIds = course.SaveCourses.Select(sc => sc.CourseId).ToList();
+                    var saveCourseIds = course.SaveCourses.Select(sc => sc.CourseId).ToList();
 
-               var saveCourses = await _context.SaveCourses
-                    .Where(sc => sc.UserId == userId && saveCourseIds.Contains(sc.CourseId))
-                    .ToListAsync();
+                    var saveCourses = await _context.SaveCourses
+                         .Where(sc => sc.UserId == userId && saveCourseIds.Contains(sc.CourseId))
+                         .ToListAsync();
+                    saveCoursesDto = course.SaveCourses.Select(sc => new SaveCourseDto
+                    {
+                         Id = sc.Id,
+                         StatusSaveCourse = saveCourses.Any(saved => saved.CourseId == sc.CourseId),
+                         Course = new CourseInfoFollowingDto
+                         {
+                              Id = sc.Course.Id,
+                              Name = sc.Course.Name,
+                              Rating = sc.Course.Rating,
+                              Price = sc.Course.Price
+                         },
+                         User = new BasicInfoUser
+                         {
+                              Id = sc.User.Id,
+                              Name = sc.User.Name,
+                              Email = sc.User.Email
+                         }
+                    }).ToList();
+                    userDto = course.User != null ? new UserInfoFollowingDto
+                    {
+                         Id = course.User.Id,
+                         Name = course.User.Username,
+                         Email = course.User.Email,
+                         StatusFollowing = isFollowingInstructor,
+                         FollowFolloweds = followers.Select(f => new UserInfoFollowingDto
+                         {
+                              Id = f.Id,
+                              Name = f.Username,
+                              Email = f.Email,
+                         }).ToList()
+                    } : null;
+               }
 
                var courseToCheckDto = new CourseToCheckDto
                {
@@ -525,37 +562,8 @@ namespace BE.Repository.Implementations
                               Names = new List<string?> { cc.Category.Name }
                          } : null
                     }).ToList(),
-                    SaveCourses = course.SaveCourses.Select(sc => new SaveCourseDto
-                    {
-                         Id = sc.Id,
-                         StatusSaveCourse = saveCourses.Any(saved => saved.CourseId == sc.CourseId),
-                         Course = new CourseInfoFollowingDto
-                         {
-                              Id = sc.Course.Id,
-                              Name = sc.Course.Name,
-                              Rating = sc.Course.Rating,
-                              Price = sc.Course.Price
-                         },
-                         User = new BasicInfoUser
-                         {
-                              Id = sc.User.Id,
-                              Name = sc.User.Name,
-                              Email = sc.User.Email
-                         }
-                    }).ToList(),
-                    User = course.User != null ? new UserInfoFollowingDto
-                    {
-                         Id = course.User.Id,
-                         Name = course.User.Username,
-                         Email = course.User.Email,
-                         StatusFollowing = isFollowingInstructor,
-                         FollowFolloweds = followers.Select(f => new UserInfoFollowingDto
-                         {
-                              Id = f.Id,
-                              Name = f.Username,
-                              Email = f.Email,
-                         }).ToList()
-                    } : null
+                    SaveCourses = saveCoursesDto,
+                    User = userDto
                };
 
                return courseToCheckDto;
@@ -811,10 +819,11 @@ namespace BE.Repository.Implementations
                               LastUpdated = i.CreatedAt
                          })
                          .FirstOrDefaultAsync();
-                    
+
                     var user = await _context.Users
                                              .Where(u => u.Id == c.UserId)
-                                             .Select(u => new UserInfoFollowingDto{
+                                             .Select(u => new UserInfoFollowingDto
+                                             {
                                                   Id = u.Id,
                                                   Name = u.Username,
                                                   Email = u.Email
@@ -1049,7 +1058,8 @@ namespace BE.Repository.Implementations
                               Rating = cc.Course.Rating,
                               Description = cc.Course.Description,
                               imgUrl = await GetImageCourse(cc.Course.Id, "Background"),
-                              User = cc.Course.User != null ? new UserInfoFollowingDto{
+                              User = cc.Course.User != null ? new UserInfoFollowingDto
+                              {
                                    Id = cc.Course.User.Id,
                                    Email = cc.Course.User.Email,
                                    Name = cc.Course.User.Username,
