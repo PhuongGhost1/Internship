@@ -18,7 +18,7 @@ export default function PayoutPage() {
     } else if (
       !roles.some((role) => ["Instructor", "Student"].includes(role))
     ) {
-      nav("/login");
+      nav("/error");
     }
   }, [user, roles, nav]);
   console.log("Location state:", location.state);

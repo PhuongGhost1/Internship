@@ -15,11 +15,14 @@ namespace BE.Services.Implementations
         private readonly PaypalClient _paypalClient;
         private readonly IPaymentRepository _payRepo;
         private readonly ITransactionRepository _transactionRepository;
-        public PaymentService(PaypalClient paypalClient, IPaymentRepository payRepo, ITransactionRepository transactionRepository)
+        private readonly ICartRepository _cartRepo;
+        public PaymentService(PaypalClient paypalClient, IPaymentRepository payRepo, ITransactionRepository transactionRepository,
+                            ICartRepository cartRepo)
         {
             _paypalClient = paypalClient;
             _payRepo = payRepo;
             _transactionRepository = transactionRepository;
+            _cartRepo = cartRepo;
         }
 
         public async Task<CreateOrderResponse> CreateOrder(CreateOrderRequest request)
@@ -58,6 +61,14 @@ namespace BE.Services.Implementations
                 AffiliatePaymentId = null,
                 CaptureOrderCode = captureResponse.PurchaseUnits[0].Payments.Captures[0].Id
             };
+
+            var cart = await _cartRepo.GetCartIdByUserId(paymentInfo.UserId);
+
+            // var paymentCourse = new PaymentCourse{
+            //     Id = GenerateIdModel("paymentcourse"),
+            //     PaymentId = paymentInfo.Id,
+            //     CartcourseId = car,
+            // };
 
             await _payRepo.UpdateStatusPayment(paymentInfo.Id);
 

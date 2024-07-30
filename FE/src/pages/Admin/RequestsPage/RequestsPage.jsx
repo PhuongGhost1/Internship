@@ -16,7 +16,7 @@ export default function RequestsPage() {
     if (!user) {
       nav("/login");
     } else if (!roles.includes("Admin")) {
-      nav("/login");
+      nav("/error");
     }
   }, [user, roles, nav]);
 

@@ -35,6 +35,7 @@ import SignInPage from "./pages/AuthPage/SignInPage/SignInPage";
 import InstructorDashBoard from "./pages/InstructorPage/DashBoard/InstructorDashBoard";
 import UserInfoPage from "./pages/UserPage/UserInfoPage/UserInfoPage";
 import PrivateRoute from "./pages/Context/PrivateRoute";
+import ErrorPage from "./pages/AuthPage/ErrorPage/ErrorPage";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="login" element={<LoginPage />} />
             <Route path="sign-in" element={<SignInPage />} />
+            <Route path="error" element={<ErrorPage />} />
             <Route path="signup" element={<RegisterPage />} />
             <Route
               path="payment"

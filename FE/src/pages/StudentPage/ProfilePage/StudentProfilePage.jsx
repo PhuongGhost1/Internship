@@ -21,7 +21,7 @@ export default function StudentProfilePage() {
     } else if (
       !roles.some((role) => ["Instructor", "Student"].includes(role))
     ) {
-      nav("/login");
+      nav("/error");
     }
   }, [user, roles, nav]);
 

@@ -20,7 +20,7 @@ export default function InstructorProfilePage() {
     if (!user) {
       nav("/login");
     } else if (!roles.includes("Instructor")) {
-      nav("/login");
+      nav("/error");
     }
   }, [user, roles, nav]);
 

@@ -7,7 +7,7 @@ import { AuthContext } from "../../Context/AuthContext";
 
 const SignInPage = () => {
   const navigate = useNavigate();
-  const { login } = useContext(AuthContext);
+  const { login, roles } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchToken = async () => {
@@ -24,7 +24,11 @@ const SignInPage = () => {
         try {
           await login(token);
           setTimeout(() => {
-            navigate("/");
+            if (roles.includes("Admin")) {
+              navigate("/admin/dashboard");
+            } else {
+              navigate("/");
+            }
           }, 2000);
         } catch (error) {
           console.error("Login failed:", error);
@@ -35,11 +39,11 @@ const SignInPage = () => {
     };
 
     fetchToken();
-  }, [navigate, login]);
+  }, [navigate, login, roles]);
 
   return (
     <div id="sign-in-page">
-      <img src={success} alt="" />
+      <img src={success} alt="Success" />
       <p>Your login has been completed successfully</p>
     </div>
   );

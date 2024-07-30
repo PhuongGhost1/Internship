@@ -18,7 +18,7 @@ export default function InstructorDashBoard() {
     if (!user) {
       nav("/login");
     } else if (!roles.includes("Instructor")) {
-      nav("/login");
+      nav("/error");
     }
   }, [user, roles, nav]);
 

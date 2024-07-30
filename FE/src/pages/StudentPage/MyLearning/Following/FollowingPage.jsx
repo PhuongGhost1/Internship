@@ -18,7 +18,7 @@ export default function FollowingPage() {
     } else if (
       !roles.some((role) => ["Instructor", "Student"].includes(role))
     ) {
-      nav("/login");
+      nav("/error");
     }
   }, [user, roles, nav]);
   return (

@@ -61,5 +61,10 @@ namespace BE.Repository.Implementations
             _context.Carts.Update(cart);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<string?> GetCartIdByUserId(string userId)
+        {
+            return await _context.Carts.Where(cart => cart.UserId == userId).Select(cart => cart.Id).FirstOrDefaultAsync();
+        }
     }
 }

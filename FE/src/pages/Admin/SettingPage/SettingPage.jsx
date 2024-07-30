@@ -14,7 +14,7 @@ export default function SettingPage() {
     if (!user) {
       nav("/login");
     } else if (!roles.includes("Admin")) {
-      nav("/login");
+      nav("/error");
     }
   }, [user, roles, nav]);
 
