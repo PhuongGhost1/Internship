@@ -146,7 +146,8 @@
   flex: 1;
 }
 
-#payout-container .container1 .input-money {
+#payout-container .container1 .input-money,
+#payout-container .container1 .input-money-paypal {
   margin-bottom: 20px;
 }
 

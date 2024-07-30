@@ -193,6 +193,25 @@ const PayoutDetail = ({ total, courseName }) => {
                           />
                         </div>
                       </>
+
+
+                    )}
+
+                    {paymentMethod === "PAYPAL" && (
+                      <>
+                        <div className="input-money">
+                          <label htmlFor="walletAmount" className="form-title">
+                            Import Money To Wallet :
+                          </label>
+                          <input
+                            type="text"
+                            name="walletAmount"
+                            value={walletAmount}
+                            onChange={(e) => setWalletAmount(e.target.value)}
+                            placeholder="Enter amount"
+                          />
+                        </div>
+                      </>
                     )}
                   </div>
                 </form>

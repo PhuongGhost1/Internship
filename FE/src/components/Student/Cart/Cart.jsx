@@ -504,23 +504,24 @@ export default function Cart({ user }) {
                         </button>
                       </Link>
 
-                      <button
-                        className={`pay-bt3 ${total === 0 ? "disabled" : ""}`}
-                        style={{
-                          pointerEvents: total > 0 ? "auto" : "none",
-                          color: total > 0 ? "black" : "white",
-                        }}
-                        onClick={() => redirectToPaypal(total, user.id)}
-                      >
-                        <div className="icon">
-                          <RiPaypalFill size={20} />
-                        </div>
-                        <div className="text">
-                          <h2>
-                            {total > 0 ? "PayPal" : "Select Items to Continue"}
-                          </h2>
-                        </div>
-                      </button>
+                      <Link to={`/student/payout`}>
+                        <button
+                          className={`pay-bt3 ${total === 0 ? "disabled" : ""}`}
+                          style={{
+                            pointerEvents: total > 0 ? "auto" : "none",
+                            color: total > 0 ? "black" : "white",
+                          }}
+                        >
+                          <div className="icon">
+                            <RiPaypalFill size={20} />
+                          </div>
+                          <div className="text">
+                            <h2>
+                              {total > 0 ? "PayPal" : "Select Items to Continue"}
+                            </h2>
+                          </div>
+                        </button>
+                      </Link>
                     </div>
                   </div>
                 </div>
