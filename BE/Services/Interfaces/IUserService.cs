@@ -22,7 +22,7 @@ namespace BE.Services.Interfaces
         Task<(int a, int c)> GetUserStatisticsAsync();
         Task<double?> GetPercentageChangeForStudentAccountsLastMonthAsync();
         Task<double?> GetPercentageChangeForInstructorAccountsLastMonthAsync();
-        Task<int?> CountAccountsByRoleForMonthAsync(string roleName, DateTime month);
+        Task<int?> CountAccountsByRoleForMonthAsync(string roleName);
         Task<List<UserInfoManageByAdminDto>> GetUserRoleAsync(string roleName);
         Task<bool> UpdateUserStatusAsync(string userId);
         Task<List<FeedbackRequestDto>> GetFeedbacksManagementByAdminAsync();
@@ -35,5 +35,6 @@ namespace BE.Services.Interfaces
         Task<InstructorProfileDto> GetInstructorProfileWithWaitingCourseByInsId(string insId);
         Task<UserProfileBeSeenDto> GetUserProfileBeSeenDataAsync(string userId);
         Task<List<string?>?> IsRolePermissionsAsync(string userId);
+        Task<int?> CountNumberInCartAsync(string userId);
     }
 }

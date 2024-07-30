@@ -21,14 +21,15 @@ namespace BE.Services.Implementations
         private readonly ITokenRepository _tokenRepo;
         private readonly IConfiguration _config;
         private readonly IHttpContextAccessor _httpContextAccessor;
-
+        private readonly ICartRepository _cartRepo;
         public UserService(IUserRepository userRepo, ITokenRepository tokenRepo, IConfiguration config,
-                        IHttpContextAccessor httpContextAccessor)
+                        IHttpContextAccessor httpContextAccessor, ICartRepository cartRepo)
         {
             _userRepo = userRepo;
             _tokenRepo = tokenRepo;
             _config = config;
             _httpContextAccessor = httpContextAccessor;
+            _cartRepo = cartRepo;
         }
 
         public async Task<bool> CreateUserData(string username, string email, string password, string description, string phone, string role)
@@ -109,9 +110,9 @@ namespace BE.Services.Implementations
             return await _userRepo.GetPercentageChangeForStudentAccountsLastMonth();
         }
 
-        public async Task<int?> CountAccountsByRoleForMonthAsync(string roleName, DateTime month)
+        public async Task<int?> CountAccountsByRoleForMonthAsync(string roleName)
         {
-            return await _userRepo.CountAccountsByRoleForMonth(roleName, month);
+            return await _userRepo.CountAccountsByRoleForMonth(roleName);
         }
 
         public async Task<User> GetUserByEmail(string email)
@@ -443,6 +444,15 @@ namespace BE.Services.Implementations
             if(user == null) return null;
 
             return await _userRepo.IsRolePermissions(userId);
+        }
+
+        public async Task<int?> CountNumberInCartAsync(string userId)
+        {
+            var user = await _userRepo.GetUserById(userId);
+
+            if(user == null) return null;
+
+            return await _cartRepo.CountNumberInCart(userId);
         }
     }
 }

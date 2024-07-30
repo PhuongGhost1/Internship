@@ -77,8 +77,8 @@ namespace BE.Helpers
                     }
                 },
                 ApplicationContext = new ApplicationContext{
-                    ReturnUrl = "http://localhost:5173/student/cart",
-                    CancelUrl = "http://localhost:5173/student/cart"
+                    ReturnUrl = "http://localhost:5173/pay-success",
+                    CancelUrl = "http://localhost:5173/pay-success"
                 }
             };
 

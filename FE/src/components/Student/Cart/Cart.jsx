@@ -21,7 +21,6 @@ import ApiService from "../../../api/ApiService";
 import { Link } from "react-router-dom";
 import { IoIosArrowRoundBack, IoIosArrowRoundForward } from "react-icons/io";
 import Modal from "react-modal";
-import { AuthContext } from "../../../pages/Context/AuthContext";
 
 Modal.setAppElement("#root");
 
@@ -240,67 +239,6 @@ export default function Cart({ user }) {
     }
   };
 
-  const redirectToPaypal = async (total, userId) => {
-    if (total > 0) {
-      try {
-        const response = await ApiService.createPaypalOrder(total, userId);
-        const approvalUrl = response.links.find(
-          (link) => link.rel === "approve",
-        ).href;
-        window.location.href = approvalUrl;
-      } catch (error) {
-        console.error("Error creating PayPal order: ", error);
-      }
-    }
-  };
-
-  useEffect(() => {
-    const handleRedirectPayout = async () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const orderId = urlParams.get("token");
-      const payerId = urlParams.get("PayerID");
-      const hasCaptured = localStorage.getItem(`order-captured-${orderId}`);
-
-      if (hasCaptured === "true") {
-        console.log("Order has already been captured.");
-        return;
-      }
-
-      if (orderId && payerId) {
-        try {
-          console.log(`Token: ${orderId}, PayerId: ${payerId}`);
-          await ApiService.capturePaypalOrder(orderId);
-          localStorage.setItem(`order-captured-${orderId}`, "true");
-        } catch (error) {
-          console.error("Error capturing order:", error);
-        }
-      }
-    };
-
-    const handleCancelOrder = async () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const orderId = urlParams.get("token");
-
-      if (orderId) {
-        try {
-          await ApiService.cancelPaypalOrder(orderId);
-          localStorage.removeItem(`order-captured-${orderId}`);
-        } catch (error) {
-          console.error("Error canceling order:", error);
-        }
-      }
-    };
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const payerId = urlParams.get("PayerID");
-
-    if (payerId) {
-      handleRedirectPayout();
-    } else {
-      handleCancelOrder();
-    }
-  }, []);
-
   useEffect(() => {
     if (isOpenVisible) {
       document.body.style.overflow = "hidden";
@@ -510,7 +448,11 @@ export default function Cart({ user }) {
                         </button>
                       </Link>
 
-                      <Link to={`/student/payout`}>
+                      <Link
+                        to={{
+                          pathname: `/student/payout`,
+                        }}
+                      >
                         <button
                           className={`pay-bt3 ${total === 0 ? "disabled" : ""}`}
                           style={{
@@ -523,7 +465,9 @@ export default function Cart({ user }) {
                           </div>
                           <div className="text">
                             <h2>
-                              {total > 0 ? "PayPal" : "Select Items to Continue"}
+                              {total > 0
+                                ? "PayPal"
+                                : "Select Items to Continue"}
                             </h2>
                           </div>
                         </button>

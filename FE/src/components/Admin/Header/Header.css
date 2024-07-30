@@ -1,41 +1,41 @@
 #Header-Admin {
-    width: 100%;
-    background-color: white;
-    border-bottom: 1px solid #e0e0e0;
-    padding: 10px 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  background-color: white;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 10px 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 #Header-Admin .header-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 #Header-Admin .logo {
-    display: flex;
-    align-items: center;
-    font-size: 24px;
-    color: #a855f7;
-    flex: 1;
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  color: #a855f7;
+  flex: 1;
 }
 
 #Header-Admin .icon img {
-    width: 35px;
-    border-radius: 10px;
-    margin-right: 10px;
+  width: 35px;
+  border-radius: 10px;
+  margin-right: 10px;
 }
 
 #Header-Admin .logo-text {
-    font-weight: 600;
-    color: #333;
-    font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  font-size: 18px;
 }
 
 #Header-Admin .search-bar {
-    flex: 2;
-    display: flex;
-    justify-content: center;
+  flex: 2;
+  display: flex;
+  justify-content: center;
 }
 /* 
 #Header-Admin .search-bar input {
@@ -53,29 +53,177 @@
 } */
 
 #Header-Admin .user-info {
-    display: flex;
-    align-items: center;
-    flex: 1;
-    justify-content: flex-end;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  justify-content: flex-end;
 }
 
-#Header-Admin .user-info .Bell, 
+#Header-Admin .user-info .Bell,
 #Header-Admin .user-info .avatar {
-    font-size: 25px;
-    margin: 0 15px;
-    cursor: pointer;
-    color: #0a090a;
+  font-size: 25px;
+  margin: 0 15px;
+  cursor: pointer;
+  color: #0a090a;
 }
 
-#Header-Admin .user-info .avatar-user {
-    display: flex;
-    align-items: center;
-    border-left: 1px solid #e0e0e0;
-    padding-left: 15px;
+#Header-Admin .user-info .user-action {
+  display: flex;
+  align-items: center;
+  border-left: 1px solid #e0e0e0;
+  padding-left: 15px;
 }
 
 #Header-Admin .user-info .user-name {
-    margin-left: 10px;
-    font-size: 16px;
-    color: #333;
+  margin-left: 10px;
+  font-size: 16px;
+  color: #333;
+}
+
+#Header-Admin .user-action {
+  width: 170px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+#Header-Admin .user-action .user-logo {
+  height: fit-content;
+}
+
+#Header-Admin .user-action .user-logo svg {
+  font-size: 36px;
+  color: var(--light-orange);
+  margin-left: 10px;
+  margin-right: 15px;
+}
+
+#Header-Admin .user-action .user-logo img {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  object-position: center;
+}
+
+#Header-Admin .user-action .user-info .name {
+  font-weight: 700;
+}
+
+#Header-Admin .user-action .user-info .email {
+  color: rgb(112, 112, 112);
+}
+
+#Header-Admin .user-action .user-info .email {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 110px;
+  display: block;
+}
+
+#Header-Admin .user-action .user-dropdown {
+  position: absolute;
+  top: 55px;
+  right: 0;
+}
+
+#Header-Admin .user-action .user-dropdown .dropdown-container {
+  position: relative;
+  background-color: white;
+  width: 200px;
+  padding: 10px 5px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+#Header-Admin .user-action .user-dropdown .dropdown-container .arrow {
+  width: 25px;
+  height: 30px;
+  background-color: white;
+  position: absolute;
+  right: 20px;
+  top: -10px;
+  border-radius: 3px;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  z-index: -1;
+}
+
+#Header-Admin .user-action .user-dropdown .dropdown-container .selection-block {
+  padding: 7px 20px;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  border-radius: 5px;
+  color: black;
+}
+
+#Header-Admin
+  .user-action
+  .user-dropdown
+  .dropdown-container
+  .selection-block:hover {
+  background-color: #f9f9f9;
+}
+
+#Header-Admin
+  .user-action
+  .user-dropdown
+  .dropdown-container
+  .selection-block
+  svg {
+  font-size: 18px;
+  margin-right: 15px;
+}
+
+#Header-Admin .user-action .user-dropdown .dropdown-container .special-block {
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+}
+
+#Header-Admin
+  .user-action
+  .user-dropdown
+  .dropdown-container
+  .special-block.notification {
+  border-bottom: 1px solid rgb(221, 221, 221);
+}
+
+#Header-Admin
+  .user-action
+  .user-dropdown
+  .dropdown-container
+  .special-block
+  svg {
+  font-size: 18px;
+  margin-right: 15px;
+}
+
+#Header-Admin
+  .user-action
+  .user-dropdown
+  .dropdown-container
+  .special-block.logout {
+  border-top: 1px solid rgb(221, 221, 221);
+}
+
+#Header-Admin
+  .user-action
+  .user-dropdown
+  .dropdown-container
+  .special-block.logout {
+  color: red;
+}
+
+#Header-Admin .user-action .user-dropdown {
+  max-height: 0px;
+  transition: all 0.5s ease;
+  overflow: hidden;
+}
+
+#Header-Admin .user-action .user-dropdown.active {
+  max-height: 350px;
+  opacity: 1;
 }

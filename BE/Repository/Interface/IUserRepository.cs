@@ -22,7 +22,7 @@ namespace BE.Repository.Interface
                 Task<(int a, int c)> GetUserStatisticsAsync();
                 Task<double?> GetPercentageChangeForStudentAccountsLastMonth();
                 Task<double?> GetPercentageChangeForInstructorAccountsLastMonth();
-                Task<int?> CountAccountsByRoleForMonth(string roleName, DateTime month);
+                Task<int?> CountAccountsByRoleForMonth(string roleName);
                 Task<List<UserInfoManageByAdminDto>> GetInstructors(string roleName);
                 Task<bool> UpdateUserStatus(string userId);
                 Task<List<FeedbackRequestDto>> GetFeedbacksManagementByAdmin();

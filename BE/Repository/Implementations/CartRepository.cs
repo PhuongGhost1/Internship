@@ -71,5 +71,52 @@ namespace BE.Repository.Implementations
         {
             return await _context.CartCourses.Where(cc => cc.CartId == cartId).Select(cc => cc.Id).ToListAsync();
         }
+
+        public async Task<int?> CountNumberInCart(string userId)
+        {
+            var user = await _context.Users
+                .Include(u => u.Carts)
+                    .ThenInclude(cart => cart.CartCourses)
+                        .ThenInclude(cc => cc.Course)
+                            .ThenInclude(course => course.Images)
+                .Include(u => u.Carts)
+                    .ThenInclude(cart => cart.CartCourses)
+                        .ThenInclude(cc => cc.Course)
+                            .ThenInclude(c => c.User)
+                .Include(u => u.Carts)
+                    .ThenInclude(cart => cart.CartCourses)
+                .Where(u => u.Id == userId)
+                .FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            var paidPaymentIds = await _context.Payments
+                .Where(p => p.UserId == userId && p.Status == 1)
+                .Select(p => p.Id)
+                .ToListAsync();
+
+            var paidCartCourseIds = await _context.PaymentCourses
+                .Where(pc => paidPaymentIds.Contains(pc.PaymentId))
+                .Select(pc => pc.CartcourseId)
+                .ToListAsync();
+
+            int totalCourses = 0;
+
+            foreach (var cart in user.Carts)
+            {
+                foreach (var cc in cart.CartCourses)
+                {
+                    if (cc.Course != null && !(paidCartCourseIds.Contains(cc.Id)))
+                    {
+                        totalCourses++;
+                    }
+                }
+            }
+
+            return totalCourses;
+        }
     }
 }

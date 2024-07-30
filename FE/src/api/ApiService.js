@@ -944,6 +944,17 @@ const ApiService = {
       console.error("Error for settings role permissions: ", error);
     }
   },
+  GetNumberInCart: async (userId) => {
+    try {
+      const response = await api.get("/web/user/number-in-cart", {
+        params: { userId },
+      });
+
+      return response.data;
+    } catch (error) {
+      console.error("Error for getting number in cart: ", error);
+    }
+  },
 };
 
 export default ApiService;

@@ -7,6 +7,7 @@ import AvatarGroup from "@mui/material/AvatarGroup";
 import defaultImg from "../../../../../assets/add_profile.png";
 import defaultAvatar from "../../../../../assets/IntructorIMG.png";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 function Followed({ user }) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -59,64 +60,66 @@ function Followed({ user }) {
       <div id="tutors-grid">
         {filteredData.length > 0 ? (
           filteredData.map((followed) => (
-            <div className="tutor-card" key={followed.id}>
-              <div className="image-container">
-                <img
-                  src={Background_user}
-                  alt="Background"
-                  className="background"
-                />
-                <div className="followerCount">
-                  <p>Follower: {followed.followerCount}</p>
-                  <p>Following: {followed.followFolloweds.length}</p>
-                </div>
-                <div className="follower-images">
-                  {followed.followFollowers.length > 0 ? (
-                    <AvatarGroup max={3} className="avatar-group">
-                      {followed.followFollowers.map((follower) => (
-                        <Avatar
-                          key={follower.id}
-                          alt={follower.name}
-                          src={follower.images[0]?.url || defaultAvatar}
-                          className="avatar"
-                        />
-                      ))}
-                    </AvatarGroup>
-                  ) : (
-                    <p>No followers available</p>
-                  )}
-                </div>
-                <div className="tutor-info">
+            <Link to={`/user/${followed.id}`} key={followed.id}>
+              <div className="tutor-card">
+                <div className="image-container">
                   <img
-                    src={
-                      followed.images === null
-                        ? followed.images[0].url
-                        : defaultImg
-                    }
-                    alt="Tutor"
-                    className="tutor-image"
+                    src={Background_user}
+                    alt="Background"
+                    className="background"
                   />
-                  <div className="user-info">
-                    <p className="tutor-name">{followed.name}</p>
-                    <p className="course-count">
-                      {followed.coursesCount} course
-                      {followed.coursesCount !== 1 ? "s" : ""}
-                    </p>
+                  <div className="followerCount">
+                    <p>Follower: {followed.followerCount}</p>
+                    <p>Following: {followed.followFolloweds.length}</p>
+                  </div>
+                  <div className="follower-images">
+                    {followed.followFollowers.length > 0 ? (
+                      <AvatarGroup max={3} className="avatar-group">
+                        {followed.followFollowers.map((follower) => (
+                          <Avatar
+                            key={follower.id}
+                            alt={follower.name}
+                            src={follower.images[0]?.url || defaultAvatar}
+                            className="avatar"
+                          />
+                        ))}
+                      </AvatarGroup>
+                    ) : (
+                      <p>No followers available</p>
+                    )}
+                  </div>
+                  <div className="tutor-info">
+                    <img
+                      src={
+                        followed.images === null
+                          ? followed.images[0].url
+                          : defaultImg
+                      }
+                      alt="Tutor"
+                      className="tutor-image"
+                    />
+                    <div className="user-info">
+                      <p className="tutor-name">{followed.name}</p>
+                      <p className="course-count">
+                        {followed.coursesCount} course
+                        {followed.coursesCount !== 1 ? "s" : ""}
+                      </p>
+                    </div>
                   </div>
                 </div>
+                <div className="follower-info">
+                  {/* Additional follower info can be added here */}
+                </div>
+                <button
+                  className="unfollow-btn"
+                  onClick={() =>
+                    removeFollowing(data[0].followingListOfUserId, followed.id)
+                  }
+                >
+                  UNFOLLOW
+                </button>
               </div>
-              <div className="follower-info">
-                {/* Additional follower info can be added here */}
-              </div>
-              <button
-                className="unfollow-btn"
-                onClick={() =>
-                  removeFollowing(data[0].followingListOfUserId, followed.id)
-                }
-              >
-                UNFOLLOW
-              </button>
-            </div>
+            </Link>
           ))
         ) : (
           <p>Loading....</p>

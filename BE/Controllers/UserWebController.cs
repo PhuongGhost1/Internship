@@ -104,14 +104,14 @@ namespace BE.Controllers
         [HttpGet("count-total-student-monthly")]
         public async Task<int?> CountAccountsByStudentRoleForMonthAsync()
         {
-            return await _userService.CountAccountsByRoleForMonthAsync("Student", new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, 1));
+            return await _userService.CountAccountsByRoleForMonthAsync("Student");
         }
 
         //[CustomAuthorize("Admin")]
         [HttpGet("count-total-instructor-monthly")]
         public async Task<int?> CountAccountsByInstructorForMonthAsync()
         {
-            return await _userService.CountAccountsByRoleForMonthAsync("Instructor", new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, 1));
+            return await _userService.CountAccountsByRoleForMonthAsync("Instructor");
         }
 
         //[CustomAuthorize("Admin")]
@@ -199,6 +199,12 @@ namespace BE.Controllers
         public async Task<List<string?>?> RolePermissionsForUser([FromQuery] string userId)
         {
             return await _userService.IsRolePermissionsAsync(userId);
+        }
+
+        [HttpGet, Route("number-in-cart")]
+        public async Task<int?> NumberInCart([FromQuery] string userId)
+        {
+            return await _userService.CountNumberInCartAsync(userId);
         }
     }
 }

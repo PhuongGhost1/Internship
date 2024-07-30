@@ -29,7 +29,7 @@ export default function LoginPage() {
         sameSite: "None",
         secure: true,
       });
-      window.location.href = "/";
+      window.location.href = "/admin/dashboard";
     } else {
     }
   };

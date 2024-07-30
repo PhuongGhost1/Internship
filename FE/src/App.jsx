@@ -21,7 +21,6 @@ import ManageInstructorPage from "./pages/Admin/ManageInstructorPage/ManageInstr
 import ManageStudentPage from "./pages/Admin/ManageStudentPage/ManageStudentPage";
 import ManageCoursePage from "./pages/Admin/ManageCoursePage/ManageCoursePage";
 import RequestsPage from "./pages/Admin/RequestsPage/RequestsPage";
-import SettingPage from "./pages/Admin/SettingPage/SettingPage";
 import CertificationPage from "./pages/StudentPage/CertificationPage/CertificationPage";
 import CartPage from "./pages/StudentPage/CartPage/CartPage";
 import PayoutPage from "./pages/StudentPage/Payout/PayoutPage";
@@ -36,6 +35,7 @@ import InstructorDashBoard from "./pages/InstructorPage/DashBoard/InstructorDash
 import UserInfoPage from "./pages/UserPage/UserInfoPage/UserInfoPage";
 import PrivateRoute from "./pages/Context/PrivateRoute";
 import ErrorPage from "./pages/AuthPage/ErrorPage/ErrorPage";
+import SuccessPayment from "./pages/AuthPage/SuccessPaymentPage/SuccessPayment";
 
 function App() {
   return (
@@ -47,6 +47,7 @@ function App() {
             <Route path="login" element={<LoginPage />} />
             <Route path="sign-in" element={<SignInPage />} />
             <Route path="error" element={<ErrorPage />} />
+            <Route path="pay-success" element={<SuccessPayment />} />
             <Route path="signup" element={<RegisterPage />} />
             <Route
               path="payment"

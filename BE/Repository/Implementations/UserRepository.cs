@@ -177,8 +177,8 @@ namespace BE.Repository.Implementations
             var currentMonth = new DateTime(currentDate.Year, currentDate.Month, 1);
             var previousMonth = currentMonth.AddMonths(-1);
 
-            var currentMonthCount = await CountAccountsByRoleForMonth(roleName, currentMonth);
-            var previousMonthCount = await CountAccountsByRoleForMonth(roleName, previousMonth);
+            var currentMonthCount = await CountAccountsRoleForMonth(roleName, currentMonth);
+            var previousMonthCount = await CountAccountsRoleForMonth(roleName, previousMonth);
 
             if (previousMonthCount == 0) return currentMonthCount > 0 ? 100 : 0;
 
@@ -201,7 +201,7 @@ namespace BE.Repository.Implementations
             return await GetPercentageChangeForRoleAccountsLastMonth("Instructor");
         }
 
-        public async Task<int?> CountAccountsByRoleForMonth(string roleName, DateTime month)
+        private async Task<int?> CountAccountsRoleForMonth(string roleName, DateTime month)
         {
             var startOfMonth = new DateTime(month.Year, month.Month, 1);
             var endOfMonth = startOfMonth.AddMonths(1).AddTicks(-1);
@@ -217,6 +217,21 @@ namespace BE.Repository.Implementations
                                             .Where(ur => ur.RoleId == roleId)
                                             .Join(_context.Users, ur => ur.UserId, u => u.Id, (ur, u) => u)
                                             .Where(u => u.CreateAt >= startOfMonth && u.CreateAt <= endOfMonth)
+                                            .CountAsync();
+            return accountCount;
+        }
+
+        public async Task<int?> CountAccountsByRoleForMonth(string roleName)
+        {
+            var roleId = await _context.Roles
+                                    .Where(role => role.Name == roleName)
+                                    .Select(role => role.Id)
+                                    .FirstOrDefaultAsync();
+
+            if (string.IsNullOrEmpty(roleId)) return null;
+
+            var accountCount = await _context.RoleUsers
+                                            .Where(ur => ur.RoleId == roleId)
                                             .CountAsync();
             return accountCount;
         }

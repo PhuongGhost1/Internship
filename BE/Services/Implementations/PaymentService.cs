@@ -64,20 +64,6 @@ namespace BE.Services.Implementations
                 CaptureOrderCode = captureResponse.PurchaseUnits[0].Payments.Captures[0].Id
             };
 
-            var cartId = await _cartRepo.GetCartIdByUserId(paymentInfo.UserId);
-            List<string> cartCourseId = await _cartRepo.GetCartCourseByCartId(cartId);
-
-            foreach (var id in cartCourseId)
-            {
-                var paymentCourse = new PaymentCourse{
-                    Id = GenerateIdModel("paymentcourse"),
-                    PaymentId = paymentInfo.Id,
-                    CartcourseId = id,
-                    Total = paymentInfo.Total
-                };
-                await _payRepo.AddPaymentCourse(paymentCourse);
-            }
-
             var user = await _userRepo.GetUserById(paymentInfo.UserId);
             if (user != null)
             {

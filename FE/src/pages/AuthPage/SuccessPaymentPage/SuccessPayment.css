@@ -1,0 +1,13 @@
+#success-payment-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 120px;
+}
+
+#success-payment-page p {
+  font-size: 24px;
+  font-weight: 600;
+  margin-top: 10px;
+}
