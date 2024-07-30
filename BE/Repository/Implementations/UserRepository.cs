@@ -1069,5 +1069,15 @@ namespace BE.Repository.Implementations
 
             await _context.SaveChangesAsync();
         }
+
+        public async Task<bool> UpdateWalletForUser(User user)
+        {
+            if(user == null) return false;
+
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
     }
 }

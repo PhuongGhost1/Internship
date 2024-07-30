@@ -77,8 +77,8 @@ namespace BE.Helpers
                     }
                 },
                 ApplicationContext = new ApplicationContext{
-                    ReturnUrl = "https://groupcooked.web.app/student/cart",
-                    CancelUrl = "https://groupcooked.web.app/student/cart"
+                    ReturnUrl = "http://localhost:5173/student/cart",
+                    CancelUrl = "http://localhost:5173/student/cart"
                 }
             };
 

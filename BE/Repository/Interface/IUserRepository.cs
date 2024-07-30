@@ -36,5 +36,6 @@ namespace BE.Repository.Interface
                 Task<UserProfileBeSeenDto> GetUserProfileBeSeenData(string userId);
                 Task CreateUserRole(string userId);
                 Task<List<string?>?> IsRolePermissions(string? userId);
+                Task<bool> UpdateWalletForUser(User user);
         }
 }
