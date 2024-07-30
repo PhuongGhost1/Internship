@@ -66,5 +66,10 @@ namespace BE.Repository.Implementations
         {
             return await _context.Carts.Where(cart => cart.UserId == userId).Select(cart => cart.Id).FirstOrDefaultAsync();
         }
+
+        public async Task<List<string>> GetCartCourseByCartId(string cartId)
+        {
+            return await _context.CartCourses.Where(cc => cc.CartId == cartId).Select(cc => cc.Id).ToListAsync();
+        }
     }
 }

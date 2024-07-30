@@ -11,12 +11,14 @@ import { useNavigate } from "react-router-dom";
 function CoursesDetail({ courseData, onStatusUpdate, user }) {
   const [isFollowing, setIsFollowing] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
+  const [isEnrolled, setIsEnrolled] = useState(false);
   const nav = useNavigate();
 
   useEffect(() => {
     if (courseData) {
       setIsFollowing(courseData?.user?.statusFollowing || false);
       setIsSaved(courseData?.saveCourses?.[0]?.statusSaveCourse || false);
+      setIsEnrolled(courseData?.isEnrolled || false);
     }
   }, [courseData]);
 
@@ -50,6 +52,23 @@ function CoursesDetail({ courseData, onStatusUpdate, user }) {
         onStatusUpdate();
       } catch (error) {
         console.error("Error updating save course status:", error);
+      }
+    } else {
+      nav("/login");
+    }
+  };
+
+  const handleEnrollButtonClick = async () => {
+    if (user) {
+      if (isEnrolled) {
+        nav(`/course/${courseData?.id}/learn`);
+      } else {
+        try {
+          await ApiService.addCourseToCart(courseData?.id, user?.id);
+          nav("/student/cart");
+        } catch (error) {
+          console.error("Error adding course to cart:", error);
+        }
       }
     } else {
       nav("/login");
@@ -108,7 +127,11 @@ function CoursesDetail({ courseData, onStatusUpdate, user }) {
         </div>
       </div>
       <p className="introduction">{courseData?.description}</p>
-      <div className="enroll-btn">Enroll</div>
+      <div className="enroll-btn">
+        <button onClick={handleEnrollButtonClick}>
+          {isEnrolled ? "Enroll" : "Buy"}
+        </button>
+      </div>
     </div>
   );
 }
@@ -161,6 +184,7 @@ CoursesDetail.propTypes = {
     name: PropTypes.string.isRequired,
     rating: PropTypes.number,
     description: PropTypes.string,
+    isEnrolled: PropTypes.bool,
     cateCoruse: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.string.isRequired,

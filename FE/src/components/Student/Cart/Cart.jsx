@@ -40,9 +40,15 @@ export default function Cart({ user }) {
   const fetchCartData = async () => {
     try {
       const viewcartData = await ApiService.getCart(user.id);
-      setDatas(viewcartData.carts);
+      const filteredCarts = viewcartData.carts.map((cart) => {
+        return {
+          ...cart,
+          cartCourses: cart.cartCourses.filter((cc) => !cc.course.isBought),
+        };
+      });
+      setDatas(filteredCarts);
       const initialCheckedState = {};
-      viewcartData.carts.forEach((cart) => {
+      filteredCarts.forEach((cart) => {
         cart.cartCourses.forEach((cc) => {
           initialCheckedState[cc.course.id] = false;
         });

@@ -15,6 +15,7 @@ namespace BE.Dto.Course
         public float? Price { get; set; }
         public string? Description {get; set;}
         public string? imgUrl { get; set; }
+        public bool? IsBought { get; set; }
         public UserInfoFollowingDto? User {get; set;}
     }
 }

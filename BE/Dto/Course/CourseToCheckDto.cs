@@ -21,5 +21,6 @@ namespace BE.Dto.Course
         public List<CategoryCourseDto> CateCoruse = new List<CategoryCourseDto>();
         public List<SaveCourseDto> SaveCourses {get; set; } = new List<SaveCourseDto>();
         public UserInfoFollowingDto? User {get; set;}
+        public bool IsEnrolled { get; set; }
     }
 }

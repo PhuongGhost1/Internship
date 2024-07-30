@@ -62,13 +62,19 @@ namespace BE.Services.Implementations
                 CaptureOrderCode = captureResponse.PurchaseUnits[0].Payments.Captures[0].Id
             };
 
-            var cart = await _cartRepo.GetCartIdByUserId(paymentInfo.UserId);
+            var cartId = await _cartRepo.GetCartIdByUserId(paymentInfo.UserId);
+            var cartCourseId = await _cartRepo.GetCartCourseByCartId(cartId);
 
-            // var paymentCourse = new PaymentCourse{
-            //     Id = GenerateIdModel("paymentcourse"),
-            //     PaymentId = paymentInfo.Id,
-            //     CartcourseId = car,
-            // };
+            foreach (var id in cartCourseId)
+            {
+                var paymentCourse = new PaymentCourse{
+                    Id = GenerateIdModel("paymentcourse"),
+                    PaymentId = paymentInfo.Id,
+                    CartcourseId = id,
+                    Total = paymentInfo.Total
+                };
+                await _payRepo.AddPaymentCourse(paymentCourse);
+            }
 
             await _payRepo.UpdateStatusPayment(paymentInfo.Id);
 

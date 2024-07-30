@@ -20,5 +20,6 @@ namespace BE.Repository.Interface
         Task AddPayment(Payment payment);
         Task DeletePaymentInfo(Payment payment);
         Task<bool> UpdateStatusPayment(string paymentId);
+        Task AddPaymentCourse(PaymentCourse paymentCourse);
     }
 }

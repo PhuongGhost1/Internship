@@ -199,7 +199,7 @@ namespace BE.Services.Implementations
 
             var appUrl = Environment.GetEnvironmentVariable("APP_URL");
 
-            var redirectUrl = $"https://groupcooked.web.app/sign-in?token={Uri.EscapeDataString(token)}";
+            var redirectUrl = $"http://localhost:5173/sign-in?token={Uri.EscapeDataString(token)}";
 
             return redirectUrl;
         }
@@ -214,7 +214,7 @@ namespace BE.Services.Implementations
             { "code", code },
             { "client_id", _config["Google:ClientId"] },
             { "client_secret", _config["Google:ClientSecret"] },
-            { "redirect_uri", $"https://groupcooked.happyflower-ab63cd56.southeastasia.azurecontainerapps.io/api/v1/web/user/signin-google" },
+            { "redirect_uri", $"http://localhost:5144/api/v1/web/user/signin-google" },
             { "grant_type", "authorization_code" }
         };
 
@@ -295,7 +295,7 @@ namespace BE.Services.Implementations
                 throw new Exception("Google Client ID is missing in the configuration");
             }
             var server_url = Environment.GetEnvironmentVariable("SERVER_URL");
-            var redirectUri = $"https://groupcooked.happyflower-ab63cd56.southeastasia.azurecontainerapps.io/api/v1/web/user/signin-google";
+            var redirectUri = $"http://localhost:5144/api/v1/web/user/signin-google";
 
             if (string.IsNullOrEmpty(redirectUri))
             {

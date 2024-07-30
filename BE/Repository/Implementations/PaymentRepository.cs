@@ -188,5 +188,11 @@ namespace BE.Repository.Implementations
             _context.AffiliatePayments.Add(affiliatePayment);
             await _context.SaveChangesAsync();
         }
+
+        public async Task AddPaymentCourse(PaymentCourse paymentCourse)
+        {
+            await _context.PaymentCourses.AddAsync(paymentCourse);
+            await _context.SaveChangesAsync();
+        }
     }
 }
