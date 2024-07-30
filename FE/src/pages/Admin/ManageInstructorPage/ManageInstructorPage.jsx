@@ -9,17 +9,16 @@ import { useNavigate } from "react-router-dom";
 
 export default function ManageInstructorPage() {
   const [loading, setLoading] = useState(true);
-  const [userId, setUserId] = useState(null);
-  const { user } = useContext(AuthContext);
+  const { user, roles } = useContext(AuthContext);
   const nav = useNavigate();
 
   useEffect(() => {
-    if (user) {
-      setUserId(user.id);
-    } else {
+    if (!user) {
+      nav("/login");
+    } else if (!roles.includes("Admin")) {
       nav("/login");
     }
-  }, [user]);
+  }, [user, roles, nav]);
 
   useEffect(() => {
     const simulateLoading = () => {
@@ -32,27 +31,21 @@ export default function ManageInstructorPage() {
   }, []);
 
   return (
-    <>
-      {userId ? (
-        <div id="ManageInstructorPage">
-          <LoadingOverlay loading={loading} />
-          <div className="Header-Admin">
-            <Header />
-          </div>
-          <div className="Layout">
-            <div className="SideBar-container">
-              <SideBar type="instructor" />
-            </div>
-            <div className="Layout-container">
-              <div className="ManageInstructor-container">
-                <ManageInstructor />
-              </div>
-            </div>
+    <div id="ManageInstructorPage">
+      <LoadingOverlay loading={loading} />
+      <div className="Header-Admin">
+        <Header />
+      </div>
+      <div className="Layout">
+        <div className="SideBar-container">
+          <SideBar type="instructor" />
+        </div>
+        <div className="Layout-container">
+          <div className="ManageInstructor-container">
+            <ManageInstructor />
           </div>
         </div>
-      ) : (
-        <p>No user</p>
-      )}
-    </>
+      </div>
+    </div>
   );
 }

@@ -9,17 +9,16 @@ import { useNavigate } from "react-router-dom";
 
 export default function ManageStudentPage() {
   const [loading, setLoading] = useState(true);
-  const [userId, setUserId] = useState(null);
-  const { user } = useContext(AuthContext);
+  const { user, roles } = useContext(AuthContext);
   const nav = useNavigate();
 
   useEffect(() => {
-    if (user) {
-      setUserId(user.id);
-    } else {
+    if (!user) {
+      nav("/login");
+    } else if (!roles.includes("Admin")) {
       nav("/login");
     }
-  }, [user]);
+  }, [user, roles, nav]);
 
   useEffect(() => {
     const timeLoading = () => {
@@ -31,27 +30,21 @@ export default function ManageStudentPage() {
   }, []);
 
   return (
-    <>
-      {userId ? (
-        <div id="ManageStudentPage">
-          <LoadingOverlay loading={loading} />
-          <div className="Header-Admin">
-            <Header />
-          </div>
-          <div className="Layout">
-            <div className="SideBar-container">
-              <SideBar type="student" />
-            </div>
-            <div className="Layout-container">
-              <div className="ManageStudent-container">
-                <ManageStudent />
-              </div>
-            </div>
+    <div id="ManageStudentPage">
+      <LoadingOverlay loading={loading} />
+      <div className="Header-Admin">
+        <Header />
+      </div>
+      <div className="Layout">
+        <div className="SideBar-container">
+          <SideBar type="student" />
+        </div>
+        <div className="Layout-container">
+          <div className="ManageStudent-container">
+            <ManageStudent />
           </div>
         </div>
-      ) : (
-        <p>No user</p>
-      )}
-    </>
+      </div>
+    </div>
   );
 }

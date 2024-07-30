@@ -13,17 +13,16 @@ export default function ManageCoursePage() {
   const [loading, setLoading] = useState(true);
   const [courseData, setCourseData] = useState([]);
   const [courseWaitingData, setCourseWaitingData] = useState([]);
-  const [userId, setUserId] = useState(null);
-  const { user } = useContext(AuthContext);
+  const { user, roles } = useContext(AuthContext);
   const nav = useNavigate();
 
   useEffect(() => {
-    if (user) {
-      setUserId(user.id);
-    } else {
+    if (!user) {
+      nav("/login");
+    } else if (!roles.includes("Admin")) {
       nav("/login");
     }
-  }, [user]);
+  }, [user, roles, nav]);
 
   useEffect(() => {
     const fetchCourseData = async () => {
@@ -74,37 +73,31 @@ export default function ManageCoursePage() {
   };
 
   return (
-    <>
-      {userId ? (
-        <div id="ManageCoursePage">
-          <LoadingOverlay loading={loading} />
-          <div className="Header-Admin">
-            <Header />
-          </div>
-          <div className="Layout">
-            <div className="SideBar-container">
-              <SideBar type="managecourse" />
-            </div>
+    <div id="ManageCoursePage">
+      <LoadingOverlay loading={loading} />
+      <div className="Header-Admin">
+        <Header />
+      </div>
+      <div className="Layout">
+        <div className="SideBar-container">
+          <SideBar type="managecourse" />
+        </div>
 
-            <div className="Layout_Status_Posted">
-              <div className="CourseStatus">
-                <CourseStatus
-                  data={courseData}
-                  onStatusUpdate={handleStatusUpdate}
-                />
-              </div>
-              <div className="PostedCourse">
-                <PostedCourse
-                  data={courseWaitingData}
-                  onStatusUpdate={handleStatusUpdate}
-                />
-              </div>
-            </div>
+        <div className="Layout_Status_Posted">
+          <div className="CourseStatus">
+            <CourseStatus
+              data={courseData}
+              onStatusUpdate={handleStatusUpdate}
+            />
+          </div>
+          <div className="PostedCourse">
+            <PostedCourse
+              data={courseWaitingData}
+              onStatusUpdate={handleStatusUpdate}
+            />
           </div>
         </div>
-      ) : (
-        <p>No user</p>
-      )}
-    </>
+      </div>
+    </div>
   );
 }

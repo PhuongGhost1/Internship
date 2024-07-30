@@ -15,8 +15,8 @@ function CoursesDetail({ courseData, onStatusUpdate, user }) {
 
   useEffect(() => {
     if (courseData) {
-      setIsFollowing(courseData.user?.statusFollowing || false);
-      setIsSaved(courseData.saveCourses[0]?.statusSaveCourse || false);
+      setIsFollowing(courseData?.user?.statusFollowing || false);
+      setIsSaved(courseData?.saveCourses?.[0]?.statusSaveCourse || false);
     }
   }, [courseData]);
 
@@ -60,15 +60,17 @@ function CoursesDetail({ courseData, onStatusUpdate, user }) {
     <div id="courses-detail">
       <p className="courses-title">{courseData?.name}</p>
       <button
-        onClick={() => handleStatusChangeForSaveCourse(courseData?.id, user.id)}
+        onClick={() =>
+          handleStatusChangeForSaveCourse(courseData?.id, user?.id)
+        }
         className="heart-button"
       >
-        {isSaved === true ? <FaHeart /> : <FaRegHeart />}
+        {isSaved ? <FaHeart /> : <FaRegHeart />}
       </button>
       <div className="courses-categories">
         {courseData?.cateCoruse?.map((categoryCourse, index) => (
-          <a href="" key={index} className="category">
-            {categoryCourse.category.names}
+          <a href="#" key={index} className="category">
+            {categoryCourse?.category?.names}
           </a>
         ))}
       </div>
@@ -84,13 +86,13 @@ function CoursesDetail({ courseData, onStatusUpdate, user }) {
           <div className="Subscribe">
             <button
               onClick={() =>
-                handleStatusChangeForFollowing(user.id, courseData?.user?.id)
+                handleStatusChangeForFollowing(user?.id, courseData?.user?.id)
               }
               className={`follow-button ${
                 isFollowing ? "following" : "not-following"
               }`}
             >
-              {isFollowing === true ? (
+              {isFollowing ? (
                 <>
                   <SlUserFollow className="icon" />
                   Unsubscribe

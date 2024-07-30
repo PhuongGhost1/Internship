@@ -8,17 +8,21 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [roles, setRoles] = useState([]);
 
   useEffect(() => {
     const fetchUser = async () => {
       const token = Cookies.get("token");
       if (token) {
         try {
-          await login(token).finally(() => {
-            setIsLoading(false);
-          });
+          const response = await ApiService.login(token);
+          setUser(response);
+          const userRoles = await ApiService.RolePermissions(response.id);
+          setRoles(userRoles);
         } catch (error) {
           console.error("Login failed:", error);
+        } finally {
+          setIsLoading(false);
         }
       } else {
         setIsLoading(false);
@@ -48,7 +52,7 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, checkLogin, login }}>
+    <AuthContext.Provider value={{ user, checkLogin, login, roles }}>
       {isLoading ? <LoadingOverlay loading={isLoading} /> : children}
     </AuthContext.Provider>
   );

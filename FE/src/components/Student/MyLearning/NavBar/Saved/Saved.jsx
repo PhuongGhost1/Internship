@@ -5,8 +5,9 @@ import { FaChalkboardTeacher } from "react-icons/fa";
 import ApiService from "../../../../../api/ApiService";
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
+import PropTypes from "prop-types";
 
-const Saved = ({ user }) => {
+function Saved({ user }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [dataReturn, setDataReturn] = useState([]);
@@ -145,6 +146,13 @@ const Saved = ({ user }) => {
       )}
     </div>
   );
+}
+
+Saved.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default Saved;

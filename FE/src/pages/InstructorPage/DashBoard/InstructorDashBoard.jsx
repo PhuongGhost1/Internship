@@ -11,16 +11,17 @@ import { AuthContext } from "../../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 export default function InstructorDashBoard() {
-  const { user } = useContext(AuthContext);
+  const { user, roles } = useContext(AuthContext);
   const nav = useNavigate();
 
   useEffect(() => {
-    if (user) {
-      console.log(user);
-    } else {
+    if (!user) {
+      nav("/login");
+    } else if (!roles.includes("Instructor")) {
       nav("/login");
     }
-  }, []);
+  }, [user, roles, nav]);
+
   return (
     <div id="InstructorDashBoard">
       <Header />

@@ -8,16 +8,18 @@ import { AuthContext } from "../../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 export default function CartPage() {
-  const { user } = useContext(AuthContext);
+  const { user, roles } = useContext(AuthContext);
   const nav = useNavigate();
 
   useEffect(() => {
-    if (user) {
-      console.log(user);
-    } else {
+    if (!user) {
+      nav("/login");
+    } else if (
+      !roles.some((role) => ["Instructor", "Student"].includes(role))
+    ) {
       nav("/login");
     }
-  }, []);
+  }, [user, roles, nav]);
   return (
     <div id="CartPage">
       <div className="cartpage-container">

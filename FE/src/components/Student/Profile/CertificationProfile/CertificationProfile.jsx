@@ -5,8 +5,9 @@ import { IoInformationCircleOutline } from "react-icons/io5";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
 import ApiService from "../../../../api/ApiService";
+import PropTypes from "prop-types";
 
-export default function CertificationProfile({ user }) {
+function CertificationProfile({ user }) {
   const [showAll, setShowAll] = useState(false);
   const [itemShow, setItemShow] = useState(3);
   const [certifications, setCertifications] = useState([]);
@@ -110,3 +111,12 @@ export default function CertificationProfile({ user }) {
     </div>
   );
 }
+
+CertificationProfile.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
+export default CertificationProfile;

@@ -9,16 +9,18 @@ import { AuthContext } from "../../Context/AuthContext";
 
 export default function PayoutPage() {
   const location = useLocation();
-  const { user } = useContext(AuthContext);
+  const { user, roles } = useContext(AuthContext);
   const nav = useNavigate();
 
   useEffect(() => {
-    if (user) {
-      console.log(user);
-    } else {
+    if (!user) {
+      nav("/login");
+    } else if (
+      !roles.some((role) => ["Instructor", "Student"].includes(role))
+    ) {
       nav("/login");
     }
-  }, []);
+  }, [user, roles, nav]);
   console.log("Location state:", location.state);
   const { total, courseName } = location.state || {};
 

@@ -551,6 +551,7 @@ namespace BE.Repository.Implementations
                     Rating = course.Rating,
                     Price = course.Price,
                     Description = course.Description,
+                    WhatLearn = course.WhatLearn,
                     CateCoruse = course.CategoryCourses.Select(cc => new CategoryCourseDto
                     {
                          Id = cc.Id,

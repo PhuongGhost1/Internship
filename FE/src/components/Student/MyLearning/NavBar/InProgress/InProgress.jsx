@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./InProgress.css";
 import ApiService from "../../../../../api/ApiService";
-
-import CNXLogo from "../../../../../assets/CNX.png";
-import CSLogo from "../../../../../assets/CS_logo.png";
-import ReactJSLogo from "../../../../../assets/React_logo.png";
+import PropTypes from "prop-types";
 
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
-export default function InProgress({ user }) {
+function InProgress({ user }) {
   const [showAll, setShowAll] = useState(false);
   const [itemShow, setItemShow] = useState(3);
   const [searchTerm, setSearchTerm] = useState("");
@@ -29,7 +26,7 @@ export default function InProgress({ user }) {
             imageSrc: cert.certification.course.images[0].url,
             certificateLink: cert.certification.course.id,
             courseName: cert.certification.course.name,
-            userId: cert.user.id, // Include user ID here
+            userId: cert.user.id,
             progress: cert.certification.course.processings,
           })),
         );
@@ -136,3 +133,12 @@ export default function InProgress({ user }) {
     </div>
   );
 }
+
+InProgress.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
+export default InProgress;

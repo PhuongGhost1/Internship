@@ -194,5 +194,11 @@ namespace BE.Controllers
         {
             return await _userService.GetUserProfileBeSeenDataAsync(userId);
         }
+
+        [HttpGet, Route("role-permissions")]
+        public async Task<List<string?>?> RolePermissionsForUser([FromQuery] string userId)
+        {
+            return await _userService.IsRolePermissionsAsync(userId);
+        }
     }
 }

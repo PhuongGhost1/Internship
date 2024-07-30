@@ -34,6 +34,7 @@ import { AuthProvider } from "./pages/Context/AuthContext";
 import SignInPage from "./pages/AuthPage/SignInPage/SignInPage";
 import InstructorDashBoard from "./pages/InstructorPage/DashBoard/InstructorDashBoard";
 import UserInfoPage from "./pages/UserPage/UserInfoPage/UserInfoPage";
+import PrivateRoute from "./pages/Context/PrivateRoute";
 
 function App() {
   return (
@@ -45,49 +46,199 @@ function App() {
             <Route path="login" element={<LoginPage />} />
             <Route path="sign-in" element={<SignInPage />} />
             <Route path="signup" element={<RegisterPage />} />
-            <Route path="payment" element={<PaymentPage />} />
+            <Route
+              path="payment"
+              element={
+                <PrivateRoute
+                  element={<PaymentPage />}
+                  roles={["Instructor", "Student"]}
+                />
+              }
+            />
             <Route path="search" element={<SearchPage />} />
           </Route>
           <Route path="/courses">
             <Route path=":courseName" element={<CourseDetailPage />} />
             <Route
               path="learning/:courseName/:courseType/:itemName"
-              element={<CourseLearning />}
+              element={
+                <PrivateRoute
+                  element={<CourseLearning />}
+                  roles={["Instructor", "Student"]}
+                />
+              }
             />
-            <Route path="create/:courseName" element={<CreateCoursePage />} />
+            <Route
+              path="create/:courseName"
+              element={
+                <PrivateRoute
+                  element={<CreateCoursePage />}
+                  roles={["Instructor"]}
+                />
+              }
+            />
           </Route>
           <Route path="/student">
-            <Route path="cart" element={<CartPage />} />
-            <Route path="payout" element={<PayoutPage />} />
+            <Route
+              path="cart"
+              element={
+                <PrivateRoute
+                  element={<CartPage />}
+                  roles={["Instructor", "Student"]}
+                />
+              }
+            />
+            <Route
+              path="payout"
+              element={
+                <PrivateRoute
+                  element={<PayoutPage />}
+                  roles={["Instructor", "Student"]}
+                />
+              }
+            />
             <Route
               path="certification/:userId"
-              element={<CertificationPage />}
+              element={
+                <PrivateRoute
+                  element={<CertificationPage />}
+                  roles={["Instructor", "Student"]}
+                />
+              }
             />
-            <Route path="profile" element={<StudentProfilePage />} />
+            <Route
+              path="profile"
+              element={
+                <PrivateRoute
+                  element={<StudentProfilePage />}
+                  roles={["Instructor", "Student"]}
+                />
+              }
+            />
             <Route path="my-learning">
-              <Route path="completed" element={<CourseCompletedPage />} />
-              <Route path="following" element={<FollowingPage />} />
-              <Route path="in-progress" element={<CourseInProgressPage />} />
-              <Route path="saved" element={<CourseSavedPage />} />
+              <Route
+                path="completed"
+                element={
+                  <PrivateRoute
+                    element={<CourseCompletedPage />}
+                    roles={["Instructor", "Student"]}
+                  />
+                }
+              />
+              <Route
+                path="following"
+                element={
+                  <PrivateRoute
+                    element={<FollowingPage />}
+                    roles={["Instructor", "Student"]}
+                  />
+                }
+              />
+              <Route
+                path="in-progress"
+                element={
+                  <PrivateRoute
+                    element={<CourseInProgressPage />}
+                    roles={["Instructor", "Student"]}
+                  />
+                }
+              />
+              <Route
+                path="saved"
+                element={
+                  <PrivateRoute
+                    element={<CourseSavedPage />}
+                    roles={["Instructor", "Student"]}
+                  />
+                }
+              />
             </Route>
           </Route>
           <Route path="/instructor">
-            <Route path="profile" element={<InstructorProfilePage />} />
-            <Route path="dashboard" element={<InstructorDashBoard />} />
+            <Route
+              path="profile"
+              element={
+                <PrivateRoute
+                  element={<InstructorProfilePage />}
+                  roles={["Instructor"]}
+                />
+              }
+            />
+            <Route
+              path="dashboard"
+              element={
+                <PrivateRoute
+                  element={<InstructorDashBoard />}
+                  roles={["Instructor"]}
+                />
+              }
+            />
           </Route>
           <Route path="/user">
             <Route path=":id" element={<UserInfoPage />} />
           </Route>
 
           <Route path="/admin">
-            <Route path="dashboard" element={<DashBoard />} />
-            <Route path="instructor" element={<ManageInstructorPage />} />
-            <Route path="student" element={<ManageStudentPage />} />
-            <Route path="course" element={<ManageCoursePage />} />
-            <Route path="requests" element={<RequestsPage />} />
-            <Route path="report" element={<ReportPage />} />
-            <Route path="feedback" element={<FeedBackAdminPage />} />
-            <Route path="category" element={<CategoryPage />} />
+            <Route
+              path="dashboard"
+              element={
+                <PrivateRoute element={<DashBoard />} roles={["Admin"]} />
+              }
+            />
+            <Route
+              path="instructor"
+              element={
+                <PrivateRoute
+                  element={<ManageInstructorPage />}
+                  roles={["Admin"]}
+                />
+              }
+            />
+            <Route
+              path="student"
+              element={
+                <PrivateRoute
+                  element={<ManageStudentPage />}
+                  roles={["Admin"]}
+                />
+              }
+            />
+            <Route
+              path="course"
+              element={
+                <PrivateRoute
+                  element={<ManageCoursePage />}
+                  roles={["Admin"]}
+                />
+              }
+            />
+            <Route
+              path="requests"
+              element={
+                <PrivateRoute element={<RequestsPage />} roles={["Admin"]} />
+              }
+            />
+            <Route
+              path="report"
+              element={
+                <PrivateRoute element={<ReportPage />} roles={["Admin"]} />
+              }
+            />
+            <Route
+              path="feedback"
+              element={
+                <PrivateRoute
+                  element={<FeedBackAdminPage />}
+                  roles={["Admin"]}
+                />
+              }
+            />
+            <Route
+              path="category"
+              element={
+                <PrivateRoute element={<CategoryPage />} roles={["Admin"]} />
+              }
+            />
           </Route>
         </Routes>
       </AuthProvider>

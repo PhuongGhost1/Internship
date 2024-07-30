@@ -1049,5 +1049,25 @@ namespace BE.Repository.Implementations
                 throw;
             }
         }
+
+        public async Task<List<string?>?> IsRolePermissions(string? userId)
+        {
+            return await _context.RoleUsers.Where(ru => ru.UserId == userId).Select(ru => ru.Role.Name).ToListAsync();
+        }
+
+        public async Task CreateUserRole(string userId)
+        {
+            var roleId = await _context.Roles.Where(r => r.Name == "Student").Select(r => r.Id).FirstOrDefaultAsync();
+
+            _context.RoleUsers.Add(new RoleUser{
+                Id = GenerateIdModel("roleuser"),
+                RoleId = roleId,
+                UserId = userId,
+                UpdateDate = GetTimeNow(),
+                Status = 1
+            });
+
+            await _context.SaveChangesAsync();
+        }
     }
 }

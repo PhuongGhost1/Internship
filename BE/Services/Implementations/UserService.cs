@@ -187,6 +187,7 @@ namespace BE.Services.Implementations
                 {
                     await _userRepo.CreateUserGoogle(userInfo.Email);
                     user = await _userRepo.GetUserLoginGoogle(userInfo.Email);
+                    await _userRepo.CreateUserRole(user.Id);
                 }
             }
             catch (Exception ex)
@@ -433,6 +434,15 @@ namespace BE.Services.Implementations
             if(user == null) return new UserProfileBeSeenDto();
 
             return await _userRepo.GetUserProfileBeSeenData(userId);
+        }
+
+        public async Task<List<string?>?> IsRolePermissionsAsync(string userId)
+        {
+            var user = await _userRepo.GetUserById(userId);
+
+            if(user == null) return null;
+
+            return await _userRepo.IsRolePermissions(userId);
         }
     }
 }

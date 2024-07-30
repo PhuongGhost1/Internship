@@ -5,8 +5,10 @@ import Background_user from "../../../../../assets/background-user1.jpg";
 import Avatar from "@mui/material/Avatar";
 import AvatarGroup from "@mui/material/AvatarGroup";
 import defaultImg from "../../../../../assets/add_profile.png";
+import defaultAvatar from "../../../../../assets/IntructorIMG.png";
+import PropTypes from "prop-types";
 
-const Followed = ({ user }) => {
+function Followed({ user }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [data, setData] = useState([]);
 
@@ -37,15 +39,11 @@ const Followed = ({ user }) => {
     }
   };
 
-  // Filter data based on the search term and instructor name
   const filteredData = data.flatMap((tutor) =>
     tutor.followFolloweds.filter((followed) =>
       followed.name.toLowerCase().includes(searchTerm.toLowerCase()),
     ),
   );
-
-  const defaultAvatar = "path_to_default_avatar_image"; // Define your default avatar URL here
-  const defaultTutorImage = "path_to_default_tutor_image"; // Define your default tutor image URL here
 
   return (
     <div id="Followed">
@@ -126,6 +124,13 @@ const Followed = ({ user }) => {
       </div>
     </div>
   );
+}
+
+Followed.propTypes = {
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default Followed;

@@ -9,17 +9,16 @@ import { useNavigate } from "react-router-dom";
 
 export default function RequestsPage() {
   const [loading, setLoading] = useState(true);
-  const [userId, setUserId] = useState(null);
-  const { user } = useContext(AuthContext);
+  const { user, roles } = useContext(AuthContext);
   const nav = useNavigate();
 
   useEffect(() => {
-    if (user) {
-      setUserId(user.id);
-    } else {
+    if (!user) {
+      nav("/login");
+    } else if (!roles.includes("Admin")) {
       nav("/login");
     }
-  }, [user]);
+  }, [user, roles, nav]);
 
   useEffect(() => {
     const timeLoading = () => {

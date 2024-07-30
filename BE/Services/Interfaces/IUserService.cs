@@ -34,5 +34,6 @@ namespace BE.Services.Interfaces
         Task<InstructorProfileDto> GetInstructorProfileByInsIdAsync(string insId);
         Task<InstructorProfileDto> GetInstructorProfileWithWaitingCourseByInsId(string insId);
         Task<UserProfileBeSeenDto> GetUserProfileBeSeenDataAsync(string userId);
+        Task<List<string?>?> IsRolePermissionsAsync(string userId);
     }
 }
