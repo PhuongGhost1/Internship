@@ -77,8 +77,8 @@ namespace BE.Helpers
                     }
                 },
                 ApplicationContext = new ApplicationContext{
-                    ReturnUrl = "http://localhost:5173/pay-success",
-                    CancelUrl = "http://localhost:5173/pay-success"
+                    ReturnUrl = "https://groupcooked.web.app/pay-success",
+                    CancelUrl = "https://groupcooked.web.app/pay-success"
                 }
             };
 
