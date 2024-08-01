@@ -24,7 +24,7 @@ export default function ManageInstructorPage() {
     const simulateLoading = () => {
       setTimeout(() => {
         setLoading(false);
-      }, 3000);
+      }, 1500);
     };
 
     simulateLoading();
@@ -34,7 +34,7 @@ export default function ManageInstructorPage() {
     <div id="ManageInstructorPage">
       <LoadingOverlay loading={loading} />
       <div className="Header-Admin">
-        <Header />
+        <Header user={user} />
       </div>
       <div className="Layout">
         <div className="SideBar-container">

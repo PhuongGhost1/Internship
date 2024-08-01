@@ -24,7 +24,7 @@ export default function CategoryPage() {
     const timeLoading = () => {
       setTimeout(() => {
         setLoading(false);
-      }, 3000);
+      }, 1500);
     };
 
     timeLoading();

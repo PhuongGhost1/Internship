@@ -60,7 +60,7 @@ const AdminRequests = () => {
 
       const updatedStatus = await ApiService.UpdateRequestRoleUserByAdmin(
         id,
-        status
+        status,
       );
 
       if (updatedStatus) {
@@ -68,8 +68,8 @@ const AdminRequests = () => {
           requests.map((request) =>
             request.userRequest.id === id
               ? { ...request, status: status }
-              : request
-          )
+              : request,
+          ),
         );
       } else {
         console.log("Update status failed or no update needed.");
@@ -110,7 +110,7 @@ const AdminRequests = () => {
           <li
             key={request.id}
             className={`request-item ${statusToString(
-              request.userRequest.roleUserReqs[0].status
+              request.userRequest.roleUserReqs[0].status,
             ).toLowerCase()}`}
           >
             <p>
@@ -131,25 +131,26 @@ const AdminRequests = () => {
                 />
               </span>
             </div>
-            {request.userRequest.roleUserReqs[0].status === 0 &&
-              request.isRead === false && (
-                <div className="actions">
-                  <button
-                    onClick={() =>
-                      handleStatusChange(request.userRequest.id, "Approved")
-                    }
-                  >
-                    Approve
-                  </button>
-                  <button
-                    onClick={() =>
-                      handleStatusChange(request.userRequest.id, "Rejected")
-                    }
-                  >
-                    Reject
-                  </button>
-                </div>
-              )}
+            {request.userRequest.roleUserReqs[0].status === 0 ||
+              (request.userRequest.roleUserReqs[0].status === 2 &&
+                (request.isRead === false || request.isRead === true) && (
+                  <div className="actions">
+                    <button
+                      onClick={() =>
+                        handleStatusChange(request.userRequest.id, "Approved")
+                      }
+                    >
+                      Approve
+                    </button>
+                    <button
+                      onClick={() =>
+                        handleStatusChange(request.userRequest.id, "Rejected")
+                      }
+                    >
+                      Reject
+                    </button>
+                  </div>
+                ))}
           </li>
         ))}
       </ul>
@@ -164,13 +165,13 @@ const AdminRequests = () => {
                 <img
                   src={
                     requests[currentNum].userRequest.images != null &&
-                      requests[currentNum].userRequest.images.length > 0
+                    requests[currentNum].userRequest.images.length > 0
                       ? requests[currentNum].userRequest.images[0].url
                       : user_ava
                   }
                   alt={
                     requests[currentNum].userRequest.images != null &&
-                      requests[currentNum].userRequest.images.length > 0
+                    requests[currentNum].userRequest.images.length > 0
                       ? requests[currentNum].userRequest.images[0].url
                       : user_ava
                   }

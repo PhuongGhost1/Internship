@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BE.Dto.Certification;
+using BE.Dto.InProgressDto;
 using BE.Dto.UserCertification;
 using BE.Mappers;
 using BE.Models;
@@ -51,5 +52,14 @@ namespace BE.Services.Implementations
 
                return await _certiRepo.GetCredentialsByUser(UserId);
           }
-     }
+
+          public async Task<List<UserPurchasedCourseDto>> GetUserPurchasedCoursesWithDetailsAsync(string userId)
+          {
+               var user = await _userRepo.GetUserById(userId);
+
+               if (user == null) return new List<UserPurchasedCourseDto>();
+
+               return await _certiRepo.GetUserPurchasedCoursesWithDetails(userId);
+          }
+    }
 }

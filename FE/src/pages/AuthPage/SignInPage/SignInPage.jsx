@@ -32,9 +32,11 @@ const SignInPage = () => {
           }, 2000);
         } catch (error) {
           console.error("Login failed:", error);
+          navigate("/error");
         }
       } else {
         console.error("Invalid response from Google");
+        navigate("/error");
       }
     };
 

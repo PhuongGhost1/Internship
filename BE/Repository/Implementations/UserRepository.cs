@@ -78,7 +78,8 @@ namespace BE.Repository.Implementations
                 CreateAt = GetTimeNow(),
                 Wallet = 0,
                 LoginType = "Google",
-                Status = 1
+                Status = 1,
+                IsVisible = false
             });
             await _context.SaveChangesAsync();
         }
@@ -240,6 +241,17 @@ namespace BE.Repository.Implementations
         {
             var instructors = await _context.Users
                 .Where(u => u.RoleUsers.Any(ru => ru.Role.Name == roleName))
+                .Include(u => u.Images)
+                .Include(u => u.RoleUsers)
+                    .ThenInclude(ru => ru.Role)
+                .Include(u => u.NotificationReceiveds)
+                    .ThenInclude(n => n.Course)
+                .Include(u => u.Courses)
+                    .ThenInclude(c => c.Images)
+                .Include(u => u.Payments)
+                    .ThenInclude(p => p.PaymentCourses)
+                        .ThenInclude(pc => pc.Cartcourse)
+                            .ThenInclude(pc => pc.Course) 
                 .Select(u => new UserInfoManageByAdminDto
                 {
                     Id = u.Id,

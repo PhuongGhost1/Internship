@@ -12,14 +12,20 @@ function CoursesDetail({ courseData, onStatusUpdate, user }) {
   const [isFollowing, setIsFollowing] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [isEnrolled, setIsEnrolled] = useState(false);
+  const [isInCartUser, setIsInCartUser] = useState(false);
   const nav = useNavigate();
 
   useEffect(() => {
-    if (courseData) {
-      setIsFollowing(courseData?.user?.statusFollowing || false);
-      setIsSaved(courseData?.saveCourses?.[0]?.statusSaveCourse || false);
-      setIsEnrolled(courseData?.isEnrolled || false);
-    }
+    const checkCourseStatus = async () => {
+      if (courseData) {
+        setIsFollowing(courseData.user?.statusFollowing || false);
+        setIsSaved(courseData.saveCourses?.[0]?.statusSaveCourse || false);
+        setIsEnrolled(courseData.isEnrolled || false);
+        setIsInCartUser(courseData.isInCart || false);
+      }
+    };
+
+    checkCourseStatus();
   }, [courseData]);
 
   const handleStatusChangeForFollowing = async (FollowerId, FollowedId) => {
@@ -61,9 +67,30 @@ function CoursesDetail({ courseData, onStatusUpdate, user }) {
   const handleEnrollButtonClick = async () => {
     if (user) {
       if (isEnrolled) {
-        nav(`/course/${courseData?.id}/learn`);
+        nav(`/courses/learning/${courseData?.name}/:courseType/:itemName`);
       } else {
         try {
+          const response = await ApiService.getCart(user?.id);
+
+          if (response && response.carts && response.carts.length > 0) {
+            const cart = response.carts[0];
+
+            if (!cart.id) {
+              console.error("No cart ID found for user.");
+              return;
+            }
+
+            const isInCart = await ApiService.checkCourseInCart(
+              cart.id,
+              courseData?.id,
+            );
+
+            if (isInCart) {
+              alert("The course is already in the cart.");
+              return;
+            }
+          }
+
           await ApiService.addCourseToCart(courseData?.id, user?.id);
           nav("/student/cart");
         } catch (error) {
@@ -128,9 +155,11 @@ function CoursesDetail({ courseData, onStatusUpdate, user }) {
       </div>
       <p className="introduction">{courseData?.description}</p>
       <div className="enroll-btn">
-        <button onClick={handleEnrollButtonClick}>
-          {isEnrolled ? "Enroll" : "Buy"}
-        </button>
+        <div className="text" onClick={handleEnrollButtonClick}>
+          <h10>
+            {isEnrolled ? "Enroll" : isInCartUser ? "Already In Cart" : "Buy"}
+          </h10>
+        </div>
       </div>
     </div>
   );
@@ -185,6 +214,7 @@ CoursesDetail.propTypes = {
     rating: PropTypes.number,
     description: PropTypes.string,
     isEnrolled: PropTypes.bool,
+    isInCart: PropTypes.bool,
     cateCoruse: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.string.isRequired,

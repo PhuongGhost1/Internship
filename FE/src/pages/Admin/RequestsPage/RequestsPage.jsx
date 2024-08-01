@@ -24,7 +24,7 @@ export default function RequestsPage() {
     const timeLoading = () => {
       setTimeout(() => {
         setLoading(false);
-      }, 3000);
+      }, 1000);
     };
     timeLoading();
   }, []);
@@ -33,7 +33,7 @@ export default function RequestsPage() {
     <div id="RequestsPage">
       <LoadingOverlay loading={loading} />
       <div className="Header-Admin">
-        <Header />
+        <Header user={user} />
       </div>
       <div className="Layout">
         <div className="SideBar-container">

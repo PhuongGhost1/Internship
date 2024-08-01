@@ -53,41 +53,41 @@ namespace BE.Repository.Implementations
           public async Task<CourseDto?> GetLecturesAndQuizzesByCourseId(string courseId)
           {
                var course = await _context.Courses
-                   .Where(c => c.Id == courseId)
-                   .Include(c => c.Chapters)
-                   .FirstOrDefaultAsync();
+                    .Where(c => c.Id == courseId)
+                    .Include(c => c.Chapters)
+                    .FirstOrDefaultAsync();
 
                if (course == null) return null;
 
                var chapterIds = course.Chapters.Select(ch => ch.Id).ToList();
 
                var lectures = await _context.Lectures
-                   .Where(l => chapterIds.Contains(l.ChapterId))
-                   .Select(l => new ChapterItemDto
-                   {
-                        ItemId = l.Id,
-                        Name = l.Name,
-                        Index = l.Index,
-                        Type = "Lecture",
-                        ChapterId = l.ChapterId,
-                        HashCode = GenerateHashCode(l.Id),
-                        Time = l.TimeVideo
-                   })
-                   .ToListAsync();
+                    .Where(l => chapterIds.Contains(l.ChapterId))
+                    .Select(l => new ChapterItemDto
+                    {
+                         ItemId = l.Id,
+                         Name = l.Name,
+                         Index = l.Index,
+                         Type = "Lecture",
+                         ChapterId = l.ChapterId,
+                         HashCode = GenerateHashCode(l.Id),
+                         Time = l.TimeVideo
+                    })
+                    .ToListAsync();
 
                var quizzes = await _context.Quizzes
-                   .Where(q => chapterIds.Contains(q.ChapterId))
-                   .Select(q => new ChapterItemDto
-                   {
-                        ItemId = q.Id,
-                        Name = q.Name,
-                        Index = q.Index,
-                        Type = "Quiz",
-                        ChapterId = q.ChapterId,
-                        HashCode = GenerateHashCode(q.Id),
-                        Time = TimeSpan.FromMinutes(30)
-                   })
-                   .ToListAsync();
+                    .Where(q => chapterIds.Contains(q.ChapterId))
+                    .Select(q => new ChapterItemDto
+                    {
+                         ItemId = q.Id,
+                         Name = q.Name,
+                         Index = q.Index,
+                         Type = "Quiz",
+                         ChapterId = q.ChapterId,
+                         HashCode = GenerateHashCode(q.Id),
+                         Time = TimeSpan.FromMinutes(30)
+                    })
+                    .ToListAsync();
 
                var chapterDtos = course.Chapters.Select(ch => new ChaptersDto
                {
@@ -95,10 +95,14 @@ namespace BE.Repository.Implementations
                     Name = ch.Name,
                     Index = ch.Index,
                     Items = lectures
-                       .Where(l => l.ChapterId == ch.Id)
-                       .Concat(quizzes.Where(q => q.ChapterId == ch.Id))
-                       .OrderBy(item => item.Index)
-                       .ToList()
+                         .Where(l => l.ChapterId == ch.Id)
+                         .Concat(quizzes.Where(q => q.ChapterId == ch.Id))
+                         .OrderBy(item => item.Index)
+                         .ToList(),
+                    LectureCount = lectures.Count(l => l.ChapterId == ch.Id),
+                    QuizCount = quizzes.Count(q => q.ChapterId == ch.Id),
+                    TotalTime = Math.Round(lectures.Where(l => l.ChapterId == ch.Id).Sum(l => l.Time?.TotalMinutes ?? 0) +
+                               quizzes.Where(q => q.ChapterId == ch.Id).Sum(q => q.Time?.TotalMinutes ?? 0), 2)
                }).OrderBy(x => x.Index).ToList();
 
                var courseDto = new CourseDto
@@ -584,6 +588,27 @@ namespace BE.Repository.Implementations
                                                        .Where(cc => cartCourseIds.Contains(cc.Id) && cc.CourseId == course.Id)
                                                        .Select(cc => cc.CourseId)
                                                        .FirstOrDefaultAsync();
+
+                    var cartIdInCartOfUser = await _context.Carts
+                                                       .Where(c => c.UserId == userId)
+                                                       .Select(c => c.Id)
+                                                       .FirstOrDefaultAsync();
+
+                    var cartCourseId = await _context.CartCourses
+                                                       .Where(cc => cc.CartId == cartIdInCartOfUser && cc.CourseId == course.Id)
+                                                       .Select(cc => cc.Id)
+                                                       .ToListAsync();
+
+                    var IsCourseInCartOfUser = await _context.CartCourses
+                                                            .Where(cc => cartCourseId.Contains(cc.Id))
+                                                            .Select(cc => cc.Id)
+                                                            .FirstOrDefaultAsync();
+
+                    if(IsCourseInCartOfUser != null){
+                         courseToCheckDto.IsInCart = true;
+                    }else{
+                         courseToCheckDto.IsInCart = false;
+                    }
 
                     if (courseIdInCart != null){
                          courseToCheckDto.IsEnrolled = true;

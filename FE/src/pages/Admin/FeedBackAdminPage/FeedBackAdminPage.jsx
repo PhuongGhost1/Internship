@@ -24,7 +24,7 @@ export default function FeedBackAdminPage() {
     const timeLoading = () => {
       setTimeout(() => {
         setLoading(false);
-      }, 2500);
+      }, 1500);
     };
 
     timeLoading();

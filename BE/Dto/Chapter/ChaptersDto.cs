@@ -13,5 +13,8 @@ namespace BE.Dto.Chapter
         public List<ChapterItemDto> Items { get; set; }
         public string? ChapId {get; set;} = string.Empty;
         public string? CourseId {get; set;} = string.Empty;
+        public int? LectureCount {get; set;}
+        public int? QuizCount {get; set;}
+        public double? TotalTime {get; set;}
     }
 }

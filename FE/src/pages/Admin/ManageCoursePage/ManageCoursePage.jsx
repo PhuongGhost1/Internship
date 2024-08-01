@@ -55,7 +55,7 @@ export default function ManageCoursePage() {
     const timeLoading = () => {
       setTimeout(() => {
         setLoading(false);
-      }, 3000);
+      }, 2000);
     };
     timeLoading();
   }, []);
@@ -76,7 +76,7 @@ export default function ManageCoursePage() {
     <div id="ManageCoursePage">
       <LoadingOverlay loading={loading} />
       <div className="Header-Admin">
-        <Header />
+        <Header user={user} />
       </div>
       <div className="Layout">
         <div className="SideBar-container">

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./SuccessPayment.css";
-import success from "../../../assets/success.png";
 import ApiService from "../../../api/ApiService";
 import { useNavigate } from "react-router-dom";
 
@@ -66,24 +65,29 @@ const SuccessPayment = () => {
 
   return (
     <div id="success-payment-page">
-      <img src={success} alt="Success" />
       {status === "success" && (
-        <p>
-          Your transaction has been completed successfully. Thank you for your
-          support!
-        </p>
+        <div className="Success-page">
+          <p className="text">
+            Your transaction has been completed successfully. Thank you for your
+            support!
+          </p>
+        </div>
       )}
       {status === "cancel" && (
-        <p>
-          Your transaction has been cancelled. Please try again or contact
-          support if you need assistance.
-        </p>
+        <div className="Cancel-page">
+          <p className="text">
+            Your transaction has been cancelled. Please try again or contact
+            support if you need assistance.
+          </p>
+        </div>
       )}
       {status === "error" && (
-        <p>
-          There was an error processing your transaction. Please try again or
-          contact support.
-        </p>
+        <div className="Error-page">
+          <p className="text">
+            There was an error processing your transaction. Please try again or
+            contact support.
+          </p>
+        </div>
       )}
       <button onClick={returnBack}>Go Back To Home Page</button>
     </div>

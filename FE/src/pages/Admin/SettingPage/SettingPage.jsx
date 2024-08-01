@@ -21,7 +21,7 @@ export default function SettingPage() {
   return (
     <div id="SettingPage">
       <div className="Header-Admin">
-        <Header />
+        <Header user={user} />
       </div>
       <div className="Layout">
         <div className="SideBar-container">

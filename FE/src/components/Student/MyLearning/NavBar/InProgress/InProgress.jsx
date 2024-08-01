@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 function InProgress({ user }) {
   const [showAll, setShowAll] = useState(false);
@@ -15,28 +16,53 @@ function InProgress({ user }) {
   useEffect(() => {
     const fetchInProgressData = async () => {
       try {
-        const certificationData = await ApiService.getCredentials(user.id);
+        const certificationData =
+          await ApiService.ViewUserPurchasedCoursesWithDetails(user.id);
+
         setCourses(
           certificationData.map((cert) => ({
-            title: cert.certification.course.name,
-            institution: cert.certification.course.user.name,
-            fields: cert.certification.course.cateCoruse.map(
-              (cat) => cat.category.name,
-            ),
-            imageSrc: cert.certification.course.images[0].url,
-            certificateLink: cert.certification.course.id,
-            courseName: cert.certification.course.name,
-            userId: cert.user.id,
-            progress: cert.certification.course.processings,
+            title: cert.courseName,
+            institution: cert.user.name,
+            fields: cert.cateCoruse.map((cat) => cat.category.name),
+            imageSrc: cert.images[0]?.url || "",
+            certificateLink: `/courses/learning/${cert.courseName}/:courseType/:itemName`,
+            courseName: cert.courseName,
+            userId: cert.userId,
+            progress: calculateCourseProgress(cert.userProgress),
           })),
         );
       } catch (error) {
-        console.log("Error fetching get credentials list: ", error);
+        console.log("Error fetching in-progress courses: ", error);
       }
     };
 
     fetchInProgressData();
-  }, []);
+  }, [user.id]);
+
+  const calculateCourseProgress = (chapters) => {
+    const totalLectures = chapters.reduce(
+      (acc, chapter) => acc + chapter.lectureCount,
+      0,
+    );
+    const totalQuizzes = chapters.reduce(
+      (acc, chapter) => acc + chapter.quizCount,
+      0,
+    );
+
+    const completedLectures = chapters.reduce(
+      (acc, chapter) => acc + chapter.completedLectures,
+      0,
+    );
+    const completedQuizzes = chapters.reduce(
+      (acc, chapter) => acc + chapter.completedQuizzes,
+      0,
+    );
+
+    const totalItems = totalLectures + totalQuizzes;
+    const completedItems = completedLectures + completedQuizzes;
+
+    return totalItems === 0 ? 0 : (completedItems / totalItems) * 100;
+  };
 
   const handleShowMore = () => {
     if (itemShow === 3) {
@@ -107,13 +133,14 @@ function InProgress({ user }) {
                 </div>
 
                 <div>
-                  <a
-                    href={course.certificateLink}
-                    className="view-certificate"
-                    id={`view-certificate-${index}`}
-                  >
-                    Resume
-                  </a>
+                  <Link to={course.certificateLink}>
+                    <button
+                      className="view-certificate"
+                      id={`view-certificate-${index}`}
+                    >
+                      Resume
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>

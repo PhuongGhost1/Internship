@@ -7,8 +7,8 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
   const [roles, setRoles] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -36,6 +36,8 @@ const AuthProvider = ({ children }) => {
     try {
       const response = await ApiService.login(token);
       setUser(response);
+      const userRoles = await ApiService.RolePermissions(response.id);
+      setRoles(userRoles);
     } catch (error) {
       console.error("Login failed:", error);
     }

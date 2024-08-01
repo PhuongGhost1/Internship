@@ -140,7 +140,8 @@ namespace BE.Repository.Implementations
                 UserId = userId,
                 PaymendCode = GeneratePaymentCode(),
                 CreateDate = GetTimeNow(),
-                Total = totalMoney
+                Total = totalMoney,
+                Status = 1
             };
             _context.Payments.Add(payment);
             await _context.SaveChangesAsync();

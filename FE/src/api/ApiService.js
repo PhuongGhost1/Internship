@@ -955,6 +955,18 @@ const ApiService = {
       console.error("Error for getting number in cart: ", error);
     }
   },
+  ViewUserPurchasedCoursesWithDetails: async (userId) => {
+    try {
+      const response = await api.get("/web/certification/in-progress-courses", {
+        params: { userId },
+      });
+
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching viewing purchased course list:", error);
+      throw error;
+    }
+  },
 };
 
 export default ApiService;

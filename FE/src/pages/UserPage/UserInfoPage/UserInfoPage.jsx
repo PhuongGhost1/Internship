@@ -34,7 +34,7 @@ export default function UserInfoPage() {
     const timeLoading = () => {
       setTimeout(() => {
         setLoading(false);
-      }, 5000);
+      }, 3000);
     };
 
     timeLoading();

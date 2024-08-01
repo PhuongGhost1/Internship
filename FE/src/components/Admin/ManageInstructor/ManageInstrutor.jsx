@@ -15,6 +15,7 @@ import { FaRegStarHalfStroke } from "react-icons/fa6";
 import ApiService from "../../../api/ApiService";
 import { FaPhoneAlt } from "react-icons/fa";
 import { SiGmail } from "react-icons/si";
+import IntructorIMG2 from "../../../assets/IntructorIMG2.png";
 
 const pageSize = 12;
 
@@ -50,8 +51,8 @@ const ManageInstructor = () => {
           prevInstructors.map((instructor) =>
             instructor.id === id
               ? { ...instructor, isVisible: !instructor.isVisible }
-              : instructor
-          )
+              : instructor,
+          ),
         );
       } else {
         console.log("Update status failed or no update needed.");
@@ -72,17 +73,19 @@ const ManageInstructor = () => {
     setSearchTerm(event.target.value);
   };
 
-  const filteredInstructors = instructors.filter(
-    (instructor) =>
-      instructor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      instructor.email.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredInstructors = instructors.filter((instructor) => {
+    const name = instructor.name ? instructor.name.toLowerCase() : "";
+    const email = instructor.email ? instructor.email.toLowerCase() : "";
+    const search = searchTerm.toLowerCase();
+
+    return name.includes(search) || email.includes(search);
+  });
 
   const indexOfLastInstructor = currentPage * pageSize;
   const indexOfFirstInstructor = indexOfLastInstructor - pageSize;
   const currentInstructors = filteredInstructors.slice(
     indexOfFirstInstructor,
-    indexOfLastInstructor
+    indexOfLastInstructor,
   );
   const totalPages = Math.ceil(filteredInstructors.length / pageSize);
 
@@ -132,7 +135,7 @@ const ManageInstructor = () => {
                         <p>{activity.name}</p>
                       </div>
                     </div>
-                  )
+                  ),
                 )}
               </div>
             </div>
@@ -172,15 +175,34 @@ const ManageInstructor = () => {
               {(instructors[currentNum].payments || []).map(
                 (payment, index) => (
                   <div key={index} className="payment-item">
-                    <p>
-                      <strong>Course:</strong> {payment.course}
-                    </p>
-                    <p>
-                      <strong>Amount: </strong>
-                      <span>+{payment.amount}</span>{" "}
-                    </p>
+                    {payment.paymentCourses &&
+                    payment.paymentCourses.length > 0 ? (
+                      payment.paymentCourses.map(
+                        (paymentCourse, courseIndex) => (
+                          <div key={courseIndex}>
+                            <p>
+                              <strong>Course:</strong>{" "}
+                              {paymentCourse.cartCourseDto.courseForAdminDto
+                                .name || "Unknown Course"}
+                            </p>
+                            <p>
+                              <strong>Amount: </strong>
+                              <span>+{payment.total}</span>{" "}
+                            </p>
+                          </div>
+                        ),
+                      )
+                    ) : (
+                      <div>
+                        <p>Not paying yet</p>
+                        <p>
+                          <strong>Amount: </strong>
+                          <span>+{payment.total}</span>{" "}
+                        </p>
+                      </div>
+                    )}
                   </div>
-                )
+                ),
               )}
             </div>
           </div>
@@ -243,7 +265,9 @@ const ManageInstructor = () => {
                 {indexOfFirstInstructor + index + 1}
               </td>
               <td className="email">{instructor.email}</td>
-              <td className="name">{instructor.name}</td>
+              <td className="name">
+                {instructor.name === null ? "Not Provided" : instructor.name}
+              </td>
               <td className="status">
                 <button
                   className={`status-toggle status-${instructor.isVisible}`}
@@ -276,7 +300,10 @@ const ManageInstructor = () => {
               <div className="popup-info">
                 <div className="popup-info-image">
                   <img
-                    src={currentInstructors[currentNum].images[0]?.url || ""}
+                    src={
+                      currentInstructors[currentNum].images[0]?.url ||
+                      IntructorIMG2
+                    }
                     alt={currentInstructors[currentNum].images[0]?.url || ""}
                   />
                 </div>
