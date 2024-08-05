@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\BE",
+    "\\BE\\Models",
+    "\\Tests",
+    "\\Tests\\WebAPI.Tests",
+    "\\Tests\\WebAPI.Tests\\Controllers"
+  ],
+  "SelectedNode": "\\Tests\\WebAPI.Tests\\WebAPI.Tests.csproj",
+  "PreviewInSolutionExplorer": false
+}

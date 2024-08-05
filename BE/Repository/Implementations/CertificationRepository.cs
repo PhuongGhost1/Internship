@@ -260,7 +260,8 @@ namespace BE.Repository.Implementations
                               .ThenInclude(course => course.CategoryCourses)
                                    .ThenInclude(cc => cc.Category)
                     .Include(pc => pc.Payment)
-                    .Where(pc => pc.Cartcourse.Cart.UserId == userId && pc.Cartcourse.Status == 1)
+                    .Where(pc => pc.Cartcourse.Cart.UserId == userId && pc.Cartcourse.Status == 1 
+                                        && pc.Cartcourse.Course.CategoryCourses.Any(cc => cc.Category.IsVisible == true))
                     .ToListAsync();
 
                var userPurchasedCourses = new List<UserPurchasedCourseDto>();

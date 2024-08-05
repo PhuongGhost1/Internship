@@ -173,8 +173,7 @@ namespace BE.Controllers
         [HttpPost, Route("get-user-by-id")]
         public async Task<User> GetUserById([FromForm] string id)
         {
-            Console.WriteLine(id);
-            return null;
+            return await _userService.GetUSerById(id);
         }
 
         [HttpGet, Route("get-instructor-profile")]
