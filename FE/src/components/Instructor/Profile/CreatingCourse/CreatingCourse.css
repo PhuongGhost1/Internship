@@ -10,11 +10,19 @@
 #creating-course .creating-title {
     display: flex;
     align-items: center;
+    margin-bottom: 20px;
+    justify-content: space-between;
 }
 
-#creating-course .creating-course-title {
-    margin-bottom: 20px;
+#creating-course .creating-title h3 {
+    margin: 0;
 }
+
+#creating-course .creating-title svg {
+    font-size: 20px;
+    cursor: pointer;
+}
+
 
 #creating .creating-course-item {
     background: #fff;

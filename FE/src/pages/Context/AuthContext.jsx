@@ -20,8 +20,12 @@ const AuthProvider = ({ children }) => {
         const response = await ApiService.checkLogin(email, password)
         return response
     }
+    const userRole = async (userId) => {
+        const response = await ApiService.GetUserRole(userId)
+        return response.name
+    }
     return (
-        <AuthContext.Provider value={{ user, checkLogin }}>
+        <AuthContext.Provider value={{ user, checkLogin, userRole }}>
             {children}
         </AuthContext.Provider>
     )

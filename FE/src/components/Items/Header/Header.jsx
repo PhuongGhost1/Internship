@@ -20,7 +20,7 @@ export default function Header() {
 	const [isDropDown, setIsDropDown] = useState(false);
 	const [height, setHeight] = useState('0px');
 	const contentDropdownRef = useRef(null);
-	const { user } = useContext(AuthContext);
+	const { user, userRole } = useContext(AuthContext);
 	const [imgUser, setImgUser] = useState(null);
 	const [isDropDownUser, setIsDropDownUser] = useState(false);
 	const [searchInput, setSearchInput] = useState('')
@@ -122,7 +122,7 @@ export default function Header() {
 											<TbBellCheck />
 											Notification
 										</div>
-										<a href="/student/profile" className="selection-block">
+										<a href={userRole(user.id) == 'Student' ? '/student/profile' : '/instructor/profile'} className="selection-block">
 											<LuUserCog />
 											Account Profile
 										</a>

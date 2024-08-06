@@ -71,13 +71,23 @@ namespace BE.Repository.Implementations
 
         public async Task CreateUserGoogle(string email)
         {
+            string userId = GenerateIdModel("user");
             _context.Users.Add(new User
             {
-                Id = GenerateIdModel("user"),
+                Id = userId,
                 Email = email,
                 CreateAt = GetTimeNow(),
                 Wallet = 0,
                 LoginType = "Google",
+                Status = 1
+            });
+            var role = await _context.Roles.Where(r => r.Name == "Student").FirstOrDefaultAsync();
+            _context.RoleUsers.Add(new RoleUser
+            {
+                Id = GenerateIdModel("roleuser"),
+                Role = role,
+                UserId = userId,
+                UpdateDate = GetTimeNow(),
                 Status = 1
             });
             await _context.SaveChangesAsync();
@@ -836,14 +846,14 @@ namespace BE.Repository.Implementations
         private async Task<int?> NumberOfQuizInChapterByCourseId(string courseId)
         {
             var quizCountByChapter = await (from chap in _context.Chapters
-                                                join c in _context.Courses on chap.CourseId equals c.Id
-                                                join q in _context.Quizzes on chap.Id equals q.ChapterId into quizGroup
-                                                where c.Id == courseId
-                                                select new
-                                                {
-                                                    ChapterId = chap.Id,
-                                                    QuizCount = quizGroup.Count()
-                                                })
+                                            join c in _context.Courses on chap.CourseId equals c.Id
+                                            join q in _context.Quizzes on chap.Id equals q.ChapterId into quizGroup
+                                            where c.Id == courseId
+                                            select new
+                                            {
+                                                ChapterId = chap.Id,
+                                                QuizCount = quizGroup.Count()
+                                            })
                                                 .ToListAsync();
 
             return quizCountByChapter.Sum(x => x.QuizCount);
@@ -852,10 +862,10 @@ namespace BE.Repository.Implementations
         private async Task<int?> NumberOfLectureInChapterByCourseId(string courseId)
         {
             var totalLectureInChapter = await (from lec in _context.Lectures
-                                                join chap in _context.Chapters on lec.ChapterId equals chap.Id
-                                                join course in _context.Courses on chap.CourseId equals course.Id
-                                                where course.Id == courseId
-                                                select lec)
+                                               join chap in _context.Chapters on lec.ChapterId equals chap.Id
+                                               join course in _context.Courses on chap.CourseId equals course.Id
+                                               where course.Id == courseId
+                                               select lec)
                                                 .CountAsync();
 
             return totalLectureInChapter;
@@ -865,10 +875,10 @@ namespace BE.Repository.Implementations
         {
             var totalVideoTimeMinutes = await
                                             (from chap in _context.Chapters
-                                            join c in _context.Courses on chap.CourseId equals c.Id
-                                            join l in _context.Lectures on chap.Id equals l.ChapterId
-                                            where c.Id == courseId
-                                            select l.TimeVideo)
+                                             join c in _context.Courses on chap.CourseId equals c.Id
+                                             join l in _context.Lectures on chap.Id equals l.ChapterId
+                                             where c.Id == courseId
+                                             select l.TimeVideo)
                                             .ToListAsync();
 
             int sumTotalMinutes = totalVideoTimeMinutes.Sum(timeOnly => ToMinutes(timeOnly));
@@ -935,7 +945,7 @@ namespace BE.Repository.Implementations
                                             .Where(f => f.FollowedId == userId)
                                             .Select(f => f.Follower)
                                             .ToListAsync();
-                
+
                 var courses = await _context.Courses.Where(c => c.UserId == userId).ToListAsync();
                 var courseIds = await _context.Courses.Where(c => c.UserId == userId).Select(c => c.Id).ToListAsync();
 
@@ -978,14 +988,14 @@ namespace BE.Repository.Implementations
                                              .Where(cateCourse => cateCourse.Category.IsVisible == true)
                                              .Select(cateCourse => new CategoryCourseDto
                                              {
-                                                  Id = cateCourse.Id,
-                                                  Category = new CategoryDto
-                                                  {
-                                                       Names = new List<string?> { cateCourse.Category.Name },
-                                                       cateId = cateCourse.Category.Id,
-                                                       Name = cateCourse.Category.Name,
-                                                       IsVisible = cateCourse.Category.IsVisible
-                                                  }
+                                                 Id = cateCourse.Id,
+                                                 Category = new CategoryDto
+                                                 {
+                                                     Names = new List<string?> { cateCourse.Category.Name },
+                                                     cateId = cateCourse.Category.Id,
+                                                     Name = cateCourse.Category.Name,
+                                                     IsVisible = cateCourse.Category.IsVisible
+                                                 }
                                              })
                                              .ToList(),
                     };
@@ -1049,8 +1059,10 @@ namespace BE.Repository.Implementations
                 throw;
             }
         }
-        public async Task<Role?> GetUserRole(string userId){
-            var userRole = await _context.RoleUsers.Where(ru => ru.UserId == userId && ru.Status == 1 )
+        public async Task<Role> GetUserRole(string userId)
+        {
+            var userRole = await _context.RoleUsers.Include(ru => ru.Role)
+                                                    .Where(ru => ru.UserId == userId && ru.Status == 1)
                                                     .OrderByDescending(ru => ru.UpdateDate)
                                                     .FirstOrDefaultAsync();
             return userRole.Role;

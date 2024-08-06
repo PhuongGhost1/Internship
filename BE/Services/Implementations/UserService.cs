@@ -430,11 +430,12 @@ namespace BE.Services.Implementations
         {
             var user = await _userRepo.GetUserById(userId);
 
-            if(user == null) return new UserProfileBeSeenDto();
+            if (user == null) return new UserProfileBeSeenDto();
 
             return await _userRepo.GetUserProfileBeSeenData(userId);
         }
-        public async Task<Role?> GetUserRole(string userId){
+        public async Task<Role> GetUserRole(string userId)
+        {
             return await _userRepo.GetUserRole(userId);
         }
     }

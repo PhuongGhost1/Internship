@@ -936,6 +936,21 @@ const ApiService = {
       console.log("Failed to get quiz: ", error);
     }
   },
+  GetUserRole: async (userId) => {
+    try {
+      const formData = new FormData();
+      formData.append("userId", userId)
+      const response = await api.post(`/web/user/get-user-role`,
+        formData, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      })
+      return response.data
+    } catch (error) {
+      console.log("Failed to get useRole: ", error)
+    }
+  }
 };
 
 export default ApiService;

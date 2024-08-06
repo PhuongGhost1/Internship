@@ -34,6 +34,6 @@ namespace BE.Repository.Interface
                 Task<InstructorProfileDto> GetInstructorProfileWithWaitingCourseByInsId(string insId);
                 Task<string?> GetImageUser(string userId);
                 Task<UserProfileBeSeenDto> GetUserProfileBeSeenData(string userId);
-                Task<Role?> GetUserRole(string userId);
+                Task<Role> GetUserRole(string userId);
         }
 }

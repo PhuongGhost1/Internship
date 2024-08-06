@@ -2,10 +2,15 @@ import React, { useEffect, useState } from "react";
 import "./CreatingCourse.css";
 
 import { FaArrowRight } from "react-icons/fa";
+import { IoAddCircleOutline } from "react-icons/io5";
 import ApiService from "../../../../api/ApiService";
 
 export default function CreatingCourse() {
   const [userData, setUserData] = useState([]);
+
+  const handleAddCourseClick = async () => {
+
+  }
 
   useEffect(() => {
     const fetchCreatingCoursesData = async () => {
@@ -32,6 +37,7 @@ export default function CreatingCourse() {
     <div id="creating-course">
       <div className="creating-title">
         <h3 className="creating-course-title">Draft</h3>
+        <IoAddCircleOutline />
       </div>
       <div id="creating">
         {userData ? (

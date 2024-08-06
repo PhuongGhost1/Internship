@@ -1231,23 +1231,26 @@ namespace BE.Repository.Implementations
 
                return quiz;
           }
-          public async Task<MessageDto> CreateCourseWithName(string userId, string courseName, IFormFile image){
+          public async Task<MessageDto> CreateCourseWithName(string userId, string courseName, IFormFile image)
+          {
                try
                {
                     var courseId = GenerateIdModel("course");
-                    var course = new Course{
+                    var course = new Course
+                    {
                          Id = courseId,
                          Name = courseName,
                          UserId = userId,
                          CreateAt = GetTimeNow(),
                          Price = 0,
-                         Status = 3,
+                         Status = 2,
                          IsVisible = true,
                          Rating = 0,
                     };
                     _context.Courses.Add(course);
                     var imageUrl = await UploadImgCourseToFirebase(image, GetNameUnderscore(courseName), "Background");
-                    var imageObj = new Image{
+                    var imageObj = new Image
+                    {
                          Id = GenerateIdModel("image"),
                          Url = imageUrl,
                          CourseId = courseId,
@@ -1255,14 +1258,16 @@ namespace BE.Repository.Implementations
                     };
                     _context.Images.Add(imageObj);
                     await _context.SaveChangesAsync();
-                    return new MessageDto{
+                    return new MessageDto
+                    {
                          Message = "Create success",
                          Status = 1
                     };
                }
                catch (System.Exception e)
                {
-                    return new MessageDto{
+                    return new MessageDto
+                    {
                          Message = e.Message,
                          Status = 0
                     };
