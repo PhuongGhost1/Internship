@@ -1273,5 +1273,13 @@ namespace BE.Repository.Implementations
                     };
                }
           }
+          public async Task<List<string>> GetHashCodeProcessing(string userId)
+          {
+               var processing = await _context.Processings
+                               .Where(p => p.UserId == userId)
+                               .Select(p => new { p.QuizId, p.LectureId })
+                               .ToListAsync();
+               return null;
+          }
      }
 }

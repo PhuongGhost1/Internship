@@ -26,7 +26,7 @@ namespace BE.Controllers
         {
             _courseService = courseService;
         }
-        
+
 
         [HttpGet]
         [Route("all-courses")]
@@ -284,8 +284,15 @@ namespace BE.Controllers
             return await _courseService.GetQuizByHashCode(hashCode);
         }
         [HttpPost, Route("create-course-with-name")]
-        public async Task<MessageDto> CreateCourseWithName([FromForm] string userId, [FromForm] string courseName, [FromForm] IFormFile image){
-            return await _courseService.CreateCourseWithName(userId,courseName, image);
+        public async Task<MessageDto> CreateCourseWithName([FromForm] string userId, [FromForm] string courseName, [FromForm] IFormFile image)
+        {
+            return await _courseService.CreateCourseWithName(userId, courseName, image);
+        }
+
+        [HttpPost, Route("Get-hascode-processing")]
+        public async Task<List<string>> GetHashCodeProcessing([FromForm] string userId)
+        {
+            return await _courseService.GetHashCodeProcessing(userId);
         }
     }
 }

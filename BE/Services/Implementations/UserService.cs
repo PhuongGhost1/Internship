@@ -435,6 +435,7 @@ namespace BE.Services.Implementations
             return await _userRepo.GetUserProfileBeSeenData(userId);
         }
         public async Task<Role> GetUserRole(string userId)
+
         {
             return await _userRepo.GetUserRole(userId);
         }
