@@ -171,7 +171,7 @@ namespace BE.Services.Implementations
 
         public async Task<CourseToCheckDto?> GetCourseByCourseName(string courseName, string? userId)
         {
-            if(courseName == null) throw new Exception("Unable to find chapter!");
+            if (courseName == null) throw new Exception("Unable to find chapter!");
             return await _courseRepo.FindCourseByCourseName(courseName, userId);
         }
 
@@ -343,7 +343,7 @@ namespace BE.Services.Implementations
         {
             var user = await _userRepo.GetUserById(userId);
 
-            if(user == null) return new UserCartDto();
+            if (user == null) return new UserCartDto();
 
             return await _courseRepo.GetListCartCourse(userId);
         }
@@ -439,7 +439,7 @@ namespace BE.Services.Implementations
             var cart = await _cartRepo.GetCartById(cartId);
             var course = await _courseRepo.RetriveCourseInformationById(courseId);
 
-            if(cart == null || course == null) return false;
+            if (cart == null || course == null) return false;
 
             return await _courseRepo.IsCourseInCartAsync(cartId, courseId);
         }
@@ -511,8 +511,13 @@ namespace BE.Services.Implementations
         {
             return await _courseRepo.GetQuizByHashCode(hashCode);
         }
-        public async Task<MessageDto> CreateCourseWithName(string userId, string courseName, IFormFile image){
+        public async Task<MessageDto> CreateCourseWithName(string userId, string courseName, IFormFile image)
+        {
             return await _courseRepo.CreateCourseWithName(userId, courseName, image);
+        }
+        public async Task<List<string>> GetHashCodeProcessing(string userId)
+        {
+            return await _courseRepo.GetHashCodeProcessing(userId);
         }
     }
 }
