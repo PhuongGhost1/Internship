@@ -65,5 +65,8 @@ namespace BE.Repository.Interface
                 Task<Quiz> GetQuizByHashCode(string hashCode);
                 Task<MessageDto> CreateCourseWithName(string userId, string courseName, IFormFile image);
                 Task<List<string>> GetHashCodeProcessing(string userId);
+                Task CreateProcessing(string itemId, string userId);
+                Task MarkQuiz(List<string> answers, string hashCodeQuiz, string userId);
+                Task<Submission> GetSubmission(string hashCodeQuiz, string userId);
         }
 }

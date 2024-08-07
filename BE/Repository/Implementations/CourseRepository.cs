@@ -24,6 +24,8 @@ using BE.Dto.Follow;
 using BE.Dto.Cart;
 using BE.Dto.Course.FilterSearchCourse;
 using BE.Dto.Message;
+using Microsoft.Extensions.ObjectPool;
+using System.Net.Http.Headers;
 
 namespace BE.Repository.Implementations
 {
@@ -1275,11 +1277,73 @@ namespace BE.Repository.Implementations
           }
           public async Task<List<string>> GetHashCodeProcessing(string userId)
           {
-               var processing = await _context.Processings
-                               .Where(p => p.UserId == userId)
-                               .Select(p => new { p.QuizId, p.LectureId })
-                               .ToListAsync();
-               return null;
+               var results = await _context.Processings
+                   .Where(p => p.UserId == userId)
+                   .Select(p => GenerateHashCode(p.QuizId ?? p.LectureId))
+                   .ToListAsync();
+               return results;
+          }
+          public async Task CreateProcessing(string itemId, string userId)
+          {
+               Processing processing = null;
+
+               // Check for the existence of a processing record
+               if (itemId.Contains("quiz"))
+               {
+                    processing = await _context.Processings
+                        .FirstOrDefaultAsync(p => p.UserId == userId && p.QuizId == itemId);
+               }
+               else if (itemId.Contains("lecture"))
+               {
+                    processing = await _context.Processings
+                        .FirstOrDefaultAsync(p => p.UserId == userId && p.LectureId == itemId);
+               }
+
+               // Add a new processing record only if it does not already exist
+               if (processing == null)
+               {
+                    processing = new Processing
+                    {
+                         Id = GenerateIdModel("processing"),
+                         QuizId = itemId.Contains("quiz") ? itemId : null,
+                         LectureId = itemId.Contains("lecture") ? itemId : null,
+                         UserId = userId,
+                         CreateAt = GetTimeNow()
+                    };
+
+                    _context.Processings.Add(processing);
+                    await _context.SaveChangesAsync();
+               }
+          }
+          public async Task MarkQuiz(List<string> answerIds, string hashCodeQuiz, string userId)
+          {
+               var quizzes = await _context.Quizzes.ToListAsync();
+
+               var quiz = quizzes.FirstOrDefault(q => GenerateHashCode(q.Id) == hashCodeQuiz);
+               int mark = await _context.Answers
+                                        .Where(a => a.IsCorrect == true && answerIds.Contains(a.Id))
+                                        .CountAsync();
+               double? markPercent = (double)mark / quiz.NumberQuestions * 100;
+               var submission = new Submission
+               {
+                    Id = GenerateIdModel("submission"),
+                    Quiz = quiz,
+                    UserId = userId,
+                    Grade = markPercent,
+                    Date = GetTimeNow(),
+                    IsPass = markPercent >= quiz.PassPercent
+               };
+               _context.Submissions.Add(submission);
+               await _context.SaveChangesAsync();
+          }
+          public async Task<Submission?> GetSubmission(string hashCodeQuiz, string userId)
+          {
+               var quizzes = await _context.Quizzes.ToListAsync();
+
+               var quiz = quizzes.FirstOrDefault(q => GenerateHashCode(q.Id) == hashCodeQuiz);
+               return await _context.Submissions.Where(s => s.Quiz == quiz && s.UserId == userId)
+                                                  .OrderByDescending(s => s.Grade)
+                                                  .FirstOrDefaultAsync();
           }
      }
 }

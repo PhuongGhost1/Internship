@@ -950,6 +950,70 @@ const ApiService = {
     } catch (error) {
       console.log("Failed to get useRole: ", error)
     }
+  },
+  GetHashCodeProcessing: async (userId) => {
+    try {
+      const formData = new FormData();
+      formData.append("userId", userId)
+      const response = await api.post('/web/course/get-hascode-processing',
+        formData, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      })
+      return response.data
+    } catch (error) {
+      console.log("Error: ", error)
+    }
+  },
+  CreateProcessing: async (itemId, userId) => {
+    try {
+      const formData = new FormData();
+      formData.append("itemId", itemId)
+      formData.append("userId", userId)
+      const response = await api.post('/web/course/create-processing',
+        formData, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      })
+      return response.data
+    } catch (error) {
+      console.log("Error: ", error)
+    }
+  },
+  GetSubmission: async (hashCodeQuiz, userId) => {
+    try {
+      const formData = new FormData();
+      formData.append("userId", userId);
+      formData.append("hashCodeQuiz", hashCodeQuiz)
+      const response = await api.post('/web/course/get-submission',
+        formData, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      })
+      return response.data
+    } catch (error) {
+      console.log("Error: ", error)
+    }
+  },
+  MarkQuiz: async (answers, hashCodeQuiz, userId) => {
+    try {
+      const formData = new FormData();
+      formData.append("userId", userId);
+      formData.append("hashCodeQuiz", hashCodeQuiz)
+      formData.append("answers", JSON.stringify(answers))
+      const response = await api.post('/web/course/mark-quiz',
+        formData, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      })
+      return response.data
+    } catch (error) {
+      console.log("Error: ", error)
+    }
   }
 };
 

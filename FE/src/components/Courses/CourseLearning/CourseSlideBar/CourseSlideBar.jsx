@@ -5,7 +5,7 @@ import ChapterDetailSB from "../../../Items/ChapterDetailSB/ChapterDetailSB";
 import { FaListUl } from "react-icons/fa";
 import { MdMoreVert } from "react-icons/md";
 
-export default function CourseSlideBar({ data, courseName, itemName }) {
+export default function CourseSlideBar({ data, courseName, itemName, courseProcessing }) {
     const [isOpenSlideBar, setIsOpenSlideBar] = useState(true)
     const [isContentVisible, setIsContentVisible] = useState(true);
 
@@ -40,7 +40,8 @@ export default function CourseSlideBar({ data, courseName, itemName }) {
                             chapter={chapter}
                             index={index}
                             courseName={courseName}
-                            itemName={itemName} />
+                            itemName={itemName}
+                            courseProcessing={courseProcessing} />
                     ))}
                 </div>
             )}

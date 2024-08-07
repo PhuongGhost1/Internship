@@ -15,7 +15,7 @@ import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa6";
 import ApiService from "../../../../api/ApiService";
 
-export default function CourseVideoContent({ lectureName }) {
+export default function CourseVideoContent({ lectureName, setIsFetchingProcessing, user }) {
     const [videoUrl, setvideoUrl] = useState('');
     const [videoName, setVideoName] = useState('');
     const [videoInfo, setVideoInfo] = useState({
@@ -28,6 +28,7 @@ export default function CourseVideoContent({ lectureName }) {
         videoQuality: '1080p',
         playRate: 1.00,
     });
+    const [lectureId, setLectureId] = useState('')
 
     const [progress, setProgress] = useState(0);
     const [progressEdit, setProgressEdit] = useState(0)
@@ -68,15 +69,24 @@ export default function CourseVideoContent({ lectureName }) {
             }
         };
 
+        const handleVideoEnd = async () => {
+            if (user) {
+                const data = await ApiService.CreateProcessing(lectureId, user.id);
+            }
+            setIsFetchingProcessing(true);
+        };
+
         if (videoRef.current) {
             videoRef.current.addEventListener('timeupdate', updateProgress);
             videoRef.current.addEventListener('loadedmetadata', updateProgress);
+            videoRef.current.addEventListener('ended', handleVideoEnd);
         }
 
         return () => {
             if (videoRef.current) {
                 videoRef.current.removeEventListener('timeupdate', updateProgress);
                 videoRef.current.removeEventListener('loadedmetadata', updateProgress);
+                videoRef.current.removeEventListener('ended', handleVideoEnd);
             }
             if (hlsRef.current) {
                 hlsRef.current.destroy();
@@ -91,8 +101,9 @@ export default function CourseVideoContent({ lectureName }) {
 
     const fetchVideoUrl = async (hashCode) => {
         const data = await ApiService.GetLecture(hashCode);
-        setvideoUrl(data.videoUrl);
+        setLectureId(data.id);
         setVideoName(data.name);
+        setvideoUrl(data.videoUrl);
     }
 
     useEffect(() => {

@@ -519,5 +519,49 @@ namespace BE.Services.Implementations
         {
             return await _courseRepo.GetHashCodeProcessing(userId);
         }
+        public async Task<MessageDto> CreateProcessing(string itemId, string userId)
+        {
+            try
+            {
+                await _courseRepo.CreateProcessing(itemId, userId);
+                return new MessageDto
+                {
+                    Message = "Create Success",
+                    Status = 1
+                };
+            }
+            catch (System.Exception e)
+            {
+                return new MessageDto
+                {
+                    Message = e.Message,
+                    Status = 0
+                };
+            }
+        }
+        public async Task<MessageDto> MarkQuiz(List<string> answers, string hashCodeQuiz, string userId)
+        {
+            try
+            {
+                await _courseRepo.MarkQuiz(answers, hashCodeQuiz, userId);
+                return new MessageDto
+                {
+                    Message = "Create Success",
+                    Status = 1
+                };
+            }
+            catch (System.Exception e)
+            {
+                return new MessageDto
+                {
+                    Message = e.Message,
+                    Status = 0
+                };
+            }
+        }
+        public async Task<Submission> GetSubmission(string hashCodeQuiz, string userId)
+        {
+            return await _courseRepo.GetSubmission(hashCodeQuiz, userId);
+        }
     }
 }

@@ -42,3 +42,7 @@
     height: 100%;
     background-color: var(--light-orange);
 }
+
+#item-chapter-sb .check {
+    color: var(--light-orange);
+}

@@ -289,10 +289,26 @@ namespace BE.Controllers
             return await _courseService.CreateCourseWithName(userId, courseName, image);
         }
 
-        [HttpPost, Route("Get-hascode-processing")]
+        [HttpPost, Route("get-hascode-processing")]
         public async Task<List<string>> GetHashCodeProcessing([FromForm] string userId)
         {
             return await _courseService.GetHashCodeProcessing(userId);
+        }
+        [HttpPost, Route("create-processing")]
+        public async Task<MessageDto> CreateProcessing([FromForm] string itemId, [FromForm] string userId)
+        {
+            return await _courseService.CreateProcessing(itemId, userId);
+        }
+        [HttpPost, Route("mark-quiz")]
+        public async Task<MessageDto> MarkQuiz([FromForm] string answers, [FromForm] string hashCodeQuiz, [FromForm] string userId)
+        {
+            var listAnswers = string.IsNullOrEmpty(answers) ? null : JsonConvert.DeserializeObject<List<string>>(answers);
+            return await _courseService.MarkQuiz(listAnswers, hashCodeQuiz, userId);
+        }
+        [HttpPost, Route("get-submission")]
+        public async Task<Submission> GetSubmission([FromForm] string hashCodeQuiz, [FromForm] string userId)
+        {
+            return await _courseService.GetSubmission(hashCodeQuiz, userId);
         }
     }
 }

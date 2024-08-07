@@ -3,7 +3,7 @@ import './ChapterDetailSB.css'
 
 import ItemChapterSB from "../ItemChapterSB/ItemChapterSB";
 
-export default function ChapterDetailSB({ chapter, index, courseName, itemName }) {
+export default function ChapterDetailSB({ chapter, index, courseName, itemName, courseProcessing }) {
     return (
         <div id="chapter-detail-sb" key={index}>
             <div className="title-chaper">
@@ -16,7 +16,8 @@ export default function ChapterDetailSB({ chapter, index, courseName, itemName }
                             item={item}
                             index={index}
                             courseName={courseName}
-                            itemName={itemName} />
+                            itemName={itemName}
+                            courseProcessing={courseProcessing} />
                     )
                 })}
             </div>

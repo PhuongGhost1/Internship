@@ -1,12 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import './ItemChapterSB.css'
 
 import { MdOutlineSlowMotionVideo } from "react-icons/md";
 import { GoQuestion } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import { convertTimeString } from "../../../utils/Validation";
+import { FaCircleCheck } from "react-icons/fa6";
 
-export default function ItemChapterSB({ item, index, courseName, itemName }) {
+export default function ItemChapterSB({ item, index, courseName, itemName, courseProcessing }) {
+    const [isDone, setIsDone] = useState(false)
     const navigate = useNavigate()
     const handleItemClick = (type) => {
         if (type === 'Lecture') {
@@ -15,15 +17,26 @@ export default function ItemChapterSB({ item, index, courseName, itemName }) {
             navigate(`/courses/learning/${courseName}/quiz/${item.hashCode}`)
         }
     }
+    useEffect(() => {
+        if (courseProcessing.includes(item.hashCode)) {
+            setIsDone(true);
+        }
+    }, [courseProcessing])
     return (
         <div id="item-chapter-sb" className={itemName === item.hashCode ? 'active' : ''} key={index} onClick={() => { handleItemClick(item.type) }} >
             <div className="logo-item">
-                {item.type === 'Lecture' && (
-                    <MdOutlineSlowMotionVideo />
-                )}
+                {!isDone ? (
+                    <>
+                        {item.type === 'Lecture' && (
+                            <MdOutlineSlowMotionVideo />
+                        )}
 
-                {item.type === 'Quiz' && (
-                    <GoQuestion />
+                        {item.type === 'Quiz' && (
+                            <GoQuestion />
+                        )}
+                    </>
+                ) : (
+                    <FaCircleCheck className="check" />
                 )}
             </div>
             <div className="item-content">

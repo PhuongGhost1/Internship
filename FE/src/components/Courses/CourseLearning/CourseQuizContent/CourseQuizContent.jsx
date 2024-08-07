@@ -7,14 +7,32 @@ import { WiTime8 } from "react-icons/wi";
 import { PiGraduationCapLight } from "react-icons/pi";
 import ApiService from "../../../../api/ApiService";
 
-export default function CourseQuizContent({ hashCode }) {
+export default function CourseQuizContent({ hashCode, setIsFetchingProcessing, user }) {
     const [isOpenQuiz, setIsOpenQuiz] = useState(false)
+    const [quizId, setQuizId] = useState('')
     const [quizData, setQuizData] = useState([])
     const [quizName, setQuizName] = useState('')
     const [time, setTime] = useState(null);
     const [minutes, setMinutes] = useState(0);
     const [seconds, setSeconds] = useState(0);
     const [selectedAnswers, setSelectedAnswers] = useState({});
+    const [grade, setGrade] = useState(null);
+    const [isSubmit, setIsSubmit] = useState(false);
+    const [isPass, setIsPass] = useState(false);
+
+    useEffect(() => {
+        if (user) {
+            fetchSubmission(hashCode, user.id);
+        }
+    }, [user, hashCode])
+
+    useEffect(() => {
+        if (isSubmit) {
+            fetchSubmission(hashCode, user.id);
+            setIsSubmit(false)
+        }
+    }, [isSubmit])
+
 
     useEffect(() => {
         if (time <= 0) return;
@@ -35,6 +53,7 @@ export default function CourseQuizContent({ hashCode }) {
         const data = await ApiService.GetQuiz(hashCode);
         setQuizData(data.questions)
         setQuizName(data.name)
+        setQuizId(data.id)
     }
 
     const formatTime = (seconds) => {
@@ -55,6 +74,36 @@ export default function CourseQuizContent({ hashCode }) {
             [questionIndex]: answerIndex
         }));
     };
+    const fetchSubmission = async (hashCodeQuiz, userId) => {
+        const data = await ApiService.GetSubmission(hashCodeQuiz, userId)
+        setGrade(data.grade)
+        setIsPass(data.isPass)
+    }
+    const fetchMarkQuiz = async (answers, hashCodeQuiz, userId) => {
+        const data = await ApiService.MarkQuiz(answers, hashCodeQuiz, userId)
+    }
+    const handleSubmitClick = async () => {
+        console.log(Object.values(selectedAnswers));
+        await fetchMarkQuiz(Object.values(selectedAnswers), hashCode, user.id).then(
+            () => {
+                setGrade(0)
+                setIsOpenQuiz(false)
+                setIsSubmit(true)
+                setSelectedAnswers({})
+            }
+        )
+    }
+
+    useEffect(() => {
+        if (isPass) {
+            hanldePass(quizId, user.id)
+        }
+        setIsFetchingProcessing(true)
+    }, [isPass])
+
+    const hanldePass = async (itemId, userId) => {
+        const data = await ApiService.CreateProcessing(itemId, userId);
+    }
     return (
         <div id="course-quiz-content">
             <div className="action-btn">
@@ -119,7 +168,7 @@ export default function CourseQuizContent({ hashCode }) {
                             </div>
                         </div>
                         <div className="submit-cancle">
-                            <div className="submit-btn button">Submit</div>
+                            <div className="submit-btn button" onClick={handleSubmitClick}>Submit</div>
                             <div className="back-btn button">Back</div>
                         </div>
                     </div>
@@ -141,8 +190,8 @@ export default function CourseQuizContent({ hashCode }) {
                                                     <div className="answer">
                                                         <div className="letter-answer">
                                                             <div
-                                                                className={`border-letter ${selectedAnswers[questionIndex] === answerIndex ? 'selected' : ''}`}
-                                                                onClick={() => handleAnswerClick(questionIndex, answerIndex)}
+                                                                className={`border-letter ${selectedAnswers[questionIndex] === answer.id ? 'selected' : ''}`}
+                                                                onClick={() => handleAnswerClick(questionIndex, answer.id)}
                                                             >
                                                                 {getLetterForIndex(answerIndex)}
                                                             </div>
@@ -164,8 +213,8 @@ export default function CourseQuizContent({ hashCode }) {
                     <div className="grade-start">
                         <div className="grade">
                             <p className="grade-title">Your grade</p>
-                            <p className="grade-description">You haven’t submitted this yet</p>
-                            <p className="score">0%</p>
+                            <p className="grade-description">{!grade ? 'You haven’t submitted this yet' : 'Get your highest score'}</p>
+                            <p className="score">{grade ? grade : 0}%</p>
                         </div>
                         <div className="start-btn-container">
                             <div className="start-btn" onClick={() => { setIsOpenQuiz(true); setTime(1800) }}>
