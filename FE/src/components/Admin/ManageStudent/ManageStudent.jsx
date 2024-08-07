@@ -16,6 +16,8 @@ import ApiService from "../../../api/ApiService";
 import { FaPhoneAlt } from "react-icons/fa";
 import { SiGmail } from "react-icons/si";
 import IntructorIMG2 from "../../../assets/IntructorIMG2.png";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const pageSize = 12;
 
@@ -54,11 +56,13 @@ const ManageStudent = () => {
               : student,
           ),
         );
+        toast.success(`Updated successfully!`);
       } else {
         console.log("Update status failed or no update needed.");
       }
     } catch (error) {
       console.error("Error updating status:", error);
+      toast.error("Error updating status. Please try again.");
     } finally {
       setUpdateInProgress(false);
     }
@@ -210,6 +214,9 @@ const ManageStudent = () => {
 
   return (
     <div id="ManageStudent">
+      <ToastContainer
+        style={{ position: "fixed", top: 60, right: 20, zIndex: 9999 }}
+      />
       <div className="ManageStudent-top">
         <div className="management-student-pagination">
           <Pagination>

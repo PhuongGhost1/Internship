@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Category.css";
 import {
   Table,
@@ -13,6 +13,8 @@ import {
 import { FaSearch } from "react-icons/fa";
 import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
 import ApiService from "../../../api/ApiService";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const getIsInvisibleString = (isVisible) => {
   return isVisible ? "Active" : "Inactive";
@@ -70,18 +72,20 @@ const DataTable = () => {
           ),
         );
         setDropdownOpen(null);
+        toast.success(`Updated successfully!`);
       } else {
         console.log("Update status failed or no update needed.");
       }
     } catch (error) {
       console.error("Error updating status:", error);
+      toast.error("Error updating category. Please try again.");
     }
   };
 
   const handleCreateCategory = async () => {
     try {
-      if (courses.status === 0) {
-        alert("Category name is required");
+      if (!newCategory.name) {
+        toast.error("Category name is required");
         return;
       }
 
@@ -92,9 +96,12 @@ const DataTable = () => {
         );
       setCourses([...courses, newCategoryData]);
       setShowModal(false);
-      setNewCategory({ name: "", isVisible: true });
+      setNewCategory({ name: "", isVisible: "Active" });
+
+      toast.success(`Category "${newCategoryData.name}" created successfully!`);
     } catch (error) {
       console.error("Error creating category:", error);
+      toast.error("Error creating category. Please try again.");
     }
   };
 
@@ -114,6 +121,9 @@ const DataTable = () => {
 
   return (
     <div id="management-category">
+      <ToastContainer
+        style={{ position: "fixed", top: 60, right: 20, zIndex: 9999 }}
+      />
       <div className="table-info">
         <div className="table-header">
           <button className="create-cate" onClick={() => setShowModal(true)}>
@@ -233,11 +243,11 @@ const DataTable = () => {
                 <Form.Control
                   className="control"
                   as="select"
-                  value={newCategory.isVisible ? "Active" : "Inactive"}
+                  value={newCategory.isVisible}
                   onChange={(e) =>
                     setNewCategory({
                       ...newCategory,
-                      isVisible: e.target.value === "Active" ? true : false,
+                      isVisible: e.target.value,
                     })
                   }
                 >

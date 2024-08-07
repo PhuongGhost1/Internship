@@ -9,6 +9,8 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { FaInfoCircle } from "react-icons/fa";
 import ApiService from "../../../api/ApiService";
 import user_ava from "../../../assets/Collection-Avatar/1.png";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AdminRequests = () => {
   const [requests, setRequests] = useState([]);
@@ -71,11 +73,13 @@ const AdminRequests = () => {
               : request,
           ),
         );
+        toast.success(`Updated successfully!`);
       } else {
         console.log("Update status failed or no update needed.");
       }
     } catch (error) {
       console.error("Error updating status:", error);
+      toast.error("Error updating status. Please try again.");
     } finally {
       setUpdateInProgress(false);
     }
@@ -104,6 +108,9 @@ const AdminRequests = () => {
 
   return (
     <div id="AdminRequests">
+      <ToastContainer
+        style={{ position: "fixed", top: 60, right: 20, zIndex: 9999 }}
+      />
       <h2>Request to become an Instructor</h2>
       <ul className="request-list">
         {requests.map((request, index) => (

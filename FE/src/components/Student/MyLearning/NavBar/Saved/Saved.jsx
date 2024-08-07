@@ -6,6 +6,8 @@ import ApiService from "../../../../../api/ApiService";
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
 import PropTypes from "prop-types";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Saved({ user }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -33,9 +35,11 @@ function Saved({ user }) {
   const removeSaveCourse = async (saveCourseId) => {
     try {
       await ApiService.removeSaveCourse(saveCourseId);
+      toast.success("Course removed successfully!");
       fetchSavedCourse(user.id);
     } catch (error) {
       console.error("Error removing saved course: ", error);
+      toast.error("Error removing saved course. Please try again.");
     }
   };
 
@@ -56,6 +60,9 @@ function Saved({ user }) {
 
   return (
     <div id="Saved">
+      <ToastContainer
+        style={{ position: "fixed", top: 60, right: 20, zIndex: 9999 }}
+      />
       <div id="search-bar">
         <input
           type="text"

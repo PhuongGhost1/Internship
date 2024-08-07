@@ -1,4 +1,4 @@
-#success-payment-page #Success-page {
+#success-payment-page .Success-page {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -12,7 +12,7 @@
   margin-top: -60px;
 }
 
-#success-payment-page #Cancel-page {
+#success-payment-page .Cancel-page {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -26,7 +26,7 @@
   margin-top: -60px;
 }
 
-#success-payment-page #Error-page {
+#success-payment-page .Error-page {
   display: flex;
   flex-direction: column;
   justify-content: center;

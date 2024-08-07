@@ -21,6 +21,8 @@ import ApiService from "../../../api/ApiService";
 import { Link } from "react-router-dom";
 import { IoIosArrowRoundBack, IoIosArrowRoundForward } from "react-icons/io";
 import Modal from "react-modal";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 Modal.setAppElement("#root");
 
@@ -83,18 +85,22 @@ export default function Cart({ user }) {
       }
 
       await ApiService.addCourseToCart(CourseId, UserId);
+      toast.success("Course added to cart successfully.");
       fetchCartData();
     } catch (error) {
       console.error("Error adding course to cart:", error);
+      toast.error("Error adding course to cart. Please try again.");
     }
   };
 
   const removeCourseFromCart = async (cartCourseId) => {
     try {
       await ApiService.removeCourseFromCart(cartCourseId);
+      toast.success("Removing course from cart successfully.");
       fetchCartData();
     } catch (error) {
       console.error("Error removing course from cart data:", error);
+      toast.error("Error removing course to cart. Please try again.");
     }
   };
 
@@ -253,6 +259,9 @@ export default function Cart({ user }) {
 
   return (
     <div id="Cart">
+      <ToastContainer
+        style={{ position: "fixed", top: 60, right: 20, zIndex: 9999 }}
+      />
       <div className="display-cart">
         <div className="text-container">
           <h2>Shopping Cart Checkout</h2>

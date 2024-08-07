@@ -8,6 +8,8 @@ import defaultImg from "../../../../../assets/add_profile.png";
 import defaultAvatar from "../../../../../assets/IntructorIMG.png";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Followed({ user }) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -32,10 +34,12 @@ function Followed({ user }) {
         FollowerId,
         FollowedId,
       );
+      toast.success(`Remove successfully!`);
       fetchFollowing(FollowerId);
       return deleteFollowing.data;
     } catch (error) {
       console.error("Error remove following: ", error);
+      toast.error("Error removing following. Please try again.");
       throw error;
     }
   };
@@ -48,6 +52,9 @@ function Followed({ user }) {
 
   return (
     <div id="Followed">
+      <ToastContainer
+        style={{ position: "fixed", top: 60, right: 20, zIndex: 9999 }}
+      />
       <div id="search-bar">
         <input
           type="text"

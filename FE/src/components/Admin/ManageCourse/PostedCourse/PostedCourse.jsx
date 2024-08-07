@@ -17,6 +17,8 @@ import { FaCalendarDay } from "react-icons/fa6";
 import { FaUserCheck } from "react-icons/fa6";
 import { SiGmail } from "react-icons/si";
 import { FaPhoneAlt } from "react-icons/fa";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const DataTable = ({ data, onStatusUpdate }) => {
   const pageSize = 6;
@@ -50,22 +52,23 @@ const DataTable = ({ data, onStatusUpdate }) => {
       setUpdateInProgress(true);
       const updatedStatus = await ApiService.updateCourseByAdmin(
         courseId,
-        newStatus
+        newStatus,
       );
 
       if (updatedStatus) {
         setCourses((prevCourses) =>
           prevCourses.map((course) =>
-            course.id === courseId ? { ...course, status: newStatus } : course
-          )
+            course.id === courseId ? { ...course, status: newStatus } : course,
+          ),
         );
         onStatusUpdate();
       } else {
         console.log("Update status failed or no update needed.");
       }
-      setCourses(data);
+      toast.success(`Updated successfully!`);
     } catch (error) {
       console.error("Error updating status:", error);
+      toast.error("Error updating status. Please try again.");
     } finally {
       setUpdateInProgress(false);
       setDropdownOpen(null);
@@ -92,12 +95,12 @@ const DataTable = ({ data, onStatusUpdate }) => {
   const filteredCourses = courses.filter(
     (course) =>
       course.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      course.username.toLowerCase().includes(searchTerm.toLowerCase())
+      course.username.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   const currentCourses = filteredCourses.slice(
     indexOfFirstCourse,
-    indexOfLastCourse
+    indexOfLastCourse,
   );
   const totalPages = Math.ceil(filteredCourses.length / pageSize);
 
@@ -177,7 +180,7 @@ const DataTable = ({ data, onStatusUpdate }) => {
                       <DropdownToggle
                         caret
                         className={`status-toggle status-${statusToString(
-                          course.status
+                          course.status,
                         ).toLowerCase()}`}
                       >
                         {statusToString(course.status)}
@@ -188,7 +191,7 @@ const DataTable = ({ data, onStatusUpdate }) => {
                           onClick={() =>
                             handleStatusChange(
                               course.id,
-                              stringToStatus("Active")
+                              stringToStatus("Active"),
                             )
                           }
                         >
@@ -199,7 +202,7 @@ const DataTable = ({ data, onStatusUpdate }) => {
                           onClick={() =>
                             handleStatusChange(
                               course.id,
-                              stringToStatus("Cancel")
+                              stringToStatus("Cancel"),
                             )
                           }
                         >
@@ -210,7 +213,7 @@ const DataTable = ({ data, onStatusUpdate }) => {
                           onClick={() =>
                             handleStatusChange(
                               course.id,
-                              stringToStatus("Waiting")
+                              stringToStatus("Waiting"),
                             )
                           }
                         >

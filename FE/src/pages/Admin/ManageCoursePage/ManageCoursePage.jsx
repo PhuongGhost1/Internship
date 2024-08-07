@@ -8,6 +8,8 @@ import LoadingOverlay from "../../../components/LoadingOverlay";
 import ApiService from "../../../api/ApiService";
 import { AuthContext } from "../../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function ManageCoursePage() {
   const [loading, setLoading] = useState(true);
@@ -74,6 +76,9 @@ export default function ManageCoursePage() {
 
   return (
     <div id="ManageCoursePage">
+      <ToastContainer
+        style={{ position: "fixed", top: 60, right: 20, zIndex: 9999 }}
+      />
       <LoadingOverlay loading={loading} />
       <div className="Header-Admin">
         <Header user={user} />
