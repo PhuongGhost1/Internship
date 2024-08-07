@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 import LoadingOverlay from "../../LoadingOverlay";
 import CertificateTemplate from "./CertificateTemplate";
 import { useReactToPrint } from "react-to-print";
+import userImg from "../../../assets/IntructorIMG2.png";
 
 export default function Certification() {
   const { userId } = useParams();
@@ -80,7 +81,7 @@ export default function Certification() {
 
   const chapterGroups = chunkArray(
     certificationData.certification.course.chapters,
-    3
+    3,
   );
 
   return (
@@ -101,7 +102,7 @@ export default function Certification() {
                   src={
                     certificationData.user.images.length > 0
                       ? certificationData.user.images[0].url
-                      : ""
+                      : userImg
                   }
                   alt="Avatar"
                   className="avatar"
@@ -136,7 +137,7 @@ export default function Certification() {
                       <p key={chapter.chapterId}>
                         {`Chapter ${chapter.index}: ${chapter.name}`}
                       </p>
-                    )
+                    ),
                   )}
                 </div>
               </div>
@@ -169,7 +170,11 @@ export default function Certification() {
                   >
                     <Rating
                       name="read-only"
-                      value={certificationData.user.comments[0].rating}
+                      value={
+                        certificationData.user.comments !== null
+                          ? certificationData.user.comments[0].rating
+                          : 0
+                      }
                       readOnly
                     />
                   </Box>
@@ -218,14 +223,14 @@ export default function Certification() {
             </div>
 
             <div className="certification-bt">
-              <div className="certification-bt-share">
+              {/* <div className="certification-bt-share">
                 <div className="icon">
                   <SlShareAlt size={15} />
                 </div>
-                {/* <div className="text">
+                <div className="text">
                   <h2>Share Certificate</h2>
-                </div> */}
-              </div>
+                </div>
+              </div> */}
 
               <div onClick={handlePrint} className="certification-bt-dowwnload">
                 <div className="icon">

@@ -5,7 +5,7 @@ import { FaArrowRight } from "react-icons/fa";
 import { IoAddCircleOutline } from "react-icons/io5";
 import ApiService from "../../../../api/ApiService";
 
-export default function CreatingCourse() {
+export default function CreatingCourse({ user }) {
   const [userData, setUserData] = useState([]);
 
   const handleAddCourseClick = async () => {
@@ -15,7 +15,7 @@ export default function CreatingCourse() {
   useEffect(() => {
     const fetchCreatingCoursesData = async () => {
       try {
-        const data = await ApiService.getWaitingCourses("user_400182aadc");
+        const data = await ApiService.getWaitingCourses(user.id);
         setUserData(data);
       } catch (error) {
         console.log("Error fetching creating courses: ", error);

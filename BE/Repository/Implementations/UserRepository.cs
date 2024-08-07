@@ -79,7 +79,8 @@ namespace BE.Repository.Implementations
                 CreateAt = GetTimeNow(),
                 Wallet = 0,
                 LoginType = "Google",
-                Status = 1
+                Status = 1,
+                IsVisible = false
             });
             var role = await _context.Roles.Where(r => r.Name == "Student").FirstOrDefaultAsync();
             _context.RoleUsers.Add(new RoleUser
@@ -187,8 +188,8 @@ namespace BE.Repository.Implementations
             var currentMonth = new DateTime(currentDate.Year, currentDate.Month, 1);
             var previousMonth = currentMonth.AddMonths(-1);
 
-            var currentMonthCount = await CountAccountsByRoleForMonth(roleName, currentMonth);
-            var previousMonthCount = await CountAccountsByRoleForMonth(roleName, previousMonth);
+            var currentMonthCount = await CountAccountsRoleForMonth(roleName, currentMonth);
+            var previousMonthCount = await CountAccountsRoleForMonth(roleName, previousMonth);
 
             if (previousMonthCount == 0) return currentMonthCount > 0 ? 100 : 0;
 
@@ -211,7 +212,7 @@ namespace BE.Repository.Implementations
             return await GetPercentageChangeForRoleAccountsLastMonth("Instructor");
         }
 
-        public async Task<int?> CountAccountsByRoleForMonth(string roleName, DateTime month)
+        private async Task<int?> CountAccountsRoleForMonth(string roleName, DateTime month)
         {
             var startOfMonth = new DateTime(month.Year, month.Month, 1);
             var endOfMonth = startOfMonth.AddMonths(1).AddTicks(-1);
@@ -231,10 +232,36 @@ namespace BE.Repository.Implementations
             return accountCount;
         }
 
+        public async Task<int?> CountAccountsByRoleForMonth(string roleName)
+        {
+            var roleId = await _context.Roles
+                                    .Where(role => role.Name == roleName)
+                                    .Select(role => role.Id)
+                                    .FirstOrDefaultAsync();
+
+            if (string.IsNullOrEmpty(roleId)) return null;
+
+            var accountCount = await _context.RoleUsers
+                                            .Where(ur => ur.RoleId == roleId)
+                                            .CountAsync();
+            return accountCount;
+        }
+
         public async Task<List<UserInfoManageByAdminDto>> GetInstructors(string roleName)
         {
             var instructors = await _context.Users
                 .Where(u => u.RoleUsers.Any(ru => ru.Role.Name == roleName))
+                .Include(u => u.Images)
+                .Include(u => u.RoleUsers)
+                    .ThenInclude(ru => ru.Role)
+                .Include(u => u.NotificationReceiveds)
+                    .ThenInclude(n => n.Course)
+                .Include(u => u.Courses)
+                    .ThenInclude(c => c.Images)
+                .Include(u => u.Payments)
+                    .ThenInclude(p => p.PaymentCourses)
+                        .ThenInclude(pc => pc.Cartcourse)
+                            .ThenInclude(pc => pc.Course)
                 .Select(u => new UserInfoManageByAdminDto
                 {
                     Id = u.Id,
@@ -1058,6 +1085,37 @@ namespace BE.Repository.Implementations
                 Console.WriteLine($"An error occurred: {ex.Message}");
                 throw;
             }
+        }
+
+        public async Task<List<string?>?> IsRolePermissions(string? userId)
+        {
+            return await _context.RoleUsers.Where(ru => ru.UserId == userId).Select(ru => ru.Role.Name).ToListAsync();
+        }
+
+        public async Task CreateUserRole(string userId)
+        {
+            var roleId = await _context.Roles.Where(r => r.Name == "Student").Select(r => r.Id).FirstOrDefaultAsync();
+
+            _context.RoleUsers.Add(new RoleUser
+            {
+                Id = GenerateIdModel("roleuser"),
+                RoleId = roleId,
+                UserId = userId,
+                UpdateDate = GetTimeNow(),
+                Status = 1
+            });
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<bool> UpdateWalletForUser(User user)
+        {
+            if (user == null) return false;
+
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+
+            return true;
         }
         public async Task<Role> GetUserRole(string userId)
         {

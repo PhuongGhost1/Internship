@@ -140,7 +140,8 @@ namespace BE.Repository.Implementations
                 UserId = userId,
                 PaymendCode = GeneratePaymentCode(),
                 CreateDate = GetTimeNow(),
-                Total = totalMoney
+                Total = totalMoney,
+                Status = 1
             };
             _context.Payments.Add(payment);
             await _context.SaveChangesAsync();
@@ -186,6 +187,12 @@ namespace BE.Repository.Implementations
                 CreateDate = GetTimeNow()
             };
             _context.AffiliatePayments.Add(affiliatePayment);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task AddPaymentCourse(PaymentCourse paymentCourse)
+        {
+            await _context.PaymentCourses.AddAsync(paymentCourse);
             await _context.SaveChangesAsync();
         }
     }

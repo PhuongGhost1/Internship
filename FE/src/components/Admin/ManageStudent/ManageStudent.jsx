@@ -15,6 +15,9 @@ import { FaRegStarHalfStroke } from "react-icons/fa6";
 import ApiService from "../../../api/ApiService";
 import { FaPhoneAlt } from "react-icons/fa";
 import { SiGmail } from "react-icons/si";
+import IntructorIMG2 from "../../../assets/IntructorIMG2.png";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const pageSize = 12;
 
@@ -50,14 +53,16 @@ const ManageStudent = () => {
           prevStudents.map((student) =>
             student.id === id
               ? { ...student, isVisible: !student.isVisible }
-              : student
-          )
+              : student,
+          ),
         );
+        toast.success(`Updated successfully!`);
       } else {
         console.log("Update status failed or no update needed.");
       }
     } catch (error) {
       console.error("Error updating status:", error);
+      toast.error("Error updating status. Please try again.");
     } finally {
       setUpdateInProgress(false);
     }
@@ -72,17 +77,19 @@ const ManageStudent = () => {
     setSearchTerm(event.target.value);
   };
 
-  const filteredStudents = students.filter(
-    (student) =>
-      student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      student.email.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredStudents = students.filter((student) => {
+    const name = student.name ? student.name.toLowerCase() : "";
+    const email = student.email ? student.email.toLowerCase() : "";
+    const search = searchTerm.toLowerCase();
+
+    return name.includes(search) || email.includes(search);
+  });
 
   const indexOfLastStudent = currentPage * pageSize;
   const indexOfFirstStudent = indexOfLastStudent - pageSize;
   const currentStudents = filteredStudents.slice(
     indexOfFirstStudent,
-    indexOfLastStudent
+    indexOfLastStudent,
   );
   const totalPages = Math.ceil(filteredStudents.length / pageSize);
 
@@ -132,7 +139,7 @@ const ManageStudent = () => {
                         <p>{activity.name}</p>
                       </div>
                     </div>
-                  )
+                  ),
                 )}
               </div>
             </div>
@@ -171,13 +178,30 @@ const ManageStudent = () => {
             <div className="payment-history">
               {(students[currentNum].payments || []).map((payment, index) => (
                 <div key={index} className="payment-item">
-                  <p>
-                    <strong>Course:</strong> {payment.course}
-                  </p>
-                  <p>
-                    <strong>Amount: </strong>
-                    <span>+{payment.amount}</span>{" "}
-                  </p>
+                  {payment.paymentCourses &&
+                  payment.paymentCourses.length > 0 ? (
+                    payment.paymentCourses.map((paymentCourse, courseIndex) => (
+                      <div key={courseIndex}>
+                        <p>
+                          <strong>Course:</strong>{" "}
+                          {paymentCourse.cartCourseDto.courseForAdminDto.name ||
+                            "Unknown Course"}
+                        </p>
+                        <p>
+                          <strong>Amount: </strong>
+                          <span>+{payment.total}</span>{" "}
+                        </p>
+                      </div>
+                    ))
+                  ) : (
+                    <div>
+                      <p>Not paying yet</p>
+                      <p>
+                        <strong>Amount: </strong>
+                        <span>+{payment.total}</span>{" "}
+                      </p>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -190,6 +214,9 @@ const ManageStudent = () => {
 
   return (
     <div id="ManageStudent">
+      <ToastContainer
+        style={{ position: "fixed", top: 60, right: 20, zIndex: 9999 }}
+      />
       <div className="ManageStudent-top">
         <div className="management-student-pagination">
           <Pagination>
@@ -241,7 +268,9 @@ const ManageStudent = () => {
                 {indexOfFirstStudent + index + 1}
               </td>
               <td className="email">{student.email}</td>
-              <td className="name">{student.name}</td>
+              <td className="name">
+                {student.name === null ? "Not Provided" : student.name}
+              </td>
               <td className="status">
                 <button
                   className={`status-toggle status-${student.isVisible}`}
@@ -274,7 +303,10 @@ const ManageStudent = () => {
               <div className="popup-info">
                 <div className="popup-info-image">
                   <img
-                    src={currentStudents[currentNum].images[0]?.url || ""}
+                    src={
+                      currentStudents[currentNum].images[0]?.url ||
+                      IntructorIMG2
+                    }
                     alt={currentStudents[currentNum].images[0]?.url || ""}
                   />
                 </div>

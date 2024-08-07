@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Category.css";
 import {
   Table,
@@ -13,6 +13,8 @@ import {
 import { FaSearch } from "react-icons/fa";
 import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
 import ApiService from "../../../api/ApiService";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const getIsInvisibleString = (isVisible) => {
   return isVisible ? "Active" : "Inactive";
@@ -66,48 +68,62 @@ const DataTable = () => {
           prevCourses.map((course) =>
             course.id === id
               ? { ...course, isVisible: status === "Active" }
-              : course
-          )
+              : course,
+          ),
         );
         setDropdownOpen(null);
+        toast.success(`Updated successfully!`);
       } else {
         console.log("Update status failed or no update needed.");
       }
     } catch (error) {
       console.error("Error updating status:", error);
+      toast.error("Error updating category. Please try again.");
     }
   };
 
   const handleCreateCategory = async () => {
     try {
+      if (!newCategory.name) {
+        toast.error("Category name is required");
+        return;
+      }
+
       const newCategoryData =
         await ApiService.createNewCategoryManagementByAdmin(
           newCategory.name,
-          newCategory.isVisible
+          newCategory.isVisible,
         );
       setCourses([...courses, newCategoryData]);
       setShowModal(false);
-      setNewCategory({ name: "", isVisible: true });
+      setNewCategory({ name: "", isVisible: "Active" });
+
+      toast.success(`Category "${newCategoryData.name}" created successfully!`);
     } catch (error) {
       console.error("Error creating category:", error);
+      toast.error("Error creating category. Please try again.");
     }
   };
 
   const indexOfLastCourse = currentPage * pageSize;
   const indexOfFirstCourse = indexOfLastCourse - pageSize;
 
-  const filteredCourses = courses.filter((course) =>
-    course.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredCourses = courses.filter((course) => {
+    const name = course.name ?? "";
+    return name.toLowerCase().includes(searchTerm.toLowerCase());
+  });
 
   const currentCourses = filteredCourses.slice(
     indexOfFirstCourse,
-    indexOfLastCourse
+    indexOfLastCourse,
   );
   const totalPages = Math.ceil(filteredCourses.length / pageSize);
 
   return (
     <div id="management-category">
+      <ToastContainer
+        style={{ position: "fixed", top: 60, right: 20, zIndex: 9999 }}
+      />
       <div className="table-info">
         <div className="table-header">
           <button className="create-cate" onClick={() => setShowModal(true)}>
@@ -145,7 +161,7 @@ const DataTable = () => {
                       <DropdownToggle
                         caret
                         className={`status-toggle status-${getIsInvisibleString(
-                          course.isVisible
+                          course.isVisible,
                         ).toLowerCase()}`}
                       >
                         {getIsInvisibleString(course.isVisible)}
@@ -227,11 +243,11 @@ const DataTable = () => {
                 <Form.Control
                   className="control"
                   as="select"
-                  value={newCategory.isVisible ? "Active" : "Inactive"}
+                  value={newCategory.isVisible}
                   onChange={(e) =>
                     setNewCategory({
                       ...newCategory,
-                      isVisible: e.target.value === "Active" ? true : false,
+                      isVisible: e.target.value,
                     })
                   }
                 >

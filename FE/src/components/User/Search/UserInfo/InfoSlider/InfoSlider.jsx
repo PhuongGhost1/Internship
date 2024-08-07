@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./InfoSlider.css";
 import Background from "../../../../../assets/background-user1.jpg";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 export default function InfoSlider({ user }) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -31,27 +32,29 @@ export default function InfoSlider({ user }) {
           courses
             .slice(currentIndex, currentIndex + maxVisibleCards)
             .map((card, index) => (
-              <div key={card.id || index} className="card">
-                <img
-                  src={
-                    card.images.find((img) => img.type === "Background")?.url ||
-                    Background
-                  }
-                  alt={card.name}
-                  className="card-img"
-                />
-                <div className="card-content">
-                  <div className="card-category">
-                    {card.cateCoruse[0]?.category?.names.join(", ") ||
-                      "No Category"}
-                  </div>
-                  <div className="card-title">{card.name}</div>
-                  <div className="card-details">
-                    <span>{card.processings} Lessons</span>
-                    <span>{card.estimatedLearningTime} mins</span>
+              <Link to={`/courses/${card.name}`} key={card.id || index}>
+                <div className="card">
+                  <img
+                    src={
+                      card.images.find((img) => img.type === "Background")
+                        ?.url || Background
+                    }
+                    alt={card.name}
+                    className="card-img"
+                  />
+                  <div className="card-content">
+                    <div className="card-category">
+                      {card.cateCoruse[0]?.category?.names.join(", ") ||
+                        "No Category"}
+                    </div>
+                    <div className="card-title">{card.name}</div>
+                    <div className="card-details">
+                      <span>{card.processings} Lessons</span>
+                      <span>{card.estimatedLearningTime} mins</span>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
       </div>
       <button onClick={handleNextClick} className="slider-arrow right-arrow">
@@ -78,7 +81,7 @@ InfoSlider.propTypes = {
         url: PropTypes.string,
         type: PropTypes.string,
         lastUpdated: PropTypes.string,
-      })
+      }),
     ),
     courses: PropTypes.arrayOf(
       PropTypes.shape({
@@ -92,7 +95,7 @@ InfoSlider.propTypes = {
             url: PropTypes.string,
             type: PropTypes.string,
             lastUpdated: PropTypes.string,
-          })
+          }),
         ),
         cateCoruse: PropTypes.arrayOf(
           PropTypes.shape({
@@ -105,9 +108,9 @@ InfoSlider.propTypes = {
             }),
             course: PropTypes.object,
             createdAt: PropTypes.string,
-          })
+          }),
         ),
-      })
+      }),
     ),
     followFollowers: PropTypes.arrayOf(
       PropTypes.shape({
@@ -126,7 +129,7 @@ InfoSlider.propTypes = {
             url: PropTypes.string,
             type: PropTypes.string,
             lastUpdated: PropTypes.string,
-          })
+          }),
         ),
         courses: PropTypes.arrayOf(
           PropTypes.shape({
@@ -140,12 +143,12 @@ InfoSlider.propTypes = {
                 url: PropTypes.string,
                 type: PropTypes.string,
                 lastUpdated: PropTypes.string,
-              })
+              }),
             ),
-          })
+          }),
         ),
         followFollowers: PropTypes.array,
-      })
+      }),
     ),
   }),
 };

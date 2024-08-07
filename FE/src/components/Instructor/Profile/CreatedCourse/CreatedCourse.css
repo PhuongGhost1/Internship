@@ -1,93 +1,286 @@
 #created-course {
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 800px;
-    margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 0 auto;
 
-    margin-bottom: 50px;
+  margin-bottom: 50px;
 }
 
 #created-course .created-title {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 #created-course .created-course-title {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 #created .created-course-item {
-    background: #fff;
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 #created .created-course-header {
-    display: flex;
-    align-items: flex-start;
+  display: flex;
+  align-items: flex-start;
 }
 
 #created .created-course-image {
-    flex: 2;
-    padding: 0 10px;
-    box-sizing: border-box;
+  flex: 2;
+  padding: 0 10px;
+  box-sizing: border-box;
 }
 
 #created .created-course-image img {
-    width: 100%;
+  width: 100%;
 }
 
 #created .created-course-details {
-    flex: 10;
-    padding-left: 10px;
+  flex: 10;
+  padding-left: 10px;
 }
 
 #created .created-course-details h4 {
-    margin-top: 22px;
-    font-size: 16px;
+  margin-top: 22px;
+  font-size: 16px;
 }
 
 #created .created-course-details .view-course-detail {
-    color: #FF661B;
+  color: #ff661b;
 }
 
 #created .course-actions {
-    display: flex;
-    flex-direction: column;
-    margin-left: auto;
-    padding-left: 10px;
-    font-size: 20px;
-    cursor: pointer;
-    position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  padding-left: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  position: relative;
 }
 
 #created .course-actions .more-dropdown {
-    position: absolute;
-    top: 0;
-    left: 30px;
-    background-color: #fff;
-    border-radius: 10px;
-    border-style: outset;
+  position: absolute;
+  top: 0;
+  left: 30px;
+  background-color: #fff;
+  border-radius: 10px;
+  border-style: outset;
 }
 
 #created .course-actions .more-dropdown .btnz {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    padding: 5px 10px;
-    transition: background-color 0.3s ease;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  padding: 5px 10px;
+  transition: background-color 0.3s ease;
 }
 
 #created .course-actions .more-dropdown .btnz:hover {
-    background-color: #dbe2e8;
-    border-radius: 10px;
+  background-color: #dbe2e8;
+  border-radius: 10px;
 }
 
 #created .course-actions .more-dropdown .delete {
-    border: none;
+  border: none;
+}
+
+#created .overlay1 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(112, 106, 106, 0.426);
+  backdrop-filter: blur(1px);
+  z-index: 1;
+}
+
+#created .created-course-item .popup-update {
+  background: #fff;
+  overflow-y: hidden;
+  position: fixed;
+  top: 27%;
+  left: 55%;
+  transform: translateX(-60%) translateY(-23%);
+  min-height: 30vh;
+  min-height: 300px;
+  height: 450px;
+  max-height: 80vh;
+  width: 568px;
+  border-radius: 8px;
+
+  z-index: 2;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#created .created-course-item .popup-update-buttonclose {
+  /* margin-top: 15px; */
+  /* margin-left: 490px; */
+  background: rgb(238, 236, 236);
+  border: 0px solid #fff;
+  background-color: transparent;
+  color: #00419e;
+
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+
+  transform: translateX(680%) translateY(110%);
+}
+
+#created .created-course-item .popup-update-buttonclose-container {
+  width: 70px;
+  height: 18px;
+  margin-left: 5px;
+  margin-top: 5px;
+  border-radius: 5px;
+}
+
+#created .created-course-item .popup-update-buttonclose:hover {
+  background-color: #dbe6f5;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+#created .created-course-item .row-update-container .text {
+  cursor: pointer;
+}
+
+#created .created-course-item .popup-row {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  /* align-items: center; */
+  gap: 10px;
+  margin-top: 40px;
+}
+
+#created .created-course-item .popup-row > div {
+  flex: 1;
+  text-align: left;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+#created .created-course-item .popup-row-title {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 2.3rem;
+}
+
+#created .created-course-item .popup-row-text {
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+  font-size: 1.3rem;
+  margin-top: 15px;
+}
+
+#created .created-course-item .popup-row-text2-container {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+#created .created-course-item .popup-row-text2-container p.popup-row-text2 {
+  color: #00419e;
+}
+
+#created
+  .created-course-item
+  .popup-row-text2-container
+  p.popup-row-text2:hover {
+  color: #2e5ca0;
+}
+
+#created .created-course-item .popup-row-text2-button {
+  width: 25px;
+  height: 25px;
+  appearance: none;
+  /* Remove default checkbox appearance */
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  position: relative;
+  background-color: #fff;
+  /* Background color for unchecked state */
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#created .created-course-item .popup-row-text2-button:checked {
+  background-color: #00419e;
+  /* Change this to the color you want when checked */
+  border-color: #00419e;
+}
+
+#created .created-course-item .popup-row-text2-button:checked::before,
+#created .created-course-item .popup-row-text2-button:checked::after {
+  content: "";
+  position: absolute;
+  background-color: white;
+  border-radius: 1px;
+}
+
+#created .created-course-item .popup-row-text2-button:checked::before {
+  width: 3px;
+  /* Width of the first part of the checkmark */
+  height: 15px;
+  /* Height of the first part of the checkmark */
+  top: 2px;
+  /* Adjust the vertical position */
+  left: 11.5px;
+  /* Adjust the horizontal position */
+  transform: rotate(40deg);
+  /* Rotate to create checkmark */
+}
+
+#created .created-course-item .popup-row-text2-button:checked::after {
+  width: 3px;
+  /* Width of the second part of the checkmark */
+  height: 7px;
+  /* Height of the second part of the checkmark */
+  top: 8px;
+  /* Adjust the vertical position */
+  left: 5px;
+  /* Adjust the horizontal position */
+  transform: rotate(-45deg);
+  /* Rotate to create checkmark */
+}
+
+#created .created-course-item .popup-row-button {
+  width: 130px;
+  height: 50px;
+  margin-top: 30px;
+  text-align: center;
+  position: fixed;
+  cursor: pointer;
+
+  color: #fff;
+  background-color: #00419e;
+  border: 1px solid #00419e;
+  border-radius: 3px;
+
+  font-family: "Roboto", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 1.3rem;
+}
+
+#created .created-course-item .popup-row-button:hover {
+  background-color: #002f7a;
+  color: #e5e7e8;
 }

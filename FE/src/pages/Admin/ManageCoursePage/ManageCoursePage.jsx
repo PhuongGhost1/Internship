@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./ManageCoursePage.css";
 import Header from "../../../components/Admin/Header/Header";
 import SideBar from "../../../components/Admin/SideBar/SideBar";
@@ -6,11 +6,25 @@ import PostedCourse from "../../../components/Admin/ManageCourse/PostedCourse/Po
 import CourseStatus from "../../../components/Admin/ManageCourse/CourseStatus/CourseStatus";
 import LoadingOverlay from "../../../components/LoadingOverlay";
 import ApiService from "../../../api/ApiService";
+import { AuthContext } from "../../Context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function ManageCoursePage() {
   const [loading, setLoading] = useState(true);
   const [courseData, setCourseData] = useState([]);
   const [courseWaitingData, setCourseWaitingData] = useState([]);
+  const { user, roles } = useContext(AuthContext);
+  const nav = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      nav("/login");
+    } else if (!roles.includes("Admin")) {
+      nav("/error");
+    }
+  }, [user, roles, nav]);
 
   useEffect(() => {
     const fetchCourseData = async () => {
@@ -43,7 +57,7 @@ export default function ManageCoursePage() {
     const timeLoading = () => {
       setTimeout(() => {
         setLoading(false);
-      }, 3000);
+      }, 2000);
     };
     timeLoading();
   }, []);
@@ -62,9 +76,12 @@ export default function ManageCoursePage() {
 
   return (
     <div id="ManageCoursePage">
+      <ToastContainer
+        style={{ position: "fixed", top: 60, right: 20, zIndex: 9999 }}
+      />
       <LoadingOverlay loading={loading} />
       <div className="Header-Admin">
-        <Header />
+        <Header user={user} />
       </div>
       <div className="Layout">
         <div className="SideBar-container">

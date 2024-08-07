@@ -21,14 +21,15 @@ namespace BE.Services.Implementations
         private readonly ITokenRepository _tokenRepo;
         private readonly IConfiguration _config;
         private readonly IHttpContextAccessor _httpContextAccessor;
-
+        private readonly ICartRepository _cartRepo;
         public UserService(IUserRepository userRepo, ITokenRepository tokenRepo, IConfiguration config,
-                        IHttpContextAccessor httpContextAccessor)
+                        IHttpContextAccessor httpContextAccessor, ICartRepository cartRepo)
         {
             _userRepo = userRepo;
             _tokenRepo = tokenRepo;
             _config = config;
             _httpContextAccessor = httpContextAccessor;
+            _cartRepo = cartRepo;
         }
 
         public async Task<bool> CreateUserData(string username, string email, string password, string description, string phone, string role)
@@ -109,9 +110,9 @@ namespace BE.Services.Implementations
             return await _userRepo.GetPercentageChangeForStudentAccountsLastMonth();
         }
 
-        public async Task<int?> CountAccountsByRoleForMonthAsync(string roleName, DateTime month)
+        public async Task<int?> CountAccountsByRoleForMonthAsync(string roleName)
         {
-            return await _userRepo.CountAccountsByRoleForMonth(roleName, month);
+            return await _userRepo.CountAccountsByRoleForMonth(roleName);
         }
 
         public async Task<User> GetUserByEmail(string email)
@@ -187,6 +188,7 @@ namespace BE.Services.Implementations
                 {
                     await _userRepo.CreateUserGoogle(userInfo.Email);
                     user = await _userRepo.GetUserLoginGoogle(userInfo.Email);
+                    await _userRepo.CreateUserRole(user.Id);
                 }
             }
             catch (Exception ex)
@@ -198,7 +200,7 @@ namespace BE.Services.Implementations
 
             var appUrl = Environment.GetEnvironmentVariable("APP_URL");
 
-            var redirectUrl = $"{appUrl}/sign-in?token={Uri.EscapeDataString(token)}";
+            var redirectUrl = $"https://groupcooked.web.app/sign-in?token={Uri.EscapeDataString(token)}";
 
             return redirectUrl;
         }
@@ -213,7 +215,7 @@ namespace BE.Services.Implementations
             { "code", code },
             { "client_id", _config["Google:ClientId"] },
             { "client_secret", _config["Google:ClientSecret"] },
-            { "redirect_uri", $"{server_url}/api/v1/web/user/signin-google" },
+            { "redirect_uri", $"https://groupcooked.happyflower-ab63cd56.southeastasia.azurecontainerapps.io/api/v1/web/user/signin-google" },
             { "grant_type", "authorization_code" }
         };
 
@@ -294,7 +296,7 @@ namespace BE.Services.Implementations
                 throw new Exception("Google Client ID is missing in the configuration");
             }
             var server_url = Environment.GetEnvironmentVariable("SERVER_URL");
-            var redirectUri = $"{server_url}/api/v1/web/user/signin-google";
+            var redirectUri = $"https://groupcooked.happyflower-ab63cd56.southeastasia.azurecontainerapps.io/api/v1/web/user/signin-google";
 
             if (string.IsNullOrEmpty(redirectUri))
             {
@@ -433,6 +435,24 @@ namespace BE.Services.Implementations
             if (user == null) return new UserProfileBeSeenDto();
 
             return await _userRepo.GetUserProfileBeSeenData(userId);
+        }
+
+        public async Task<List<string?>?> IsRolePermissionsAsync(string userId)
+        {
+            var user = await _userRepo.GetUserById(userId);
+
+            if (user == null) return null;
+
+            return await _userRepo.IsRolePermissions(userId);
+        }
+
+        public async Task<int?> CountNumberInCartAsync(string userId)
+        {
+            var user = await _userRepo.GetUserById(userId);
+
+            if (user == null) return null;
+
+            return await _cartRepo.CountNumberInCart(userId);
         }
         public async Task<Role> GetUserRole(string userId)
 

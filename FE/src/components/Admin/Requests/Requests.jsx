@@ -9,6 +9,8 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { FaInfoCircle } from "react-icons/fa";
 import ApiService from "../../../api/ApiService";
 import user_ava from "../../../assets/Collection-Avatar/1.png";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AdminRequests = () => {
   const [requests, setRequests] = useState([]);
@@ -60,7 +62,7 @@ const AdminRequests = () => {
 
       const updatedStatus = await ApiService.UpdateRequestRoleUserByAdmin(
         id,
-        status
+        status,
       );
 
       if (updatedStatus) {
@@ -68,14 +70,16 @@ const AdminRequests = () => {
           requests.map((request) =>
             request.userRequest.id === id
               ? { ...request, status: status }
-              : request
-          )
+              : request,
+          ),
         );
+        toast.success(`Updated successfully!`);
       } else {
         console.log("Update status failed or no update needed.");
       }
     } catch (error) {
       console.error("Error updating status:", error);
+      toast.error("Error updating status. Please try again.");
     } finally {
       setUpdateInProgress(false);
     }
@@ -104,13 +108,16 @@ const AdminRequests = () => {
 
   return (
     <div id="AdminRequests">
+      <ToastContainer
+        style={{ position: "fixed", top: 60, right: 20, zIndex: 9999 }}
+      />
       <h2>Request to become an Instructor</h2>
       <ul className="request-list">
         {requests.map((request, index) => (
           <li
             key={request.id}
             className={`request-item ${statusToString(
-              request.userRequest.roleUserReqs[0].status
+              request.userRequest.roleUserReqs[0].status,
             ).toLowerCase()}`}
           >
             <p>
@@ -131,25 +138,26 @@ const AdminRequests = () => {
                 />
               </span>
             </div>
-            {request.userRequest.roleUserReqs[0].status === 0 &&
-              request.isRead === false && (
-                <div className="actions">
-                  <button
-                    onClick={() =>
-                      handleStatusChange(request.userRequest.id, "Approved")
-                    }
-                  >
-                    Approve
-                  </button>
-                  <button
-                    onClick={() =>
-                      handleStatusChange(request.userRequest.id, "Rejected")
-                    }
-                  >
-                    Reject
-                  </button>
-                </div>
-              )}
+            {request.userRequest.roleUserReqs[0].status === 0 ||
+              (request.userRequest.roleUserReqs[0].status === 2 &&
+                (request.isRead === false || request.isRead === true) && (
+                  <div className="actions">
+                    <button
+                      onClick={() =>
+                        handleStatusChange(request.userRequest.id, "Approved")
+                      }
+                    >
+                      Approve
+                    </button>
+                    <button
+                      onClick={() =>
+                        handleStatusChange(request.userRequest.id, "Rejected")
+                      }
+                    >
+                      Reject
+                    </button>
+                  </div>
+                ))}
           </li>
         ))}
       </ul>
@@ -164,13 +172,13 @@ const AdminRequests = () => {
                 <img
                   src={
                     requests[currentNum].userRequest.images != null &&
-                      requests[currentNum].userRequest.images.length > 0
+                    requests[currentNum].userRequest.images.length > 0
                       ? requests[currentNum].userRequest.images[0].url
                       : user_ava
                   }
                   alt={
                     requests[currentNum].userRequest.images != null &&
-                      requests[currentNum].userRequest.images.length > 0
+                    requests[currentNum].userRequest.images.length > 0
                       ? requests[currentNum].userRequest.images[0].url
                       : user_ava
                   }

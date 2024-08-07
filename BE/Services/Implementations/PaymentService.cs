@@ -15,11 +15,16 @@ namespace BE.Services.Implementations
         private readonly PaypalClient _paypalClient;
         private readonly IPaymentRepository _payRepo;
         private readonly ITransactionRepository _transactionRepository;
-        public PaymentService(PaypalClient paypalClient, IPaymentRepository payRepo, ITransactionRepository transactionRepository)
+        private readonly ICartRepository _cartRepo;
+        private readonly IUserRepository _userRepo;
+        public PaymentService(PaypalClient paypalClient, IPaymentRepository payRepo, ITransactionRepository transactionRepository,
+                            ICartRepository cartRepo, IUserRepository userRepo)
         {
             _paypalClient = paypalClient;
             _payRepo = payRepo;
             _transactionRepository = transactionRepository;
+            _cartRepo = cartRepo;
+            _userRepo = userRepo;
         }
 
         public async Task<CreateOrderResponse> CreateOrder(CreateOrderRequest request)
@@ -58,6 +63,19 @@ namespace BE.Services.Implementations
                 AffiliatePaymentId = null,
                 CaptureOrderCode = captureResponse.PurchaseUnits[0].Payments.Captures[0].Id
             };
+
+            var user = await _userRepo.GetUserById(paymentInfo.UserId);
+            if (user != null)
+            {
+                user.Wallet += paymentInfo.Total;
+                await _userRepo.UpdateWalletForUser(user);
+            }
+            else
+            {
+                throw new Exception("User not found for user ID: " + paymentInfo.UserId);
+            }
+
+            await _userRepo.UpdateWalletForUser(user);
 
             await _payRepo.UpdateStatusPayment(paymentInfo.Id);
 

@@ -1,290 +1,293 @@
 #header {
-    box-shadow: rgba(11, 11, 11, 0.06) 0px 2px 4px -1px, rgba(11, 11, 11, 0.1) 0px 4px 6px -1px;
-    padding: 0 30px;
-    min-height: 60px;
-    z-index: 10;
-    background-color: white;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    box-sizing: border-box;
+  box-shadow: rgba(11, 11, 11, 0.06) 0px 2px 4px -1px,
+    rgba(11, 11, 11, 0.1) 0px 4px 6px -1px;
+  padding: 0 30px;
+  min-height: 60px;
+  z-index: 10;
+  background-color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 #header .header-shown {
-    width: 100%;
-    height: 60px;
-    display: flex;
-    align-items: center;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
 }
 
-
 #header .logo-title {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 #header .logo {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
 }
 
 #header .title {
-    margin-left: 10px;
-    font-weight: 700;
-    font-size: 15px;
+  margin-left: 10px;
+  font-weight: 700;
+  font-size: 15px;
 }
 
 #header .action-button {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
 }
 
 #header .search-container {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    position: relative;
-    justify-content: flex-end;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  position: relative;
+  justify-content: flex-end;
 }
 
 #header .search-bar {
-    height: 30px;
-    width: 250px;
-    border-radius: 15px;
-    border: 2px solid #e8e8e8;
-    display: flex;
-    align-items: center;
-    transition: all .5s ease;
-    padding-left: 10px;
-    padding-right: 10px;
-    margin-right: 10px;
+  height: 30px;
+  width: 250px;
+  border-radius: 15px;
+  border: 2px solid #e8e8e8;
+  display: flex;
+  align-items: center;
+  transition: all 0.5s ease;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-right: 10px;
 }
 
 #header .search-bar.slide {
-    position: absolute;
-    transform: translateX(-570px);
-    width: 500px;
-    height: 45px;
-    border: 2px solid var(--light-orange);
+  position: absolute;
+  transform: translateX(-570px);
+  width: 500px;
+  height: 45px;
+  border: 2px solid var(--light-orange);
 }
 
 #header .search-bar.slide svg {
-    font-size: 24px;
+  font-size: 24px;
 }
 
 #header .search-bar svg {
-    font-size: 20px;
-    margin: 10px;
+  font-size: 20px;
+  margin: 10px;
 }
 
 #header .search-bar input {
-    border: none;
-    height: 80%;
-    flex: 1;
+  border: none;
+  height: 80%;
+  flex: 1;
 }
 
 #header .search-bar input:focus-visible {
-    outline: none;
+  outline: none;
 }
 
-
 #header .action-button .login-signup a {
-    text-decoration: none;
-    width: 75px;
-    height: 30px;
-    display: inline-flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 16px;
+  text-decoration: none;
+  width: 75px;
+  height: 30px;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 16px;
 }
 
 #header .login {
-    color: var(--light-orange);
-    border-radius: 5px;
-    border: 2px solid var(--light-orange);
-    margin-right: 20px;
+  color: var(--light-orange);
+  border-radius: 5px;
+  border: 2px solid var(--light-orange);
+  margin-right: 20px;
 }
 
 #header .signup {
-    color: white;
-    background-color: var(--light-orange);
-    border-radius: 5px;
-    border: 2px solid var(--light-orange);
+  color: white;
+  background-color: var(--light-orange);
+  border-radius: 5px;
+  border: 2px solid var(--light-orange);
 }
 
 #header .action-button .cancel-btn {
-    color: white;
-    background-color: var(--light-orange);
-    border-radius: 5px;
-    border: 2px solid var(--light-orange);
-    width: 75px;
-    height: 30px;
-    display: inline-flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 16px;
-    cursor: pointer;
+  color: white;
+  background-color: var(--light-orange);
+  border-radius: 5px;
+  border: 2px solid var(--light-orange);
+  width: 75px;
+  height: 30px;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 #header .action-button .login-signup a:hover {
-    color: white;
-    background-color: var(--dark-orange);
-    border-radius: 5px;
-    border: 2px solid var(--dark-orange);
+  color: white;
+  background-color: var(--dark-orange);
+  border-radius: 5px;
+  border: 2px solid var(--dark-orange);
 }
 
 #header .search-result-container {
-    opacity: 0;
-    transition: all 0.5s ease;
-    padding-left: 300px;
-    padding-right: 300px;
-    overflow: hidden;
+  opacity: 0;
+  transition: all 0.5s ease;
+  padding-left: 300px;
+  padding-right: 300px;
+  overflow: hidden;
 }
 
 #header .search-result-container.show {
-    opacity: 1;
-    padding-top: 20px;
-    padding-bottom: 20px;
+  opacity: 1;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 #header .search-result-container.show .title {
-    margin-bottom: 20px;
-    font-size: 24px;
-    font-weight: 700;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: 700;
 }
 
 #header .slider-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #header .user-action {
-    width: 170px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    position: relative;
+  width: 170px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
 }
 
 #header .user-action .user-logo {
-    height: fit-content;
+  height: fit-content;
 }
 
 #header .user-action .user-logo svg {
-    font-size: 36px;
-    color: var(--light-orange);
-    margin-left: 10px;
-    margin-right: 15px;
+  font-size: 36px;
+  color: var(--light-orange);
+  margin-left: 10px;
+  margin-right: 15px;
 }
 
 #header .user-action .user-logo img {
-    width: 30px;
-    height: 30px;
-    object-fit: cover;
-    object-position: center;
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  object-position: center;
 }
 
 #header .user-action .user-info .name {
-    font-weight: 700;
+  font-weight: 700;
 }
 
 #header .user-action .user-info .email {
-    color: rgb(112, 112, 112);
+  color: rgb(112, 112, 112);
 }
 
 #header .user-action .user-info .email {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 110px;
-    display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 110px;
+  display: block;
 }
 
 #header .user-action .user-dropdown {
-    position: absolute;
-    top: 55px;
-    right: 0;
+  position: absolute;
+  top: 55px;
+  right: 0;
 }
 
 #header .user-action .user-dropdown .dropdown-container {
-    position: relative;
-    background-color: white;
-    width: 200px;
-    padding: 10px 5px;
-    border-radius: 10px;
-    margin-top: 10px;
+  position: relative;
+  background-color: white;
+  width: 200px;
+  padding: 10px 5px;
+  border-radius: 10px;
+  margin-top: 10px;
 }
 
 #header .user-action .user-dropdown .dropdown-container .arrow {
-    width: 25px;
-    height: 30px;
-    background-color: white;
-    position: absolute;
-    right: 20px;
-    top: -10px;
-    border-radius: 3px;
-    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-    z-index: -1;
+  width: 25px;
+  height: 30px;
+  background-color: white;
+  position: absolute;
+  right: 20px;
+  top: -10px;
+  border-radius: 3px;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  z-index: -1;
 }
 
 #header .user-action .user-dropdown .dropdown-container .selection-block {
-    padding: 7px 20px;
-    display: flex;
-    align-items: center;
-    font-size: 13px;
-    border-radius: 5px;
-    color: black;
+  padding: 7px 20px;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  border-radius: 5px;
+  color: black;
 }
 
 #header .user-action .user-dropdown .dropdown-container .selection-block:hover {
-    background-color: #f9f9f9;
+  background-color: #f9f9f9;
 }
 
 #header .user-action .user-dropdown .dropdown-container .selection-block svg {
-    font-size: 18px;
-    margin-right: 15px;
+  font-size: 18px;
+  margin-right: 15px;
 }
 
 #header .user-action .user-dropdown .dropdown-container .special-block {
-    padding: 15px 20px;
-    display: flex;
-    align-items: center;
-    font-size: 13px;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
 }
 
-#header .user-action .user-dropdown .dropdown-container .special-block.notification {
-    border-bottom: 1px solid rgb(221, 221, 221);
+#header
+  .user-action
+  .user-dropdown
+  .dropdown-container
+  .special-block.notification {
+  border-bottom: 1px solid rgb(221, 221, 221);
 }
 
 #header .user-action .user-dropdown .dropdown-container .special-block svg {
-    font-size: 18px;
-    margin-right: 15px;
+  font-size: 18px;
+  margin-right: 15px;
 }
 
 #header .user-action .user-dropdown .dropdown-container .special-block.logout {
-    border-top: 1px solid rgb(221, 221, 221);
+  border-top: 1px solid rgb(221, 221, 221);
 }
 
 #header .user-action .user-dropdown .dropdown-container .special-block.logout {
-    color: red;
+  color: red;
 }
 
 #header .user-action .user-dropdown {
-    max-height: 0px;
-    transition: all 0.5s ease;
-    overflow: hidden;
+  max-height: 0px;
+  transition: all 0.5s ease;
+  overflow: hidden;
 }
 
 #header .user-action .user-dropdown.active {
-    max-height: 250px;
-    opacity: 1;
+  max-height: 350px;
+  opacity: 1;
 }

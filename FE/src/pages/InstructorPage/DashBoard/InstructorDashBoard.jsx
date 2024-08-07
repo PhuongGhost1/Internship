@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import "./InstructorDashBoard.css";
 import Header from "../../../components/Items/Header/Header";
 import ExploreNow from "../../../components/Instructor/InstructorDashboard/ExploreNow/ExploreNow";
@@ -7,27 +7,37 @@ import ProfileStatus from "../../../components/Instructor/InstructorDashboard/Pr
 import RecentActivities from "../../../components/Instructor/InstructorDashboard/RecentActivities/RecentActivities";
 import StockMarket from "../../../components/Instructor/InstructorDashboard/StockMarket/StockMarket";
 import Transaction from "../../../components/Instructor/InstructorDashboard/Transaction/Transaction";
-
-
+import { AuthContext } from "../../Context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function InstructorDashBoard() {
-     return (
-          <div id="InstructorDashBoard">
-               <Header />
-               <div className="Container">
-                    <div className="Container-One">
-                         <ExploreNow />
-                         <MyProtfolio />
-                         <ProfileStatus />
-                    </div>
+  const { user, roles } = useContext(AuthContext);
+  const nav = useNavigate();
 
-                    <div className="Container-Two">
-                         <RecentActivities />
-                         <StockMarket />
-                         <Transaction />
+  useEffect(() => {
+    if (!user) {
+      nav("/login");
+    } else if (!roles.includes("Instructor")) {
+      nav("/error");
+    }
+  }, [user, roles, nav]);
 
-                    </div>
-               </div>
-          </div>
-     )
+  return (
+    <div id="InstructorDashBoard">
+      <Header />
+      <div className="Container">
+        <div className="Container-One">
+          <ExploreNow />
+          <MyProtfolio />
+          <ProfileStatus />
+        </div>
+
+        <div className="Container-Two">
+          <RecentActivities />
+          <StockMarket />
+          <Transaction />
+        </div>
+      </div>
+    </div>
+  );
 }

@@ -1,5 +1,6 @@
 using BE.Attributes;
 using BE.Dto.Certification;
+using BE.Dto.InProgressDto;
 using BE.Dto.UserCertification;
 using BE.Models;
 using BE.Services.Interfaces;
@@ -39,6 +40,12 @@ namespace BE.Controllers
           public async Task<List<UserCertificationDto>> Credentials([FromQuery] string UserId)
           {
                return await _certiService.GetCredentialsByUserAsync(UserId);
+          }
+
+          [HttpGet, Route("in-progress-courses")]
+          public async Task<List<UserPurchasedCourseDto>> ViewUserPurchasedCoursesWithDetails([FromQuery] string userId)
+          {
+               return await _certiService.GetUserPurchasedCoursesWithDetailsAsync(userId);
           }
      }
 }

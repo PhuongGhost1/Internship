@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BE.Dto.Category;
+using BE.Dto.Message;
 using BE.Models;
 
 namespace BE.Services.Interfaces
@@ -13,7 +14,7 @@ namespace BE.Services.Interfaces
         Task<bool> UpdateStatusOfCategoryAsync(string cateId);
 
         //---------------------CRUD--------------------------//
-        Task<Category?> CreateCategory(CreateCategoryDto createCategoryDto);
+        Task<MessageDto?> CreateCategory(CreateCategoryDto createCategoryDto);
         Task<Category?> UpdateCategory(UpdateCategoryDto updateCategoryDto);
         Task<bool> DeleteCategory(string cateId);
     }

@@ -16,9 +16,12 @@ namespace BE.Dto.Course
         public float? Rating { get; set; }
         public float? Price { get; set; }
         public string? Description {get; set;}
+        public string? WhatLearn {get; set;}
         public List<ImageForAdminDto> Images { get; set; } = new List<ImageForAdminDto>();
         public List<CategoryCourseDto> CateCoruse = new List<CategoryCourseDto>();
         public List<SaveCourseDto> SaveCourses {get; set; } = new List<SaveCourseDto>();
         public UserInfoFollowingDto? User {get; set;}
+        public bool IsEnrolled { get; set; }
+        public bool IsInCart { get; set; }
     }
 }

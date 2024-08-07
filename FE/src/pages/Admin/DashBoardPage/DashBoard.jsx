@@ -1,15 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./DashBoard.css";
 import Header from "../../../components/Admin/Header/Header";
 import SideBar from "../../../components/Admin/SideBar/SideBar";
 import Weekly from "../../../components/Admin/Weekly/Weekly";
 import Statistics from "../../../components/Admin/Statistics/Statistics";
 import Analytics from "../../../components/Admin/Analytics/Analytics";
-import Appointment from "../../../components/Admin/Appointment/Appointment";
 import LoadingOverlay from "../../../components/LoadingOverlay";
+import { AuthContext } from "../../Context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function DashBoard() {
   const [loading, setLoading] = useState(true);
+  const { user, roles } = useContext(AuthContext);
+  const nav = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      nav("/login");
+    } else if (!roles.includes("Admin")) {
+      nav("/error");
+    }
+  }, [user, roles, nav]);
 
   useEffect(() => {
     const simulateLoading = () => {
@@ -25,7 +36,7 @@ export default function DashBoard() {
     <div id="DashBoard">
       <LoadingOverlay loading={loading} />
       <div className="Header-Admin">
-        <Header />
+        <Header user={user} />
       </div>
       <div className="Layout">
         <div className="SideBar-container">

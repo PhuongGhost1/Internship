@@ -9,11 +9,13 @@ using BE.Dto.Chapter;
 using BE.Dto.Comment;
 using BE.Dto.Course;
 using BE.Dto.ImageD;
+using BE.Dto.InProgressDto;
 using BE.Dto.User;
 using BE.Dto.UserCertification;
 using BE.Models;
 using BE.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
+using static BE.Utils.Utils;
 
 namespace BE.Repository.Implementations
 {
@@ -237,5 +239,241 @@ namespace BE.Repository.Implementations
 
           return credentials;
           }
-     }
+
+          public async Task<List<UserPurchasedCourseDto>> GetUserPurchasedCoursesWithDetails(string userId)
+          {
+               var purchasedCourses = await _context.PaymentCourses
+                    .Include(pc => pc.Cartcourse)
+                         .ThenInclude(cc => cc.Course)
+                              .ThenInclude(course => course.Chapters)
+                    .Include(pc => pc.Cartcourse)
+                         .ThenInclude(cc => cc.Course)
+                              .ThenInclude(course => course.Certification)
+                    .Include(pc => pc.Cartcourse)
+                         .ThenInclude(cc => cc.Course)
+                              .ThenInclude(course => course.Images)
+                    .Include(pc => pc.Cartcourse)
+                         .ThenInclude(cc => cc.Course)
+                              .ThenInclude(c => c.User)
+                    .Include(pc => pc.Cartcourse)
+                         .ThenInclude(cc => cc.Course)
+                              .ThenInclude(course => course.CategoryCourses)
+                                   .ThenInclude(cc => cc.Category)
+                    .Include(pc => pc.Payment)
+                    .Where(pc => pc.Cartcourse.Cart.UserId == userId && pc.Cartcourse.Status == 1 
+                                        && pc.Cartcourse.Course.CategoryCourses.Any(cc => cc.Category.IsVisible == true))
+                    .ToListAsync();
+
+               var userPurchasedCourses = new List<UserPurchasedCourseDto>();
+
+               foreach (var paymentCourse in purchasedCourses)
+               {
+                    var course = paymentCourse.Cartcourse.Course;
+
+                    var enrolledCourse = await _context.EnrollCourses
+                         .FirstOrDefaultAsync(ec => ec.UserId == userId && ec.CourseId == course.Id);
+
+                    if (enrolledCourse == null)
+                    {
+                         enrolledCourse = new EnrollCourse
+                         {
+                              Id = GenerateIdModel("enrollcourse"),
+                              UserId = userId,
+                              CourseId = course.Id,
+                              Date = DateTime.Now
+                         };
+
+                         _context.EnrollCourses.Add(enrolledCourse);
+                         await _context.SaveChangesAsync();
+                    }
+
+                    var chapterIds = course.Chapters.Select(ch => ch.Id).ToList();
+
+                    var lectures = await _context.Lectures
+                         .Where(l => chapterIds.Contains(l.ChapterId))
+                         .Select(l => new ChapterItemDto
+                         {
+                              ItemId = l.Id,
+                              Name = l.Name,
+                              Index = l.Index,
+                              Type = "Lecture",
+                              ChapterId = l.ChapterId,
+                              HashCode = GenerateHashCode(l.Id),
+                              Time = l.TimeVideo
+                         })
+                         .ToListAsync();
+
+                    var quizzes = await _context.Quizzes
+                         .Where(q => chapterIds.Contains(q.ChapterId))
+                         .Select(q => new ChapterItemDto
+                         {
+                              ItemId = q.Id,
+                              Name = q.Name,
+                              Index = q.Index,
+                              Type = "Quiz",
+                              ChapterId = q.ChapterId,
+                              HashCode = GenerateHashCode(q.Id),
+                              Time = TimeSpan.FromMinutes(30)
+                         })
+                         .ToListAsync();
+
+                    var chapterDtos = course.Chapters.Select(ch => new ChaptersDto
+                    {
+                         Id = ch.Id,
+                         Name = ch.Name,
+                         Index = ch.Index,
+                         Items = lectures
+                              .Where(l => l.ChapterId == ch.Id)
+                              .Concat(quizzes.Where(q => q.ChapterId == ch.Id))
+                              .OrderBy(item => item.Index)
+                              .ToList(),
+                         LectureCount = lectures.Count(l => l.ChapterId == ch.Id),
+                         QuizCount = quizzes.Count(q => q.ChapterId == ch.Id),
+                         TotalTime = Math.Round(lectures.Where(l => l.ChapterId == ch.Id).Sum(l => l.Time?.TotalMinutes ?? 0) +
+                              quizzes.Where(q => q.ChapterId == ch.Id).Sum(q => q.Time?.TotalMinutes ?? 0), 2)
+                    }).OrderBy(x => x.Index).ToList();
+
+                    var lectureIds = lectures.Select(l => l.ItemId).ToList();
+                    var quizIds = quizzes.Select(q => q.ItemId).ToList();
+
+                    var processingLectures = await _context.Processings
+                         .Where(p => p.UserId == userId && lectureIds.Contains(p.LectureId))
+                         .Select(p => p.LectureId)
+                         .ToListAsync();
+
+                    var processingQuizzes = await _context.Processings
+                         .Where(p => p.UserId == userId && quizIds.Contains(p.QuizId))
+                         .Select(p => p.QuizId)
+                         .ToListAsync();
+
+                    var userProgress = chapterDtos.Select(ch => new UserProgressDto
+                    {
+                         ChapterId = ch.Id,
+                         ChapterName = ch.Name,
+                         LectureCount = ch.LectureCount,
+                         QuizCount = ch.QuizCount,
+                         CompletedLectures = processingLectures.Count(l => lectures.Any(item => item.ItemId == l && item.ChapterId == ch.Id)),
+                         CompletedQuizzes = processingQuizzes.Count(q => quizzes.Any(item => item.ItemId == q && item.ChapterId == ch.Id)),
+                         TotalTime = ch.TotalTime,
+                         CompletedTime = Math.Round(lectures.Where(l => processingLectures.Contains(l.ItemId)).Sum(l => l.Time?.TotalMinutes ?? 0) +
+                              quizzes.Where(q => processingQuizzes.Contains(q.ItemId)).Sum(q => q.Time?.TotalMinutes ?? 0), 2)
+                    }).ToList();
+
+                    var totalCourseTime = userProgress.Sum(up => up.TotalTime);
+                    var totalCompletedTime = userProgress.Sum(up => up.CompletedTime);
+                    var completionPercentage = (totalCompletedTime / totalCourseTime) * 100;
+
+                    UserCertificationDto certificationDto = null;
+
+                    if (completionPercentage >= 100 && course.Certification != null)
+                    {
+                         var certification = await _context.Certifications
+                              .FirstOrDefaultAsync(c => c.Id == course.Certification.Id);
+
+                         if (certification == null)
+                         {
+                              certification = new Certification
+                              {
+                                   Id = GenerateIdModel("certification"),
+                                   CourseId = course.Id,
+                                   Name = course.Name,
+                                   CreateAt = DateTime.Now
+                              };
+
+                              _context.Certifications.Add(certification);
+                              await _context.SaveChangesAsync();
+                         }
+
+                         var existingCertification = await _context.UserCertifications
+                              .FirstOrDefaultAsync(uc => uc.UserId == userId && uc.CertificationId == certification.Id);
+
+                         if (existingCertification == null)
+                         {
+                              var userCertification = new UserCertification
+                              {
+                                   Id = GenerateIdModel("usercertification"),
+                                   UserId = userId,
+                                   CertificationId = certification.Id,
+                                   DatePass = DateTime.Now
+                              };
+
+                              _context.UserCertifications.Add(userCertification);
+                              await _context.SaveChangesAsync();
+
+                              certificationDto = new UserCertificationDto
+                              {
+                                   Id = userCertification.Id,
+                                   User = new UserInfoManageByAdminDto{
+                                        Id = userId
+                                   },
+                                   Certification = new CertificationDto{
+                                        Id = certification.Id,
+                                        Name = certification.Name,
+                                        CreateAt = certification.CreateAt
+                                   },
+                                   DatePass = userCertification.DatePass
+                              };
+                         }
+                    }
+
+                    var purchasedCourseDto = new UserPurchasedCourseDto
+                    {
+                         CourseId = course.Id,
+                         CourseName = course.Name,
+                         Chapters = chapterDtos,
+                         UserProgress = userProgress,
+                         UserCertifications = certificationDto != null ? new List<UserCertificationDto> { certificationDto } : new List<UserCertificationDto>(),
+                         Images = course.Images
+                                   .OrderByDescending(i => i.CreatedAt)
+                                   .Select(i => new ImageForAdminDto
+                                   {
+                                        Id = i.Id,
+                                        Url = i.Url,
+                                        Type = i.Type,
+                                        LastUpdated = i.CreatedAt
+                                   })
+                                   .Take(1)
+                                   .ToList(),
+                         CateCoruse = course.CategoryCourses
+                                             .Where(cateCourse => cateCourse.Category.IsVisible == true)
+                                             .Select(cateCourse => new CategoryCourseDto
+                                             {
+                                                  Id = cateCourse.Id,
+                                                  Category = new CategoryDto
+                                                  {
+                                                       Names = new List<string?> { cateCourse.Category.Name },
+                                                       cateId = cateCourse.Category.Id,
+                                                       Name = cateCourse.Category.Name,
+                                                       IsVisible = cateCourse.Category.IsVisible
+                                                  }
+                                             })
+                                             .ToList(),
+                         User = course.User != null ? new UserInfoManageByAdminDto
+                         {
+                              Id = course.User.Id,
+                              Name = course.User.Username,
+                              Email = course.User.Email,
+                              Description = course.User.Description,
+                              Phone = course.User.Phone,
+                              CreateAt = course.User.CreateAt,
+                              Images = course.User.Images
+                                        .OrderByDescending(i => i.CreatedAt)
+                                        .Select(i => new ImageForAdminDto
+                                        {
+                                        Id = i.Id,
+                                        Url = i.Url,
+                                        Type = i.Type,
+                                        LastUpdated = i.CreatedAt
+                                        })
+                                        .Take(1)
+                                        .ToList()
+                         } : null
+                    };
+
+                    userPurchasedCourses.Add(purchasedCourseDto);
+               }
+
+               return userPurchasedCourses;
+          }
+    }
 }

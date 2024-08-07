@@ -24,9 +24,13 @@ export default function InfoFollow({ user }) {
                 className="avatar"
               />
               <div className="info">
-                <span className="name">{follower.username}</span>
+                <span className="name">
+                  {follower.username === null
+                    ? follower.email
+                    : follower.username}
+                </span>
                 <span className="role">
-                  {follower.description || "No role"}
+                  {follower.description || "Not provided"}
                 </span>
               </div>
             </div>
@@ -56,7 +60,7 @@ InfoFollow.propTypes = {
         url: PropTypes.string,
         type: PropTypes.string,
         lastUpdated: PropTypes.string,
-      })
+      }),
     ),
     courses: PropTypes.arrayOf(
       PropTypes.shape({
@@ -70,9 +74,9 @@ InfoFollow.propTypes = {
             url: PropTypes.string,
             type: PropTypes.string,
             lastUpdated: PropTypes.string,
-          })
+          }),
         ),
-      })
+      }),
     ),
     followFollowers: PropTypes.arrayOf(
       PropTypes.shape({
@@ -91,7 +95,7 @@ InfoFollow.propTypes = {
             url: PropTypes.string,
             type: PropTypes.string,
             lastUpdated: PropTypes.string,
-          })
+          }),
         ),
         courses: PropTypes.arrayOf(
           PropTypes.shape({
@@ -105,12 +109,12 @@ InfoFollow.propTypes = {
                 url: PropTypes.string,
                 type: PropTypes.string,
                 lastUpdated: PropTypes.string,
-              })
+              }),
             ),
-          })
+          }),
         ),
         followFollowers: PropTypes.array,
-      })
+      }),
     ),
   }),
 };

@@ -1,9 +1,6 @@
 import axios from "axios";
 const serverUrl = import.meta.env.VITE_SERVER_URL;
-const API_URL =
-  `${serverUrl}/api/v1`
-  ;
-
+const API_URL = `${serverUrl}/api/v1`;
 const api = axios.create({
   baseURL: API_URL,
   headers: {
@@ -32,7 +29,7 @@ const ApiService = {
   getMostPurchasedCourses: async (count) => {
     try {
       const response = await api.get(
-        `/web/course/most-purchased-courses/${count}`
+        `/web/course/most-purchased-courses/${count}`,
       );
       return response.data;
     } catch (error) {
@@ -61,7 +58,7 @@ const ApiService = {
   getPercentageChangeForCurrentMonthly: async () => {
     try {
       const response = await api.get(
-        "/web/payment/get-current-monthly-changes"
+        "/web/payment/get-current-monthly-changes",
       );
       return response.data;
     } catch (error) {
@@ -99,7 +96,7 @@ const ApiService = {
   getCountAccountsByInstructorForMonth: async () => {
     try {
       const response = await api.get(
-        "/web/user/count-total-instructor-monthly"
+        "/web/user/count-total-instructor-monthly",
       );
       return response.data;
     } catch (error) {
@@ -110,13 +107,13 @@ const ApiService = {
   getPercentageChangeForInstructorAccountsLastMonth: async () => {
     try {
       const response = await api.get(
-        "/web/user/get-instructor-percentage-changes-monthly"
+        "/web/user/get-instructor-percentage-changes-monthly",
       );
       return response.data;
     } catch (error) {
       console.error(
         "Error fetching percentage instructor account monthly:",
-        error
+        error,
       );
       throw error;
     }
@@ -124,13 +121,13 @@ const ApiService = {
   getPercentageChangeForStudentAccountsLastMonth: async () => {
     try {
       const response = await api.get(
-        "/web/user/get-student-percentage-changes-monthly"
+        "/web/user/get-student-percentage-changes-monthly",
       );
       return response.data;
     } catch (error) {
       console.error(
         "Error fetching percentage student account monthly:",
-        error
+        error,
       );
       throw error;
     }
@@ -201,7 +198,7 @@ const ApiService = {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },
-        }
+        },
       );
 
       return response.data;
@@ -232,7 +229,7 @@ const ApiService = {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },
-        }
+        },
       );
 
       return response.data;
@@ -254,7 +251,7 @@ const ApiService = {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },
-        }
+        },
       );
 
       return response.data;
@@ -276,7 +273,7 @@ const ApiService = {
     userId,
     reportId,
     commentId,
-    courseId
+    courseId,
   ) => {
     try {
       const formData = new FormData();
@@ -292,7 +289,7 @@ const ApiService = {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },
-        }
+        },
       );
 
       return response.data;
@@ -322,7 +319,7 @@ const ApiService = {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },
-        }
+        },
       );
 
       return response.data;
@@ -346,7 +343,7 @@ const ApiService = {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },
-        }
+        },
       );
 
       return response.data;
@@ -442,7 +439,7 @@ const ApiService = {
     username,
     dob,
     description,
-    gender
+    gender,
   ) => {
     try {
       const formdata = new FormData();
@@ -480,14 +477,14 @@ const ApiService = {
         "/web/user/get-instructor-profile-on-waiting-courses",
         {
           params: { insId },
-        }
+        },
       );
 
       return response.data;
     } catch (error) {
       console.error(
         "Error fetching get waiting courses on instructor profile:",
-        error
+        error,
       );
       throw error;
     }
@@ -495,7 +492,7 @@ const ApiService = {
   getNewReleaseCourses: async (count) => {
     try {
       const response = await api.get(
-        `/web/course/new-release-courses/${count}`
+        `/web/course/new-release-courses/${count}`,
       );
       return response.data;
     } catch (error) {
@@ -523,7 +520,7 @@ const ApiService = {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },
-        }
+        },
       );
       return response.data;
     } catch (error) {
@@ -594,7 +591,7 @@ const ApiService = {
           headers: {
             "Content-Type": "multipart/form-data",
           },
-        }
+        },
       );
       return response.data;
     } catch (error) {
@@ -614,7 +611,7 @@ const ApiService = {
           headers: {
             "Content-Type": "multipart/form-data",
           },
-        }
+        },
       );
       return response.data;
     } catch (error) {
@@ -635,7 +632,7 @@ const ApiService = {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },
-        }
+        },
       );
       return response.data;
     } catch (error) {
@@ -654,7 +651,7 @@ const ApiService = {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },
-        }
+        },
       );
       return response.data;
     } catch (error) {
@@ -712,7 +709,7 @@ const ApiService = {
           headers: {
             "Content-Type": "multipart/form-data",
           },
-        }
+        },
       );
       return response.data;
     } catch (error) {
@@ -746,7 +743,7 @@ const ApiService = {
           headers: {
             "Content-Type": "application/json",
           },
-        }
+        },
       );
       return response.data;
     } catch (error) {
@@ -773,7 +770,7 @@ const ApiService = {
           headers: {
             "Content-Type": "application/json",
           },
-        }
+        },
       );
       return response.data;
     } catch (error) {
@@ -791,13 +788,13 @@ const ApiService = {
           headers: {
             "Content-Type": "application/json",
           },
-        }
+        },
       );
       return response.data;
     } catch (error) {
       console.error(
         "Error capturing PayPal order: ",
-        error.response ? error.response.data : error.message
+        error.response ? error.response.data : error.message,
       );
       throw error;
     }
@@ -811,13 +808,13 @@ const ApiService = {
           headers: {
             "Content-Type": "application/json",
           },
-        }
+        },
       );
       return response.data;
     } catch (error) {
       console.error(
         "Error canceling PayPal order: ",
-        error.response ? error.response.data : error.message
+        error.response ? error.response.data : error.message,
       );
       throw error;
     }
@@ -844,7 +841,7 @@ const ApiService = {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },
-        }
+        },
       );
       return response.data;
     } catch (error) {
@@ -867,7 +864,7 @@ const ApiService = {
     priceRange,
     ratings,
     levels,
-    userId
+    userId,
   ) => {
     try {
       const formData = new FormData();
@@ -885,7 +882,7 @@ const ApiService = {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
           },
-        }
+        },
       );
       return response.data;
     } catch (error) {
@@ -934,6 +931,40 @@ const ApiService = {
       return response.data;
     } catch (error) {
       console.log("Failed to get quiz: ", error);
+    }
+  },
+  RolePermissions: async (userId) => {
+    try {
+      const response = await api.get("/web/user/role-permissions", {
+        params: { userId },
+      });
+
+      return response.data;
+    } catch (error) {
+      console.error("Error for settings role permissions: ", error);
+    }
+  },
+  GetNumberInCart: async (userId) => {
+    try {
+      const response = await api.get("/web/user/number-in-cart", {
+        params: { userId },
+      });
+
+      return response.data;
+    } catch (error) {
+      console.error("Error for getting number in cart: ", error);
+    }
+  },
+  ViewUserPurchasedCoursesWithDetails: async (userId) => {
+    try {
+      const response = await api.get("/web/certification/in-progress-courses", {
+        params: { userId },
+      });
+
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching viewing purchased course list:", error);
+      throw error;
     }
   },
   GetUserRole: async (userId) => {

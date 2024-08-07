@@ -56,41 +56,41 @@ namespace BE.Repository.Implementations
           public async Task<CourseDto?> GetLecturesAndQuizzesByCourseId(string courseId)
           {
                var course = await _context.Courses
-                   .Where(c => c.Id == courseId)
-                   .Include(c => c.Chapters)
-                   .FirstOrDefaultAsync();
+                    .Where(c => c.Id == courseId)
+                    .Include(c => c.Chapters)
+                    .FirstOrDefaultAsync();
 
                if (course == null) return null;
 
                var chapterIds = course.Chapters.Select(ch => ch.Id).ToList();
 
                var lectures = await _context.Lectures
-                   .Where(l => chapterIds.Contains(l.ChapterId))
-                   .Select(l => new ChapterItemDto
-                   {
-                        ItemId = l.Id,
-                        Name = l.Name,
-                        Index = l.Index,
-                        Type = "Lecture",
-                        ChapterId = l.ChapterId,
-                        HashCode = GenerateHashCode(l.Id),
-                        Time = l.TimeVideo
-                   })
-                   .ToListAsync();
+                    .Where(l => chapterIds.Contains(l.ChapterId))
+                    .Select(l => new ChapterItemDto
+                    {
+                         ItemId = l.Id,
+                         Name = l.Name,
+                         Index = l.Index,
+                         Type = "Lecture",
+                         ChapterId = l.ChapterId,
+                         HashCode = GenerateHashCode(l.Id),
+                         Time = l.TimeVideo
+                    })
+                    .ToListAsync();
 
                var quizzes = await _context.Quizzes
-                   .Where(q => chapterIds.Contains(q.ChapterId))
-                   .Select(q => new ChapterItemDto
-                   {
-                        ItemId = q.Id,
-                        Name = q.Name,
-                        Index = q.Index,
-                        Type = "Quiz",
-                        ChapterId = q.ChapterId,
-                        HashCode = GenerateHashCode(q.Id),
-                        Time = TimeSpan.FromMinutes(30)
-                   })
-                   .ToListAsync();
+                    .Where(q => chapterIds.Contains(q.ChapterId))
+                    .Select(q => new ChapterItemDto
+                    {
+                         ItemId = q.Id,
+                         Name = q.Name,
+                         Index = q.Index,
+                         Type = "Quiz",
+                         ChapterId = q.ChapterId,
+                         HashCode = GenerateHashCode(q.Id),
+                         Time = TimeSpan.FromMinutes(30)
+                    })
+                    .ToListAsync();
 
                var chapterDtos = course.Chapters.Select(ch => new ChaptersDto
                {
@@ -98,10 +98,14 @@ namespace BE.Repository.Implementations
                     Name = ch.Name,
                     Index = ch.Index,
                     Items = lectures
-                       .Where(l => l.ChapterId == ch.Id)
-                       .Concat(quizzes.Where(q => q.ChapterId == ch.Id))
-                       .OrderBy(item => item.Index)
-                       .ToList()
+                         .Where(l => l.ChapterId == ch.Id)
+                         .Concat(quizzes.Where(q => q.ChapterId == ch.Id))
+                         .OrderBy(item => item.Index)
+                         .ToList(),
+                    LectureCount = lectures.Count(l => l.ChapterId == ch.Id),
+                    QuizCount = quizzes.Count(q => q.ChapterId == ch.Id),
+                    TotalTime = Math.Round(lectures.Where(l => l.ChapterId == ch.Id).Sum(l => l.Time?.TotalMinutes ?? 0) +
+                               quizzes.Where(q => q.ChapterId == ch.Id).Sum(q => q.Time?.TotalMinutes ?? 0), 2)
                }).OrderBy(x => x.Index).ToList();
 
                var courseDto = new CourseDto
@@ -554,6 +558,7 @@ namespace BE.Repository.Implementations
                     Rating = course.Rating,
                     Price = course.Price,
                     Description = course.Description,
+                    WhatLearn = course.WhatLearn,
                     CateCoruse = course.CategoryCourses.Select(cc => new CategoryCourseDto
                     {
                          Id = cc.Id,
@@ -568,6 +573,53 @@ namespace BE.Repository.Implementations
                     SaveCourses = saveCoursesDto,
                     User = userDto
                };
+
+               if(userId == null){
+                    courseToCheckDto.IsEnrolled = false;
+               }else{
+                    var paymentIds = await _context.Payments
+                               .Where(p => p.UserId == userId && p.Status == 1)
+                               .Select(p => p.Id)
+                               .ToListAsync();
+
+                    var cartCourseIds = await _context.PaymentCourses
+                                                  .Where(pc => paymentIds.Contains(pc.PaymentId))
+                                                  .Select(pc => pc.CartcourseId)
+                                                  .ToListAsync();
+
+                    var courseIdInCart = await _context.CartCourses
+                                                       .Where(cc => cartCourseIds.Contains(cc.Id) && cc.CourseId == course.Id)
+                                                       .Select(cc => cc.CourseId)
+                                                       .FirstOrDefaultAsync();
+
+                    var cartIdInCartOfUser = await _context.Carts
+                                                       .Where(c => c.UserId == userId)
+                                                       .Select(c => c.Id)
+                                                       .FirstOrDefaultAsync();
+
+                    var cartCourseId = await _context.CartCourses
+                                                       .Where(cc => cc.CartId == cartIdInCartOfUser && cc.CourseId == course.Id)
+                                                       .Select(cc => cc.Id)
+                                                       .ToListAsync();
+
+                    var IsCourseInCartOfUser = await _context.CartCourses
+                                                            .Where(cc => cartCourseId.Contains(cc.Id))
+                                                            .Select(cc => cc.Id)
+                                                            .FirstOrDefaultAsync();
+
+                    if(IsCourseInCartOfUser != null){
+                         courseToCheckDto.IsInCart = true;
+                    }else{
+                         courseToCheckDto.IsInCart = false;
+                    }
+
+                    if (courseIdInCart != null){
+                         courseToCheckDto.IsEnrolled = true;
+                    }
+                    else{
+                         courseToCheckDto.IsEnrolled = false;
+                    }
+               }
 
                return courseToCheckDto;
           }
@@ -1027,23 +1079,33 @@ namespace BE.Repository.Implementations
           public async Task<UserCartDto> GetListCartCourse(string userId)
           {
                var user = await _context.Users
-                                        .Include(u => u.Carts)
-                                             .ThenInclude(cart => cart.CartCourses)
-                                                  .ThenInclude(cc => cc.Course)
-                                                       .ThenInclude(course => course.Images)
-                                        .Include(u => u.Carts)
-                                             .ThenInclude(cart => cart.CartCourses)
-                                                  .ThenInclude(cc => cc.Course)
-                                                       .ThenInclude(c => c.User)
-                                        .Include(u => u.Carts)
-                                             .ThenInclude(cart => cart.CartCourses)
-                                        .Where(u => u.Id == userId)
-                                        .FirstOrDefaultAsync();
+                    .Include(u => u.Carts)
+                         .ThenInclude(cart => cart.CartCourses)
+                              .ThenInclude(cc => cc.Course)
+                                   .ThenInclude(course => course.Images)
+                    .Include(u => u.Carts)
+                         .ThenInclude(cart => cart.CartCourses)
+                              .ThenInclude(cc => cc.Course)
+                                   .ThenInclude(c => c.User)
+                    .Include(u => u.Carts)
+                         .ThenInclude(cart => cart.CartCourses)
+                    .Where(u => u.Id == userId)
+                    .FirstOrDefaultAsync();
 
                if (user == null)
                {
                     return new UserCartDto();
                }
+
+               var paidPaymentIds = await _context.Payments
+                    .Where(p => p.UserId == userId && p.Status == 1)
+                    .Select(p => p.Id)
+                    .ToListAsync();
+
+               var paidCartCourseIds = await _context.PaymentCourses
+                    .Where(pc => paidPaymentIds.Contains(pc.PaymentId))
+                    .Select(pc => pc.CartcourseId)
+                    .ToListAsync();
 
                var cartDtos = new List<CartDTO>();
 
@@ -1066,39 +1128,46 @@ namespace BE.Repository.Implementations
                                    Id = cc.Course.User.Id,
                                    Email = cc.Course.User.Email,
                                    Name = cc.Course.User.Username,
-                              } : null
+                              } : null,
+                              IsBought = paidCartCourseIds.Contains(cc.Id)
                          } : null;
 
-                         var cartDto = cc.Cart != null ? new CartDTO
+                         if (course != null && !(course.IsBought ?? false))
                          {
-                              Id = cc.Cart.Id,
-                              Total = cc.Cart.Total,
-                              UserId = cc.Cart.UserId,
-                              Status = cc.Cart.Status,
-                              DateCreated = cc.Cart.DateCreated,
-                         } : null;
+                              var cartDto = cc.Cart != null ? new CartDTO
+                              {
+                                   Id = cc.Cart.Id,
+                                   Total = cc.Cart.Total,
+                                   UserId = cc.Cart.UserId,
+                                   Status = cc.Cart.Status,
+                                   DateCreated = cc.Cart.DateCreated,
+                              } : null;
 
-                         var cartCourseDto = new CartCourseDTO
-                         {
-                              CartCourseId = cc.Id,
-                              Cart = cc.Cart != null ? cartDto : null,
-                              Course = course
-                         };
+                              var cartCourseDto = new CartCourseDTO
+                              {
+                                   CartCourseId = cc.Id,
+                                   Cart = cc.Cart != null ? cartDto : null,
+                                   Course = course
+                              };
 
-                         cartCourseDtos.Add(cartCourseDto);
+                              cartCourseDtos.Add(cartCourseDto);
+                         }
                     }
 
-                    var cartDtoResult = new CartDTO
+                    if (cartCourseDtos.Count > 0)
                     {
-                         Id = cart.Id,
-                         Total = cart.Total,
-                         UserId = user.Id,
-                         Status = cart.Status,
-                         DateCreated = cart.DateCreated,
-                         CartCourses = cartCourseDtos
-                    };
+                         var cartDtoResult = new CartDTO
+                         {
+                              Id = cart.Id,
+                              Total = cart.Total,
+                              UserId = user.Id,
+                              Status = cart.Status,
+                              DateCreated = cart.DateCreated,
+                              CartCourses = cartCourseDtos
+                         };
 
-                    cartDtos.Add(cartDtoResult);
+                         cartDtos.Add(cartDtoResult);
+                    }
                }
 
                return new UserCartDto

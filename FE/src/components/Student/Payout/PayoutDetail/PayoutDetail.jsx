@@ -4,10 +4,10 @@ import Cards from "react-credit-cards";
 import "react-credit-cards/es/styles-compiled.css";
 import { BsCreditCardFill } from "react-icons/bs";
 import { TbBrandPaypalFilled } from "react-icons/tb";
-import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
+import ApiService from "../../../../api/ApiService";
 
-const PayoutDetail = ({ total, courseName }) => {
+const PayoutDetail = ({ user }) => {
   const [paymentMethod, setPaymentMethod] = useState("VISA");
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
@@ -16,6 +16,29 @@ const PayoutDetail = ({ total, courseName }) => {
   const [saveCard, setSaveCard] = useState(true);
   const [focus, setFocus] = useState("");
   const [walletAmount, setWalletAmount] = useState("");
+
+  const redirectToPaypal = async (total, userId) => {
+    if (total > 0) {
+      try {
+        const response = await ApiService.createPaypalOrder(total, userId);
+        const approvalUrl = response.links.find(
+          (link) => link.rel === "approve",
+        ).href;
+        window.location.href = approvalUrl;
+      } catch (error) {
+        console.error("Error creating PayPal order: ", error);
+      }
+    }
+  };
+
+  const handlePayNow = () => {
+    const totalAmount = parseFloat(walletAmount);
+    if (!isNaN(totalAmount) && totalAmount > 0) {
+      redirectToPaypal(totalAmount, user.id);
+    } else {
+      alert("Please enter a valid amount.");
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -83,9 +106,8 @@ const PayoutDetail = ({ total, courseName }) => {
   };
 
   useEffect(() => {
-    console.log("Total in PayoutDetail:", total);
-    console.log("CourseName in PayoutDetail:", courseName);
-  }, [total, courseName]);
+    console.log("UserId in PayoutDetail:", user.id);
+  }, [user.id]);
 
   const handleCancel = () => {
     window.location.reload();
@@ -194,6 +216,23 @@ const PayoutDetail = ({ total, courseName }) => {
                         </div>
                       </>
                     )}
+
+                    {paymentMethod === "PAYPAL" && (
+                      <>
+                        <div className="input-money">
+                          <label htmlFor="walletAmount" className="form-title">
+                            Import Money To Wallet :
+                          </label>
+                          <input
+                            type="text"
+                            name="walletAmount"
+                            value={walletAmount}
+                            onChange={(e) => setWalletAmount(e.target.value)}
+                            placeholder="Enter amount"
+                          />
+                        </div>
+                      </>
+                    )}
                   </div>
                 </form>
               </div>
@@ -230,9 +269,9 @@ const PayoutDetail = ({ total, courseName }) => {
                           className="order-details-column"
                           style={{ fontWeight: "bold" }}
                         >
-                          <div className="order-details-row1">{courseName}</div>
+                          {/* <div className="order-details-row1">{courseName}</div> */}
 
-                          <div className="order-details-row2">${total}</div>
+                          {/* <div className="order-details-row2">${total}</div> */}
                         </div>
 
                         <div className="order-details-column">
@@ -247,7 +286,7 @@ const PayoutDetail = ({ total, courseName }) => {
                           style={{ fontWeight: "bold" }}
                         >
                           <div className="order-details-row1">Total</div>
-                          <div className="order-details-row2">${total}</div>
+                          {/* <div className="order-details-row2">${total}</div> */}
                         </div>
                       </div>
                     </div>
@@ -257,7 +296,9 @@ const PayoutDetail = ({ total, courseName }) => {
             </div>
 
             <div className="button-contain">
-              <div className="add-wallet button">Pay Now</div>
+              <div className="add-wallet button" onClick={handlePayNow}>
+                Pay Now
+              </div>
               <div className="cancel button" onClick={handleCancel}>
                 Cancel And Return
               </div>
@@ -276,9 +317,9 @@ const PayoutDetail = ({ total, courseName }) => {
               className="order-details-column"
               style={{ fontWeight: "bold" }}
             >
-              <div className="order-details-row1">{courseName}</div>
+              {/* <div className="order-details-row1">{courseName}</div> */}
 
-              <div className="order-details-row2">${total}</div>
+              {/* <div className="order-details-row2">${total}</div> */}
             </div>
 
             <div className="order-details-column">
@@ -293,7 +334,7 @@ const PayoutDetail = ({ total, courseName }) => {
               style={{ fontWeight: "bold" }}
             >
               <div className="order-details-row1">Total</div>
-              <div className="order-details-row2">${total}</div>
+              {/* <div className="order-details-row2">${total}</div> */}
             </div>
           </div>
         </div>
@@ -303,8 +344,10 @@ const PayoutDetail = ({ total, courseName }) => {
 };
 
 PayoutDetail.propTypes = {
-  total: PropTypes.number.isRequired,
-  courseName: PropTypes.string.isRequired,
+  user: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default PayoutDetail;

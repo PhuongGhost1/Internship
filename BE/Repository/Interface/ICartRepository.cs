@@ -12,5 +12,8 @@ namespace BE.Repository.Interface
         Task<Cart?> GetCartById(string cartId);
         Task<CartCourse?> GetCartCourseById(string cartCourseId);
         Task UpdateCart(Cart cart);
+        Task<string?> GetCartIdByUserId(string userId);
+        Task<List<string>> GetCartCourseByCartId(string cartId);
+        Task<int?> CountNumberInCart(string userId);
     }
 }
