@@ -8,20 +8,25 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 
 import { CoverMinutesToHours, nameNavigation } from "../../../utils/Validation";
+import ImgReplacement from "../../../assets/background_forest.png";
 
 const Card = ({ data }) => {
-
   const handleOnClickCard = (courseName) => {
-    window.location.href = `courses/${nameNavigation(courseName)}`
-  }
+    window.location.href = `courses/${nameNavigation(courseName)}`;
+  };
 
   return (
-    <div id="card" onClick={() => { handleOnClickCard(data.name) }}>
+    <div
+      id="card"
+      onClick={() => {
+        handleOnClickCard(data.name);
+      }}
+    >
       <div className="card-container">
         {data ? (
           <>
             <img
-              src={data.image == null ? "" : data.image[0].url}
+              src={data.image !== null ? data.image[0].url : ImgReplacement}
               className="background"
               alt="Course"
             />
@@ -36,23 +41,29 @@ const Card = ({ data }) => {
                     readOnly
                   />
                 </Stack>
-                <span className="total-rating">&#40;{data.ratingCount}&#41;</span>
+                <span className="total-rating">
+                  &#40;{data.ratingCount}&#41;
+                </span>
               </div>
-              <p className="course-time">{CoverMinutesToHours(data.timeLearning)}</p>
+              <p className="course-time">
+                {CoverMinutesToHours(data.timeLearning)}
+              </p>
             </div>
           </>
-        ) : (<Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "100%",
-            height: "100%",
-            position: "absolute",
-          }}
-        >
-          <CircularProgress />
-        </Box>)}
+        ) : (
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "100%",
+              height: "100%",
+              position: "absolute",
+            }}
+          >
+            <CircularProgress />
+          </Box>
+        )}
       </div>
     </div>
   );

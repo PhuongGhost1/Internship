@@ -311,7 +311,11 @@ const ManageStudent = () => {
                   />
                 </div>
                 <div className="popup-info-title">
-                  <h2>{currentStudents[currentNum].name}</h2>
+                  <h2>
+                    {currentStudents[currentNum].name === null
+                      ? currentStudents[currentNum].email
+                      : currentStudents[currentNum].name}
+                  </h2>
                   <div className="popup-info-title2">
                     <p>Age 21</p> <GoDotFill />
                     <p>
