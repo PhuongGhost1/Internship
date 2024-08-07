@@ -7,6 +7,8 @@ using BE.Models;
 using BE.Services.Interfaces;
 using Xunit;
 using FluentAssertions;
+using BE.Dto.Course;
+using BE.Dto.Message;
 
 namespace WebAPI.Tests.Controllers
 {
@@ -14,7 +16,6 @@ namespace WebAPI.Tests.Controllers
     {
         private readonly UserWebController _controller;
         private readonly Mock<IUserService> _userService;
-
         public UserControllerTests()
         {
             _userService = new Mock<IUserService>();
@@ -43,7 +44,7 @@ namespace WebAPI.Tests.Controllers
             // Arrange
             var userId = "user_00ebd16723";
             var expectedNumber = 2; 
-            _userService.Setup(x => x.CountNumberInCartAsync(userId)).ReturnsAsync(0);
+            _userService.Setup(x => x.CountNumberInCartAsync(userId)).ReturnsAsync(2);
 
             // Act
             var result = await _controller.NumberInCart(userId);
