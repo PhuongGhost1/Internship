@@ -11,10 +11,11 @@ import { LuUserCog } from "react-icons/lu";
 import { LuBookMarked } from "react-icons/lu";
 import { LuBarChartBig } from "react-icons/lu";
 import { TbBellCheck } from "react-icons/tb";
-import { BiLogOut, BiWallet } from "react-icons/bi";
+import { BiCart, BiLogOut, BiWallet } from "react-icons/bi";
 import Cookies from "js-cookie";
 
 import ApiService from "../../../api/ApiService";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   const [isDropDown, setIsDropDown] = useState(false);
@@ -126,14 +127,20 @@ export default function Header() {
               >
                 <div className="dropdown-container">
                   <div className="arrow"></div>
-                  <div className="notification special-block">
-                    <BiWallet />
-                    Wallet: {user.wallet}
-                  </div>
-                  <div className="notification special-block">
+                  <Link
+                    to="/student/payout"
+                    className="notification special-block"
+                    style={{ color: "black" }}
+                  >
+                    <div>
+                      <BiWallet />
+                      Wallet: {user.wallet}
+                    </div>
+                  </Link>
+                  {/* <div className="notification special-block">
                     <TbBellCheck />
                     Notification
-                  </div>
+                  </div> */}
                   <a href="/student/profile" className="selection-block">
                     <LuUserCog />
                     Account Profile
@@ -145,9 +152,9 @@ export default function Header() {
                     <LuBookMarked />
                     My Learning
                   </a>
-                  <a href="/" className="selection-block">
-                    <LuBarChartBig />
-                    Dashboard
+                  <a href="/student/cart" className="selection-block">
+                    <BiCart />
+                    Cart
                   </a>
                   <div className="logout special-block" onClick={handleLogOut}>
                     <BiLogOut />

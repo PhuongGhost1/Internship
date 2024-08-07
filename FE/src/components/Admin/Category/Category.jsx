@@ -66,8 +66,8 @@ const DataTable = () => {
           prevCourses.map((course) =>
             course.id === id
               ? { ...course, isVisible: status === "Active" }
-              : course
-          )
+              : course,
+          ),
         );
         setDropdownOpen(null);
       } else {
@@ -80,10 +80,15 @@ const DataTable = () => {
 
   const handleCreateCategory = async () => {
     try {
+      if (courses.status === 0) {
+        alert("Category name is required");
+        return;
+      }
+
       const newCategoryData =
         await ApiService.createNewCategoryManagementByAdmin(
           newCategory.name,
-          newCategory.isVisible
+          newCategory.isVisible,
         );
       setCourses([...courses, newCategoryData]);
       setShowModal(false);
@@ -96,13 +101,14 @@ const DataTable = () => {
   const indexOfLastCourse = currentPage * pageSize;
   const indexOfFirstCourse = indexOfLastCourse - pageSize;
 
-  const filteredCourses = courses.filter((course) =>
-    course.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredCourses = courses.filter((course) => {
+    const name = course.name ?? "";
+    return name.toLowerCase().includes(searchTerm.toLowerCase());
+  });
 
   const currentCourses = filteredCourses.slice(
     indexOfFirstCourse,
-    indexOfLastCourse
+    indexOfLastCourse,
   );
   const totalPages = Math.ceil(filteredCourses.length / pageSize);
 
@@ -145,7 +151,7 @@ const DataTable = () => {
                       <DropdownToggle
                         caret
                         className={`status-toggle status-${getIsInvisibleString(
-                          course.isVisible
+                          course.isVisible,
                         ).toLowerCase()}`}
                       >
                         {getIsInvisibleString(course.isVisible)}

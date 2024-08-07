@@ -1,5 +1,6 @@
 using BE.Attributes;
 using BE.Dto.Category;
+using BE.Dto.Message;
 using BE.Models;
 using BE.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +34,8 @@ namespace BE.Controllers
         //[CustomAuthorize("Admin")]
         [HttpPost]
         [Route("create-category")]
-        public async Task<Category?> CreateCategory([FromForm] CreateCategoryDto createCategoryDto){
+        public async Task<MessageDto?> CreateCategory([FromForm] CreateCategoryDto createCategoryDto){
+            Console.WriteLine($"Create category: {createCategoryDto.Name}, {createCategoryDto.IsVisible}");
             return await _cateService.CreateCategory(createCategoryDto);
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BE.Dto.Category;
+using BE.Dto.Message;
 using BE.Mappers;
 using BE.Models;
 using BE.Repository.Interface;
@@ -29,13 +30,29 @@ namespace BE.Services.Implementations
 
 
         //---------------------CRUD--------------------------//
-        public async Task<Category?> CreateCategory(CreateCategoryDto createCategoryDto)
+        public async Task<MessageDto?> CreateCategory(CreateCategoryDto createCategoryDto)
         {
-            var createCategory = createCategoryDto.ToCreateCategory();
+            if(createCategoryDto == null) return new MessageDto{
+                Message = "No category to create!",
+                Status = 0
+            };
 
-            if(createCategory == null) throw new Exception("Unable to create category!");
+            var category = await _cateRepo.FindCategoryByName(createCategoryDto.Name);
 
-            return await _cateRepo.CreateCategory(createCategory);
+            if(category != null){ 
+                return new MessageDto{
+                    Message = "Category already exists!",
+                    Status = 0
+                };
+            }else{
+                var createCategory = createCategoryDto.ToCreateCategory();
+
+                await _cateRepo.CreateCategory(createCategory);
+                return new MessageDto{
+                    Message = "Category created successfully!",
+                    Status = 1
+                };
+            };
         }
 
         public async Task<bool> DeleteCategory(string cateId)

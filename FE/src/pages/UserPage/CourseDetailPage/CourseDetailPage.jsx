@@ -165,6 +165,7 @@ export default function CourseDetailPage() {
               isIn={isIn}
               isOpenHeader={isOpenHeader}
               courseData={courseData}
+              user={user}
             />
             <div ref={aboutRef}></div>
             <CoursesAbout courseData={courseData} />
