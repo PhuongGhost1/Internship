@@ -15,7 +15,7 @@ export default function CourseLearning() {
   const [courseContent, setCourseContent] = useState([]);
   const [courseProcessing, setCourseProcessing] = useState([]);
   const [isFetchingProcessing, setIsFetchingProcessing] = useState(false);
-  const { user } = useContext(AuthContext)  const { user, roles } = useContext(AuthContext);
+  const { user, roles } = useContext(AuthContext);
   const nav = useNavigate();
 
   useEffect(() => {
