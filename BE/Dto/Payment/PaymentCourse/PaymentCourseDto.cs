@@ -9,5 +9,6 @@ namespace BE.Dto.Payment.PaymentCourse
     public class PaymentCourseDto
     {
         public CartCourseDto? CartCourseDto {get; set;}
+        public PaymentDto? Payments {get; set;}
     }
 }

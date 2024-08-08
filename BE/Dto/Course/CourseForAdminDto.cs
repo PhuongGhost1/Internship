@@ -6,6 +6,7 @@ using BE.Dto.CategoryCourse;
 using BE.Dto.Chapter;
 using BE.Dto.Course.Chapter;
 using BE.Dto.ImageD;
+using BE.Dto.Payment.CartCourse;
 using BE.Dto.User;
 using BE.Models;
 
@@ -26,6 +27,7 @@ namespace BE.Dto.Course
           public List<CategoryCourseDto> CateCoruse = new List<CategoryCourseDto>();
           public List<ChapterItemDto> Chapters = new List<ChapterItemDto>();
          public UserInfoManageByAdminDto? User {get; set;}
+        public List<CartCourseDto> CartCourses {get; set;} = new List<CartCourseDto>();
         public DateTime? CreatedAt {get; set;}
         public DateTime? UpdatedAt {get; set;}
     }

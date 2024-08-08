@@ -148,26 +148,51 @@ const ManageStudent = () => {
       case "Course":
         return (
           <div className="popup-course">
-            {(students[currentNum].courses || []).map((course, index) => (
+            {(students[currentNum].payments || []).map((course, index) => (
               <div key={index} className="course-card">
-                <img
-                  src={course.images[0].url}
-                  alt={`${course.name} logo`}
-                  className="course-logo"
-                />
-                <div className="course-details">
-                  <h3>{course.name}</h3>
-                  <div className="course-icon">
-                    <div className="course-icon-item">
-                      <FaRegStarHalfStroke />
-                      <p>{course.rating}</p>
+                {course.paymentCourses && course.paymentCourses.length > 0 ? (
+                  course.paymentCourses.map((paymentCourse, courseIndex) => (
+                    <div key={courseIndex}>
+                      <img
+                        src={
+                          paymentCourse.cartCourseDto.courseForAdminDto
+                            .images[0].url
+                        }
+                        alt={`${paymentCourse.cartCourseDto.courseForAdminDto.name} logo`}
+                        className="course-logo"
+                      />
+                      <div className="course-details">
+                        <h3>
+                          {paymentCourse.cartCourseDto.courseForAdminDto.name}
+                        </h3>
+                        <div className="course-icon">
+                          <div className="course-icon-item">
+                            <FaRegStarHalfStroke />
+                            <p>
+                              {
+                                paymentCourse.cartCourseDto.courseForAdminDto
+                                  .rating
+                              }
+                            </p>
+                          </div>
+                          <div className="course-icon-item">
+                            <FaUsers />
+                            <p>
+                              {
+                                paymentCourse.cartCourseDto.courseForAdminDto
+                                  .price
+                              }
+                            </p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <div className="course-icon-item">
-                      <FaUsers />
-                      <p>{course.price}</p>
-                    </div>
+                  ))
+                ) : (
+                  <div>
+                    <p>Not paying yet</p>
                   </div>
-                </div>
+                )}
               </div>
             ))}
           </div>

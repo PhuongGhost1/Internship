@@ -258,6 +258,10 @@ namespace BE.Repository.Implementations
                     .ThenInclude(n => n.Course)
                 .Include(u => u.Courses)
                     .ThenInclude(c => c.Images)
+                .Include(u => u.Courses)
+                    .ThenInclude(c => c.CartCourses)
+                        .ThenInclude(cc => cc.PaymentCourse)
+                            .ThenInclude(pc => pc.Payment)
                 .Include(u => u.Payments)
                     .ThenInclude(p => p.PaymentCourses)
                         .ThenInclude(pc => pc.Cartcourse)
@@ -330,9 +334,37 @@ namespace BE.Repository.Implementations
                                         LastUpdated = i.CreatedAt
                                     })
                                     .Take(1)
-                                    .ToList()
+                                    .ToList(),
+                        CartCourses = c.CartCourses
+                                        .Where(cc => cc.PaymentCourse.Payment.Status == 1)
+                                        .Select(cc => new CartCourseDto{
+                            PaymentCourses = cc.PaymentCourse != null ? new PaymentCourseDto {
+                                CartCourseDto = cc.PaymentCourse.Cartcourse != null ? new CartCourseDto
+                                {
+                                    CourseForAdminDto = cc.PaymentCourse.Cartcourse.Course != null ? new CourseForAdminDto {
+                                        Id = cc.PaymentCourse.Cartcourse.Course.Id,
+                                        Name = cc.PaymentCourse.Cartcourse.Course.Name,
+                                        Rating = cc.PaymentCourse.Cartcourse.Course.Rating,
+                                        Price = cc.PaymentCourse.Cartcourse.Course.Price,
+                                        Images = cc.PaymentCourse.Cartcourse.Course.Images
+                                                    .OrderByDescending(i => i.CreatedAt)
+                                                    .Select(i => new ImageForAdminDto
+                                                    {
+                                                        Id = i.Id,
+                                                        Url = i.Url,
+                                                        Type = i.Type,
+                                                        LastUpdated = i.CreatedAt
+                                                    })
+                                                    .Take(1)
+                                                    .ToList()
+                                    } : null
+                                } : null
+                            } : null
+                        }).ToList(),
                     }).ToList(),
-                    Payments = u.Payments.Select(p => new PaymentDto
+                    Payments = u.Payments
+                                .Where(p => p.Status == 1)
+                                .Select(p => new PaymentDto
                     {
                         PaymentCourses = p.PaymentCourses.Select(pc => new PaymentCourseDto
                         {
