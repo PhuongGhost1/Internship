@@ -1,0 +1,86 @@
+#transaction-table {
+    width: 100%;
+    margin: 20px 0px;
+    padding-top: 10px;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+  }
+  
+  #transaction-table h2 {
+    margin: 0px;
+    font-weight: bold;
+    
+  }
+  
+  #transaction-table table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
+  }
+  
+  #transaction-table th,
+  #transaction-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+    background-color: white;
+    border: none;
+    border-bottom: 1px solid rgb(207, 207, 207);
+    font-size: 14px;
+    /* border-width: 0; */
+  }
+  
+  #transaction-table th {
+    background-color: #f4f4f4;
+  }
+  
+  #transaction-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  #transaction-table .Flu-plus{
+    font-weight: bold;
+    color: green;
+  }
+
+  #transaction-table .Flu-sub{
+    font-weight: bold;
+    color: red;
+  }
+
+  #transaction-table .header-table{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    align-items: center;
+  }
+
+  #transaction-table .pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+  }
+  
+  #transaction-table .pagination li {
+    margin: 0 5px;
+  }
+  
+  #transaction-table .pagination li a {
+    cursor: pointer;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #007bff;
+    background-color: #f4f4f4;
+    font-weight: bold;
+  }
+  
+  #transaction-table .pagination .active a {
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border-radius: 4px;
+  }

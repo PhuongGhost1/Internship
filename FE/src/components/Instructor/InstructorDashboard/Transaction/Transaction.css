@@ -1,0 +1,30 @@
+#Transaction{
+    margin: 20px 0px;
+    padding: 25px;
+    border-radius: 10px;
+    background-color: white;
+}
+
+#Transaction .header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#Transaction .header .Line{
+    display: flex;
+    flex-direction: column;
+}
+
+#Transaction .increase{
+       color: #02B2AF;
+       font-size: 30px;
+       font-weight: bold;
+}
+
+#Transaction .decrease{
+    color: red;
+    font-size: 30px;
+    font-weight: bold;
+}
+
